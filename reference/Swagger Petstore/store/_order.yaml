@@ -1,0 +1,4 @@
+- getinventory
+- placeorder
+- getorderbyid
+- deleteorder
