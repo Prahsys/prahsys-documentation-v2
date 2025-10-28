@@ -1,4 +1,0 @@
----
-title: merchants
-hidden: false
----
