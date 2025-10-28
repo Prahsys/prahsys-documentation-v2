@@ -1,4 +1,0 @@
----
-title: terminals
-hidden: false
----
