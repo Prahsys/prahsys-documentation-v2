@@ -1,4 +1,0 @@
----
-title: pet
-hidden: false
----

@@ -1,4 +1,0 @@
----
-title: user
-hidden: false
----

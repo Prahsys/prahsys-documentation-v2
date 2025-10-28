@@ -1,4 +1,0 @@
----
-title: store
-hidden: false
----
