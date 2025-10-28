@@ -1,1 +1,4 @@
-[]
+- newmerchant
+- getmerchant
+- updatemerchant
+- generatemerchantapplicationsigningurl
