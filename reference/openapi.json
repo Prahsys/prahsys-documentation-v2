@@ -122,7 +122,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-10-29T00:00:04.755Z"
+                      "createdAt": "2025-10-29T00:05:03.387Z"
                     }
                   }
                 }
@@ -259,7 +259,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-10-29T00:00:04.755Z"
+                      "createdAt": "2025-10-29T00:05:03.387Z"
                     }
                   }
                 }
@@ -1720,7 +1720,7 @@
     "/n1/merchant/{merchantId}/terminals": {
       "get": {
         "tags": [
-          "terminals"
+          "Terminal"
         ],
         "operationId": "getTerminals",
         "summary": "Get Terminals",
@@ -1999,7 +1999,7 @@
     "/n1/merchants": {
       "get": {
         "tags": [
-          "merchants"
+          "Merchant"
         ],
         "operationId": "getMerchants",
         "summary": "Get Merchants",
@@ -2861,7 +2861,7 @@
     "/n1/organization/{organizationId}/users": {
       "get": {
         "tags": [
-          "users"
+          "User"
         ],
         "operationId": "getUsers",
         "summary": "Get Users",
@@ -3562,7 +3562,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-10-29T00:00:04.755Z"
+          "createdAt": "2025-10-29T00:05:03.387Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
