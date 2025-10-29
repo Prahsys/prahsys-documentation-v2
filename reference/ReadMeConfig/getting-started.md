@@ -5,6 +5,6 @@ api:
   file: openapi.json
   operationId: status
 api_config: getting-started
-hidden: true
+hidden: false
 icon: icon-book1
 ---
