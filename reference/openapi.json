@@ -11,9 +11,9 @@
     },
     "license": {
       "name": "Proprietary",
-      "url": "https://prahsys.com/terms"
+      "url": "https://prahsys.com/legal/toc"
     },
-    "termsOfService": "https://prahsys.com/terms"
+    "termsOfService": "https://prahsys.com/legal/toc"
   },
   "servers": [
     {
@@ -21,7 +21,7 @@
       "description": "Production Server - Live environment for production transactions"
     },
     {
-      "url": "https://sandbox.api.prahsys.com/merchant",
+      "url": "https://test.prahsys.com/api",
       "description": "Sandbox Server - Testing environment for development and integration"
     }
   ],
@@ -47,7 +47,7 @@
             "schema": {
               "type": "string",
               "description": "The channel partner id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -122,7 +122,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-10-28T23:21:24.086Z"
+                      "createdAt": "2025-10-29T00:00:04.755Z"
                     }
                   }
                 }
@@ -176,7 +176,7 @@
             "schema": {
               "type": "string",
               "description": "The channel partner id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           }
@@ -259,7 +259,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-10-28T23:21:24.086Z"
+                      "createdAt": "2025-10-29T00:00:04.755Z"
                     }
                   }
                 }
@@ -940,7 +940,7 @@
             "schema": {
               "type": "string",
               "description": "The merchant id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           }
@@ -1094,7 +1094,7 @@
             "schema": {
               "type": "string",
               "description": "The merchant id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           }
@@ -1486,7 +1486,7 @@
             "schema": {
               "type": "string",
               "description": "The merchant id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           }
@@ -1601,7 +1601,7 @@
             "schema": {
               "type": "string",
               "description": "The merchant id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -1733,7 +1733,7 @@
             "schema": {
               "type": "string",
               "description": "The merchant id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -2310,7 +2310,7 @@
             "schema": {
               "type": "string",
               "description": "The organization id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           }
@@ -2436,7 +2436,7 @@
             "schema": {
               "type": "string",
               "description": "The organization id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -2545,7 +2545,7 @@
             "schema": {
               "type": "string",
               "description": "The organization id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -2691,7 +2691,7 @@
             "schema": {
               "type": "string",
               "description": "The organization id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -2874,7 +2874,7 @@
             "schema": {
               "type": "string",
               "description": "The organization id",
-              "example": "xPxRxAxHxSxYxS"
+              "example": "Z70B874W63DW"
             },
             "required": true
           },
@@ -3562,7 +3562,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-10-28T23:21:24.086Z"
+          "createdAt": "2025-10-29T00:00:04.755Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -5726,31 +5726,6 @@
         "example": {
           "version": "4.20.0",
           "status": "OPERATING"
-        }
-      }
-    },
-    "parameters": {
-      "OrganizationId": {
-        "name": "organizationId",
-        "in": "header",
-        "description": "Organization identifier for multi-tenant access",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      },
-      "Environment": {
-        "name": "X-Environment",
-        "in": "header",
-        "description": "Target environment for the request (live or sandbox)",
-        "required": false,
-        "schema": {
-          "type": "string",
-          "enum": [
-            "live",
-            "sandbox"
-          ],
-          "default": "live"
         }
       }
     },
