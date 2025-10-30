@@ -7,6 +7,21 @@ excerpt: >-
 deprecated: false
 hidden: false
 metadata:
+  title: API Keys | Prahsys Documentation
+  description: >
+    Learn how to authenticate API requests with Prahsys API keys, including
+    sandbox and live environments, implementation best practices, and security
+    guidelines.
+  keywords:
+    - Prahsys API keys
+    - API authentication
+    - sandbox environment
+    - test API keys
+    - live API keys
+    - API key security
+    - key rotation
+    - API troubleshooting
+    - bearer token authentication
   robots: index
 ---
 ## Sandbox Environment
