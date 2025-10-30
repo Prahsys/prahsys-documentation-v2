@@ -120,4 +120,4 @@ If you suspect a key has been compromised, or as part of regular security mainte
 | `403 Forbidden`    | Insufficient permissions                        | Contact your account manager to adjust permissions                   |
 | `404 Not Found`    | Attempting to access object from different mode | Ensure you're using matching sandbox or live keys for all operations |
 
-For additional assistance, contact [Prahsys Support](\{routes.support\(\)}).
+For additional assistance, contact <Anchor label="Prahsys Support" target="_blank" href="https://help.prahsys.com">Prahsys Support</Anchor>.
