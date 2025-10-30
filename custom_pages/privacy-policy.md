@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 fullscreen: false
-hidden: false
+hidden: true
 ---
 ### **Prahsys Privacy Policy**
 
