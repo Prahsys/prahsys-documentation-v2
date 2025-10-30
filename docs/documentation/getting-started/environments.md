@@ -3,6 +3,22 @@ title: ' Environments'
 deprecated: false
 hidden: false
 metadata:
+  title: Environments | Prahsys Documentation
+  description: >-
+    Understand the difference between LIVE and SANDBOX environments in Prahsys
+    API, including how to use test and production API keys, environment
+    isolation, and common cross-environment access errors.
+  keywords:
+    - Prahsys environments
+    - sandbox environment
+    - live environment
+    - test API keys
+    - production API keys
+    - sk_test
+    - sk_live
+    - environment isolation
+    - API endpoints
+    - cross-environment errors
   robots: index
 ---
 We try to keep it simple. Prahsys has two environments: **LIVE** and **SANDBOX**.
