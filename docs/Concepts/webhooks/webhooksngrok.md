@@ -63,3 +63,15 @@ Forwarding                    https://randomlyGeneratedDomain.ngrok.app -> http:
 Connections                   ttl     opn     rt1     rt5     p50     p90
                               0       0       0.00    0.00    0.00    0.00
 ```
+
+### Create an endpoint with Prahsys Webhooks
+
+Create a new webhook in the Prahsys webhooks dashboard and use that domain as the Endpoint URL to listen for incoming webhook requests.
+
+<Image align="center" alt="Create your webhook in SVIX" border={false} caption="Prahsys Svix Webhook Management" src="https://files.readme.io/b67022166eb6d3dc74c9bbe8da1a685ef36d5e036a8927e328aacef6433eb61b-svix-webhook-create.png" width="600em" />
+
+### Test Your Webhook Connection
+
+When pressing _Send Example_, it will send an example body to your ngrok tunnel which will forward it to your localhost.
+
+<Image align="center" alt="Test your webhook in SVIX" border={false} width="600em" src="https://files.readme.io/3946dd492d9529cbe07a52035f1c31bb28df3a9adb61c49c9cd3364d6e1985ad-svix-webhook-testing.png" />
