@@ -54,8 +54,8 @@ If you disable or remove a webhook endpoint from the **Webhooks** page in your [
 
 If webhook deliveries fail, you can manually replay them to recover from service downtime or fix misconfigured endpoints. To resend messages:
 
-1. Navigate to the [Webhooks](https://dashboard.Prahsys.com/developers/webhooks) page in your Prahsys Dashboard
+1. Navigate to the **Webhooks** page in your Prahsys Dashboard
 2. Select the affected endpoint
 3. Find the failed message in the **Message Attempts** section
 4. Click the menu icon and select **Replay**
-5. Choose from three recovery options: resend the selected message, resend all failed messages, or resend all missing messages from the time period
+5. Choose from three recovery options: r**esend the selected message**,** resend all failed messages**, or **resend all missing messages from the time period**
