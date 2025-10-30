@@ -1,5 +1,5 @@
 ---
-title: Terms & Conditions Policy
+title: Terms & Conditions
 fullscreen: false
 hidden: false
 metadata:
