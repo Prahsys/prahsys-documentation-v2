@@ -1,7 +1,7 @@
 ---
 title: Terms & Conditions
 fullscreen: false
-hidden: false
+hidden: true
 metadata:
   title: Terms and Conditions | Prahsys Documentation
 ---
