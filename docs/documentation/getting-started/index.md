@@ -3,7 +3,7 @@ title: Getting Started
 excerpt: >-
   This page will help you get started with Prahsys. You'll be up and running in
   a jiffy!
-hidden: false
+hidden: true
 ---
 Welcome to ReadMe! :owlbert:
 
