@@ -3,7 +3,7 @@ title: API Keys | Authentication
 excerpt: >-
   Prahsys authenticates your API requests using your account's API keys. If a
   request doesn't include a valid key, Prahsys returns an invalid request 401
-  error.  ##
+  error. 
 deprecated: false
 hidden: false
 metadata:
