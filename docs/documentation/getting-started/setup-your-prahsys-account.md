@@ -3,6 +3,15 @@ title: Setup your Prahsys Account
 deprecated: false
 hidden: false
 metadata:
+  title: Set up your Prahsys account | Prahsys Documentation
+  description: >-
+    Step-by-step guide to create your Prahsys account and generate API keys for
+    integration with your applications
+  keywords:
+    - Prahsys
+    - account setup
+    - API keys
+    - developer documentation
   robots: index
 ---
 <br />
