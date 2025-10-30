@@ -1,10 +1,8 @@
 ---
 title: Setup with ngrok
 excerpt: >-
-  [Ngrok](https://ngrok.com/) is a tool that creates a secure tunnel to your
-  localhost, allowing you to expose a local server to the internet. This is
-  particularly useful for testing webhooks and other integrations that require a
-  publicly accessible URL.
+  Learn how to test Prahsys webhooks locally using ngrok to create a secure
+  tunnel to your localhost, allowing webhook testing during development
 deprecated: false
 hidden: false
 metadata:
