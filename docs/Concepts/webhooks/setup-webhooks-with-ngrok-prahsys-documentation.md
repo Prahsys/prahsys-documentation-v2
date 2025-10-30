@@ -1,5 +1,5 @@
 ---
-title: Setup Webhooks with ngrok | Prahsys Documentation
+title: Setup with ngrok
 deprecated: false
 hidden: false
 metadata:
