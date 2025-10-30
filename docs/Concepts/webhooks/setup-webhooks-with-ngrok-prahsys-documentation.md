@@ -1,5 +1,10 @@
 ---
 title: Setup with ngrok
+excerpt: >-
+  [Ngrok](https://ngrok.com/) is a tool that creates a secure tunnel to your
+  localhost, allowing you to expose a local server to the internet. This is
+  particularly useful for testing webhooks and other integrations that require a
+  publicly accessible URL.
 deprecated: false
 hidden: false
 metadata:
