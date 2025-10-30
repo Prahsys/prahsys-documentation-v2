@@ -36,7 +36,7 @@ Go to <Anchor label="Ngrok" target="_blank" href="https://dashboard.ngrok.com/si
 
 ### Install Ngrok
 
-Go to <Anchor label="Ngrok to Download" target="_blank" href="https://ngrok.com/download/mac-os">Ngrok to Download</Anchor> 
+Go to <Anchor label="Ngrok to Download" target="_blank" href="https://ngrok.com/download/mac-os">Ngrok to Download</Anchor>
 
 ### Start Ngrok
 
