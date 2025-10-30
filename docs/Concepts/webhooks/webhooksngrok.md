@@ -1,5 +1,5 @@
 ---
-title: Setup with ngrok
+title: Local Testing with Ngrok
 excerpt: >-
   Learn how to test Prahsys webhooks locally using ngrok to create a secure
   tunnel to your localhost, allowing webhook testing during development
