@@ -5,8 +5,6 @@ hidden: true
 metadata:
   title: Terms and Conditions | Prahsys Documentation
 ---
-# Prahsys Terms and Conditions
-
 ## Exhibit D - Terms and Conditions
 
 ### 1. Audit Rights
@@ -235,7 +233,7 @@ Channel Partner acknowledges that its sole and exclusive remedy with respect to 
 
 #### 13.1
 
-Prahsys shall determine, in its sole discretion and on a good-faith basis, if any dispute, controversy or claim brought by Channel Partner arising out of, relating to or in connection with the Agreement, including the breach, termination, or validity hereof or thereof, shall be resolved by final and binding arbitration. Channel Partner irrevocably and unconditionally agrees that any such dispute, controversy or claim brought by Channel Partner arising out of, relating to or in connection with the Agreement, including the breach, termination, or validity hereof or thereof, shall be resolved by final and binding arbitration to be administered by a single arbiter of the American Arbitration Association (the "AAA"), in accordance with its Commercial Arbitration rules (the "AAA Rules"), which can be found here: [https://www.adr.org/sites/default/files/CommercialRules\_Web-Final.pdf](https://www.adr.org/sites/default/files/CommercialRules_Web-Final.pdf). The arbiter shall have the sole power to rule on any challenge to its own jurisdiction and all issues regarding arbitrability shall be decided solely by the arbitral tribunal. The place of arbitration shall be Woodlands, Texas. The arbitrator shall rule in accordance with the laws of the State of Texas without regard to conflicts of law provisions that would require the application of the laws of another jurisdiction. The tribunal shall have the power to grant any provisional or final remedy or relief that it deems appropriate, including conservatory measures and an award of attorneys' fees. The language of the arbitration shall be English.
+Prahsys shall determine, in its sole discretion and on a good-faith basis, if any dispute, controversy or claim brought by Channel Partner arising out of, relating to or in connection with the Agreement, including the breach, termination, or validity hereof or thereof, shall be resolved by final and binding arbitration. Channel Partner irrevocably and unconditionally agrees that any such dispute, controversy or claim brought by Channel Partner arising out of, relating to or in connection with the Agreement, including the breach, termination, or validity hereof or thereof, shall be resolved by final and binding arbitration to be administered by a single arbiter of the American Arbitration Association (the "AAA"), in accordance with its Commercial Arbitration rules (the "AAA Rules"), which can be found here: [https://www.adr.org/sites/default/files/CommercialRules_Web-Final.pdf](https://www.adr.org/sites/default/files/CommercialRules_Web-Final.pdf). The arbiter shall have the sole power to rule on any challenge to its own jurisdiction and all issues regarding arbitrability shall be decided solely by the arbitral tribunal. The place of arbitration shall be Woodlands, Texas. The arbitrator shall rule in accordance with the laws of the State of Texas without regard to conflicts of law provisions that would require the application of the laws of another jurisdiction. The tribunal shall have the power to grant any provisional or final remedy or relief that it deems appropriate, including conservatory measures and an award of attorneys' fees. The language of the arbitration shall be English.
 
 #### 13.2
 
