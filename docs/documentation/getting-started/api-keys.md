@@ -71,7 +71,7 @@ All API Keys are formatted: `sk_[ENVIRONMENT]_[RANDOM_HASH]`
 
 Include your API key in the `Authorization` header of all API requests:
 
-```bash {{title: "HTTP Headers"}}
+```yaml Authorization Header
 Authorization: Bearer sk_[ENVIRONMENT]_[SECRET_SAUCE]
 ```
 
