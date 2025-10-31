@@ -79,7 +79,7 @@ sequenceDiagram
     Server-->>Client: Step 9. Payment confirmation
 ```
 
-## Interface for PaySession Object
+## Typescript Interface for PaySession Object
 
 ```typescript PaySession Object
   interface Window {
