@@ -8,6 +8,22 @@ excerpt: >-
 deprecated: false
 hidden: false
 metadata:
+  title: Pay Portal | Prahsys Documentation
+  description: >-
+    Implement Prahsys Pay Portal, a complete-hosted payment solution with
+    minimal integration effort. Secure, pre-built payment forms that handle the
+    entire payment process with PCI compliance built-in.
+  keywords:
+    - Pay Portal
+    - hosted payment solution
+    - payment gateway
+    - secure checkout
+    - payment processing
+    - PCI compliant payments
+    - pre-built payment form
+    - embedded payment
+    - payment session
+    - payment integration
   robots: index
 ---
 <br />
