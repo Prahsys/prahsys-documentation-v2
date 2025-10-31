@@ -81,7 +81,7 @@ flowchart TB
 
 ### What It Is
 
-Direct API integration giving you complete control. Process payments entirely server-to-server using tokens or direct card data.
+Pay API integration giving you complete control. Process payments entirely server-to-server using tokens or direct card data.
 
 ### Three Approaches
 
