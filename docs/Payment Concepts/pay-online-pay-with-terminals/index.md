@@ -48,54 +48,50 @@ metadata:
 | **UI Customization**     | Pre-built only  | Full styling control | Complete control      |
 | **Card Data Handling**   | Prahsys-hosted  | Iframe fields        | Your choice           |
 | **PCI Compliance Level** | SAQ A (easiest) | SAQ A-EP (moderate)  | SAQ D (most complex)* |
-| **Best For**             | Quick launches  | Branded checkout     | Recurring billing     |
 
 ***
 
-## Pay Portal: Fastest Implementation
+## Pay Portal: Pre-Built Payment Page
 
 ### What It Is
 
-A complete, pre-built payment page hosted by Prahsys. You create a session and redirect customers to our secure checkout.
+A complete, Prahsys-hosted checkout page. Your customers are redirected to our secure environment where all card data is collected and processed.
 
-### How It Works
+### Key Characteristics
 
-1. Create a session server-side
-2. Add our JavaScript library to your page
-3. Redirect or embed the payment form
-4. Handle the return callback with success/failure indicator
+* Fully managed payment interface
+* Prahsys branding and design
+* Card data never touches your servers
+* Lowest PCI compliance requirements
 
-### Choose Pay Portal When:
+### Best For
 
-* You need to accept payments quickly with minimal development
-* You're okay with Prahsys-branded payment UI
-* You want the lowest PCI compliance burden
-* You're processing one-time payments
+* Rapid deployment with minimal engineering effort
+* One-time payment scenarios
+* Teams prioritizing speed over customization
 
 <Image align="center" border={false} caption="Pay Portal" src="https://files.readme.io/44f9d7d1f98bb4bf1f660119343d828a170be5eb9ddcacdecbe8aa96365a2187-pay-portal.png" width="600em" />
 
 ***
 
-## Pay Session: Branded Checkout Experience
+## Pay Session: Custom-Styled Payment Fields
 
 ### What It Is
 
-Secure iframe-based payment fields that embed directly into your custom checkout form. You build the form, we handle the card data through iframes.
+Secure iframe-based card input fields that embed directly into your custom checkout form. You design the page, we provide the secure fields.
 
-### How It Works
+### Key Characteristics
 
-1. Create a session server-side
-2. Build your custom checkout form with HTML/CSS
-3. Load our JavaScript library
-4. Bind our secure iframe fields to your form inputs
-5. Update session with card data when customer submits
-6. Process payment server-side
+* Your branding, layout, and styling
+* Iframe fields isolate card data from your servers
+* Seamless user experience without redirects
+* Moderate PCI compliance requirements
 
-### Choose Pay Session When:
+### Best For
 
-* You want a branded checkout experience matching your PMS
-* You need control over form layout and styling
-* You want to maintain your UX flow without redirects
+* Branded checkout experiences matching your website
+* Maintaining control over the complete user flow
+* Balance between customization and security
 
 ```mermaid
 flowchart TB
@@ -111,49 +107,24 @@ flowchart TB
 
 ***
 
-## Pay API: Maximum Flexibility & Recurring Billing
+## Pay API: Direct Card Information
 
 ### What It Is
 
-Pay API integration giving you complete control. Process payments entirely server-to-server using tokens or direct card data.
+Server-to-server API integration where raw card data is transmitted directly in API requests to Prahsys for processing.
 
-### Three Approaches
+### Key Characteristics
 
-**1. Session-based (Recommended for one-time payments)**
+* Complete technical control over payment flow
+* Card data passes through your infrastructure
+* Requires special approval from Prahsys
+* Highest PCI compliance requirements (SAQ D)
 
-* Reference a Pay Portal or Pay Session to collect card data
-* Process payment server-side using the session ID
-* Card data never touches your servers
+### Best For
 
-**2. Token-based (Recommended for recurring payments)**
-
-* Collect card details once via Portal or Session
-* Tokenize the card information
-* Use tokens for all future server-to-server charges
-* Lowest PCI scope for recurring billing
-
-**3. Direct Pay (Highest PCI scope)**
-
-* Pass raw card details directly in API calls
-* Your servers handle sensitive card data
-* Maximum control but maximum compliance burden
-
-### Transaction Types
-
-* **PAY** - Single-step payment (authorize + capture combined)
-* **AUTHORIZE** - Reserve funds without capturing
-* **CAPTURE** - Capture previously authorized funds
-* **VERIFY** - Validate card details without charging
-* **REFUND** - Return funds to customer
-* **VOID** - Cancel pending transaction
-
-### Choose Pay API When:
-
-* You're building subscription or recurring billing features
-* You need server-to-server payment processing
-* You want complete control over the payment flow
-* You're building complex payment logic (split payments, installments)
-* You need to process payments without user interaction
+* Specialized payment workflows requiring direct card handling
+* Organizations with existing PCI Level 1 compliance infrastructure
+* Advanced use cases where Portal and Session cannot meet requirements
 
 ***
 
@@ -161,22 +132,19 @@ Pay API integration giving you complete control. Process payments entirely serve
 
 ### Pay Portal (SAQ A - Easiest)
 
-* Card data never touches your servers
-* Prahsys handles all sensitive data
+* Card data exclusively on Prahsys servers
 * Annual self-assessment questionnaire
 * No vulnerability scanning required
 
 ### Pay Session (SAQ A-EP - Moderate)
 
-* Card data enters iframes, never your servers
-* You control the checkout page HTML/CSS
+* Card data contained within iframes
 * Annual self-assessment questionnaire
 * Quarterly vulnerability scans required
 
-### Pay API with Direct Pay (SAQ D - Full Scope)
+### Pay API (SAQ D - Full Scope)
 
-* Card data passes through your servers
-* **Highest compliance requirements**
-* Annual audit by QSA required
+* Card data transits your server infrastructure
+* Annual audit by Qualified Security Assessor (QSA)
 * Quarterly vulnerability scans required
-* Extensive security controls needed
+* Extensive security controls and documentation
