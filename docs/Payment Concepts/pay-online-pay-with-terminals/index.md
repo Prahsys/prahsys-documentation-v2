@@ -4,6 +4,40 @@ excerpt: This guide helps you choose the right payment integration method for pa
 deprecated: false
 hidden: false
 metadata:
+  title: Payment Integrations | Prahsys Documentation
+  keywords:
+    - Pay Portal
+    - Pay Session
+    - Pay API
+    - PCI compliance
+    - payment integration
+    - hosted payment page
+    - iframe payment fields
+    - server-to-server payments
+    - payment tokenization
+    - recurring billing
+    - one-time payments
+    - SAQ A
+    - SAQ A-EP
+    - SAQ D
+    - checkout customization
+    - card data handling
+    - payment UI
+    - branded checkout
+    - payment transactions
+    - authorize and capture
+    - payment refunds
+    - payment voids
+    - card verification
+    - subscription payments
+    - split payments
+    - vulnerability scanning
+    - QSA audit
+    - payment security
+    - payment methods comparison
+    - quick payment implementation
+    - custom payment forms
+    - payment flow control
   robots: index
 ---
 ## Quick Comparison
