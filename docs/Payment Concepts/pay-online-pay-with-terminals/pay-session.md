@@ -43,35 +43,6 @@ flowchart TB
 
 <br />
 
-```javascript filename="Server-side JavaScript"
-// Process the payment after the session has been updated with card details
-async function processPayment(sessionId) {
-  try {
-    const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/PAYMENT-123/pay`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        payment: {
-          amount: 12.99,
-        },
-        session: {
-          id: sessionId,
-        },
-      }),
-    });
-
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error("Error processing payment:", error);
-    throw error;
-  }
-}
-```
-
 Here is the full payment flow for Pay Session.
 
 ```mermaid
