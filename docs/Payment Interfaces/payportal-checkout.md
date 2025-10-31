@@ -10,16 +10,14 @@ metadata:
 ---
 <br />
 
-<Recipe slug="pay-session-integration" title="Pay Session" />
+<Recipe slug="pay-portal-integration" title="Pay Portal" />
 
-## PaySession Interface
+## PayPortal Checkout Interface
 
 After loading the PaySession object into the window with the PaySession Script:
 
 ```html PaySession Script
-<script src="https://secure.prahsys.com/form/version/100/merchant/{merchantId}/session.js"></script>
+<script src="https://secure.prahsys.com/static/checkout/checkout.min.js"></script>
 ```
 
-<Callout icon="❗️" theme="error">
-  When working with a SANDBOX merchant and loading PaySession or PayPortal script, you must put the word `TEST` in-front of the merchant id.
-</Callout>
+<br />
