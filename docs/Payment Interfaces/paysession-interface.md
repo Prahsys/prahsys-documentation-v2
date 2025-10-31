@@ -1,5 +1,5 @@
 ---
-title: PaySession Interface
+title: PaySession
 excerpt: This is the Prahsys PaySession Interface with all its methods and properties.
 deprecated: false
 hidden: false
