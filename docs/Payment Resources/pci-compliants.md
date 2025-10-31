@@ -1,5 +1,5 @@
 ---
-title: PCI Compliants
+title: PCI Compliance
 excerpt: >-
   Payment Card Industry Data Security Standard (PCI DSS) compliance is essential
   for any business that processes credit card payments. This page explains the
