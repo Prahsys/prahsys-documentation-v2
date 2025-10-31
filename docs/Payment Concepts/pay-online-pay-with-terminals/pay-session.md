@@ -25,7 +25,9 @@ metadata:
     - secure checkout
   robots: index
 ---
-TODO: Follow RECEIPT
+<Recipe slug="pay-session-integration" title="Pay Session" />
+
+<br />
 
 ## The Payment Steps
 
