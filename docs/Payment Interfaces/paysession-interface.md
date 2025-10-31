@@ -19,7 +19,7 @@ After loading the PaySession object into the window with the PaySession Script:
 ```
 
 <Callout icon="❗️" theme="error">
-  When working with a SANDBOX merchant and loading PaySession or PayPortal script, you must put the word `TEST` in-front of the merchant id. 
+  When working with a SANDBOX merchant and loading PaySession or PayPortal script, you must put the word `TEST` in-front of the merchant id.
 </Callout>
 
 ```typescript PaySession Interface
