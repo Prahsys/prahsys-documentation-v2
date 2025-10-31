@@ -48,7 +48,7 @@ We'll store the sensitive data and you only need to save the token (learn more a
 You can provide card info to the Prahsys API by including it under the `"card"` attribute of a `"billing"` object.
 For all requests besides tokenization, billing info is provided under the `"payment"` field of the request body.
 
-```json
+```typescript
 payment: {
   billing: {
     card: {
