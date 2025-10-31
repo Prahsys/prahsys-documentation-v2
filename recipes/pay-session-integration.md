@@ -1,5 +1,5 @@
 ---
-title: Pay Session Integration
+title: Pay Session
 description: >-
   Use Pay Sessions when you need granular control over your payment form's
   design and user experience while maintaining PCI compliance. The hosted fields
