@@ -34,39 +34,21 @@ is pass the card details directly in the request body under the `payment.billing
 a payment in a single API call.
 
 <Callout icon="❗️">
-  Using Direct Pay means customer card information passes through your servers, which increases your
-  [PCI DSS compliance](\{routes.payments\(\).resources\(\).pciCompliance\(\)}) requirements
-  and security responsibilities.
+  Using Pay API means customer card information passes through your servers, which increases your
+  [PCI Compliants](doc:pci-compliants) requirements and security responsibilities.
 </Callout>
 
 ### Alternatives
 
-Prahsys offers several ways to process payments without you ever needing to touch sensitive customer information. If you
-still want the control and flexibility that comes with using the API transactions but without collecting card details
-directly, then consider using [Pay Session](\{routes.payments\(\).conceptsGuides\(\).paySession\(\)}). Prahsys can collect the sensitive data via iframes in your front-end and store it securely. Then
-when you're ready to make an API request via your back-end, you can just reference the session id without providing any
-card info directly. For repeat transactions, you can have Prahsys tokenize the card details which were used in a session.
-We'll store the sensitive data and you only need to save the token (learn more about tokenization
-[here](\{routes.payments\(\).conceptsGuides\(\).tokenization\(\)})). If you want a turn-key solution requiring the least amount of effort to implement,
-check out our [Pay Portal Sessions](\{routes.payments\(\).conceptsGuides\(\).payPortal\(\)}).
+Prahsys offers several ways to process payments without you ever needing to touch sensitive customer information. If you still want the control and flexibility that comes with using the API transactions but without collecting card details directly, then consider using [Pay Session](doc:pay-session). Prahsys can collect the sensitive data via iframes in your front-end and store it securely. Then when you're ready to make an API request via your back-end, you can just reference the session id without providing any card info directly. For repeat transactions, you can have Prahsys tokenize the card details which were used in a session.
+We'll store the sensitive data and you only need to save the token (learn more about [Tokenization](doc:tokenization)). If you want a turn-key solution requiring the least amount of effort to implement, check out our [Pay Portal](doc:pay-portal).
 
-## Using Direct Pay
+## Using Pay API
 
-Direct Pay can be used with the
-[Authorize](\{routes.payments\(\).api\("transactions/authorize"\)}),
-[Capture](\{routes.payments\(\).api\("transactions/capture"\)}),
-[Pay](\{routes.payments\(\).api\("transactions/pay"\)}), and
-[Verify](\{routes.payments\(\).api\("transactions/verify"\)})
-transactions (learn more about these transactions
-[here](\{routes.payments\(\).conceptsGuides\(\).transactions\(\)})). Card details are always
-used within the context of a payment's billing information. You can provide this in the body of a transaction request
-or add it to a payment for later use. Billing information can be added to a payment directly via our
-[Update or Create Payment](\{routes.payments\(\).api\("payments/updateorcreatepayment"\)}) endpoint,
+Card details are always used within the context of a payment's billing information. You can provide this in the body of a transaction request or add it to a payment for later use. 
 or in the context of a session through our [Update Session](\{routes.payments\(\).api\("sessions/updatesession"\)}) endpoint.
 
-You can also tokenize card details yourself by providing them directly to the tokenization api (instead of referencing a pay session).
-Tokenization is the only operation which will use card details outside the context of a specific payment
-([see example in the tokenization guide](\{routes.payments\("concepts-guides/tokenization#pay-api-tokenization-\(higher-pci-scope\)"\)})).
+You can also tokenize card details yourself by providing them directly to the tokenization api (instead of referencing a pay session). Tokenization is the only operation which will use card details outside the context of a specific payment.
 
 ### Billing
 
@@ -88,4 +70,4 @@ payment: {
 }
 ```
 
-> **NOTE:** Use [test cards](\{routes.payments\(\).resources\(\).testCards\(\)}) for testing Direct Pay operations when testing in the SANDBOX environment.
+> Use [Test Payment Cards](doc:test-payment-cards) for testing Pay API operations when testing in the SANDBOX environment.
