@@ -1,5 +1,5 @@
 ---
-title: Direct Pay
+title: Pay API
 deprecated: false
 hidden: false
 metadata:
