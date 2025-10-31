@@ -79,6 +79,63 @@ sequenceDiagram
     Server-->>Client: Step 9. Payment confirmation
 ```
 
+## Interface for PaySession Object
+
+```typescript PaySession Object
+  interface Window {
+    PaymentSession?: {
+      configure: (config: {
+        session: string;
+        fields: {
+          card: {
+            number: string;
+            securityCode: string;
+            expiryMonth: string;
+            expiryYear: string;
+            nameOnCard: string;
+          };
+        };
+        frameEmbeddingMitigation?: string[];
+        callbacks: {
+          initialized: (response: { status: "system_error" | "ok"; message?: string }) => void;
+          formSessionUpdate: (response: FormSessionUpdateResponse) => void;
+        };
+      }) => void;
+      updateSessionFromForm: (method: "card") => void;
+      setFocusStyle: (fields: string[], styles: Record<string, string>) => void;
+      setHoverStyle: (fields: string[], styles: Record<string, string>) => void;
+      setPlaceholderStyle: (fields: string[], styles: Record<string, string>) => void;
+      setPlaceholderShownStyle: (fields: string[], styles: Record<string, string>) => void;
+      setFocus: (field: string) => void;
+    };
+  }
+
+/**
+ * PaymentSession callback responses
+ */
+interface FormSessionUpdateResponse {
+  status?: "ok" | "fields_in_error" | "request_timeout" | "system_error";
+  session?: {
+    id: string;
+  };
+  sourceOfFunds?: {
+    provided: {
+      card: {
+        securityCode?: boolean;
+        scheme?: string;
+      };
+    };
+  };
+  errors?: {
+    cardNumber?: string;
+    expiryYear?: string;
+    expiryMonth?: string;
+    securityCode?: string;
+    message?: string;
+  };
+}
+```
+
 ## Styling Payment Fields
 
 Pay Session fields can be styled to match your website design:
