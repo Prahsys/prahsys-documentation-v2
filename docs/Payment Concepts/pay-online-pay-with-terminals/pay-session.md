@@ -138,25 +138,37 @@ interface FormSessionUpdateResponse {
 
 ## Styling Payment Fields
 
+1. **setFocus( ):** Sets focus on the specified hosted field.
+2. **setFocusStyle( ):** Sets the styling attributes for the specified hosted fields when they gain focus.
+3. **setHoverStyle( ):** Sets the styling attributes for the specified hosted fields when a mouse hover occurs over them.
+4. **setPlaceholderStyle( ):** Sets the styling attributes for the placeholder text displayed on the specified hosted fields before the payer replaces it with their own entry.
+5. **setPlaceholderShownStyle( ):** Sets the styling attributes for the specified hosted fields when the placeholder text is visible.
+
 Pay Session fields can be styled to match your website design:
 
 ```javascript Simple Styling Example
-// Add styling to the payment fields when in focus
-PaymentSession.setFocusStyle(
-  ["card.number", "card.securityCode", "card.expiryMonth", "card.expiryYear", "card.nameOnCard"],
-  {
-    backgroundColor: "#f3f4f6",
-    fontWeight: "bold",
-  },
-);
+PaymentSession.setFocus('card.number');
+    
+PaymentSession.setFocusStyle(["card.number","card.securityCode"], {
+  borderColor: 'red',
+  borderWidth: '3px'
+});
 
-// You can also set hover styles
-PaymentSession.setHoverStyle(
-  ["card.number", "card.securityCode", "card.expiryMonth", "card.expiryYear", "card.nameOnCard"],
-  {
-    backgroundColor: "#f3f4f6",
-  },
-);
+PaymentSession.setHoverStyle(["card.number","card.securityCode"], {
+  borderColor: 'red',
+  borderWidth: '3px'
+});
+
+PaymentSession.setPlaceholderStyle(["card.number", "card.nameOnCard"], {
+  color: 'blue',
+  fontWeight: 'bold',
+  textDecoration: 'underline'
+});
+PaymentSession.setPlaceholderShownStyle(["card.number", "card.nameOnCard"], {
+  color: 'green',
+  fontWeight: 'bold',
+  textDecoration: 'underline'
+});
 ```
 ```typescript Complex Styling Example
 // Apply custom styling to match Input component
@@ -188,4 +200,52 @@ PaymentSession?.setPlaceholderStyle(fields, {
 });
 ```
 
-<br />
+## Using drop-down fields
+
+If you are supporting credit card payments, you can use drop-down values for the hosted fields defining the card expiry month and year.
+
+The following sample code shows how to define the drop-down fields within your payment page’s hosted fields for a credit card payment.
+
+```html
+<div>Expiry Month: 
+  <select id="expiry-month" class="form-control input-md" required="" readonly>
+    <option value="">Select Month</option>
+    <option value="01">January</option>
+    <option value="02">February</option>
+    <option value="03">March</option>
+    <option value="04">April</option>
+    <option value="05">May</option>
+    <option value="06">June</option>
+    <option value="07">July</option>
+    <option value="08">August</option>
+    <option value="09">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
+  </select>
+</div>
+<div>Expiry Year: 
+  <select id="expiry-year" class="form-control input-md" required="" readonly>
+    <option value="">Select Year</option>
+    <option>21</option>
+    <option>22</option>
+    <option>23</option>
+    <option>24</option>
+    <option>25</option>
+    <option>26</option>
+    <option>27</option>
+    <option>28</option>
+    <option>29</option>
+    <option>30</option>
+    <option>31</option>
+    <option>32</option>
+    <option>33</option>
+    <option>34</option>
+    <option>35</option>
+    <option>36</option>
+    <option>37</option>
+    <option>38</option>
+    <option>39</option>
+  </select>
+</div>
+```
