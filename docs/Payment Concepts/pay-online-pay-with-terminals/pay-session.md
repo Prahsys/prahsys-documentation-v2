@@ -158,6 +158,35 @@ PaymentSession.setHoverStyle(
   },
 );
 ```
+```
+// Apply custom styling to match Input component
+// Note: PaymentSession only supports: borderColor, borderWidth, color, fontWeight, 
+const fields = ["card.number", "card.securityCode", "card.expiryMonth", "card.expiryYear"];
+
+// Inject CSS to force Inter font on PaymentSession iframes
+const style = document.createElement("style");
+style.textContent = `
+	input[id="card-number"],
+  input[id="security-code"],
+  select[id="expiry-month"],
+  select[id="expiry-year"],
+  input[id="cardholder-name"] {
+  	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, !important;
+    }
+`;
+document.head.appendChild(style);
+
+PaymentSession?.setFocusStyle(fields, {
+  borderColor: primaryColor,
+  borderWidth: "2px",
+  fontWeight: "400",
+});
+
+PaymentSession?.setPlaceholderStyle(fields, {
+  color: mutedForeground,
+  fontWeight: "400",
+});
+```
 
 ## Updating a Session
 
