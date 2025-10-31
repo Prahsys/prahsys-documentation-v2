@@ -1,21 +1,10 @@
 ---
 title: Pay Portal Integration
 description: >-
-  This recipe demonstrates the complete server-to-client implementation flow for
-  integrating Prahsys Pay Portal into your application. The integration follows
-  a secure two-step pattern: first, your server creates a payment session via
-  the Payments API (/payments/n1/merchant/{merchantId}/session), passing
-  merchant branding, payment details, and redirect URLs. The API returns a
-  session object containing a unique session ID and success indicator for
-  payment verification. Second, your client-side code loads the Checkout SDK
-  (checkout.min.js), configures it with the session ID, and renders the payment
-  interface either as a full-page redirect (showPaymentPage()) or an embedded
-  iframe (showEmbeddedPage()). After the customer completes payment, they're
-  redirected to your returnUrl with a resultIndicator query parameter that you
-  validate against the stored successIndicator to confirm payment success. This
-  architecture keeps sensitive payment operations server-side while providing
-  flexible UI options (embedded or full-page) and optional custom payment ID
-  support for transaction tracking across your systems.
+  Use Pay Portal when you want the fastest integration path with minimal
+  frontend development. Simply create a session server-side and redirect
+  customers to Prahsys's pre-built, PCI-compliant payment interface (or embed
+  it), eliminating the need to build and maintain your own payment form.
 hidden: false
 recipe:
   color: '#018FF4'
