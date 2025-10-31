@@ -20,7 +20,7 @@ description: >-
   keeps card data isolated in PCI-compliant hosted fields while giving you full
   control over the payment flow, form styling, and error handling. Note: Sandbox
   testing requires prefixing the merchant ID with "TEST".
-hidden: true
+hidden: false
 recipe:
   color: '#018FF4'
   icon: ✨
