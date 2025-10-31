@@ -23,7 +23,7 @@ description: >-
 hidden: true
 recipe:
   color: '#018FF4'
-  icon: 🦉
+  icon: ✨
 ---
 ```javascript JavaScript
 /**
@@ -249,4 +249,4 @@ When the user presses submit "Pay Now" button, you need  to update the PaySessio
 
 <!-- javascript@ -->
 
-Passing the session ID to your backend, perform the VERIFY, AUTHORIZE, CAPTURE or PAY operation.  
+Passing the session ID to your backend, perform the VERIFY, AUTHORIZE, CAPTURE or PAY operation.
