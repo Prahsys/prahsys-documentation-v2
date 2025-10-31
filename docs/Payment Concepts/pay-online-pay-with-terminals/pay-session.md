@@ -140,7 +140,7 @@ interface FormSessionUpdateResponse {
 
 Pay Session fields can be styled to match your website design:
 
-```javascript filename="Client-side JavaScript"
+```javascript Simple Styling Example
 // Add styling to the payment fields when in focus
 PaymentSession.setFocusStyle(
   ["card.number", "card.securityCode", "card.expiryMonth", "card.expiryYear", "card.nameOnCard"],
@@ -158,7 +158,7 @@ PaymentSession.setHoverStyle(
   },
 );
 ```
-```
+```Text Complex Styling Example
 // Apply custom styling to match Input component
 // Note: PaymentSession only supports: borderColor, borderWidth, color, fontWeight, 
 const fields = ["card.number", "card.securityCode", "card.expiryMonth", "card.expiryYear"];
@@ -188,91 +188,4 @@ PaymentSession?.setPlaceholderStyle(fields, {
 });
 ```
 
-## Updating a Session
-
-You can update a session if payment details change:
-
-```javascript filename="Server-side JavaScript"
-// Update session with new payment details
-async function updatePaymentSession(sessionId, newAmount, newDescription) {
-  try {
-    const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/session/${sessionId}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        payment: {
-          amount: newAmount, // Updated amount
-          currency: "USD",
-          description: newDescription,
-        },
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to update session: ${response.status} ${response.statusText}`);
-    }
-
-    const updatedSession = await response.json();
-    return updatedSession;
-  } catch (error) {
-    console.error("Error updating payment session:", error);
-    throw error;
-  }
-}
-```
-
-## Server-Side Confirmation
-
-Always verify the payment status on your server before fulfilling orders:
-
-```javascript filename="Server-side JavaScript"
-// Verify payment status
-async function verifyPaymentStatus(sessionId) {
-  try {
-    const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/session/${sessionId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-      },
-    });
-
-    const sessionData = await response.json();
-
-    // Process based on session status
-    switch (sessionData.status) {
-      case "CAPTURED":
-        // Payment completed successfully
-        console.log("Payment successful for order:", sessionData.payment.reference);
-        // Fulfill the order
-        await fulfillOrder(sessionData.payment.id);
-        // Send confirmation email
-        await sendOrderConfirmation(sessionData.customer.email, sessionData);
-        return { success: true, session: sessionData };
-
-      case "PENDING":
-        // Payment is still being processed
-        console.log("Payment pending for order:", sessionData.payment.reference);
-        // Record pending status
-        recordPendingPayment(sessionData.id);
-        return { success: false, status: "pending", session: sessionData };
-
-      case "FAILED":
-        // Payment failed
-        console.error("Payment failed for order:", sessionData.payment.reference);
-        // Record failure reason
-        recordPaymentFailure(sessionData.id, sessionData.result);
-        return { success: false, status: "failed", session: sessionData };
-
-      default:
-        console.warn("Unknown payment status:", sessionData.status);
-        return { success: false, status: "unknown", session: sessionData };
-    }
-  } catch (error) {
-    console.error("Error verifying payment status:", error);
-    throw error;
-  }
-}
-```
+<br />
