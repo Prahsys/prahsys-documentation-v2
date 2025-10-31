@@ -56,7 +56,7 @@ Eligible for the simplest SAQ A form
 * **Development effort**: Minimal
 * **Best for**: Small to medium businesses wanting to minimize compliance burden
 
-### Pay Session (Embedded Fields) - SAQ 
+### Pay Session (Embedded Fields) - SAQ
 
 #### Low Compliance Burden
 
@@ -90,10 +90,10 @@ Using [Tokenization](doc:tokenization) can significantly reduce your PCI complia
 
 ## Official PCI DSS Resources
 
-For authoritative information about PCI DSS compliance, refer to these official resources: 
+For authoritative information about PCI DSS compliance, refer to these official resources:
 
-* <Anchor label="PCI Security Standards Council" target="_blank" href="https://www.pcisecuritystandards.org/">PCI Security Standards Council</Anchor> 
-* <Anchor label="PCI DSS Self-Assessment Questionnaires" target="_blank" href="https://www.pcisecuritystandards.org/document_library?category=saqs#">PCI DSS Self-Assessment Questionnaires</Anchor> 
+* <Anchor label="PCI Security Standards Council" target="_blank" href="https://www.pcisecuritystandards.org/">PCI Security Standards Council</Anchor>
+* <Anchor label="PCI DSS Self-Assessment Questionnaires" target="_blank" href="https://www.pcisecuritystandards.org/document_library?category=saqs#">PCI DSS Self-Assessment Questionnaires</Anchor>
 
 ## Choosing the Right Integration Method
 
