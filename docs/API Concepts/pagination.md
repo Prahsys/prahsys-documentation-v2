@@ -137,7 +137,7 @@ To implement pagination in your application, you can use the pagination metadata
 
 ## Combining with Filtering and Sorting
 
-For more complex data retrieval, you can combine pagination with [filtering and sorting](https://new-docs.prahsys.com/docs/filtering-and-sorting#/):
+For more complex data retrieval, you can combine pagination with [Filtering and Sorting](doc:filtering-and-sorting)
 
 ```bash title="Combined pagination, filtering and sorting"
 curl -X GET "https://api.prahsys.com/payments/n1/merchant/{merchantId}/payments?offset=20&limit=10&filter[status]=COMPLETED&sort=-amount" \
@@ -150,4 +150,6 @@ This request:
 2. Includes only payments with a status of **COMPLETED**
 3. Sorts results by amount in **descending** order (**highest first**)
 
-For more information on combining these features, refer to the [Filtering & Sorting](https://new-docs.prahsys.com/docs/filtering-and-sorting#/) documentation.
+For more information on combining these features, refer to the [Filtering and Sorting](doc:filtering-and-sorting) documentation.
+
+<br />
