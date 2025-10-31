@@ -44,20 +44,6 @@ A complete, pre-built payment page hosted by Prahsys. You create a session and r
 
 ## Pay Session: Branded Checkout Experience
 
-<br />
-
-```mermaid
-flowchart TB
-    1[Create Pay Session]
-    2[Load JS Library]
-    3[Create Payment Fields]
-    4[Customer Enters Payment Details]
-    5[Customer Submits Payment]
-    6[Receive Confirmation]
-
-    1-->2-->3-->4-->5-->6
-```
-
 ### What It Is
 
 Secure iframe-based payment fields that embed directly into your custom checkout form. You build the form, we handle the card data through iframes.
@@ -76,13 +62,18 @@ Secure iframe-based payment fields that embed directly into your custom checkout
 * You want a branded checkout experience matching your PMS
 * You need control over form layout and styling
 * You want to maintain your UX flow without redirects
-* You're processing one-time payments with custom validation
 
-### Limitations:
+```mermaid
+flowchart TB
+    1[Create Pay Session]
+    2[Load JS Library]
+    3[Create Payment Fields]
+    4[Customer Enters Payment Details]
+    5[Customer Submits Payment]
+    6[Receive Confirmation]
 
-* More development effort than Pay Portal
-* Still requires session creation for each transaction
-* Not ideal for server-to-server recurring billing
+    1-->2-->3-->4-->5-->6
+```
 
 ***
 
@@ -130,12 +121,6 @@ Direct API integration giving you complete control. Process payments entirely se
 * You're building complex payment logic (split payments, installments)
 * You need to process payments without user interaction
 
-### Limitations:
-
-* Most development effort required
-* Direct Pay increases PCI compliance requirements (SAQ D)
-* More complex error handling needed
-
 ***
 
 ## PCI Compliance Considerations
@@ -154,13 +139,6 @@ Direct API integration giving you complete control. Process payments entirely se
 * Annual self-assessment questionnaire
 * Quarterly vulnerability scans required
 
-### Pay API with Sessions or Tokens (SAQ D - Reduced Scope)
-
-* Card data collected via Portal/Session, then tokenized
-* Your servers only handle tokens
-* Annual audit by QSA recommended
-* Quarterly vulnerability scans required
-
 ### Pay API with Direct Pay (SAQ D - Full Scope)
 
 * Card data passes through your servers
@@ -168,80 +146,3 @@ Direct API integration giving you complete control. Process payments entirely se
 * Annual audit by QSA required
 * Quarterly vulnerability scans required
 * Extensive security controls needed
-
-***
-
-## Decision Tree
-
-**Start here:** What's your primary use case?
-
-### One-time payments with minimal development
-
-→ **Use Pay Portal**
-
-### One-time payments with branded checkout
-
-→ **Use Pay Session**
-
-### Recurring billing or subscriptions
-
-→ **Use Pay API with tokens**
-
-* Collect card details initially with Pay Portal or Pay Session
-* Tokenize the card
-* Process recurring charges server-to-server with tokens
-
-### Complex payment flows requiring full control
-
-→ **Use Pay API**
-
-* Consider session-based or token-based to reduce PCI scope
-* Only use Direct Pay if absolutely necessary
-
-***
-
-## Common Integration Patterns
-
-### Pattern 1: Simple One-Time Checkout
-
-**Solution:** Pay Portal  
-**Effort:** Minimal  
-**PCI:** SAQ A
-
-### Pattern 2: Branded One-Time Checkout
-
-**Solution:** Pay Session  
-**Effort:** Moderate  
-**PCI:** SAQ A-EP
-
-### Pattern 3: Monthly Subscriptions
-
-**Solution:** Pay Session (initial) + Pay API with tokens (recurring)  
-**Effort:** Moderate to Advanced  
-**PCI:** SAQ A-EP + SAQ D (reduced)
-
-### Pattern 4: Payment Plans / Installments
-
-**Solution:** Pay Session (initial) + Pay API with tokens (installments)  
-**Effort:** Advanced  
-**PCI:** SAQ A-EP + SAQ D (reduced)
-
-### Pattern 5: Server-to-Server Batch Processing
-
-**Solution:** Pay API with tokens only  
-**Effort:** Advanced  
-**PCI:** SAQ D (reduced)
-
-***
-
-## Key Takeaways
-
-1. **Start with the simplest solution** that meets your needs - you can always upgrade later
-
-2. **Avoid Direct Pay** unless you have a specific requirement - it significantly increases compliance burden
-
-3. **For recurring billing**, use Pay Session or Pay Portal to collect cards, then tokenize and use Pay API
-
-4. **Card data should never touch your servers** unless absolutely necessary - let Prahsys handle it through sessions or tokens
-
-5. **All three methods are production-ready** - choose based on your use case, not assumed quality differences
