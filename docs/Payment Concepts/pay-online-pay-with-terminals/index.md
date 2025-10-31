@@ -44,13 +44,27 @@ A complete, pre-built payment page hosted by Prahsys. You create a session and r
 
 ## Pay Session: Branded Checkout Experience
 
+<br />
+
+```mermaid
+flowchart TB
+    1[Create Pay Session]
+    2[Load JS Library]
+    3[Create Payment Fields]
+    4[Customer Enters Payment Details]
+    5[Customer Submits Payment]
+    6[Receive Confirmation]
+
+    1-->2-->3-->4-->5-->6
+```
+
 ### What It Is
 
 Secure iframe-based payment fields that embed directly into your custom checkout form. You build the form, we handle the card data through iframes.
 
 ### How It Works
 
-1. Create a session server-side (without `portal` object)
+1. Create a session server-side
 2. Build your custom checkout form with HTML/CSS
 3. Load our JavaScript library
 4. Bind our secure iframe fields to your form inputs
