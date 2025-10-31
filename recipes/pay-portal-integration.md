@@ -1,5 +1,5 @@
 ---
-title: Pay Portal Integration
+title: Pay Portal
 description: >-
   Use Pay Portal when you want the fastest integration path with minimal
   frontend development. Simply create a session server-side and redirect
@@ -10,7 +10,7 @@ recipe:
   color: '#018FF4'
   icon: ✨
 ---
-```javascript Pay Portal Example
+```javascript Pay Portal
 /**
 SERVER SIDE
 */
