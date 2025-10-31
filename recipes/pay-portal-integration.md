@@ -141,4 +141,4 @@ You have two options. You can redirect to a prebuilt page for pay portal or you 
 
 <!-- javascript@58-69 -->
 
-After the success performs an action, (such as completes the payment, cancels the payment, timeouts, etc), we will call your returnUrl from the session object created and pass a query parameter resultIndictor. Use the resultIndictor to check the success or failure. 
+After the success performs an action, (such as completes the payment, cancels the payment, timeouts, etc), we will call your returnUrl from the session object created and pass a query parameter resultIndictor. Use the resultIndictor to check the success or failure.
