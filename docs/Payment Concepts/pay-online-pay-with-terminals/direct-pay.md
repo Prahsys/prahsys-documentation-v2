@@ -33,7 +33,7 @@ Pay API allows you to include card details directly in payment API requests, byp
 is pass the card details directly in the request body under the `payment.billing.card` field. Doing so let's you process
 a payment in a single API call.
 
-<Callout icon="❗️">
+<Callout icon="❗️" theme="error">
   Using Pay API means customer card information passes through your servers, which increases your
   [PCI Compliants](doc:pci-compliants) requirements and security responsibilities.
 </Callout>
@@ -42,13 +42,6 @@ a payment in a single API call.
 
 Prahsys offers several ways to process payments without you ever needing to touch sensitive customer information. If you still want the control and flexibility that comes with using the API transactions but without collecting card details directly, then consider using [Pay Session](doc:pay-session). Prahsys can collect the sensitive data via iframes in your front-end and store it securely. Then when you're ready to make an API request via your back-end, you can just reference the session id without providing any card info directly. For repeat transactions, you can have Prahsys tokenize the card details which were used in a session.
 We'll store the sensitive data and you only need to save the token (learn more about [Tokenization](doc:tokenization)). If you want a turn-key solution requiring the least amount of effort to implement, check out our [Pay Portal](doc:pay-portal).
-
-## Using Pay API
-
-Card details are always used within the context of a payment's billing information. You can provide this in the body of a transaction request or add it to a payment for later use. 
-or in the context of a session through our [Update Session](\{routes.payments\(\).api\("sessions/updatesession"\)}) endpoint.
-
-You can also tokenize card details yourself by providing them directly to the tokenization api (instead of referencing a pay session). Tokenization is the only operation which will use card details outside the context of a specific payment.
 
 ### Billing
 
