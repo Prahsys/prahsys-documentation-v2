@@ -1,6 +1,8 @@
 ---
 title: PaySession
-excerpt: This is the Prahsys PaySession Interface with all its methods and properties.
+excerpt: >-
+  After loading the PaySession script, the PaySession object is loaded to the
+  window. Here is the interface for the PaySession.
 deprecated: false
 hidden: false
 metadata:
