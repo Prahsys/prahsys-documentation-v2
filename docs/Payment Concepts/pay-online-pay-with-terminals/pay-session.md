@@ -27,7 +27,7 @@ metadata:
 ---
 TODO: Follow RECEIPT
 
-## How It Works
+## The Payment Steps
 
 ```mermaid
 flowchart TB
@@ -41,7 +41,22 @@ flowchart TB
     1-->2-->3-->4-->5-->6
 ```
 
-<br />
+### What is Pay Session
+
+Secure iframe-based card input fields that embed directly into your custom checkout form. You design the page, we provide the secure fields.
+
+### Key Characteristics
+
+* Your branding, layout, and styling
+* Iframe fields isolate card data from your servers
+* Seamless user experience without redirects
+* Moderate PCI compliance requirements
+
+### Best For
+
+* Branded checkout experiences matching your website
+* Maintaining control over the complete user flow
+* Balance between customization and security
 
 Here is the full payment flow for Pay Session.
 
