@@ -24,6 +24,7 @@ After loading the PaySession object into the window with the PaySession Script:
 /**
  * Global Checkout object available after loading the checkout.min.js script
  * @example
+ * <script src="https://secure.prahsys.com/static/checkout/checkout.min.js"></script>
  */
 declare global {
   interface Window {
