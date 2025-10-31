@@ -8,3 +8,6 @@ hidden: false
 metadata:
   robots: index
 ---
+<br />
+
+<script src="https://secure.prahsys.com/static/checkout/checkout.min.js" />
