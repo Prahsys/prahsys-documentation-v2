@@ -197,42 +197,42 @@ async function processPayment(paymentId, sessionId) {
 
 # Create Session
 
-<!-- javascript@ -->
+<!-- javascript@1-20 -->
 
 Create the session. You do not have to pass in a payment ID. It will be auto generated if you do not pass a payment ID.
 
 # Load the PaySession Script
 
-<!-- javascript@ -->
+<!-- javascript@21-27 -->
 
 When you are loading a SANDBOX merchant, you must pass the word TEST in front of the merchant ID. 
 
 # Apply antiClickJack
 
-<!-- javascript@ -->
+<!-- javascript@28-37 -->
 
 Apply click jacking styling and hide the contents of the page. 
 
 # Create Input Fields
 
-<!-- javascript@ -->
+<!-- javascript@30-50 -->
 
 Create the input fields that will live on your page. Make sure to make them readonly and apply the exact id that will be passed into the PaySession object.
 
 # Configure PaySession Object
 
-<!-- javascript@ -->
+<!-- javascript@51-102 -->
 
 After loading the PaySession script, you need to pass the session ID and the ids of the inputs into the PaySession object. 
 
 # Handle the Payment Submit
 
-<!-- javascript@ -->
+<!-- javascript@104-134 -->
 
 When the user presses submit "Pay Now" button, you need  to update the PaySession with the card information from the inputs, then pass the session ID to your backend. 
 
 # Process Payment
 
-<!-- javascript@ -->
+<!-- javascript@136-163 -->
 
 Passing the session ID to your backend, perform the VERIFY, AUTHORIZE, CAPTURE or PAY operation.
