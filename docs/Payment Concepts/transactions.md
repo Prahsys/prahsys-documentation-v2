@@ -176,7 +176,7 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
 
 A void cancels a pending authorization before it's captured, preventing any funds from being transferred.
 
-```javascript filename="Server-side JavaScript"
+```javascript Void
 // Request to void an authorization
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/{paymentId}/void`, {
   method: "PUT",
@@ -185,22 +185,21 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    targetTransactionId: "AUTHORIZE-20250327-192029", // Each transaction returns a transaction ID in the response. Use this ID to reference previous transactions.
+    // Each transaction returns a transaction ID in the response. 
+	  // Use this ID to reference previous transactions.
     // Note: No need to specify billing for voids as it uses the original payment method
+    targetTransactionId: "AUTHORIZE-20250327-192029", 
   }),
 });
 ```
 
 ### Verify
 
-Verify card information before processing a payment. Verification just confirms that the information is valid. It does not
-reserve any funds or check if enough funds are available.
+Verify card information before processing a payment. Verification just confirms that the information is valid. It does not reserve any funds or check if enough funds are available.
 
-> [!tip]
->
-> Optionally, [billing information](\{routes.payments\(\).conceptsGuides\(\).payApi\("#billing-address-verification"\)}) can be provided in the body if you wish to use Address Verification Service (AVS) for additional validation of the customer details.
+> Optionally, billing information can be provided in the body if you wish to use Address Verification Service (AVS) for additional validation of the customer details.
 
-```javascript filename="Server-side JavaScript - Session-based approach (recommended)"
+```javascript Session-based approach (recommended)
 // Request to authorize funds using a session
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/{paymentId}/verify`, {
   method: "POST",
@@ -216,9 +215,9 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
 });
 ```
 
-Using [Direct Pay](\{routes.payments\(\).conceptsGuides\(\).directPay\(\)}):
+Using [Pay API](doc:direct-pay):
 
-```javascript filename="Server-side JavaScript - Billing with card info"
+```javascript Billing with card info
 // Request to authorize funds using a token
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/{paymentId}/verify`, {
   method: "POST",
@@ -247,9 +246,8 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
 
 You can retrieve details of a specific transaction using the transaction ID which is returned in all transaction responses:
 
-```javascript filename="Server-side JavaScript"
-const response = await fetch(
-  `https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/{paymentId}/transaction/${transactionId}`,
+```javascript Get Transaction
+const response = await fetch( `https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/{paymentId}/transaction/${transactionId}`,
   {
     method: "GET",
     headers: {
@@ -271,7 +269,7 @@ The auth-capture flow is commonly used for e-commerce:
 
 #### Using a Session (Recommended)
 
-```javascript filename="Server-side JavaScript - Session-based approach"
+```javascript Session Authorization
 // Step 1: Already have a session (SESSION0002742481646J67219140J7)
 
 // Step 2: Authorize
@@ -285,7 +283,9 @@ const authResponse = await fetch(
     },
     body: JSON.stringify({
       payment: {
-        amount: 12.99, // Only necessary if the payment details aren't stored in the session or if you want to update the payment
+        // Only necessary if the payment details aren't stored in the session or
+				// if you want to update the payment
+        amount: 12.99, 
       },
       session: {
         id: "SESSION0002742481646J67219140J7",
@@ -313,7 +313,7 @@ const captureResponse = await fetch(
 
 #### Using a Token
 
-```javascript filename="Server-side JavaScript - Token-based approach"
+```javascript Token Based Authorization
 // Step 1: Already have a token (9169573510715182)
 
 // Step 2: Authorize
@@ -399,7 +399,7 @@ const refundResponse = await fetch(`https://api.prahsys.com/payments/n1/merchant
 
 #### Using a Token
 
-```javascript filename="Server-side JavaScript - Token-based approach"
+```javascript Using Token to Pay
 // Step 1: Already have a token (9169573510715182)
 
 // Step 2: Pay
@@ -431,60 +431,4 @@ const refundResponse = await fetch(`https://api.prahsys.com/payments/n1/merchant
     amount: 12.99,
   }),
 });
-```
-
-### Recurring Billing
-
-For subscriptions and recurring payments:
-
-1. Create a token from the initial payment method. This example uses
-   [Direct Pay](\{routes.payments\(\).conceptsGuides\(\).directPay\(\)}) to create the token, but you can also collect the card
-   information from a [Pay Session](\{routes.payments\(\).conceptsGuides\(\).paySession\(\)}) or [Pay Portal](\{routes.payments\(\).conceptsGuides\(\).payPortal\(\)}).
-2. Process recurring transactions using the token
-
-```javascript filename="Server-side JavaScript"
-// Step 1: Create a token (if you don't already have one)
-const tokenResponse = await fetch("https://api.prahsys.com/payments/n1/merchant/{merchantId}/token", {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${apiKey}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    billing: {
-      card: {
-        number: "4111111111111111",
-        expiry: {
-          month: "12",
-          year: "25",
-        },
-        securityCode: "123",
-      },
-    },
-  }),
-});
-const token = await tokenResponse.json();
-
-// Step 2: Use token for initial payment
-// ... (same as Pay Flow Step 2)
-
-// Step 3: Use the same token for recurring payments
-const recurringPaymentResponse = await fetch(
-  `https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/RECURRING-PAYMENT-456/pay`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      payment: {
-        amount: 12.99,
-        billing: {
-          token: token.id,
-        },
-      },
-    }),
-  },
-);
 ```
