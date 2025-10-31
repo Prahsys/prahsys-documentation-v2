@@ -157,7 +157,7 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
 
 A refund returns funds to a customer after a successful capture or pay transaction.
 
-```javascript filename="Server-side JavaScript"
+```javascript Refund
 // Request to refund a payment
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/payment/{paymentId}/refund`, {
   method: "PUT",
