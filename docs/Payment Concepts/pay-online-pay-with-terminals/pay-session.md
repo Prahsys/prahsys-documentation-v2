@@ -158,7 +158,7 @@ PaymentSession.setHoverStyle(
   },
 );
 ```
-```Text Complex Styling Example
+```typescript Complex Styling Example
 // Apply custom styling to match Input component
 // Note: PaymentSession only supports: borderColor, borderWidth, color, fontWeight, 
 const fields = ["card.number", "card.securityCode", "card.expiryMonth", "card.expiryYear"];
