@@ -1,25 +1,11 @@
 ---
 title: Pay Session Integration
 description: >-
-  This recipe demonstrates the hosted fields implementation for PCI-compliant
-  card data collection using Prahsys Pay Sessions. The integration begins
-  server-side by creating a payment session via the Payments API
-  (/payments/n1/merchant/{merchantId}/session) with payment details (ID, amount,
-  description). Your client-side code then loads the session-specific SDK
-  (session.js) and configures PaymentSession to bind hosted input fields to your
-  HTML form elements (card number, expiry, CVV, cardholder name). These fields
-  render as iframes that securely capture sensitive card data without it ever
-  touching your application code, maintaining PCI compliance. The SDK includes
-  clickjacking mitigation and provides callback handlers for initialized and
-  formSessionUpdate events to manage UI state and validation errors. When the
-  customer clicks "Pay Now", updateSessionFromForm() securely transmits card
-  data to Prahsys, then your code sends the session ID and payment ID to your
-  backend. Your server completes the transaction by calling the
-  /payment/{paymentId}/pay endpoint with the session ID and amount, which
-  processes the payment using the securely stored card data. This architecture
-  keeps card data isolated in PCI-compliant hosted fields while giving you full
-  control over the payment flow, form styling, and error handling. Note: Sandbox
-  testing requires prefixing the merchant ID with "TEST".
+  Use Pay Sessions when you need granular control over your payment form's
+  design and user experience while maintaining PCI compliance. The hosted fields
+  architecture allows you to fully customize the checkout flow, form layout, and
+  error handling within your application, while sensitive card data is securely
+  captured in iframe fields that never touch your servers.
 hidden: false
 recipe:
   color: '#018FF4'
