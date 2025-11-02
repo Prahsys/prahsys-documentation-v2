@@ -5,6 +5,6 @@ api:
   file: openapi.json
   operationId: status
 api_config: authentication
-hidden: false
+hidden: true
 icon: icon-key1
 ---
