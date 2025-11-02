@@ -2,6 +2,7 @@
 title: ' Environments'
 deprecated: false
 hidden: false
+icon: fad fa-rectangle-vertical-history
 metadata:
   title: Environments | Prahsys Documentation
   description: >-
