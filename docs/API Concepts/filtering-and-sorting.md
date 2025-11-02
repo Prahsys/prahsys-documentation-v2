@@ -6,6 +6,7 @@ excerpt: >-
   our list endpoints, making it easy to find exactly what you need.
 deprecated: false
 hidden: false
+icon: far fa-filter-list
 metadata:
   title: Filtering & Sorting | Prahsys Documentation
   description: >-
