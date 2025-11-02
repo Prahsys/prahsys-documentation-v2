@@ -6,6 +6,7 @@ excerpt: >-
   error. 
 deprecated: false
 hidden: false
+icon: far fa-key-skeleton
 metadata:
   title: API Keys | Prahsys Documentation
   description: >
