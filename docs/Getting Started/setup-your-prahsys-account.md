@@ -2,6 +2,7 @@
 title: Setup your Prahsys Account
 deprecated: false
 hidden: false
+icon: far fa-code-simple
 metadata:
   title: Set up your Prahsys account | Prahsys Documentation
   description: >-
