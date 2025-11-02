@@ -5,6 +5,7 @@ excerpt: >-
   updates, enabling automated workflows and integration with your applications
 deprecated: false
 hidden: false
+icon: far fa-webhook
 metadata:
   title: Prahsys Webhooks | Prahsys Documentation
   description: >-
