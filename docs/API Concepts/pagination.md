@@ -6,6 +6,7 @@ excerpt: >-
   approach helps optimize performance and manage large datasets effectively.
 deprecated: false
 hidden: false
+icon: far fa-input-numeric
 metadata:
   title: Pagination | Prahsys Documentation
   description: >-
