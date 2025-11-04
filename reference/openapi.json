@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.35.1",
+    "version": "1.35.2",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-11-04T02:24:26.553Z"
+                      "createdAt": "2025-11-04T02:59:27.113Z"
                     }
                   }
                 }
@@ -255,7 +255,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-11-04T02:24:26.553Z"
+                      "createdAt": "2025-11-04T02:59:27.113Z"
                     }
                   }
                 }
@@ -3569,7 +3569,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-11-04T02:24:26.553Z"
+          "createdAt": "2025-11-04T02:59:27.113Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
