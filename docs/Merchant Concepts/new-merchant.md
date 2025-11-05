@@ -177,7 +177,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="LIMITED" /"ownershipType": "LIMITED"/
+    ```json LIMITED
     {
         "legal": {
           "ownershipType": "LIMITED",
@@ -198,7 +198,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="CORPORATION" /"ownershipType": "CORPORATION"/
+    ```json CORPORATION
     {
         "legal": {
           "ownershipType": "CORPORATION",
@@ -220,7 +220,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="GOVERNMENT" /"ownershipType": "GOVERNMENT"/
+    ```json GOVERNMENT
     {
         "legal": {
           "ownershipType": "GOVERNMENT",
@@ -241,12 +241,11 @@ Read the ownershipTypes below to understand what fields are required for each ty
 
     This is a business owned and operated by a single individual. When ownershipType is `SOLE PROPRIETOR`, there should be **only 1 owner** and **no control prong**.
 
-  
     The `legal.name` field is required and should be the same as the owner's name.
   </Column>
 
   <Column>
-    ```json title="SOLE PROPRIETOR" /"ownershipType": "SOLE PROPRIETOR"/
+    ```json SOLE PROPRIETOR
     {
         "legal": {
           "name": "John Doe", // [!code ++]
@@ -272,7 +271,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="PUBLIC COMPANY" /"ownershipType": "PUBLIC COMPANY"/
+    ```json PUBLIC COMPANY
     {
         "legal": {
           "ownershipType": "PUBLIC COMPANY",
@@ -296,7 +295,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="NON PROFIT ORG" /"ownershipType": "NON PROFIT ORG"/
+    ```json NON PROFIT ORG
     {
         "legal": {
           "ownershipType": "NON PROFIT ORG",
@@ -319,7 +318,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="JOINT STOCK" /"ownershipType": "JOINT STOCK"/
+    ```json JOINT STOCK
     {
         "legal": {
           "ownershipType": "JOINT STOCK",
@@ -340,7 +339,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 
   <Column>
-    ```json title="PARTNERSHIP" /"ownershipType": "PARTNERSHIP"/
+    ```json PARTNERSHIP
     {
         "legal": {
           "ownershipType": "PARTNERSHIP",
