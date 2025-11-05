@@ -149,10 +149,13 @@ metadata:
       >      "isPciContact": true
       >    }
       >   ],
-      >  "bankAccount": { /** Properties */ },
-      >  "controlProng": null, // set as null since its not needed
-      >  "primaryContact": null,// set as null since its not needed
-      >  "pciContact": null // set as null since its not needed
+        >  "bankAccount": { /** Properties */ },
+      > // set as null since its not needed
+        >  "controlProng": null, 
+  > // set as null since its not needed
+          >  "primaryContact": null,
+  >  // set as null since its not needed
+      >  "pciContact": null
       > }
       > ```
     </Column>
