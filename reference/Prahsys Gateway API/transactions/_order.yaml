@@ -1,0 +1,7 @@
+- gettransaction
+- authorize
+- capture
+- pay
+- void
+- refund
+- verify

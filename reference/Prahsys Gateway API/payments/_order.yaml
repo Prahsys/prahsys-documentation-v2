@@ -1,0 +1,7 @@
+- listpayments
+- listpayments-1
+- updateorcreatepayment
+- updatepayment
+- getpayment
+- deletepayment
+- syncpaymentsettlement
