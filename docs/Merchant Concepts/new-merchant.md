@@ -35,7 +35,7 @@ metadata:
       <Tab title="owners">
         There should not more than 4 owners. Each owner must have at least 25% ownership. In order to create a unique identifier for the merchant, we need to know who owns this business. The owner object is an array of objects. Each object represents an owner of the business.
 
-Sometimes the owner array is not needed depending on the type of business. Read more about ownershipType and how they affect the owner array.
+        Sometimes the owner array is not needed depending on the type of business. Read more about ownershipType and how they affect the owner array.
       </Tab>
 
       <Tab title="controlProng">
@@ -241,9 +241,8 @@ Read the ownershipTypes below to understand what fields are required for each ty
 
     This is a business owned and operated by a single individual. When ownershipType is `SOLE PROPRIETOR`, there should be **only 1 owner** and **no control prong**.
 
-    > \[!NOTE]
-    >
-    > The `legal.name` field is required and should be the same as the owner's name.
+  
+    The `legal.name` field is required and should be the same as the owner's name.
   </Column>
 
   <Column>
