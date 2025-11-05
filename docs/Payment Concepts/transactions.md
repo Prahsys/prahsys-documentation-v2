@@ -7,6 +7,7 @@ excerpt: >-
   effectively.
 deprecated: false
 hidden: false
+icon: far fa-toilet-paper-check
 metadata:
   title: Transactions | Prahsys Documentation
   description: >-
