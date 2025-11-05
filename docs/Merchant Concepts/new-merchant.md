@@ -182,10 +182,10 @@ Read the ownershipTypes below to understand what fields are required for each ty
         "legal": {
           "ownershipType": "LIMITED",
         },
-          "bankAccount": { /** Properties */ },
-					// Owners Required
-            "owners": [ {} ], 
-// ControlProng Required
+        "bankAccount": { /** Properties */ },
+    		// Owners Required
+        "owners": [ {} ], 
+        // ControlProng Required
         "controlProng": {} 
     }
     ```
