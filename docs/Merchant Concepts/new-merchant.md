@@ -140,10 +140,13 @@ metadata:
       >      "firstName": "John",
       >      "lastName": "Doe",
       >      "percentage": 100,
-      >      "ssn": "666989898",
-      >      "isControllingProng": true, // Set as true to make controlProng null
-      >      "isPrimaryContact": true,  // Set as true to make isPrimaryContact null
-      >      "isPciContact": true  // Set as true to make isPciContact null
+        >      "ssn": "666989898",
+  > // Set as true to make controlProng null
+        >      "isControllingProng": true, 
+  > // Set as true to make isPrimaryContact null
+        >      "isPrimaryContact": true,
+  > // Set as true to make isPciContact null
+      >      "isPciContact": true
       >    }
       >   ],
       >  "bankAccount": { /** Properties */ },
