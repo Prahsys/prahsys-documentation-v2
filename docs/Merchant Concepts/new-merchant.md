@@ -84,18 +84,37 @@ metadata:
 }
 ```
 
-<Callout icon="❗️">
+<Callout icon="❗️" theme="error">
   <Columns layout="auto">
     <Column>
-    When you specfic one of the owners as the **control prong**, **pci contact** or **primary Contact**, you do not have to provide the properties of `controlProng`, `pciContact` or `primaryContact`.
+      When you specfic one of the owners as the **control prong**, **pci contact** or **primary Contact**, you do not have to provide the properties of `controlProng`, `pciContact` or `primaryContact`.
     </Column>
 
     <Column>
-      *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
-    </Column>
-    
-    <Column>
-      > Ut enim ad minim veniam, quis nostrud ullamco
+      > ```json
+      > {
+      >  "legal": {
+      >    // ... Other Properties
+      >    "ownershipType": "LIMITED"
+      >  },
+      >  "owners": [
+      >    {
+      >      "title": "CEO",
+      >      "firstName": "John",
+      >      "lastName": "Doe",
+      >      "percentage": 100,
+      >      "ssn": "666989898",
+      >      "isControllingProng": true, // [!code ++]
+      >      "isPrimaryContact": true, // [!code ++]
+      >      "isPciContact": true // [!code ++]
+      >    }
+      >   ],
+      >  "bankAccount": { /** Properties */ },
+      >  "controlProng": null, // [!code --]
+      >  "primaryContact": null, // [!code --]
+      >  "pciContact": null // [!code --]
+      > }
+      > ```
     </Column>
   </Columns>
 </Callout>
