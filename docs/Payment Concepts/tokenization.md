@@ -7,6 +7,7 @@ excerpt: >-
   payments.
 deprecated: false
 hidden: false
+icon: fad fa-coins
 metadata:
   title: Tokenization | Prahsys Documentation
   description: >-
