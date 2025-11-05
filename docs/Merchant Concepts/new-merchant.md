@@ -375,16 +375,29 @@ Read the ownershipTypes below to understand what fields are required for each ty
   > ```
 </Callout>
 
-<Columns layout="auto">
-  <Column>
-    Neque porro quisquam est qui dolorem ipsum quia
-  </Column>
+### `legal.b2bTransactionPercentage`  `legal.b2cTransactionPercentage`
 
-  <Column>
-    *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
-  </Column>
-  
-  <Column>
-    > Ut enim ad minim veniam, quis nostrud ullamco
-  </Column>
-</Columns>
+<Callout icon="📘" theme="info">
+
+
+  The transaction percentage values reflect your target customer distribution.
+  For example, if you exclusively sell to other businesses (B2B), set your b2bTransactionPercentage to 100.
+  Conversely, if you only sell to consumers (B2C), set b2cTransactionPercentage to 100.
+  You do not have to provide the properties of controlProng when one of the owners properties is `isControllingProng: true`.
+  If you are selling to both B2B and B2C, you only need to provide one of the properties and it will automatically calculate the other.
+
+
+
+  > ```json
+  > {
+  >  "legal": {
+  >    // ... Other Properties
+  >    // 'b2bTransactionPercentage' Will auto calculate to 60
+  >    "b2bTransactionPercentage": null, // REQUIRED
+  >    "b2cTransactionPercentage": 40
+  >  }
+  > }}
+  > ```
+</Callout>
+
+<br />
