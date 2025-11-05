@@ -249,7 +249,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
     ```json SOLE PROPRIETOR
     {
       "legal": {
-        // The business name should match owners
+        // The name should match owners
         // owners first and last
         "name": "John Doe", // REQUIRED
         "ownershipType": "SOLE PROPRIETOR",
