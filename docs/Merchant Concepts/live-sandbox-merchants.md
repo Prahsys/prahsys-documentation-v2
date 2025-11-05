@@ -3,7 +3,7 @@ title: Live / Sandbox Merchants
 excerpt: Learn the differences between sandbox and live merchants
 deprecated: false
 hidden: false
-icon: fad fa-people-arrows
+icon: far fa-arrows-turn-to-dots
 metadata:
   title: Live / Sandbox Merchants | Prahsys Documentation
   description: Learn the differences between sandbox and live merchants
