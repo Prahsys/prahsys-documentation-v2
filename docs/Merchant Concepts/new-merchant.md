@@ -29,15 +29,13 @@ metadata:
   <Column>
     <Tabs>
       <Tab title="legal">
-        Details about the business.
+        We collect essential legal information (business name, address, and tax ID) to verify your business legitimacy and establish a unique merchant identifier. This is the details about the business.
       </Tab>
 
       <Tab title="owners">
-        There should not more than 4 owners. Each owner must have at least 25% ownership.
-      </Tab>
+        There should not more than 4 owners. Each owner must have at least 25% ownership. In order to create a unique identifier for the merchant, we need to know who owns this business. The owner object is an array of objects. Each object represents an owner of the business.
 
-      <Tab title="controlProng">
-        Information about the person with significant financial control over the business
+Sometimes the owner array is not needed depending on the type of business. Read more about ownershipType and how they affect the owner array.
       </Tab>
 
       <Tab title="controlProng">
