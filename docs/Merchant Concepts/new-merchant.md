@@ -260,7 +260,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
           { 
             "firstName": "John", 
             "lastName": "Doe", 
-    				}
+          }
         ],
         "controlProng": null // Set as null
     }
