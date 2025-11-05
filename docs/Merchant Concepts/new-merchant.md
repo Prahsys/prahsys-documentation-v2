@@ -91,10 +91,6 @@ metadata:
     }
     ```
   </Column>
-
-  <Column>
-    > Ut enim ad minim veniam, quis nostrud ullamco
-  </Column>
 </Columns>
 
 ```typescript New Merchant 
