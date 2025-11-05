@@ -26,8 +26,6 @@ metadata:
     - payment processing
   robots: index
 ---
-<br />
-
 # Live vs Sandbox Merchant Accounts
 
 You can create both live and sandbox merchants. Sandbox merchants are used for testing purposes only. You can create a sandbox merchant by using your test API key. This will create a merchant with the type of `SANDBOX` and allow you to test your integration.
