@@ -357,19 +357,34 @@ Read the ownershipTypes below to understand what fields are required for each ty
   </Column>
 </Columns>
 
-<Callout icon="📘" theme="info">
-  <Columns layout="auto">
-  ### `legal.mailingAddress`
-    <Column>
-      Neque porro quisquam est qui dolorem ipsum quia
-    </Column>
+### `legal.mailingAddress`
 
-    <Column>
-      *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
-    </Column>
-    
-    <Column>
-      > Ut enim ad minim veniam, quis nostrud ullamco
-    </Column>
-  </Columns>
+<Callout icon="📘" theme="info">
+  When `legal.mailingAddressSameAsBusinessAddress` is set to true, the `legal.mailingAddress` properties are not required.
+
+
+
+  > ```json
+  > {
+  >  "legal": {
+  >    // ... Other Properties
+  >    "mailingAddressSameAsBusinessAddress": true, // REQUIRED
+  >    "mailingAddress": null // Set as null when true above
+  >  }
+  > }}
+  > ```
 </Callout>
+
+<Columns layout="auto">
+  <Column>
+    Neque porro quisquam est qui dolorem ipsum quia
+  </Column>
+
+  <Column>
+    *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
+  </Column>
+  
+  <Column>
+    > Ut enim ad minim veniam, quis nostrud ullamco
+  </Column>
+</Columns>
