@@ -97,7 +97,7 @@ You cannot create `SANDBOX` merchants via the Prahsys Dashboard. You can only cr
 
 ## Request Body
 
-Get the full API Specification for the [request body here](\{routes.merchantServices\(\).api\("merchant/newmerchant"\)})
+Get the full API Specification for the [request body here](https://new-docs.prahsys.com/reference/newmerchant#/) 
 
 ```json filename="New Merchant Request Body" copy
 {
