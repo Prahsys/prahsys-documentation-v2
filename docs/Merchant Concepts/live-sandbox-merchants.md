@@ -53,18 +53,7 @@ information for you to start accepting payments when the merchant has been appro
 
 This is how the API Request will look. You can get the a sample request body by going to our [postman collection](https://postman.prahsys.com)
 
-```bash /sk_test_123test1/
-curl -X POST 'https://api.prahsys.com/merchant/n1/merchant' \
---header 'Authorization: Bearer sk_test_123test1' \
---data-raw '{
-  "legal": ...your_data,
-  "owners": ...your_data,
-  "bankAccount": ..your_data
-}
-'
-```
-
-```json filename="New Merchant Response" {9-11}
+```json New Merchant Response
 {
   "success": true,
   "message": "Merchant created and application submitted to underwriting team.",
@@ -99,59 +88,4 @@ You cannot create `SANDBOX` merchants via the Prahsys Dashboard. You can only cr
 
 Get the full API Specification for the [request body here](https://new-docs.prahsys.com/reference/newmerchant#/) 
 
-```json filename="New Merchant Request Body" copy
-{
-  "legal": {
-    "name": "string",
-    "dba": "string",
-    "locationName": "string",
-    "taxId": "string",
-    "address": {
-      "street1": "string",
-      "city": "string",
-      "state": "string",
-      "zipCode": "string"
-    },
-    "ownershipType": "string",
-    "category": "string",
-    "productsSold": "string",
-    "phone": "string",
-    "email": "string",
-    "dateOfIncorporation": "string",
-    "website": "string",
-    "averageTicketPrice": "number",
-    "highTicketPrice": "number",
-    "averageMonthlyVolume": "number",
-    "b2bTransactionPercentage": "number",
-    "b2cTransactionPercentage": "number"
-  },
-  "owners": [
-    {
-      "title": "string",
-      "firstName": "string",
-      "lastName": "string",
-      "percentage": "number",
-      "ssn": "string",
-      "dob": "string",
-      "address": {
-        "street1": "string",
-        "city": "string",
-        "state": "string",
-        "zipCode": "string"
-      },
-      "phone": "string",
-      "email": "string",
-      "isControllingProng": "boolean",
-      "isPrimaryContact": "boolean",
-      "isPciContact": "boolean"
-    }
-  ],
-  "bankAccount": {
-    "name": "string",
-    "routingNumber": "string",
-    "confirmRoutingNumber": "string",
-    "accountNumber": "string",
-    "confirmAccountNumber": "string"
-  }
-}
-```
+<br />
