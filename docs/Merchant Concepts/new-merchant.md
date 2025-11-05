@@ -356,3 +356,20 @@ Read the ownershipTypes below to understand what fields are required for each ty
     ```
   </Column>
 </Columns>
+
+<Callout icon="📘" theme="info">
+  <Columns layout="auto">
+  ### `legal.mailingAddress`
+    <Column>
+      Neque porro quisquam est qui dolorem ipsum quia
+    </Column>
+
+    <Column>
+      *Lorem ipsum dolor sit amet, consectetur adipiscing elit*
+    </Column>
+    
+    <Column>
+      > Ut enim ad minim veniam, quis nostrud ullamco
+    </Column>
+  </Columns>
+</Callout>
