@@ -26,7 +26,14 @@ metadata:
     - payment processing
   robots: index
 ---
-# Create a `SANDBOX` Merchant
+<br />
+
+# Live vs Sandbox Merchant Accounts
+
+You can create both live and sandbox merchants. Sandbox merchants are used for testing purposes only. You can create a sandbox merchant by using your test API key. This will create a merchant with the type of `SANDBOX` and allow you to test your integration.
+LIVE merchant accounts are used for production purposes. You can create a live merchant by using your live API key. This will create a merchant with the type of `LIVE` and allow you to process real transactions.
+
+## Create a `SANDBOX` Merchant
 
 Channel Partners can create new merchants underneath their account. Testing your integration requires testing onboarding merchants. We allow this by allowing you to create sandbox merchants.
 
@@ -34,11 +41,6 @@ Channel Partners can create new merchants underneath their account. Testing your
 2. Start testing
 
 Let's now break down step by step how to create a new merchant.
-
-## Live vs Sandbox Merchant Accounts
-
-You can create both live and sandbox merchants. Sandbox merchants are used for testing purposes only. You can create a sandbox merchant by using your test API key. This will create a merchant with the type of `SANDBOX` and allow you to test your integration.
-LIVE merchant accounts are used for production purposes. You can create a live merchant by using your live API key. This will create a merchant with the type of `LIVE` and allow you to process real transactions.
 
 ## Create the Merchant
 
