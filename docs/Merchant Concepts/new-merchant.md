@@ -25,6 +25,8 @@ metadata:
     - merchant data structure
   robots: index
 ---
+## New Merchant Object
+
 <Columns layout="auto">
   <Column>
     <Tabs>
@@ -248,7 +250,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
     {
       "legal": {
         	// The business name should match owners
-					// owners first and last
+    				// owners first and last
           "name": "John Doe", // REQUIRED
           "ownershipType": "SOLE PROPRIETOR",
         },
@@ -258,7 +260,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
           { 
             "firstName": "John", 
             "lastName": "Doe", 
-					}
+    				}
         ],
         "controlProng": null // Set as null
     }
