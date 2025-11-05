@@ -183,10 +183,8 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "LIMITED",
         },
         "bankAccount": { /** Properties */ },
-        // Owners Required
-        "owners": [ {} ], 
-        // ControlProng Required
-        "controlProng": {} 
+        "owners": [ {} ], // REQUIRED
+        "controlProng": {} // REQUIRED
     }
     ```
   </Column>
@@ -206,8 +204,8 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "CORPORATION",
         },
         "bankAccount": { /** Properties */ },
-        "owners": [ {} ], // [!code ++]
-        "controlProng": {} // [!code ++]
+        "owners": [ {} ], // REQUIRED
+        "controlProng": {} // REQUIRED
     }
     ```
   </Column>
@@ -217,8 +215,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   <Column>
     #### `GOVERNMENT`
 
-    This is a government entity or agency. When ownershipType is `GOVERNMENT`, **no owners or control prong** should be provided.
-    You must also specify the **primary contact** and **PCI contact**.
+    This is a government entity or agency. When ownershipType is `GOVERNMENT`, **no owners or control prong** should be provided. You must also specify the **primary contact** and **PCI contact**.
   </Column>
 
   <Column>
@@ -228,10 +225,10 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "GOVERNMENT",
         },
         "bankAccount": { /** Properties */ },
-        "owners": null, // [!code --]
-        "controlProng": null, // [!code --]
-        "primaryContact": {}, // [!code ++]
-        "pciContact": {} // [!code ++]
+        "owners": null, // Set as null
+        "controlProng": null, // Set as null
+        "primaryContact": {}, // REQUIRED
+        "pciContact": {} // REQUIRED
     }
     ```
   </Column>
@@ -249,16 +246,21 @@ Read the ownershipTypes below to understand what fields are required for each ty
   <Column>
     ```json SOLE PROPRIETOR
     {
-        "legal": {
-          "name": "John Doe", // [!code ++]
+      "legal": {
+        	// The business name should match owners
+					// owners first and last
+          "name": "John Doe", // REQUIRED
           "ownershipType": "SOLE PROPRIETOR",
         },
         "bankAccount": { /** Properties */ },
         "owners": [
-            // Only 1 owner should exist for SOLE PROPRIETOR
-            { "firstName": "John", "lastName": "Doe", } // [!code ++]
+          // REQUIRED Only 1 owner should exist
+          { 
+            "firstName": "John", 
+            "lastName": "Doe", 
+					}
         ],
-        "controlProng": null // [!code --]
+        "controlProng": null // Set as null
     }
     ```
   </Column>
@@ -268,8 +270,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
   <Column>
     #### `PUBLIC COMPANY`
 
-    This is a corporation that offers securities for public trading. When ownershipType is `PUBLIC COMPANY`, **no owners or control prong** should be provided.
-    You must also specify the **primary contact** and **PCI contact**.
+    This is a corporation that offers securities for public trading. When ownershipType is `PUBLIC COMPANY`, **no owners or control prong** should be provided. You must also specify the **primary contact** and **PCI contact**.
   </Column>
 
   <Column>
@@ -279,10 +280,10 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "PUBLIC COMPANY",
         },
         "bankAccount": { /** Properties */ },
-        "owners": null, // [!code --]
-        "controlProng": null, // [!code --]
-        "primaryContact": {}, // [!code ++]
-        "pciContact": {} // [!code ++]
+        "owners": null, // Set as null
+        "controlProng": null, // Set as null
+        "primaryContact": {}, // REQUIRED
+        "pciContact": {} // REQUIRED
     }
     ```
   </Column>
@@ -303,10 +304,10 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "NON PROFIT ORG",
         },
         "bankAccount": { /** Properties */ },
-        "owners": null, // [!code --]
-        "controlProng": {}, // [!code ++]
-        "primaryContact": {}, // [!code ++]
-        "pciContact": {} // [!code ++]
+        "owners": null, // Set as null
+        "controlProng": {}, // REQUIRED
+        "primaryContact": {}, // REQUIRED
+        "pciContact": {} // REQUIRED
     }
     ```
   </Column>
@@ -326,8 +327,8 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "JOINT STOCK",
         },
         "bankAccount": { /** Properties */ },
-        "owners": [ {} ], // [!code ++]
-        "controlProng": {} // [!code ++]
+        "owners": [ {} ], // REQUIRED
+        "controlProng": {} // REQUIRED
     }
     ```
   </Column>
@@ -347,8 +348,8 @@ Read the ownershipTypes below to understand what fields are required for each ty
           "ownershipType": "PARTNERSHIP",
         },
         "bankAccount": { /** Properties */ },
-        "owners": [ {} ], // [!code ++]
-        "controlProng": {} // [!code ++]
+        "owners": [ {} ], // REQUIRED
+        "controlProng": {} // REQUIRED
     }
     ```
   </Column>
