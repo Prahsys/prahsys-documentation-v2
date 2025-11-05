@@ -6,6 +6,7 @@ excerpt: >-
   sections: legal, owners, and bankAccount
 deprecated: false
 hidden: false
+icon: far fa-house-chimney-user
 metadata:
   title: Creating a New Merchant | Prahsys Documentation
   description: >-
