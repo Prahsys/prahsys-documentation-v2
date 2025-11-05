@@ -159,3 +159,197 @@ Sometimes the owner array is not needed depending on the type of business. Read 
     </Column>
   </Columns>
 </Callout>
+
+<br />
+
+### Ownership Type Requirements
+
+#### `legal.ownershipType`
+
+The ownershipType tells us how the business is structured.
+Read the ownershipTypes below to understand what fields are required for each type of business.
+
+<Columns>
+  <Column>
+    #### `LIMITED`
+
+    This is a limited liability company (LLC). When ownershipType is `LIMITED`, there should be **owners** and a **control prong**.
+  </Column>
+
+  <Column>
+    ```json title="LIMITED" /"ownershipType": "LIMITED"/
+    {
+        "legal": {
+          "ownershipType": "LIMITED",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": [ {} ], // [!code ++]
+        "controlProng": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `CORPORATION`
+
+    This is a legally incorporated entity separate from its owners. When ownershipType is `CORPORATION`, there should be **owners** and a **control prong**.
+  </Column>
+
+  <Column>
+    ```json title="CORPORATION" /"ownershipType": "CORPORATION"/
+    {
+        "legal": {
+          "ownershipType": "CORPORATION",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": [ {} ], // [!code ++]
+        "controlProng": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `GOVERNMENT`
+
+    This is a government entity or agency. When ownershipType is `GOVERNMENT`, **no owners or control prong** should be provided.
+    You must also specify the **primary contact** and **PCI contact**.
+  </Column>
+
+  <Column>
+    ```json title="GOVERNMENT" /"ownershipType": "GOVERNMENT"/
+    {
+        "legal": {
+          "ownershipType": "GOVERNMENT",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": null, // [!code --]
+        "controlProng": null, // [!code --]
+        "primaryContact": {}, // [!code ++]
+        "pciContact": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `SOLE PROPRIETOR`
+
+    This is a business owned and operated by a single individual. When ownershipType is `SOLE PROPRIETOR`, there should be **only 1 owner** and **no control prong**.
+
+    > \[!NOTE]
+    >
+    > The `legal.name` field is required and should be the same as the owner's name.
+  </Column>
+
+  <Column>
+    ```json title="SOLE PROPRIETOR" /"ownershipType": "SOLE PROPRIETOR"/
+    {
+        "legal": {
+          "name": "John Doe", // [!code ++]
+          "ownershipType": "SOLE PROPRIETOR",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": [
+            // Only 1 owner should exist for SOLE PROPRIETOR
+            { "firstName": "John", "lastName": "Doe", } // [!code ++]
+        ],
+        "controlProng": null // [!code --]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `PUBLIC COMPANY`
+
+    This is a corporation that offers securities for public trading. When ownershipType is `PUBLIC COMPANY`, **no owners or control prong** should be provided.
+    You must also specify the **primary contact** and **PCI contact**.
+  </Column>
+
+  <Column>
+    ```json title="PUBLIC COMPANY" /"ownershipType": "PUBLIC COMPANY"/
+    {
+        "legal": {
+          "ownershipType": "PUBLIC COMPANY",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": null, // [!code --]
+        "controlProng": null, // [!code --]
+        "primaryContact": {}, // [!code ++]
+        "pciContact": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `NON PROFIT ORG`
+
+    This is a non-profit organization with tax-exempt status. When ownershipType is `NON PROFIT ORG`, there should be **no owners**. There should be a **control prong**.
+    You must also specify the **primary contact** and **PCI contact**.
+  </Column>
+
+  <Column>
+    ```json title="NON PROFIT ORG" /"ownershipType": "NON PROFIT ORG"/
+    {
+        "legal": {
+          "ownershipType": "NON PROFIT ORG",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": null, // [!code --]
+        "controlProng": {}, // [!code ++]
+        "primaryContact": {}, // [!code ++]
+        "pciContact": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `JOINT STOCK`
+
+    This is a joint-stock company with shared capital ownership. When ownershipType is `JOINT STOCK`, there should be **owners** and a **control prong**.
+  </Column>
+
+  <Column>
+    ```json title="JOINT STOCK" /"ownershipType": "JOINT STOCK"/
+    {
+        "legal": {
+          "ownershipType": "JOINT STOCK",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": [ {} ], // [!code ++]
+        "controlProng": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
+
+<Columns>
+  <Column>
+    #### `PARTNERSHIP`
+
+    This is a business owned by two or more partners. When ownershipType is `PARTNERSHIP`, there should be **owners** and a **control prong**.
+  </Column>
+
+  <Column>
+    ```json title="PARTNERSHIP" /"ownershipType": "PARTNERSHIP"/
+    {
+        "legal": {
+          "ownershipType": "PARTNERSHIP",
+        },
+        "bankAccount": { /** Properties */ },
+        "owners": [ {} ], // [!code ++]
+        "controlProng": {} // [!code ++]
+    }
+    ```
+  </Column>
+</Columns>
