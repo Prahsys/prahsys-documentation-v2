@@ -124,7 +124,7 @@ metadata:
 <Callout icon="📘" theme="info">
   <Columns layout="auto">
     <Column>
-     	When you specfic one of the owners as the **control prong**, **pci contact** or **primary Contact**, you do not have to provide the properties of `controlProng`, `pciContact` or `primaryContact`.
+      When you specfic one of the owners as the **control prong**, **pci contact** or **primary Contact**, you do not have to provide the properties of `controlProng`, `pciContact` or `primaryContact`.
     </Column>
 
     <Column>
@@ -141,19 +141,17 @@ metadata:
       >      "lastName": "Doe",
       >      "percentage": 100,
       >      "ssn": "666989898",
-      >      "isControllingProng": true, // [!code ++]
-      >      "isPrimaryContact": true, // [!code ++]
-      >      "isPciContact": true // [!code ++]
+      >      "isControllingProng": true, // Set as true to make controlProng null
+      >      "isPrimaryContact": true,  // Set as true to make isPrimaryContact null
+      >      "isPciContact": true  // Set as true to make isPciContact null
       >    }
       >   ],
       >  "bankAccount": { /** Properties */ },
-      >  "controlProng": null, // [!code --]
-      >  "primaryContact": null, // [!code --]
-      >  "pciContact": null // [!code --]
+      >  "controlProng": null, // set as null since its not needed
+      >  "primaryContact": null,// set as null since its not needed
+      >  "pciContact": null // set as null since its not needed
       > }
       > ```
-
     </Column>
-    
   </Columns>
 </Callout>
