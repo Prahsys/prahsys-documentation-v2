@@ -3,6 +3,7 @@ title: Payments Integrations
 excerpt: This guide helps you choose the right payment integration method for payments
 deprecated: false
 hidden: false
+icon: far fa-credit-card
 metadata:
   title: Payment Integrations | Prahsys Documentation
   keywords:
