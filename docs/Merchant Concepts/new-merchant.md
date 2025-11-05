@@ -1,5 +1,5 @@
 ---
-title: New Merchant
+title: Create a New Merchant
 excerpt: >-
   We've simplified the merchant creation process with an intuitive request
   structure. The new merchant object is organized into three straightforward
