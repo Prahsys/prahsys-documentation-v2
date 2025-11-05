@@ -257,7 +257,7 @@ Read the ownershipTypes below to understand what fields are required for each ty
       "bankAccount": { /** Properties */ },
       // REQUIRED Only 1 owner should exist
       "owners": [
-				{ "firstName": "John", "lastName": "Doe" }
+    { "firstName": "John", "lastName": "Doe" }
       ],
       "controlProng": null // Set as null
     }
