@@ -12,3 +12,10 @@
 - getpaymentbymerchant-1
 - deletepaymentbymerchant-1
 - syncpaymentsettlementbymerchant-1
+- listpaymentsbyorganization-3
+- listpaymentsbymerchant-3
+- updateorcreatepaymentbymerchant-3
+- updatepaymentbymerchant-3
+- getpaymentbymerchant-3
+- deletepaymentbymerchant-3
+- syncpaymentsettlementbymerchant-3

@@ -6,3 +6,7 @@
 - getcustomeranalyticscustomersbyorganization-1
 - gettransactionanalyticstransactionsbyorganization-1
 - getpayoutanalyticspayoutsbyorganization-1
+- getpaymentanalyticspaymentsbyorganization-3
+- getcustomeranalyticscustomersbyorganization-3
+- gettransactionanalyticstransactionsbyorganization-3
+- getpayoutanalyticspayoutsbyorganization-3

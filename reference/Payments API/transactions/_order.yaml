@@ -12,3 +12,10 @@
 - voidvoidbymerchant-1
 - refundrefundbymerchant-1
 - verifyverifybymerchant-1
+- gettransactionbymerchant-3
+- authorizeauthorizebymerchant-3
+- capturecapturebymerchant-3
+- paypaybymerchant-3
+- voidvoidbymerchant-3
+- refundrefundbymerchant-3
+- verifyverifybymerchant-3

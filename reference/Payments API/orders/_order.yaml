@@ -7,3 +7,8 @@
 - updateorderbymerchant-1
 - deleteorderbymerchant-1
 - getorderinvoiceurlinvoiceurlbymerchant
+- getorderbymerchant-3
+- updateorcreateorderbymerchant-3
+- updateorderbymerchant-3
+- deleteorderbymerchant-3
+- getorderinvoiceurlinvoiceurlbymerchant-2
