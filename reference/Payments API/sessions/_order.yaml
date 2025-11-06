@@ -1,1 +1,3 @@
-[]
+- getsessionbymerchant
+- updatesessionbymerchant
+- createsessionbymerchant

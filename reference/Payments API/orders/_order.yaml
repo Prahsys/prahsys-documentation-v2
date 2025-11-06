@@ -1,1 +1,4 @@
-[]
+- getorderbymerchant
+- updateorcreateorderbymerchant
+- updateorderbymerchant
+- deleteorderbymerchant

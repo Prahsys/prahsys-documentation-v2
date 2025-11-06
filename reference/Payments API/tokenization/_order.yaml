@@ -1,1 +1,4 @@
-[]
+- gettokenbymerchant
+- updatetokenbymerchant
+- deletetokenbymerchant
+- createtokenbymerchant
