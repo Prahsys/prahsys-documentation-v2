@@ -1,0 +1,7 @@
+- gettransactionbymerchant-1
+- authorizeauthorizebymerchant-1
+- capturecapturebymerchant-1
+- paypaybymerchant-1
+- voidvoidbymerchant-1
+- refundrefundbymerchant-1
+- verifyverifybymerchant-1
