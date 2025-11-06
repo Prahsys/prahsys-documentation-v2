@@ -1,0 +1,7 @@
+- listpaymentsbyorganization-2
+- listpaymentsbymerchant-2
+- updateorcreatepaymentbymerchant-2
+- updatepaymentbymerchant-2
+- getpaymentbymerchant-2
+- deletepaymentbymerchant-2
+- syncpaymentsettlementbymerchant-2
