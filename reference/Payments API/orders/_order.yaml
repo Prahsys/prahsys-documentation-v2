@@ -1,0 +1,5 @@
+- getorderbymerchant
+- updateorcreateorderbymerchant
+- updateorderbymerchant
+- deleteorderbymerchant
+- getorderinvoiceurlinvoiceurlbymerchant
