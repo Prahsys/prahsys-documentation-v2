@@ -1,12 +1,13 @@
 ---
 title: API Keys | Authentication
 excerpt: >-
-  Prahsys authenticates your API requests using your account's API keys. If a
-  request doesn't include a valid key, Prahsys returns an invalid request 401
-  error. 
+  Learn how to authenticate with Prahsys using API keys. Get started with
+  sandbox testing and move to production with confidence.
 deprecated: false
 hidden: false
 icon: far fa-key-skeleton
+link:
+  new_tab: false
 metadata:
   title: API Keys | Prahsys Documentation
   description: >
@@ -25,100 +26,124 @@ metadata:
     - bearer token authentication
   robots: index
 ---
-## Sandbox Environment
+# Getting Started with API Keys
 
-The Sandbox environment is a separate, isolated instance of the Prahsys platform dedicated exclusively to testing and development. Key features of the Sandbox include:
+Think of API keys as your digital passport - they let Prahsys know who you are when you make requests. Without a valid key, you'll get a 401 error (basically, "Who are you again?").
 
-| Feature                 | Description                                                                                                                                                                                              |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Isolated Data**       | Organizations/Merchants/Users created in Sandbox mode exist only in the testing environment and are completely separate from the production database                                                     |
-| **Test-Only Keys**      | Only test API keys (beginning with `sk_test_`) can be used with Sandbox merchants                                                                                                                        |
-| **Full API Access**     | All API endpoints and features available in production are also available in the Sandbox                                                                                                                 |
-| **Simulated Responses** | Our API will simulate as much as possible for your testing. All data is isolated from your production data, and no real world operations will be performed where applicable (such as payment processing) |
+## Test First, Go Live Later
 
-### Using the Sandbox Environment
+We've set up two environments to make your life easier:
 
-When integrating with the Sandbox:
+### Sandbox (Your Safe Testing Ground)
 
-* Use the same API endpoints as production, but with your test API keys
-* All operations are simulated (no real money movement occurs)
-* Test all error cases and edge scenarios
-* Verify webhooks and notifications
-* Test your integration thoroughly before moving to production
+The Sandbox is like a practice room where you can break things without consequences. Here's what makes it special:
 
-### Sandbox vs Live Mode
+**🔒 Completely Isolated**  
+Everything you create here stays here. Your test merchants, users, and transactions won't mix with your real data.
 
-All Prahsys API requests occur in either sandbox or live mode. Each mode has its own set of API keys, and objects in one mode aren't accessible to the other.
+**🔑 Test Keys Only**  
+Only API keys starting with `sk_test_` work in Sandbox. No accidents with real money!
 
-All API Keys are formatted: `sk_[ENVIRONMENT]_[RANDOM_HASH]`
+**📡 Full Feature Access**  
+Every API endpoint that works in production works here too. Test everything!
 
-| **Mode**    | **When to Use**                  | **What Happens**                                                                                                                                                                | **Key Prefix** |
-| ----------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| **Sandbox** | During development and staging   | Simulated transactions and responses; Everything will work as closely to production as possible. All response objects will be identical to what you will receive in production. | `sk_test_`     |
-| **Live**    | With your production environment | Product related activities will occur. You will be charged for API interactions where applicable.                                                                               | `sk_live_`     |
+**🎭 Realistic Simulations**  
+We'll simulate real responses as closely as possible. You'll get authentic-looking data without any real-world side effects.
 
-> **Important**: You can only reveal a live mode secret key once. If you lose it, you'll need to create a new one.
+### How to Use Sandbox
 
-## Moving from Sandbox to Live (Production)
+It's straightforward:
+- Use the same API endpoints as production
+- Just swap in your test API keys
+- Everything gets simulated (no real money moves)
+- Test error scenarios and edge cases
+- Make sure webhooks work
+- Get comfortable before going live
 
-1. Complete all testing in the Sandbox environment
-2. Swap out your key `sk_test_...` for your live key `sk_live_...`
+## Understanding Your API Keys
 
-> **Important Note**: Test API keys (`sk_test_...`) can be used with both Sandbox merchant accounts and live merchant accounts. When test keys are used with live merchant accounts, transactions are still simulated and no real money is moved, but the test data will appear alongside your live data.
+All API keys follow this pattern: `sk_[ENVIRONMENT]_[RANDOM_HASH]`
 
-## Using API Keys
+| Environment | When to Use It | What Happens | Your Key Starts With |
+|-------------|----------------|--------------|---------------------|
+| **Sandbox** | Development & testing | Everything is simulated but realistic | `sk_test_` |
+| **Live** | Production apps | Real transactions and charges | `sk_live_` |
 
-### Authentication Headers
+> **heads up**: You can only see a live API key once when you create it. If you lose it, you'll need to make a new one.
 
-Include your API key in the `Authorization` header of all API requests:
+## Making the Jump to Production
 
-```yaml Authorization Header
-Authorization: Bearer sk_[ENVIRONMENT]_[SECRET_SAUCE]
+Ready to go live? Here's all you need to do:
+
+1. **Finish testing** - Make sure everything works perfectly in Sandbox
+2. **Swap your key** - Replace `sk_test_...` with `sk_live_...`
+
+That's it! 
+
+> **Pro tip**: Test keys (`sk_test_...`) actually work with live merchant accounts too, but they'll still simulate everything. The test data will just show up alongside your live data, which can be handy for ongoing testing.
+
+## Using Your API Keys
+
+### The Authentication Header
+
+Every API request needs your key in the Authorization header:
+
+```yaml
+Authorization: Bearer sk_test_your_key_here
 ```
 
-> **Important Note:** Sandbox API keys (**sk_test_XXX**) can be used with both Sandbox accounts and live accounts.
-> When test keys are used with live accounts, operations are still simulated, but the test data will appear alongside your live data.
+Just replace `sk_test_your_key_here` with your actual API key.
 
-## API Key Management
+### Quick Example
 
-Manage your API keys through the Prahsys Dashboard:
+Here's how to check your API status:
 
-1. Navigate to **Dashboard** > **Developers** > **API Keys**
-2. View existing keys
-3. Generate new keys
-4. Delete existing keys
-
-### Security Best Practices
-
-* **Never share your secret keys** or include them in client-side code
-* **Store keys in environment variables** or secure key management systems
-* **Use separate keys for different applications** to limit breach impact
-* **Implement key rotation** as part of your security procedures
-* **Use sandbox keys exclusively for testing** to avoid accidental live transactions
-
-## Implementation Examples
-
-```bash title="Get API status" /$PRAHSYS_API_KEY/
+```bash
 curl -X GET https://api.prahsys.com/merchant/status \
 -H "Authorization: Bearer $PRAHSYS_API_KEY" \
 -H "Content-Type: application/json"
 ```
 
-## Key Rotation
+## Managing Your Keys
 
-If you suspect a key has been compromised, or as part of regular security maintenance:
+Find all your keys in the dashboard:
 
-1. Generate a new API key in the Prahsys Merchant Dashboard
-2. Update your applications to use the new key
-3. Verify functionality with the new key
-4. Delete the old key
+1. Go to **Dashboard** → **Developers** → **API Keys**
+2. View existing keys
+3. Create new ones
+4. Delete old ones
 
-## Troubleshooting
+### Keep Your Keys Safe
 
-| Error              | Possible Cause                                  | Solution                                                             |
-| ------------------ | ----------------------------------------------- | -------------------------------------------------------------------- |
-| `401 Unauthorized` | Invalid or expired API key                      | Verify you're using the correct API key                              |
-| `403 Forbidden`    | Insufficient permissions                        | Contact your account manager to adjust permissions                   |
-| `404 Not Found`    | Attempting to access object from different mode | Ensure you're using matching sandbox or live keys for all operations |
+Here are the golden rules:
 
-For additional assistance, contact <Anchor label="Prahsys Support" target="_blank" href="https://help.prahsys.com">Prahsys Support</Anchor>.
+- **Never share secret keys** or put them in client-side code
+- **Use environment variables** or secure key managers
+- **One key per app** limits damage if something goes wrong  
+- **Rotate keys regularly** as part of good security hygiene
+- **Sandbox keys for testing only** - avoid mixing test and live data
+
+## When Things Go Wrong
+
+| Error | What It Usually Means | How to Fix It |
+|-------|---------------------|---------------|
+| `401 Unauthorized` | Wrong or expired key | Double-check you're using the right key |
+| `403 Forbidden` | Your key doesn't have permission | Contact support to adjust permissions |
+| `404 Not Found` | Mixing sandbox and live data | Make sure your keys match your environment |
+
+## Key Rotation (When You Need a Fresh Start)
+
+If a key gets compromised or you just want to refresh:
+
+1. **Create a new key** in the dashboard
+2. **Update your apps** with the new key
+3. **Test everything** works with the new key
+4. **Delete the old key** once you're confident
+
+## Need Help?
+
+Something not working? Our support team is here to help: [Prahsys Support](https://help.prahsys.com)
+
+---
+
+*Remember: Start with Sandbox, test thoroughly, then go live with confidence. Your API keys are the bridge between your application and our platform - keep them safe!*
