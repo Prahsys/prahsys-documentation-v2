@@ -193,7 +193,6 @@ You do not need to provide the key in the root merchant object, if you mark one 
     ```json AFTER
     {
       "legal": {
-        // ... other properties
         "ownershipType": "LIMITED"
       },
       "owners": [
