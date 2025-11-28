@@ -5,6 +5,8 @@ hidden: true
 ---
 # Project Plan
 
+[Overview Video](https://www.loom.com/share/98544dce00124389adfc541240633802)
+
 Hey DentTracks Team, I have broken up the project plan into separate plans. This first plan is all about merchant onboarding. We need to ensure to get this right in order to not run into any complications when payment processing. This is not hard, it's just detailed and requires different testing.
 
 I've simplified the project plan to 4 milestones with each its own task.
@@ -272,7 +274,7 @@ Please review the endpoint details to [Generate Application Docusign Url](ref:ge
 **Tasks**
 
 * [ ] Add button for merchant to be able to get the Prahsys Dashboard.
-  * [ ] Goes to link: https://dashboard.prahsys.com/
+  * [ ] Goes to link: [https://dashboard.prahsys.com/](https://dashboard.prahsys.com/)
 * [ ] Add Merchant Status Badge
   * [ ] User needs to know the status of their merchant application. Provide a visual indicator where they are in the steps.
 
