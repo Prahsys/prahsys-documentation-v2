@@ -149,95 +149,39 @@ We require 6 root keys when sending the merchant object.
 
 You do not need to provide the key in the root merchant object, if you mark one of the owners as the contact. For example, if the the `legal.ownershipType` is `LIMITED`, one of the owners could marked as the `controlProng`, `primaryContact` and `pciContact`, thus you would not need to provide this keys in the root object.
 
-```json BEFORE
-{
-  "legal": {
-    // ... other properties
-    "ownershipType": "LIMITED"
-  },
-  "owners": [
-      {
-        "title": "CEO",
-        "firstName": "John",
-        "lastName": "Doe",
-        "isControllingProng": false, // <-- Magic here
-        "isPrimaryContact": false, // <-- Magic here
-        "isPciContact": false // <-- Magic here
-      }
-  ],
-  "controlProng": {
-   	// control prong properties
-	 	// required because no owner was marked as isControllingProng
-  },
-  "primaryContact": {
-    // primaryContact properties
-		// required because no owner was marked as isPrimaryContact
-  },
-  "pciContact": {
-    // pciContact properties
-		// required because no owner was marked as isPciContact
-  },
-  "bankAccount": {
-    // bankAccount properties
-  }
-}
-```
-
-```json AFTER
-{
-  "legal": {
-    // ... other properties
-    "ownershipType": "LIMITED"
-  },
-  "owners": [
-      {
-        "title": "CEO",
-        "firstName": "John",
-        "lastName": "Doe",
-        "isControllingProng": true, // <-- Magic here
-        "isPrimaryContact": true, // <-- Magic here
-        "isPciContact": true // <-- Magic here
-      }
-  ],
-  "bankAccount": {
-    // bankAccount properties
-  }
-}
-```
-
 <Columns layout="auto">
   <Column>
     ```json BEFORE
     {
-    "legal": {
-    // ... other properties
-    "ownershipType": "LIMITED"
-    },
-    "owners": [
-      {
-        "title": "CEO",
-        "firstName": "John",
-        "lastName": "Doe",
-        "isControllingProng": false, // <-- Magic here
-        "isPrimaryContact": false, // <-- Magic here
-        "isPciContact": false // <-- Magic here
+      "legal": {
+      // ... other properties
+      "ownershipType": "LIMITED"
+      },
+      "owners": [
+        {
+          "title": "CEO",
+          "firstName": "John",
+          "lastName": "Doe",
+          "isControllingProng": false, // <-- Magic here
+          "isPrimaryContact": false, // <-- Magic here
+          "isPciContact": false // <-- Magic here
+        }
+      ],
+      "controlProng": {
+      // control prong properties
+        // required because no owner was marked as isControllingProng
+      },
+      "primaryContact": {
+      // primaryContact properties
+        // required because no owner was marked as isPrimaryContact
+      },
+      "pciContact": {
+      // pciContact properties
+        // required because no owner was marked as isPciContact
+      },
+      "bankAccount": {
+      // bankAccount properties
       }
-    ],
-    "controlProng": {
-    // control prong properties
-     	// required because no owner was marked as isControllingProng
-    },
-    "primaryContact": {
-    // primaryContact properties
-    	// required because no owner was marked as isPrimaryContact
-    },
-    "pciContact": {
-    // pciContact properties
-    	// required because no owner was marked as isPciContact
-    },
-    "bankAccount": {
-    // bankAccount properties
-    }
     }
     ```
   </Column>
@@ -245,23 +189,23 @@ You do not need to provide the key in the root merchant object, if you mark one 
   <Column>
     ```json AFTER
     {
-    "legal": {
-    // ... other properties
-    "ownershipType": "LIMITED"
-    },
-    "owners": [
-      {
-        "title": "CEO",
-        "firstName": "John",
-        "lastName": "Doe",
-        "isControllingProng": true, // <-- Magic here
-        "isPrimaryContact": true, // <-- Magic here
-        "isPciContact": true // <-- Magic here
+      "legal": {
+      // ... other properties
+      "ownershipType": "LIMITED"
+      },
+      "owners": [
+        {
+          "title": "CEO",
+          "firstName": "John",
+          "lastName": "Doe",
+          "isControllingProng": true, // <-- Magic here
+          "isPrimaryContact": true, // <-- Magic here
+          "isPciContact": true // <-- Magic here
+        }
+      ],
+      "bankAccount": {
+      // bankAccount properties
       }
-    ],
-    "bankAccount": {
-    // bankAccount properties
-    }
     }
     ```
   </Column>
