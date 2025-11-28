@@ -57,6 +57,29 @@ I've simplified the project plan to 4 milestones with each its own task.
 
 We need to create the form for merchant onboarding. It can look intimidating but we have many ways to simplify the process.
 
+**Estimated Time**: 2-3 weeks
+
+**Tasks**
+
+* [ ] Create the form UI
+* [ ] Hide fields when necessary
+* [ ] Test a successful submission 
+  * [ ] `LIMITED`
+  * [ ] `CORPORATION`
+  * [ ] `GOVERNMENT`
+  * [ ] `SOLE PROPRIETOR`
+  * [ ] `PUBLIC COMPANY`
+  *  [ ] `NON PROFIT ORG`
+  *  [ ] `JOINT STOCK`
+* [ ] Test a bad data submission
+  * [ ] `LIMITED`
+  * [ ] `CORPORATION`
+  * [ ] `GOVERNMENT`
+  * [ ] `SOLE PROPRIETOR`
+  * [ ] `PUBLIC COMPANY`
+  * [ ] `NON PROFIT ORG`
+  * [ ] `JOINT STOCK`
+
 <Accordion title="Example Merchant Body" icon="fa-info-circle">
   ```json
   {
