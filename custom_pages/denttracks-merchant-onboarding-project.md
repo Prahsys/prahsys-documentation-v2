@@ -11,7 +11,18 @@ hidden: true
 
 [New Merchant API Reference](ref:newmerchant)
 
-**DentTracks Team**,
+<br />
+
+#### Project Plan Resources
+
+[Project Management Sheet Link](https://docs.google.com/spreadsheets/d/1oMYVxvg9XYNMrdePIVxN9s_c8PkCrVRPCk3bjEWwdTw/edit?gid=1005540094#gid=1005540094)
+
+The below Gantt Chart image is derived from the project management sheet above.
+
+<Image align="center" border={true} src="https://files.readme.io/52026f0dc26464e3a580f7adb918b329347da7b129f0bdf454b37337ab025b7a-DentTracks_Gantt_Chart.jpg" className="border" />
+
+## **DentTracks Team**,
+
 This project plan focuses exclusively on merchant onboarding—a critical foundation for successful payment processing integration. While the implementation is straightforward, it requires careful attention to detail and comprehensive testing across multiple merchant entity types.
 
 The project is structured around **4 key milestones**, each with specific deliverables designed to ensure a smooth onboarding experience for your practices.
