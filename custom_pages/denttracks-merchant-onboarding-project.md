@@ -14,19 +14,21 @@ hidden: true
 **DentTracks Team**,
 This project plan focuses exclusively on merchant onboarding—a critical foundation for successful payment processing integration. While the implementation is straightforward, it requires careful attention to detail and comprehensive testing across multiple merchant entity types.
 
-
 The project is structured around **4 key milestones**, each with specific deliverables designed to ensure a smooth onboarding experience for your practices.
 
 <Cards columns={4}>
   <Card title="1. Create the form" icon="fa-id-card">
     Build a dynamic onboarding form with entity-specific field validation. Requires comprehensive testing across all merchant types.
   </Card>
+
   <Card title="2. Setup Webhook" icon="fa-arrow-up">
     Configure webhook endpoints to receive merchant approval/denial events and update application status in real-time.
   </Card>
+
   <Card title="3. Sign Agreement" icon="fa-check-square">
     Integrate DocuSign iframe for seamless in-app merchant agreement signing, eliminating external redirects.
   </Card>
+
   <Card title="4. Add required UI" icon="fa-star">
     Display merchant status indicators and provide one-click access to the Prahsys Dashboard for ongoing merchant management.
   </Card>
@@ -58,6 +60,215 @@ We need to create the form for merchant onboarding. It can look intimidating but
   * [ ] `PUBLIC COMPANY`
   * [ ] `NON PROFIT ORG`
   * [ ] `JOINT STOCK`
+
+<br />
+
+<Tabs>
+  <Tab title="LIMITED (LLC)">
+    ### Successful Submission Tests
+
+    * [ ] Test with multiple owners (25%+ ownership each)
+    * [ ] Test with one owner marked as all contacts (controlProng, primaryContact, pciContact)
+    * [ ] Test with separate contact objects at root level
+    * [ ] Verify ownership percentages sum to 100%
+      Error Handling Tests
+
+    Missing required owner information
+    Invalid ownership percentages (don't sum to 100%)
+    Missing contact designations when not marked on owners
+    Invalid SSN/TaxID format
+    Missing bank account information
+    Invalid email/phone formats
+
+    Key Requirements
+
+    Owners: Required (multiple allowed)
+    controlProng: Required (can be designated from owners)
+    primaryContact: Required (can be designated from owners)
+    pciContact: Required (can be designated from owners)
+  </Tab>
+
+  <Tab title="CORPORATION">
+    Successful Submission Tests
+
+    Test with multiple owners/shareholders
+    Verify all required ownership percentages total 100%
+    Test with one owner marked as all contacts
+    Test with separate contact objects at root level
+
+    Error Handling Tests
+
+    Incomplete ownership data
+    Missing required shareholder fields
+    Invalid email/phone formats
+    Missing date of incorporation
+    Invalid ownership percentages
+    Missing contact information
+
+    Key Requirements
+
+    Owners: Required (multiple shareholders)
+    controlProng: Required (can be designated from owners)
+    primaryContact: Required (can be designated from owners)
+    pciContact: Required (can be designated from owners)
+    dateOfIncorporation: Required
+  </Tab>
+
+  <Tab title="PARTNERSHIP">
+    Successful Submission Tests
+
+    Test with 2+ partners
+    Verify ownership percentages sum to 100%
+    Test with one partner marked as all contacts
+    Test with separate contact objects
+
+    Error Handling Tests
+
+    Only one partner provided (minimum 2 required)
+    Ownership percentages don't sum to 100%
+    Missing partner information
+    Invalid SSN for partners
+    Missing contact designations
+
+    Key Requirements
+
+    Owners: Required (minimum 2 partners)
+    controlProng: Required (can be designated from owners)
+    primaryContact: Required (can be designated from owners)
+    pciContact: Required (can be designated from owners)
+  </Tab>
+
+  <Tab title="JOINT STOCK">
+    Successful Submission Tests
+
+    Test with multiple shareholders
+    Verify proper ownership disclosure
+    Test with one shareholder marked as all contacts
+    Test with separate contact objects
+
+    Error Handling Tests
+
+    Invalid shareholder data
+    Missing required ownership fields
+    Incomplete contact information
+    Invalid ownership percentages
+
+    Key Requirements
+
+    Owners: Required (multiple shareholders)
+    controlProng: Required (can be designated from owners)
+    primaryContact: Required (can be designated from owners)
+    pciContact: Required (can be designated from owners)
+  </Tab>
+
+  <Tab title="SOLE PROPRIETOR">
+    Successful Submission Tests
+
+    Test with exactly one owner
+    Verify controlProng is NOT sent (null/omitted)
+    Confirm owner can be marked as primaryContact
+    Confirm owner can be marked as pciContact
+    Test with owner at 100% ownership
+
+    Error Handling Tests
+
+    Multiple owners provided (should reject - only one allowed)
+    ControlProng incorrectly included (should be null)
+    Missing primaryContact designation
+    Missing pciContact designation
+    Owner ownership percentage not 100%
+    Missing owner SSN
+
+    Key Requirements
+
+    Owners: Required (EXACTLY one owner only)
+    controlProng: NOT REQUIRED (must be null/omitted)
+    primaryContact: Required (can be designated from the single owner)
+    pciContact: Required (can be designated from the single owner)
+    Owner percentage must be 100%
+  </Tab>
+
+  <Tab title="GOVERNMENT">
+    Successful Submission Tests
+
+    Test with NO owners array
+    Verify separate primaryContact at root level
+    Verify separate pciContact at root level
+    Confirm controlProng is NOT included
+    Test with valid government entity information
+
+    Error Handling Tests
+
+    Owners array incorrectly included (should be rejected)
+    Missing primaryContact at root level
+    Missing pciContact at root level
+    ControlProng incorrectly included
+    Invalid government entity type
+    Missing required contact fields
+
+    Key Requirements
+
+    Owners: NOT REQUIRED (must be null/omitted)
+    controlProng: NOT REQUIRED (must be null/omitted)
+    primaryContact: Required (separate object at root)
+    pciContact: Required (separate object at root)
+    Must specify government entity type
+  </Tab>
+
+  <Tab title="PUBLIC COMPANY">
+    Successful Submission Tests
+
+    Test with NO owners array (publicly traded)
+    Verify separate primaryContact at root level
+    Verify separate pciContact at root level
+    Confirm controlProng is NOT required
+    Test with valid public company information
+
+    Error Handling Tests
+
+    Owners array incorrectly included
+    Missing primaryContact information
+    Missing pciContact information
+    ControlProng incorrectly included
+    Invalid corporate information
+    Missing stock ticker or SEC information
+
+    Key Requirements
+
+    Owners: NOT REQUIRED (publicly traded, no individual ownership)
+    controlProng: NOT REQUIRED (must be null/omitted)
+    primaryContact: Required (separate object at root)
+    pciContact: Required (separate object at root)
+    May require additional public company identifiers
+  </Tab>
+
+  <Tab title="NON PROFIT ORG">
+    Successful Submission Tests
+
+    Test with NO owners array
+    Verify controlProng IS required at root level
+    Verify primaryContact at root level
+    Verify pciContact at root level
+    Test with valid tax-exempt status
+
+    Error Handling Tests
+
+    Missing controlProng (required for non-profits)
+    Owners array incorrectly included
+    Missing primaryContact
+    Missing pciContact
+    Invalid tax-exempt documentation
+    Missing non-profit registration information
+
+    Key Requirements
+
+    Owners: NOT REQUIRED (must be null/omitted)
+    controlProng: REQUIRED (separate object at root)
+    primaryContact: Required (separate object at root)
+    pciContact: Required (separate object at root)
+    Must provide tax-exempt status information
+  </Tab>
+</Tabs>
 
 ### Understand Merchant Entities
 
