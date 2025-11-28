@@ -265,4 +265,4 @@ In order for the merchant to be approved for payment processing, the merchant mu
   Sandbox merchants do not have to sign an agreement. You will need to submit a real merchant application to test this. Notify and Work with the Prahsys Team when you're ready to implement this. 
 </Callout>
 
-Please review the endpoint 
+Please review the endpoint details to generate the docusign link: 
