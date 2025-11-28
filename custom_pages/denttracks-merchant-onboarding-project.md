@@ -146,7 +146,7 @@ We require 6 root keys when sending the merchant object.
 3. `bankAccount`
 4. `controlProng`
 5. `primaryContact`
-6. `piciContact`
+6. `pciContact`
 
 ### Required Fields for different Entities
 
