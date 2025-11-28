@@ -61,231 +61,48 @@ We need to create the form for merchant onboarding. It can look intimidating but
   * [ ] `NON PROFIT ORG`
   * [ ] `JOINT STOCK`
 
-<br />
+### Understanding Merchant Entity Types
 
-<Tabs>
-  <Tab title="LIMITED (LLC)">
-    ### Successful Submission Tests
+Custom merchant onboarding requires comprehensive testing across multiple business structures. Each entity type has distinct regulatory requirements and ownership disclosure rules that determine which fields your form must collect.
 
-    * [ ] Test with multiple owners (25%+ ownership each)
-    * [ ] Test with one owner marked as all contacts (controlProng, primaryContact, pciContact)
-    * [ ] Test with separate contact objects at root level
-    * [ ] Verify ownership percentages sum to 100%
-      Error Handling Tests
+#### Supported Business Entities
 
-    Missing required owner information
-    Invalid ownership percentages (don't sum to 100%)
-    Missing contact designations when not marked on owners
-    Invalid SSN/TaxID format
-    Missing bank account information
-    Invalid email/phone formats
+Your integration must support eight different entity types, each with unique legal and tax characteristics:
 
-    Key Requirements
+**LIMITED (LLC)**  
+A flexible business structure combining corporate liability protection with pass-through taxation. Owners are called "members" and can include individuals, corporations, or other LLCs.
 
-    Owners: Required (multiple allowed)
-    controlProng: Required (can be designated from owners)
-    primaryContact: Required (can be designated from owners)
-    pciContact: Required (can be designated from owners)
-  </Tab>
+**CORPORATION**  
+A separate legal entity owned by shareholders. Provides strong liability protection but faces double taxation—once at the corporate level and again on shareholder dividends. Requires formal governance structure.
 
-  <Tab title="CORPORATION">
-    Successful Submission Tests
+**PARTNERSHIP**  
+An unincorporated business owned by two or more individuals who share profits, losses, and management duties. Partners typically have unlimited personal liability for business debts.
 
-    Test with multiple owners/shareholders
-    Verify all required ownership percentages total 100%
-    Test with one owner marked as all contacts
-    Test with separate contact objects at root level
+**SOLE PROPRIETOR**  
+The simplest business structure where one individual owns and operates the business. No legal separation exists between owner and business—all assets and liabilities belong to the individual.
 
-    Error Handling Tests
+**GOVERNMENT**  
+Federal, state, or local government agencies operating under public authority. Subject to different regulatory requirements than private entities.
 
-    Incomplete ownership data
-    Missing required shareholder fields
-    Invalid email/phone formats
-    Missing date of incorporation
-    Invalid ownership percentages
-    Missing contact information
+**PUBLIC COMPANY**  
+A corporation with shares traded on public stock exchanges (NYSE, NASDAQ). Must comply with SEC reporting requirements and generally does not disclose individual ownership in merchant applications.
 
-    Key Requirements
+**NON PROFIT ORG**  
+A tax-exempt organization serving charitable, educational, religious, or public purposes. Profits must be reinvested into the mission rather than distributed to owners or members.
 
-    Owners: Required (multiple shareholders)
-    controlProng: Required (can be designated from owners)
-    primaryContact: Required (can be designated from owners)
-    pciContact: Required (can be designated from owners)
-    dateOfIncorporation: Required
-  </Tab>
+**JOINT STOCK**  
+A hybrid entity with transferable ownership shares like a corporation, but shareholders typically retain unlimited personal liability. Less common in modern business but still legally recognized.
 
-  <Tab title="PARTNERSHIP">
-    Successful Submission Tests
+#### Why Entity Type Matters
 
-    Test with 2+ partners
-    Verify ownership percentages sum to 100%
-    Test with one partner marked as all contacts
-    Test with separate contact objects
+Each entity type has different requirements for:
 
-    Error Handling Tests
+* **Ownership disclosure** (some require individual owners, others do not)
+* **Control person identification** (who has authority over the business)
+* **Tax documentation** (EIN vs SSN, tax-exempt status)
+* **Liability structure** (limited vs unlimited)
 
-    Only one partner provided (minimum 2 required)
-    Ownership percentages don't sum to 100%
-    Missing partner information
-    Invalid SSN for partners
-    Missing contact designations
-
-    Key Requirements
-
-    Owners: Required (minimum 2 partners)
-    controlProng: Required (can be designated from owners)
-    primaryContact: Required (can be designated from owners)
-    pciContact: Required (can be designated from owners)
-  </Tab>
-
-  <Tab title="JOINT STOCK">
-    Successful Submission Tests
-
-    Test with multiple shareholders
-    Verify proper ownership disclosure
-    Test with one shareholder marked as all contacts
-    Test with separate contact objects
-
-    Error Handling Tests
-
-    Invalid shareholder data
-    Missing required ownership fields
-    Incomplete contact information
-    Invalid ownership percentages
-
-    Key Requirements
-
-    Owners: Required (multiple shareholders)
-    controlProng: Required (can be designated from owners)
-    primaryContact: Required (can be designated from owners)
-    pciContact: Required (can be designated from owners)
-  </Tab>
-
-  <Tab title="SOLE PROPRIETOR">
-    Successful Submission Tests
-
-    Test with exactly one owner
-    Verify controlProng is NOT sent (null/omitted)
-    Confirm owner can be marked as primaryContact
-    Confirm owner can be marked as pciContact
-    Test with owner at 100% ownership
-
-    Error Handling Tests
-
-    Multiple owners provided (should reject - only one allowed)
-    ControlProng incorrectly included (should be null)
-    Missing primaryContact designation
-    Missing pciContact designation
-    Owner ownership percentage not 100%
-    Missing owner SSN
-
-    Key Requirements
-
-    Owners: Required (EXACTLY one owner only)
-    controlProng: NOT REQUIRED (must be null/omitted)
-    primaryContact: Required (can be designated from the single owner)
-    pciContact: Required (can be designated from the single owner)
-    Owner percentage must be 100%
-  </Tab>
-
-  <Tab title="GOVERNMENT">
-    Successful Submission Tests
-
-    Test with NO owners array
-    Verify separate primaryContact at root level
-    Verify separate pciContact at root level
-    Confirm controlProng is NOT included
-    Test with valid government entity information
-
-    Error Handling Tests
-
-    Owners array incorrectly included (should be rejected)
-    Missing primaryContact at root level
-    Missing pciContact at root level
-    ControlProng incorrectly included
-    Invalid government entity type
-    Missing required contact fields
-
-    Key Requirements
-
-    Owners: NOT REQUIRED (must be null/omitted)
-    controlProng: NOT REQUIRED (must be null/omitted)
-    primaryContact: Required (separate object at root)
-    pciContact: Required (separate object at root)
-    Must specify government entity type
-  </Tab>
-
-  <Tab title="PUBLIC COMPANY">
-    Successful Submission Tests
-
-    Test with NO owners array (publicly traded)
-    Verify separate primaryContact at root level
-    Verify separate pciContact at root level
-    Confirm controlProng is NOT required
-    Test with valid public company information
-
-    Error Handling Tests
-
-    Owners array incorrectly included
-    Missing primaryContact information
-    Missing pciContact information
-    ControlProng incorrectly included
-    Invalid corporate information
-    Missing stock ticker or SEC information
-
-    Key Requirements
-
-    Owners: NOT REQUIRED (publicly traded, no individual ownership)
-    controlProng: NOT REQUIRED (must be null/omitted)
-    primaryContact: Required (separate object at root)
-    pciContact: Required (separate object at root)
-    May require additional public company identifiers
-  </Tab>
-
-  <Tab title="NON PROFIT ORG">
-    Successful Submission Tests
-
-    Test with NO owners array
-    Verify controlProng IS required at root level
-    Verify primaryContact at root level
-    Verify pciContact at root level
-    Test with valid tax-exempt status
-
-    Error Handling Tests
-
-    Missing controlProng (required for non-profits)
-    Owners array incorrectly included
-    Missing primaryContact
-    Missing pciContact
-    Invalid tax-exempt documentation
-    Missing non-profit registration information
-
-    Key Requirements
-
-    Owners: NOT REQUIRED (must be null/omitted)
-    controlProng: REQUIRED (separate object at root)
-    primaryContact: Required (separate object at root)
-    pciContact: Required (separate object at root)
-    Must provide tax-exempt status information
-  </Tab>
-</Tabs>
-
-### Understand Merchant Entities
-
-Because your team has decided to do a custom onboarding, this will have a more extensive testing period. We have many different types of merchants that will try to sign up for payment processing. For each merchant, we require different pieces of information.
-
-#### Understanding different merchants
-
-We have different types of business entities that can apply for payment processing.
-
-* **LIMITED (LLC)** A business structure that combines the liability protection of a corporation with the tax flexibility of a partnership, where owners are called "members."
-* **CORPORATION** A separate legal entity owned by shareholders that provides maximum liability protection but is subject to corporate income tax in addition to personal taxes on dividends.
-* **GOVERNMENT** A federal, state, local government agency or other governmental entity operating under public authority.
-* **SOLE PROPRIETOR** An unincorporated business owned and operated by one individual where there is no legal distinction between the owner and the business entity.
-* **PUBLIC COMPANY** A corporation whose ownership shares are traded on public stock exchanges and must comply with SEC reporting requirements.
-* **NON PROFIT ORG** An organization incorporated to serve a charitable, educational, religious, or other public purpose where profits are reinvested rather than distributed to owners.
-* **JOINT STOCK** A business entity where ownership is divided into transferable shares, similar to a corporation but typically with unlimited liability for shareholders.
-* **PARTNERSHIP** A business owned by two or more individuals who share profits, losses, and management responsibilities without incorporating as a separate legal entity.
+Your form's conditional logic must adapt to these requirements to ensure compliant merchant applications.
 
 <Accordion title="Example Merchant Body" icon="fa-info-circle">
   ```json
@@ -349,35 +166,65 @@ We have different types of business entities that can apply for payment processi
   ```
 </Accordion>
 
-We require 6 root keys when sending the merchant object.
+### Merchant Object Structure
 
-1. `legal`
-2. `owners`
-3. `bankAccount`
-4. `controlProng`
-5. `primaryContact`
-6. `pciContact`
+The merchant onboarding payload consists of six root-level keys. Understanding when each key is required—and when it can be omitted or designated from existing owner data—is critical for proper form implementation.
 
-### Required Fields for different Entities
+#### Root-Level Keys
 
-✅ - Required  
-❌ - Set as null  
-🔸 - Required but you can _optionally_ mark one of the owners as the key
+1. **`legal`** - Business information (name, address, tax ID, industry details)
+2. **`owners`** - Array of individuals with 25%+ ownership or control
+3. **`bankAccount`** - Bank account details for settlement
+4. **`controlProng`** - Individual with significant control over the business
+5. **`primaryContact`** - Main point of contact for business operations
+6. **`pciContact`** - Contact for PCI compliance and security matters
 
-| Entity            | `legal` | `bankAccount` | `owners`     | `controlProng` | `primaryContact` | `pciContact` |
-| :---------------- | :------ | :------------ | :----------- | :------------- | :--------------- | :----------- |
-| `LIMITED`         | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
-| `CORPORATION`     | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
-| `PARTNERSHIP`     | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
-| `JOINT STOCK`     | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
-| `SOLE PROPRIETOR` | ✅       | ✅             | Only 1 owner | ❌              | 🔸               | 🔸           |
-| `GOVERNMENT`      | ✅       | ✅             | ❌            | ❌              | ✅                | ✅            |
-| `PUBLIC COMPANY`  | ✅       | ✅             | ❌            | ❌              | ✅                | ✅            |
-| `NON PROFIT ORG`  | ✅       | ✅             | ❌            | ✅              | ✅                | ✅            |
+### Field Requirements by Entity Type
 
-### 🔸 Pro Tip
+The table below shows which fields are required for each business entity. Pay special attention to the 🔸 symbol—these fields can either be provided as separate root-level objects OR designated from the `owners` array.
 
-You do not need to provide the key in the root merchant object, if you mark one of the owners as the contact. For example, if the the `legal.ownershipType` is `LIMITED`, one of the owners could marked as the `controlProng`, `primaryContact` and `pciContact`, thus you would not need to provide this keys in the root object.
+**Legend:**
+
+* ✅ **Required** - Must be provided
+* ❌ **Not Required** - Must be null or omitted
+* 🔸 **Flexible** - Required, but can be designated from `owners` array instead of separate object
+
+| Entity            | `legal` | `bankAccount` | `owners`      | `controlProng` | `primaryContact` | `pciContact` |
+| :---------------- | :------ | :------------ | :------------ | :------------- | :--------------- | :----------- |
+| `LIMITED`         | ✅       | ✅             | ✅             | 🔸             | 🔸               | 🔸           |
+| `CORPORATION`     | ✅       | ✅             | ✅             | 🔸             | 🔸               | 🔸           |
+| `PARTNERSHIP`     | ✅       | ✅             | ✅             | 🔸             | 🔸               | 🔸           |
+| `JOINT STOCK`     | ✅       | ✅             | ✅             | 🔸             | 🔸               | 🔸           |
+| `SOLE PROPRIETOR` | ✅       | ✅             | ✅ (exactly 1) | ❌              | 🔸               | 🔸           |
+| `GOVERNMENT`      | ✅       | ✅             | ❌             | ❌              | ✅                | ✅            |
+| `PUBLIC COMPANY`  | ✅       | ✅             | ❌             | ❌              | ✅                | ✅            |
+| `NON PROFIT ORG`  | ✅       | ✅             | ❌             | ✅              | ✅                | ✅            |
+
+#### Key Insights
+
+**Entities with Individual Ownership** (LIMITED, CORPORATION, PARTNERSHIP, JOINT STOCK, SOLE PROPRIETOR)
+
+* Must provide `owners` array with individuals owning 25%+ or having significant control
+* Can simplify the payload by marking one owner as `controlProng`, `primaryContact`, and/or `pciContact`
+* If marked on an owner, those keys don't need to be provided at root level
+
+**Entities without Individual Ownership** (GOVERNMENT, PUBLIC COMPANY, NON PROFIT ORG)
+
+* Do NOT provide `owners` array
+* Must provide separate `primaryContact` and `pciContact` objects at root level
+* `controlProng` requirements vary (not needed for GOVERNMENT/PUBLIC COMPANY, required for NON PROFIT ORG)
+
+**Special Case: SOLE PROPRIETOR**
+
+* Must have exactly ONE owner (the individual proprietor)
+* `controlProng` is NOT required and should be omitted (the single owner is implicitly the control person)
+* Can mark the owner as `primaryContact` and `pciContact` to simplify the payload
+
+### 🔸 Simplifying Your Payload with Owner Designation
+
+For entity types with the 🔸 flexible designation option, you can significantly reduce payload complexity by marking an owner to fulfill contact roles. This eliminates the need for separate root-level contact objects.
+
+**How it works:** Set `isControllingProng`, `isPrimaryContact`, and/or `isPciContact` to `true` on one of your owners. When these flags are enabled, you can omit the corresponding root-level keys entirely.
 
 <Columns layout="auto">
   <Column>
@@ -432,9 +279,22 @@ You do not need to provide the key in the root merchant object, if you mark one 
   </Column>
 </Columns>
 
-#### New Mechant Zod Object
+#### Validation Schema
 
-I recommend you just copy and paste our zod object for merchant onboarding. [New Merchant Zod Object](doc:new-merchant-zod-object)
+We strongly recommend using our pre-built Zod validation schema for merchant onboarding. This schema includes all entity-specific validation rules, conditional field requirements, and data format constraints to ensure your submissions match API expectations exactly.
+
+**[View the complete New Merchant Zod Object →](doc:new-merchant-zod-object)**
+
+Copy the Zod schema directly into your codebase for:
+
+* **Client-side validation** before API submission
+* **Type safety** in TypeScript projects
+* **Guaranteed compatibility** with Prahsys API requirements
+* **Reduced debugging** by catching errors before submission
+
+The schema handles all conditional logic for entity types, ownership percentage validation, required field enforcement, and data format rules (phone numbers, dates, SSN/TaxID, etc.).
+
+<br />
 
 ## 2. Setup Webhook
 
