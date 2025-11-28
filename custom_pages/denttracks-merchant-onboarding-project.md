@@ -40,7 +40,7 @@ I've simplified the project plan to 4 milestones with each its own task.
     You will need to create the custom merchant onboarding form. This will need the most testing because depending on the merchant entity type, we will require different fields.
   </Card>
 
-  <Card title="2. Listening to events" icon="fa-arrow-up">
+  <Card title="2. Setup Webhook" icon="fa-arrow-up">
     Create your endpoint to listen to merchant status events. You will need to know if the merchant is denied or approved for payment processing.
   </Card>
 
