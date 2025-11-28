@@ -63,14 +63,14 @@ We need to create the form for merchant onboarding. It can look intimidating but
 
 * [ ] Create the form UI
 * [ ] Hide fields when necessary
-* [ ] Test a successful submission 
+* [ ] Test a successful submission
   * [ ] `LIMITED`
   * [ ] `CORPORATION`
   * [ ] `GOVERNMENT`
   * [ ] `SOLE PROPRIETOR`
   * [ ] `PUBLIC COMPANY`
-  *  [ ] `NON PROFIT ORG`
-  *  [ ] `JOINT STOCK`
+  * [ ] `NON PROFIT ORG`
+  * [ ] `JOINT STOCK`
 * [ ] Test a bad data submission
   * [ ] `LIMITED`
   * [ ] `CORPORATION`
@@ -225,6 +225,17 @@ You do not need to provide the key in the root merchant object, if you mark one 
   </Column>
 </Columns>
 
-#### New Mechant Zod Object 
+#### New Mechant Zod Object
 
 I recommend you just copy and paste our zod object for merchant onboarding. [New Merchant Zod Object](doc:new-merchant-zod-object)
+
+## 2. Setup Webhook
+
+**Estimated Time**: 2 hours
+
+**Tasks**
+
+* [ ] Create your endpoint on your backend to accept incoming webhook events from Prahsys
+* [ ] Go to [Webhooks inside Prahsys Dashboard](https://dashboard.prahsys.com/denttracks/developers/webhooks) and add your endpoint
+* [ ] Select the events you want to listen to for merchant status
+* [ ] Setup authenticating webhooks inside your endpoint
