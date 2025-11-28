@@ -201,3 +201,7 @@ You do not need to provide the key in the root merchant object, if you mark one 
     ```
   </Column>
 </Columns>
+
+#### New Mechant Zod Object 
+
+I recommend you just copy and paste our zod object for merchant onboarding. [New Merchant Zod Object](doc:new-merchant-zod-object)
