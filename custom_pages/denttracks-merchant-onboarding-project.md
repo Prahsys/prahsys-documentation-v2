@@ -200,11 +200,11 @@ You do not need to provide the key in the root merchant object, if you mark one 
           "title": "CEO",
           "firstName": "John",
           "lastName": "Doe",
-// Magic here
+          // Magic here
           "isControllingProng": true,
-// Magic here
+          // Magic here
           "isPrimaryContact": true,
-// Magic here
+          // Magic here
           "isPciContact": true
         }
       ],
