@@ -432,14 +432,89 @@ Review the complete endpoint documentation to understand request parameters, res
 
 ## 4. Add Required UI
 
+Provide merchants with visibility into their application status and easy access to the Prahsys Dashboard for managing their payment processing account. These UI elements are essential for a professional, transparent onboarding experience.
+
 **Estimated Time**: 1 day
 
-**Tasks**
+### Tasks
 
-* [ ] Add button for merchant to be able to get the Prahsys Dashboard.
-  * [ ] Goes to link: [https://dashboard.prahsys.com/](https://dashboard.prahsys.com/)
-* [ ] Add Merchant Status Badge
-  * [ ] User needs to know the status of their merchant application. Provide a visual indicator where they are in the steps.
+#### **Prahsys Dashboard Access**
+
+* [ ] **Add "View Prahsys Dashboard" button**
+  * Place prominently in merchant settings or payments section
+  * Link to: [https://dashboard.prahsys.com/](https://dashboard.prahsys.com/)
+  * Open in new tab to preserve user's session in your application
+  * Style consistently with your application's design system
+
+* [ ] **Conditional button display**
+  * Show button only after merchant application is submitted
+  * Consider hiding until merchant is approved (optional)
+  * Add tooltip explaining what they'll find in the dashboard
+
+#### **Merchant Status Visualization**
+
+* [ ] **Implement status badge component**
+  * Display current application status prominently
+  * Update automatically when webhook events are received
+  * Use color coding for quick status recognition
+
+* [ ] **Create progress indicator**
+  * Show merchant's position in the onboarding workflow
+  * Indicate completed steps vs. pending actions
+  * Highlight any required actions (e.g., "Sign Agreement")
+
+* [ ] **Add status descriptions**
+  * Provide user-friendly explanations for each status
+  * Include estimated timeframes when applicable
+  * Show next steps or actions required from merchant
+
+### Recommended Status Flow
+
+Your UI should reflect these key merchant states:
+
+| Status                     | Badge Color | User Message                            | Action Required     |
+| -------------------------- | ----------- | --------------------------------------- | ------------------- |
+| **Not Started**            | Gray        | "Ready to apply for payment processing" | Start application   |
+| **Application Submitted**  | Blue        | "Application submitted - Under review"  | None - wait         |
+| **Awaiting Signature**     | Orange      | "Agreement ready for signature"         | Sign agreement      |
+| **Under Review**           | Blue        | "Final review in progress"              | None - wait         |
+| **Approved**               | Green       | "Approved - Ready to process payments"  | None - can transact |
+| **Denied**                 | Red         | "Application denied"                    | Contact support     |
+| **Additional Info Needed** | Yellow      | "More information required"             | Provide documents   |
+
+### UI Examples
+
+**Status Badge Component:**
+
+```jsx
+// Simplified example
+<MerchantStatusBadge 
+  status="AWAITING_SIGNATURE"
+  message="Your merchant agreement is ready for signature"
+  actionButton={<Button>Sign Agreement</Button>}
+/>
+```
+
+**Dashboard Access Button:**
+
+```jsx
+<Button 
+  variant="secondary" 
+  icon={<ExternalLinkIcon />}
+  href="https://dashboard.prahsys.com/"
+  target="_blank"
+>
+  View Prahsys Dashboard
+</Button>
+```
+
+### Design Considerations
+
+**Status Badge Placement:**
+
+* Position near payment settings or merchant profile
+* Make it visible without scrolling on key pages
+* Consider sticky header for multi-step forms
 
 ## Merchant Application Flow
 
