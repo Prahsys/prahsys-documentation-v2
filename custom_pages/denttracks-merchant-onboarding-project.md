@@ -9,7 +9,7 @@ hidden: true
 <div style="position: relative; padding-bottom: 76.92307692307692%; height: 0;"><iframe src="https://www.loom.com/embed/98544dce00124389adfc541240633802" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 `}</HTMLBlock>
 
-<br />
+[New Merchant API Reference](ref:newmerchant) 
 
 Hey DentTracks Team, I have broken up the project plan into separate plans. This first plan is all about merchant onboarding. We need to ensure to get this right in order to not run into any complications when payment processing. This is not hard, it's just detailed and requires different testing.
 
