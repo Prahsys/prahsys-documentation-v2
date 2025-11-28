@@ -55,66 +55,77 @@ I've simplified the project plan to 4 milestones with each its own task.
 
 ## 1. Create the form
 
-<Accordion title="My Accordion Title" icon="fa-info-circle">
+We need to create the form for merchant onboarding. It can look intimidating but we have many ways to simplify the process. 
+
+<Accordion title="Example Merchant Body" icon="fa-info-circle">
   ```
-{
-  "legal": {
-    "name": "Prahsys Test",
-    "dba": "Ethan Prahsys test",
-    "locationName": "Main Location",
-    "taxId": "666989898",
-    "address": {
-      "street1": "500 S Main Street",
-      "city": "Spokane",
-      "state": "WA",
-      "zipCode": "99206"
-    },
-    "mailingAddressSameAsBusinessAddress": true,
-    "ownershipType": "CORPORATION",
-    "category": "RETAIL",
-    "productsSold": "Test Products",
-    "phone": "+12234567890",
-    "email": "business@example.com",
-    "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
-    "website": "https://test.com",
-    "averageTicketPrice": 100,
-    "highTicketPrice": 500,
-    "averageMonthlyVolume": 10000,
-    "b2bTransactionPercentage": 60,
-    "b2cTransactionPercentage": 40,
-    "cardPresentPercentage": 60,
-    "cardNotPresentPercentage": 40
-  },
-  "owners": [
-    {
-      "title": "CEO",
-      "firstName": "John",
-      "lastName": "Doe",
-      "percentage": 100,
-      "ssn": "666989898",
-      "dob": "1990-05-05T00:00:00.000Z",
+  {
+    "legal": {
+      "name": "Prahsys Test",
+      "dba": "Ethan Prahsys test",
+      "locationName": "Main Location",
+      "taxId": "666989898",
       "address": {
         "street1": "500 S Main Street",
         "city": "Spokane",
         "state": "WA",
         "zipCode": "99206"
       },
+      "mailingAddressSameAsBusinessAddress": true,
+      "ownershipType": "CORPORATION",
+      "category": "RETAIL",
+      "productsSold": "Test Products",
       "phone": "+12234567890",
-      "email": "ethanbonin@gmail.com",
-      "isControllingProng": true,
-      "isPrimaryContact": true,
-      "isPciContact": true
+      "email": "business@example.com",
+      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+      "website": "https://test.com",
+      "averageTicketPrice": 100,
+      "highTicketPrice": 500,
+      "averageMonthlyVolume": 10000,
+      "b2bTransactionPercentage": 60,
+      "b2cTransactionPercentage": 40,
+      "cardPresentPercentage": 60,
+      "cardNotPresentPercentage": 40
+    },
+    "owners": [
+      {
+        "title": "CEO",
+        "firstName": "John",
+        "lastName": "Doe",
+        "percentage": 100,
+        "ssn": "666989898",
+        "dob": "1990-05-05T00:00:00.000Z",
+        "address": {
+          "street1": "500 S Main Street",
+          "city": "Spokane",
+          "state": "WA",
+          "zipCode": "99206"
+        },
+        "phone": "+12234567890",
+        "email": "ethanbonin@gmail.com",
+        "isControllingProng": true,
+        "isPrimaryContact": true,
+        "isPciContact": true
+      }
+    ],
+    "bankAccount": {
+      "name": "Chase",
+      "routingNumber": "111000614",
+      "confirmRoutingNumber": "111000614",
+      "accountNumber": "987654321",
+      "confirmAccountNumber": "987654321"
     }
-  ],
-  "bankAccount": {
-    "name": "Chase",
-    "routingNumber": "111000614",
-    "confirmRoutingNumber": "111000614",
-    "accountNumber": "987654321",
-    "confirmAccountNumber": "987654321"
   }
-}
-```
+  ```
 </Accordion>
+
+We require 6 root keys when sending the merchant object. 
+
+1. `legal`
+2. `owners`
+3. `bankAccount`
+4. `controlProng`
+5. `primaryContact`
+6. `piciContact`
 
 <br />
