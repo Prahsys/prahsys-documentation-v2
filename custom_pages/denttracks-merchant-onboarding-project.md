@@ -154,8 +154,8 @@ You do not need to provide the key in the root merchant object, if you mark one 
     ```json BEFORE
     {
       "legal": {
-      // ... other properties
-      "ownershipType": "LIMITED"
+        // ... other properties
+        "ownershipType": "LIMITED"
       },
       "owners": [
         {
@@ -168,19 +168,19 @@ You do not need to provide the key in the root merchant object, if you mark one 
         }
       ],
       "controlProng": {
-      // control prong properties
+      	// control prong properties
         // required because no owner was marked as isControllingProng
       },
       "primaryContact": {
-      // primaryContact properties
+      	// primaryContact properties
         // required because no owner was marked as isPrimaryContact
       },
       "pciContact": {
-      // pciContact properties
+      	// pciContact properties
         // required because no owner was marked as isPciContact
       },
       "bankAccount": {
-      // bankAccount properties
+      	// bankAccount properties
       }
     }
     ```
@@ -190,8 +190,8 @@ You do not need to provide the key in the root merchant object, if you mark one 
     ```json AFTER
     {
       "legal": {
-      // ... other properties
-      "ownershipType": "LIMITED"
+        // ... other properties
+        "ownershipType": "LIMITED"
       },
       "owners": [
         {
@@ -204,7 +204,7 @@ You do not need to provide the key in the root merchant object, if you mark one 
         }
       ],
       "bankAccount": {
-      // bankAccount properties
+      	// bankAccount properties
       }
     }
     ```
