@@ -238,4 +238,13 @@ I recommend you just copy and paste our zod object for merchant onboarding. [New
 * [ ] Create your endpoint on your backend to accept incoming webhook events from Prahsys
 * [ ] Go to [Webhooks inside Prahsys Dashboard](https://dashboard.prahsys.com/denttracks/developers/webhooks) and add your endpoint
 * [ ] Select the events you want to listen to for merchant status
-* [ ] Setup authenticating webhooks inside your endpoint
+* [ ] Setup authenticating webhooks inside your endpoint. [Authenticate Requests](https://docs.svix.com/receiving/verifying-payloads/how)
+* [ ] Test sending webhook requests from Prahsys Dashboard
+
+### Setup your webhook inside Prahsys Dashboard
+
+<Image align="center" border={false} src="https://files.readme.io/128e6e2506246d3aec3d7c09af2b59a4ed0ece986187de7c0d0ee1964e500e6c-Screenshot_2025-11-28_at_12.04.30_PM.png" />
+
+### Test sending your webhook from Prahsys Dashboard
+
+<Image align="center" border={false} src="https://files.readme.io/6b6fa16fb366efe7c45b710a29c950c17cd504cab439616b5f839d54e93a3da0-Screenshot_2025-11-28_at_12.04.46_PM.png" />
