@@ -296,22 +296,49 @@ The schema handles all conditional logic for entity types, ownership percentage 
 
 ## 2. Setup Webhook
 
+Webhooks provide real-time notifications about merchant application status changes. Your application needs to receive these events to update the merchant's onboarding progress and inform users when they're approved, denied, or need to take action.
+
 **Estimated Time**: 2 hours
 
-**Tasks**
+### Tasks
 
-* [ ] Create your endpoint on your backend to accept incoming webhook events from Prahsys
-* [ ] Go to [Webhooks inside Prahsys Dashboard](https://dashboard.prahsys.com/denttracks/developers/webhooks) and add your endpoint
-* [ ] Select the events you want to listen to for merchant status
-* [ ] Setup authenticating webhooks inside your endpoint. [Authenticate Requests](https://docs.svix.com/receiving/verifying-payloads/how)
-* [ ] Test sending webhook requests from Prahsys Dashboard
+* [ ] **Create webhook endpoint on your backend**
+  * Build a POST endpoint to receive webhook events from Prahsys
+  * Implement request parsing and event handling logic
+  * Add error handling and logging for debugging
 
-I recommend you read up on our webhooks documentation to understand how we send webhooks and how to use webhooks in a developer environment for testing.
+* [ ] **Register endpoint in Prahsys Dashboard**
+  * Navigate to [Webhooks in Prahsys Dashboard](https://dashboard.prahsys.com/denttracks/developers/webhooks)
+  * Add your webhook endpoint URL
+  * Save and verify the endpoint is active
 
-You will use webhooks to listen to the different status of a merchant and their progress during the merchant's underwriting process.
+* [ ] **Subscribe to merchant status events**
+  * Select relevant merchant application events (e.g., `APPLICATION_SUBMITTED`, `APPLICATION_APPROVED`, `APPLICATION_DENIED`, `APPLICATION_AWAITING_DIGITAL_SIGNATURE`)
+  * Configure event filters if needed
+  * Ensure critical events are not missed
 
-1. Read About Webhooks [Webooks](doc:webhooks)
-2. Read about Ngrok tool [Local Testing with Ngrok](doc:webhooksngrok)
+* [ ] **Implement webhook signature verification**
+  * Follow [Svix authentication guide](https://docs.svix.com/receiving/verifying-payloads/how) to verify webhook authenticity
+  * Reject webhooks with invalid signatures to prevent spoofing
+  * Add signature validation before processing any webhook data
+
+* [ ] **Test webhook delivery**
+  * Use the Prahsys Dashboard to send test webhook events
+  * Verify your endpoint receives and processes events correctly
+  * Check logs for any errors or missing data
+
+### Understanding Webhooks
+
+Webhooks are HTTP callbacks that notify your application when merchant status changes occur. During the underwriting process, merchants progress through multiple states—your application must listen for these events to provide accurate status updates to users.
+
+**Essential Reading:**
+
+1. **[Webhooks Documentation](doc:webhooks)** - Learn how Prahsys sends webhooks, payload structure, event types, and retry logic
+2. **[Local Testing with Ngrok](doc:webhooksngrok)** - Set up Ngrok to receive webhooks on your local development environment
+
+<br />
+
+1.
 
 ### Setup your webhook inside Prahsys Dashboard
 
