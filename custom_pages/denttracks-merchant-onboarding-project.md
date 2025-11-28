@@ -7,6 +7,10 @@ hidden: true
 
 [Overview Video](https://www.loom.com/share/98544dce00124389adfc541240633802)
 
+[![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://youtu.be/vt5fpE0bzSY)
+
+<br />
+
 Hey DentTracks Team, I have broken up the project plan into separate plans. This first plan is all about merchant onboarding. We need to ensure to get this right in order to not run into any complications when payment processing. This is not hard, it's just detailed and requires different testing.
 
 I've simplified the project plan to 4 milestones with each its own task.
