@@ -294,8 +294,6 @@ Copy the Zod schema directly into your codebase for:
 
 The schema handles all conditional logic for entity types, ownership percentage validation, required field enforcement, and data format rules (phone numbers, dates, SSN/TaxID, etc.).
 
-<br />
-
 ## 2. Setup Webhook
 
 **Estimated Time**: 2 hours
