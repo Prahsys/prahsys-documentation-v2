@@ -344,23 +344,91 @@ Webhooks are HTTP callbacks that notify your application when merchant status ch
 
 <Image align="center" border={false} src="https://files.readme.io/6b6fa16fb366efe7c45b710a29c950c17cd504cab439616b5f839d54e93a3da0-Screenshot_2025-11-28_at_12.04.46_PM.png" />
 
-## 3. Sign agreement
+## 3. Sign Agreement
 
-For the merchant to be approved for payment processing, the merchant must sign the merchant agreement.
+Merchant agreement signing is a required step in the underwriting process. Once a merchant application passes initial review, they must electronically sign the merchant processing agreement before final approval. Embedding this signature flow directly in your application creates a seamless onboarding experience.
 
 **Estimated Time**: 3 days
 
-**Tasks**
+### Tasks
 
-* [ ] Listen for webhook event `APPLICATION_AWAITING_DIGITAL_SIGNATURE`
-* [ ] Embed Docusign as an iFrame
-* [ ] Have the merchant sign the agreement
+* [ ] **Listen for signature webhook event**
+  * Monitor for `APPLICATION_AWAITING_DIGITAL_SIGNATURE` webhook
+  * Update merchant status in your UI when event is received
+  * Trigger the agreement signing workflow
+
+* [ ] **Generate DocuSign URL**
+  * Call the [Generate Application DocuSign URL](ref:generateapplicationdocusignurl) endpoint
+  * Pass the merchant application ID
+  * Receive back the DocuSign embedded signing URL
+
+* [ ] **Embed DocuSign iframe**
+  * Display the DocuSign signing interface within your application
+  * Use an iframe to keep the user in your UI
+  * Handle iframe loading states and errors gracefully
+
+* [ ] **Handle signing completion**
+  * Listen for webhook events indicating signature completion
+  * Update merchant status to reflect signed agreement
+  * Show success message and next steps to the user
+
+* [ ] **Handle signing abandonment**
+  * Provide ability for merchant to return and complete signing later
+  * Store the DocuSign URL for retrieval if user navigates away
+  * Send reminder notifications if signature is pending for extended period
+
+### Implementation Flow
+
+1. **Receive webhook** → `APPLICATION_AWAITING_DIGITAL_SIGNATURE`
+2. **Update UI** → Show "Agreement Ready for Signature" status
+3. **User clicks "Sign Agreement"** → Call Prahsys API to generate DocuSign URL
+4. **Display iframe** → Embed DocuSign signing interface
+5. **User signs** → DocuSign processes signature
+6. **Receive webhook** → Agreement signed successfully
+7. **Update UI** → Show "Application Under Final Review" status
+
+### Important Notes
 
 <Callout icon="❗️" theme="error">
-  Sandbox merchants do not have to sign an agreement. You will need to submit a real merchant application to test this. Notify and Work with the Prahsys Team when you're ready to implement this.
+  **Sandbox Testing Limitation**
+
+  Sandbox merchants do NOT require agreement signing—applications are auto-approved without this step. To test the complete signing workflow, you must:
+
+  * Submit a **real merchant application** (not sandbox)
+  * Coordinate with the **Prahsys team** before implementation
+  * Use production credentials (not sandbox API keys)
+
+  Contact Prahsys via Slack when you're ready to test agreement signing in a controlled production environment.
 </Callout>
 
-Please review the endpoint details to [Generate Application Docusign Url](ref:generateapplicationdocusignurl)
+### API Reference
+
+Review the complete endpoint documentation to understand request parameters, response structure, and error handling:
+
+**[Generate Application DocuSign URL](ref:generateapplicationdocusignurl)**
+
+### Best Practices
+
+**User Experience:**
+
+* Clearly communicate that signing is required before approval
+* Show progress indicator during DocuSign URL generation
+* Provide "Save and Continue Later" option for merchants who need time to review
+* Display estimated time to complete (typically 2-3 minutes)
+
+**Error Handling:**
+
+* Handle cases where DocuSign URL generation fails
+* Provide clear error messages if signing session expires
+* Allow merchants to regenerate signing URL if needed
+
+**Security:**
+
+* DocuSign URLs are single-use and time-limited
+* Never cache or store DocuSign URLs for extended periods
+* Verify webhook signatures to confirm authentic signing events
+
+<br />
 
 ## 4. Add Required UI
 
