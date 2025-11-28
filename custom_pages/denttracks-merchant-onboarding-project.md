@@ -128,4 +128,17 @@ We require 6 root keys when sending the merchant object.
 5. `primaryContact`
 6. `piciContact`
 
+### Required Fields for different Entities
+
+| Entity            | `legal` | `bankAccount` | `owners`     | `controlProng` | `primaryContact` | `pciContact` |
+| :---------------- | :------ | :------------ | :----------- | :------------- | :--------------- | :----------- |
+| `LIMITED`         | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
+| `CORPORATION`     | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
+| `PARTNERSHIP`     | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
+| `JOINT STOCK`     | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
+| `SOLE PROPRIETOR` | ✅       | ✅             | Only 1 owner | ❌              | ✅                | ✅            |
+| `GOVERNMENT`      | ✅       | ✅             | ❌            | ❌              | ✅                | ✅            |
+| `PUBLIC COMPANY`  | ✅       | ✅             | ❌            | ❌              | ✅                | ✅            |
+| `NON PROFIT ORG`  | ✅       | ✅             | ❌            | ✅              | ✅                | ✅            |
+
 <br />
