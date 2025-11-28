@@ -9,27 +9,26 @@ hidden: true
 <div style="position: relative; padding-bottom: 76.92307692307692%; height: 0;"><iframe src="https://www.loom.com/embed/98544dce00124389adfc541240633802" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 `}</HTMLBlock>
 
-[New Merchant API Reference](ref:newmerchant) 
+[New Merchant API Reference](ref:newmerchant)
 
-Hey DentTracks Team, I have broken up the project plan into separate plans. This first plan is all about merchant onboarding. We need to ensure to get this right in order to not run into any complications when payment processing. This is not hard, it's just detailed and requires different testing.
+**DentTracks Team**,
+This project plan focuses exclusively on merchant onboarding—a critical foundation for successful payment processing integration. While the implementation is straightforward, it requires careful attention to detail and comprehensive testing across multiple merchant entity types.
 
-I've simplified the project plan to 4 milestones with each its own task.
+
+The project is structured around **4 key milestones**, each with specific deliverables designed to ensure a smooth onboarding experience for your practices.
 
 <Cards columns={4}>
   <Card title="1. Create the form" icon="fa-id-card">
-    You will need to create the custom merchant onboarding form. This will need the most testing because depending on the merchant entity type, we will require different fields.
+    Build a dynamic onboarding form with entity-specific field validation. Requires comprehensive testing across all merchant types.
   </Card>
-
   <Card title="2. Setup Webhook" icon="fa-arrow-up">
-    Create your endpoint to listen to merchant status events. You will need to know if the merchant is denied or approved for payment processing.
+    Configure webhook endpoints to receive merchant approval/denial events and update application status in real-time.
   </Card>
-
   <Card title="3. Sign Agreement" icon="fa-check-square">
-    To expedite the merchant onboarding process, I recommend we put the merchant agreement inside your application. It's an iframe docusign.
+    Integrate DocuSign iframe for seamless in-app merchant agreement signing, eliminating external redirects.
   </Card>
-
   <Card title="4. Add required UI" icon="fa-star">
-    Inside your application, you need to provide visualization of the merchant status. We need to also add a button that allows the user to navigate to dashboard.prahsys.com.
+    Display merchant status indicators and provide one-click access to the Prahsys Dashboard for ongoing merchant management.
   </Card>
 </Cards>
 
