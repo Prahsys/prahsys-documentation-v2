@@ -55,10 +55,10 @@ I've simplified the project plan to 4 milestones with each its own task.
 
 ## 1. Create the form
 
-We need to create the form for merchant onboarding. It can look intimidating but we have many ways to simplify the process. 
+We need to create the form for merchant onboarding. It can look intimidating but we have many ways to simplify the process.
 
 <Accordion title="Example Merchant Body" icon="fa-info-circle">
-  ```
+  ```json
   {
     "legal": {
       "name": "Prahsys Test",
@@ -119,7 +119,7 @@ We need to create the form for merchant onboarding. It can look intimidating but
   ```
 </Accordion>
 
-We require 6 root keys when sending the merchant object. 
+We require 6 root keys when sending the merchant object.
 
 1. `legal`
 2. `owners`
