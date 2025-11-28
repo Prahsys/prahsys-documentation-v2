@@ -263,8 +263,21 @@ For the merchant to be approved for payment processing, the merchant must sign t
   Sandbox merchants do not have to sign an agreement. You will need to submit a real merchant application to test this. Notify and Work with the Prahsys Team when you're ready to implement this.
 </Callout>
 
-Please review the endpoint details to [Generate Application Docusign Url](ref:generateapplicationdocusignurl) 
+Please review the endpoint details to [Generate Application Docusign Url](ref:generateapplicationdocusignurl)
 
 ## 4. Add Required UI
+
+**Estimated Time**: 1 day
+
+**Tasks**
+
+* [ ] Add button for merchant to be able to get the Prahsys Dashboard.
+  * [ ] Goes to link: https://dashboard.prahsys.com/
+* [ ] Add Merchant Status Badge
+  * [ ] User needs to know the status of their merchant application. Provide a visual indicator where they are in the steps.
+
+## Merchant Application Flow
+
+<Image align="center" border={false} caption="Merchant onboarding and underwriting experience" src="https://files.readme.io/a1c14ec5fdbdbfb605623bec3c605324e7ee07a351962a660e4fa18baaf7003a-Merchant_Onboarding_Diagram.drawio.png" />
 
 <br />
