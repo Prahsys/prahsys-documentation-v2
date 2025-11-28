@@ -130,7 +130,7 @@ We require 6 root keys when sending the merchant object.
 
 ### Required Fields for different Entities
 
-✅ - Required   
+✅ - Required  
 ❌ - Set as null  
 🔸 - Required but you can _optionally_ mark one of the owners as the key
 
@@ -207,13 +207,13 @@ You do not need to provide the key in the root merchant object, if you mark one 
 
 <Columns layout="auto">
   <Column>
-    ```json
-{
-  "legal": {
+    ```json BEFORE
+    {
+    "legal": {
     // ... other properties
     "ownershipType": "LIMITED"
-  },
-  "owners": [
+    },
+    "owners": [
       {
         "title": "CEO",
         "firstName": "John",
@@ -222,34 +222,34 @@ You do not need to provide the key in the root merchant object, if you mark one 
         "isPrimaryContact": false, // <-- Magic here
         "isPciContact": false // <-- Magic here
       }
-  ],
-  "controlProng": {
-   	// control prong properties
-	 	// required because no owner was marked as isControllingProng
-  },
-  "primaryContact": {
+    ],
+    "controlProng": {
+    // control prong properties
+     	// required because no owner was marked as isControllingProng
+    },
+    "primaryContact": {
     // primaryContact properties
-		// required because no owner was marked as isPrimaryContact
-  },
-  "pciContact": {
+    	// required because no owner was marked as isPrimaryContact
+    },
+    "pciContact": {
     // pciContact properties
-		// required because no owner was marked as isPciContact
-  },
-  "bankAccount": {
+    	// required because no owner was marked as isPciContact
+    },
+    "bankAccount": {
     // bankAccount properties
-  }
-}
-```
+    }
+    }
+    ```
   </Column>
 
   <Column>
-    ```json
-{
-  "legal": {
+    ```json AFTER
+    {
+    "legal": {
     // ... other properties
     "ownershipType": "LIMITED"
-  },
-  "owners": [
+    },
+    "owners": [
       {
         "title": "CEO",
         "firstName": "John",
@@ -258,11 +258,11 @@ You do not need to provide the key in the root merchant object, if you mark one 
         "isPrimaryContact": true, // <-- Magic here
         "isPciContact": true // <-- Magic here
       }
-  ],
-  "bankAccount": {
+    ],
+    "bankAccount": {
     // bankAccount properties
-  }
-}
-```
+    }
+    }
+    ```
   </Column>
 </Columns>
