@@ -130,15 +130,139 @@ We require 6 root keys when sending the merchant object.
 
 ### Required Fields for different Entities
 
+✅ - Required   
+❌ - Set as null  
+🔸 - Required but you can _optionally_ mark one of the owners as the key
+
 | Entity            | `legal` | `bankAccount` | `owners`     | `controlProng` | `primaryContact` | `pciContact` |
 | :---------------- | :------ | :------------ | :----------- | :------------- | :--------------- | :----------- |
-| `LIMITED`         | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
-| `CORPORATION`     | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
-| `PARTNERSHIP`     | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
-| `JOINT STOCK`     | ✅       | ✅             | ✅            | ✅              | ✅                | ✅            |
-| `SOLE PROPRIETOR` | ✅       | ✅             | Only 1 owner | ❌              | ✅                | ✅            |
+| `LIMITED`         | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
+| `CORPORATION`     | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
+| `PARTNERSHIP`     | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
+| `JOINT STOCK`     | ✅       | ✅             | ✅            | 🔸             | 🔸               | 🔸           |
+| `SOLE PROPRIETOR` | ✅       | ✅             | Only 1 owner | ❌              | 🔸               | 🔸           |
 | `GOVERNMENT`      | ✅       | ✅             | ❌            | ❌              | ✅                | ✅            |
 | `PUBLIC COMPANY`  | ✅       | ✅             | ❌            | ❌              | ✅                | ✅            |
 | `NON PROFIT ORG`  | ✅       | ✅             | ❌            | ✅              | ✅                | ✅            |
 
-<br />
+### 🔸 Pro Tip
+
+You do not need to provide the key in the root merchant object, if you mark one of the owners as the contact. For example, if the the `legal.ownershipType` is `LIMITED`, one of the owners could marked as the `controlProng`, `primaryContact` and `pciContact`, thus you would not need to provide this keys in the root object.
+
+```json BEFORE
+{
+  "legal": {
+    // ... other properties
+    "ownershipType": "LIMITED"
+  },
+  "owners": [
+      {
+        "title": "CEO",
+        "firstName": "John",
+        "lastName": "Doe",
+        "isControllingProng": false, // <-- Magic here
+        "isPrimaryContact": false, // <-- Magic here
+        "isPciContact": false // <-- Magic here
+      }
+  ],
+  "controlProng": {
+   	// control prong properties
+	 	// required because no owner was marked as isControllingProng
+  },
+  "primaryContact": {
+    // primaryContact properties
+		// required because no owner was marked as isPrimaryContact
+  },
+  "pciContact": {
+    // pciContact properties
+		// required because no owner was marked as isPciContact
+  },
+  "bankAccount": {
+    // bankAccount properties
+  }
+}
+```
+
+```json AFTER
+{
+  "legal": {
+    // ... other properties
+    "ownershipType": "LIMITED"
+  },
+  "owners": [
+      {
+        "title": "CEO",
+        "firstName": "John",
+        "lastName": "Doe",
+        "isControllingProng": true, // <-- Magic here
+        "isPrimaryContact": true, // <-- Magic here
+        "isPciContact": true // <-- Magic here
+      }
+  ],
+  "bankAccount": {
+    // bankAccount properties
+  }
+}
+```
+
+<Columns layout="auto">
+  <Column>
+    ```json
+{
+  "legal": {
+    // ... other properties
+    "ownershipType": "LIMITED"
+  },
+  "owners": [
+      {
+        "title": "CEO",
+        "firstName": "John",
+        "lastName": "Doe",
+        "isControllingProng": false, // <-- Magic here
+        "isPrimaryContact": false, // <-- Magic here
+        "isPciContact": false // <-- Magic here
+      }
+  ],
+  "controlProng": {
+   	// control prong properties
+	 	// required because no owner was marked as isControllingProng
+  },
+  "primaryContact": {
+    // primaryContact properties
+		// required because no owner was marked as isPrimaryContact
+  },
+  "pciContact": {
+    // pciContact properties
+		// required because no owner was marked as isPciContact
+  },
+  "bankAccount": {
+    // bankAccount properties
+  }
+}
+```
+  </Column>
+
+  <Column>
+    ```json
+{
+  "legal": {
+    // ... other properties
+    "ownershipType": "LIMITED"
+  },
+  "owners": [
+      {
+        "title": "CEO",
+        "firstName": "John",
+        "lastName": "Doe",
+        "isControllingProng": true, // <-- Magic here
+        "isPrimaryContact": true, // <-- Magic here
+        "isPciContact": true // <-- Magic here
+      }
+  ],
+  "bankAccount": {
+    // bankAccount properties
+  }
+}
+```
+  </Column>
+</Columns>
