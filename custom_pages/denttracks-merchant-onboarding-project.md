@@ -251,7 +251,7 @@ I recommend you just copy and paste our zod object for merchant onboarding. [New
 
 ## 3. Sign agreement
 
-In order for the merchant to be approved for payment processing, the merchant must sign the merchant agreement. 
+In order for the merchant to be approved for payment processing, the merchant must sign the merchant agreement.
 
 **Estimated Time**: 3 days
 
@@ -261,8 +261,8 @@ In order for the merchant to be approved for payment processing, the merchant mu
 * [ ] Embed Docusign as an iFrame
 * [ ] Have the merchant sign the agreement
 
-<Callout icon="❗️">
-  Sandbox merchants do not have to sign an agreement. You will need to submit a real merchant application to test this. Notify and Work with the Prahsys Team when you're ready to implement this. 
+<Callout icon="❗️" theme="error">
+  Sandbox merchants do not have to sign an agreement. You will need to submit a real merchant application to test this. Notify and Work with the Prahsys Team when you're ready to implement this.
 </Callout>
 
-Please review the endpoint details to generate the docusign link: 
+Please review the endpoint details to [Generate Application Docusign Url](ref:generateapplicationdocusignurl) 
