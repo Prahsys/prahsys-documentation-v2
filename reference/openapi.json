@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.35.2",
+    "version": "1.36.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-11-04T02:59:27.113Z"
+                      "createdAt": "2025-11-27T18:27:54.377Z"
                     }
                   }
                 }
@@ -255,7 +255,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-11-04T02:59:27.113Z"
+                      "createdAt": "2025-11-27T18:27:54.377Z"
                     }
                   }
                 }
@@ -830,7 +830,9 @@
                       "website": "https://test.com",
                       "slug": "merchant-name",
                       "applicationId": 123456789,
+                      "internalApplicationId": "9381cd3d-5532-4e57-ba14-5292358ff8dc",
                       "readyForProcessing": true,
+                      "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
                       "signed": true,
                       "type": "LIVE",
                       "applicationLevel": "LEVEL3",
@@ -977,7 +979,9 @@
                       "website": "https://test.com",
                       "slug": "merchant-name",
                       "applicationId": 123456789,
+                      "internalApplicationId": "9381cd3d-5532-4e57-ba14-5292358ff8dc",
                       "readyForProcessing": true,
+                      "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
                       "signed": true,
                       "type": "LIVE",
                       "applicationLevel": "LEVEL3",
@@ -1365,7 +1369,9 @@
                       "website": "https://test.com",
                       "slug": "merchant-name",
                       "applicationId": 123456789,
+                      "internalApplicationId": "9381cd3d-5532-4e57-ba14-5292358ff8dc",
                       "readyForProcessing": true,
+                      "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
                       "signed": true,
                       "type": "LIVE",
                       "applicationLevel": "LEVEL3",
@@ -1540,6 +1546,132 @@
                       "signingId": "da131989-a8e0-4f51-8618-d86c10f089a6",
                       "signingUrl": "https://dashboard.prahsys.com/channelpartner-slug/merchants/merchant-slug/application/da131989-a8e0-4f51-8618-d86c10f089a6",
                       "expiresAt": "2024-07-01T00:00:00.000Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/merchant/{merchantId}/signing-url": {
+      "post": {
+        "tags": [
+          "Merchant"
+        ],
+        "operationId": "generateApplicationDocusignUrl",
+        "summary": "Generate Application Docusign Url",
+        "description": "Generate Merchant's application docusign url to be used for docusign embedding",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchantId",
+            "description": "The merchant id",
+            "schema": {
+              "type": "string",
+              "description": "The merchant id",
+              "example": "Z70B874W63DW"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "frameAncestors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                },
+                "required": [
+                  "frameAncestors"
+                ],
+                "description": "required request body to generate docusign url"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "merchantId": {
+                          "type": "string"
+                        },
+                        "signingUrl": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "merchantId",
+                        "signingUrl"
+                      ],
+                      "description": "merchant application docusign url to be used for docusign embedding"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Generate Merchant Application Docusign Url",
+                  "description": "JSON response for generating a merchant's application docusign url",
+                  "example": {
+                    "success": true,
+                    "message": "Generated docusign url for the merchant",
+                    "data": {
+                      "merchantId": "MxExRxCxHxAxNxT",
+                      "signingUrl": "https://na4.docusign.net/Signing/MTRedeem/v1/52d8e5b9-c640-2404-a138-08737b7023dd/na?slt=example"
                     }
                   }
                 }
@@ -2211,6 +2343,7 @@
                         "applicationId": 123456789,
                         "createdAt": "2023-01-01T00:00:00.000Z",
                         "readyForProcessing": true,
+                        "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
                         "monthlyAVT": 20000,
                         "signed": true,
                         "type": "LIVE",
@@ -2232,6 +2365,7 @@
                         "applicationId": 483729,
                         "createdAt": "2023-01-02T00:00:00.000Z",
                         "readyForProcessing": true,
+                        "readyForProcessingAt": "2023-01-02T00:00:00.000Z",
                         "monthlyAVT": 20000,
                         "signed": true,
                         "type": "LIVE",
@@ -3569,7 +3703,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-11-04T02:59:27.113Z"
+          "createdAt": "2025-11-27T18:27:54.377Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -4666,6 +4800,14 @@
             ],
             "description": "The underwriting application number for payment processing"
           },
+          "internalApplicationId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "The internal underwriting application id for payment processing"
+          },
           "applicationLevel": {
             "oneOf": [
               {
@@ -4680,6 +4822,13 @@
           "readyForProcessing": {
             "type": "boolean",
             "description": "If Merchant is ready for payment processing"
+          },
+          "readyForProcessingAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Merchant's ready for payment processing time"
           },
           "signed": {
             "type": "boolean",
@@ -4919,8 +5068,10 @@
           "slug",
           "website",
           "applicationId",
+          "internalApplicationId",
           "applicationLevel",
           "readyForProcessing",
+          "readyForProcessingAt",
           "signed",
           "type",
           "enabledDirectPay",
@@ -4954,7 +5105,9 @@
           "website": "https://test.com",
           "slug": "merchant-name",
           "applicationId": 123456789,
+          "internalApplicationId": "9381cd3d-5532-4e57-ba14-5292358ff8dc",
           "readyForProcessing": true,
+          "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
           "signed": true,
           "type": "LIVE",
           "applicationLevel": "LEVEL3",
@@ -5334,6 +5487,13 @@
             "type": "boolean",
             "description": "If Merchant is ready for payment processing"
           },
+          "readyForProcessingAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Merchant's ready for payment processing time"
+          },
           "signed": {
             "type": "boolean",
             "description": "If Merchant has signed the agreement or not"
@@ -5434,6 +5594,7 @@
           "applicationId",
           "createdAt",
           "readyForProcessing",
+          "readyForProcessingAt",
           "signed",
           "type",
           "enabledDirectPay",
@@ -5457,6 +5618,7 @@
           "applicationId": 123456789,
           "createdAt": "2023-01-01T00:00:00.000Z",
           "readyForProcessing": true,
+          "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
           "signed": true,
           "type": "LIVE",
           "monthlyAVT": 20000,
