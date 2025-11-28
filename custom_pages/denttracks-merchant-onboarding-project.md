@@ -3,35 +3,9 @@ title: DentTracks Merchant Onboarding Project
 fullscreen: false
 hidden: true
 ---
-## Getting Started
+# Project Plan
 
-Hey DentTracks Team, before you get started, I recommend you read up on our webhooks documentation to understand how we send webhooks and how to use webhooks in a developer environment for testing.
-
-You will use webhooks to listen to the different status of a merchant and their progress during the merchant's underwriting process.
-
-1. Read About Webhooks [Webooks](doc:webhooks)
-2. Read about Ngrok tool [Local Testing with Ngrok](doc:webhooksngrok)
-
-### Understand Merchant Entities
-
-Because we have decided to do a custom onboarding, this will have a more extensive testing period. We have many different types of merchants that will try to sign up for payment processing. For each merchant, we require different pieces of information.
-
-#### Understanding different merchants
-
-We have different types of business entities that can apply for payment processing.
-
-* **LIMITED (LLC)** A business structure that combines the liability protection of a corporation with the tax flexibility of a partnership, where owners are called "members."
-* **CORPORATION** A separate legal entity owned by shareholders that provides maximum liability protection but is subject to corporate income tax in addition to personal taxes on dividends.
-* **GOVERNMENT** A federal, state, local government agency or other governmental entity operating under public authority.
-* **SOLE PROPRIETOR** An unincorporated business owned and operated by one individual where there is no legal distinction between the owner and the business entity.
-* **PUBLIC COMPANY** A corporation whose ownership shares are traded on public stock exchanges and must comply with SEC reporting requirements.
-* **NON PROFIT ORG** An organization incorporated to serve a charitable, educational, religious, or other public purpose where profits are reinvested rather than distributed to owners.
-* **JOINT STOCK** A business entity where ownership is divided into transferable shares, similar to a corporation but typically with unlimited liability for shareholders.
-* **PARTNERSHIP** A business owned by two or more individuals who share profits, losses, and management responsibilities without incorporating as a separate legal entity.
-
-## Project Plan
-
-I have broken up the project plan into separate plans. This first plan is all about merchant onboarding. We need to ensure to get this right in order to not run into any complications when payment processing. This is not hard, it's just detailed and requires different testing.
+Hey DentTracks Team, I have broken up the project plan into separate plans. This first plan is all about merchant onboarding. We need to ensure to get this right in order to not run into any complications when payment processing. This is not hard, it's just detailed and requires different testing.
 
 I've simplified the project plan to 4 milestones with each its own task.
 
@@ -79,6 +53,23 @@ We need to create the form for merchant onboarding. It can look intimidating but
   * [ ] `PUBLIC COMPANY`
   * [ ] `NON PROFIT ORG`
   * [ ] `JOINT STOCK`
+
+### Understand Merchant Entities
+
+Because your team has decided to do a custom onboarding, this will have a more extensive testing period. We have many different types of merchants that will try to sign up for payment processing. For each merchant, we require different pieces of information.
+
+#### Understanding different merchants
+
+We have different types of business entities that can apply for payment processing.
+
+* **LIMITED (LLC)** A business structure that combines the liability protection of a corporation with the tax flexibility of a partnership, where owners are called "members."
+* **CORPORATION** A separate legal entity owned by shareholders that provides maximum liability protection but is subject to corporate income tax in addition to personal taxes on dividends.
+* **GOVERNMENT** A federal, state, local government agency or other governmental entity operating under public authority.
+* **SOLE PROPRIETOR** An unincorporated business owned and operated by one individual where there is no legal distinction between the owner and the business entity.
+* **PUBLIC COMPANY** A corporation whose ownership shares are traded on public stock exchanges and must comply with SEC reporting requirements.
+* **NON PROFIT ORG** An organization incorporated to serve a charitable, educational, religious, or other public purpose where profits are reinvested rather than distributed to owners.
+* **JOINT STOCK** A business entity where ownership is divided into transferable shares, similar to a corporation but typically with unlimited liability for shareholders.
+* **PARTNERSHIP** A business owned by two or more individuals who share profits, losses, and management responsibilities without incorporating as a separate legal entity.
 
 <Accordion title="Example Merchant Body" icon="fa-info-circle">
   ```json
@@ -241,6 +232,13 @@ I recommend you just copy and paste our zod object for merchant onboarding. [New
 * [ ] Setup authenticating webhooks inside your endpoint. [Authenticate Requests](https://docs.svix.com/receiving/verifying-payloads/how)
 * [ ] Test sending webhook requests from Prahsys Dashboard
 
+I recommend you read up on our webhooks documentation to understand how we send webhooks and how to use webhooks in a developer environment for testing.
+
+You will use webhooks to listen to the different status of a merchant and their progress during the merchant's underwriting process.
+
+1. Read About Webhooks [Webooks](doc:webhooks)
+2. Read about Ngrok tool [Local Testing with Ngrok](doc:webhooksngrok)
+
 ### Setup your webhook inside Prahsys Dashboard
 
 <Image align="center" border={false} src="https://files.readme.io/128e6e2506246d3aec3d7c09af2b59a4ed0ece986187de7c0d0ee1964e500e6c-Screenshot_2025-11-28_at_12.04.30_PM.png" />
@@ -251,7 +249,7 @@ I recommend you just copy and paste our zod object for merchant onboarding. [New
 
 ## 3. Sign agreement
 
-In order for the merchant to be approved for payment processing, the merchant must sign the merchant agreement.
+For the merchant to be approved for payment processing, the merchant must sign the merchant agreement.
 
 **Estimated Time**: 3 days
 
@@ -266,3 +264,7 @@ In order for the merchant to be approved for payment processing, the merchant mu
 </Callout>
 
 Please review the endpoint details to [Generate Application Docusign Url](ref:generateapplicationdocusignurl) 
+
+## 4. Add Required UI
+
+<br />
