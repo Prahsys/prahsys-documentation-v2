@@ -248,3 +248,21 @@ I recommend you just copy and paste our zod object for merchant onboarding. [New
 ### Test sending your webhook from Prahsys Dashboard
 
 <Image align="center" border={false} src="https://files.readme.io/6b6fa16fb366efe7c45b710a29c950c17cd504cab439616b5f839d54e93a3da0-Screenshot_2025-11-28_at_12.04.46_PM.png" />
+
+## 3. Sign agreement
+
+In order for the merchant to be approved for payment processing, the merchant must sign the merchant agreement. 
+
+**Estimated Time**: 3 days
+
+**Tasks**
+
+* [ ] Listen for webhook event `APPLICATION_AWAITING_DIGITAL_SIGNATURE`
+* [ ] Embed Docusign as an iFrame
+* [ ] Have the merchant sign the agreement
+
+<Callout icon="❗️">
+  Sandbox merchants do not have to sign an agreement. You will need to submit a real merchant application to test this. Notify and Work with the Prahsys Team when you're ready to implement this. 
+</Callout>
+
+Please review the endpoint 
