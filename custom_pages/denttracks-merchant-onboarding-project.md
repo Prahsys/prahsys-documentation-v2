@@ -36,19 +36,19 @@ I have broken up the project plan into separate plans. This first plan is all ab
 I've simplified the project plan to 4 milestones with each its own task. 
 
 <Cards columns={4}>
-  <Card title="1. Creating the form" icon="fa-check-square-o">
+  <Card title="1. Creating the form" icon="fa-id-card">
 You will need to create the custom merchant onboarding form. This will need the most testing because depending on the merchant entity type, we will require different fields.
   </Card>
 
-  <Card title="2. Listening to events" icon="fa-user">
+  <Card title="2. Listening to events" icon="fa-arrow-up">
 Create your endpoint to listen to merchant status events. You will need to know if the merchant is denied or approved for payment processing.
   </Card>
 
-  <Card title="3. Signing agreement" icon="fa-star">
+  <Card title="3. Signing agreement" icon="fa-check-square-o">
 To expedite the merchant onboarding process, I recommend we put the merchant agreement inside your application. It's an iframe docusign.
   </Card>
 
-  <Card title="4. Add required UI for merchant" icon="fa-question">
+  <Card title="4. Add required UI for merchant" icon="fa-star">
 Inside your application, you need to provide visualization of the merchant status. We need to also add a button that allows the user to navigate to dashboard.prahsys.com.
   </Card>
 </Cards>
