@@ -162,9 +162,12 @@ You do not need to provide the key in the root merchant object, if you mark one 
           "title": "CEO",
           "firstName": "John",
           "lastName": "Doe",
-          "isControllingProng": false, // <-- Magic here
-          "isPrimaryContact": false, // <-- Magic here
-          "isPciContact": false // <-- Magic here
+					// Magic here
+          "isControllingProng": false,
+					// Magic here
+          "isPrimaryContact": false,
+					// Magic here
+          "isPciContact": false
         }
       ],
       "controlProng": {
@@ -198,9 +201,12 @@ You do not need to provide the key in the root merchant object, if you mark one 
           "title": "CEO",
           "firstName": "John",
           "lastName": "Doe",
-          "isControllingProng": true, // <-- Magic here
-          "isPrimaryContact": true, // <-- Magic here
-          "isPciContact": true // <-- Magic here
+					// Magic here
+          "isControllingProng": true,
+					// Magic here
+          "isPrimaryContact": true,
+					// Magic here
+          "isPciContact": true
         }
       ],
       "bankAccount": {
