@@ -336,10 +336,6 @@ Webhooks are HTTP callbacks that notify your application when merchant status ch
 1. **[Webhooks Documentation](doc:webhooks)** - Learn how Prahsys sends webhooks, payload structure, event types, and retry logic
 2. **[Local Testing with Ngrok](doc:webhooksngrok)** - Set up Ngrok to receive webhooks on your local development environment
 
-<br />
-
-1.
-
 ### Setup your webhook inside Prahsys Dashboard
 
 <Image align="center" border={false} src="https://files.readme.io/128e6e2506246d3aec3d7c09af2b59a4ed0ece986187de7c0d0ee1964e500e6c-Screenshot_2025-11-28_at_12.04.30_PM.png" />
