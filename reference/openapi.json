@@ -5841,6 +5841,6 @@
     }
   },
   "x-readme": {
-    "explorer-enabled": false
+    "explorer-enabled": true
   }
 }
