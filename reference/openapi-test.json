@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Merchant API",
+    "title": "Merchant API Test",
     "version": "1.36.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
@@ -6296,5 +6296,6 @@
         }
       }
     }
-  }
+  },
+  "x-readme": {}
 }
