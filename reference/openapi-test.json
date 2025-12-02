@@ -17,7 +17,7 @@
   },
   "servers": [
     {
-      "url": "https://api.prahsys.com/merchant",
+      "url": "https://api.prahsys.com/merchant2",
       "description": "Production Server - Live environment for production transactions"
     }
   ],
