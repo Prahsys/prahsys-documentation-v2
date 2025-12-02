@@ -5839,5 +5839,8 @@
         }
       }
     }
+  },
+  "x-readme": {
+    "explorer-enabled": false
   }
 }
