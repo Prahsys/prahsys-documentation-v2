@@ -5,7 +5,7 @@ hidden: true
 metadata:
   title: Terms and Conditions | Prahsys Documentation
 ---
-## Exhibit C - Terms and Conditions
+### Exhibit C
 
 ### 1. Audit Rights
 
