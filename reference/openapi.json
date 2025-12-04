@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-02T23:37:12.510Z"
+                      "createdAt": "2025-12-04T02:21:17.603Z"
                     }
                   }
                 }
@@ -255,7 +255,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-02T23:37:12.510Z"
+                      "createdAt": "2025-12-04T02:21:17.603Z"
                     }
                   }
                 }
@@ -790,6 +790,568 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/N1_NewMerchant"
+              },
+              "examples": {
+                "Government": {
+                  "summary": "Government Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Government",
+                      "dba": "Prahsys Government",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "GOVERNMENT",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "government@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "primaryContact": {
+                      "title": "President",
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "phone": "+12234567890",
+                      "email": "johndoe@government.com"
+                    },
+                    "pciContact": {
+                      "firstName": "Jane",
+                      "lastName": "Earlang",
+                      "phone": "+14172333212",
+                      "email": "janeearlang@government.com"
+                    },
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "JointStock": {
+                  "summary": "Joint Stock Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Joint Stock",
+                      "dba": "Prahsys Joint Stock",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "JOINT STOCK",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "jointstock@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "owners": [
+                      {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "percentage": 60,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+12234567890",
+                        "email": "johndoe@jointstock.com",
+                        "isControllingProng": true,
+                        "isPrimaryContact": true,
+                        "isPciContact": true
+                      },
+                      {
+                        "title": "President",
+                        "firstName": "Jane",
+                        "lastName": "Zig",
+                        "percentage": 40,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+14174567890",
+                        "email": "janezig@jointstock.com",
+                        "isPrimaryContact": false,
+                        "isControllingProng": false,
+                        "isPciContact": false
+                      }
+                    ],
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "Limited": {
+                  "summary": "Limited Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Limited",
+                      "dba": "Prahsys Limited",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "LIMITED",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "limited@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "owners": [
+                      {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "percentage": 100,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+12234567890",
+                        "email": "johndoe@limited.com",
+                        "isControllingProng": true,
+                        "isPrimaryContact": true,
+                        "isPciContact": true
+                      },
+                      {
+                        "title": "President",
+                        "firstName": "Jane",
+                        "lastName": "Golang",
+                        "percentage": 100,
+                        "ssn": "441989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+14174567890",
+                        "email": "janegolang@limited.com",
+                        "isPciContact": true,
+                        "isPrimaryContact": true,
+                        "isControllingProng": true
+                      }
+                    ],
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "NonProfitOrg": {
+                  "summary": "Non Profit Org Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Non Profit",
+                      "dba": "Prahsys Non Profit",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "NON PROFIT ORG",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "nonprofitorg@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "controlProng": {
+                      "title": "President",
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "ssn": "666989898",
+                      "dob": "1990-05-05T00:00:00.000Z",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "phone": "+12234567890",
+                      "email": "johndoe@nonprofitorg.com"
+                    },
+                    "primaryContact": {
+                      "title": "President",
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "phone": "+12234567890",
+                      "email": "johndoe@nonprofitorg.com"
+                    },
+                    "pciContact": {
+                      "firstName": "Jane",
+                      "lastName": "Earlang",
+                      "phone": "+14172333212",
+                      "email": "janeearlang@nonprofitorg.com"
+                    },
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "Partnership": {
+                  "summary": "Partnership Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Partnership",
+                      "dba": "Prahsys Partnership",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "PARTNERSHIP",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "partnership@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "owners": [
+                      {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "percentage": 100,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+12234567890",
+                        "email": "johndoe@partnership.com",
+                        "isControllingProng": true,
+                        "isPciContact": true,
+                        "isPrimaryContact": true
+                      },
+                      {
+                        "title": "President",
+                        "firstName": "Jane",
+                        "lastName": "Rust",
+                        "percentage": 100,
+                        "ssn": "441989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+14174567890",
+                        "email": "janerust@partnership.com",
+                        "isPrimaryContact": true,
+                        "isControllingProng": true,
+                        "isPciContact": true
+                      }
+                    ],
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "Corporation": {
+                  "summary": "Corporation Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Corporation",
+                      "dba": "Prahsys Corporation",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "CORPORATION",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "corporation@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "owners": [
+                      {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "percentage": 100,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+12234567890",
+                        "email": "johndoe@corporation.com",
+                        "isControllingProng": true,
+                        "isPrimaryContact": true,
+                        "isPciContact": true
+                      },
+                      {
+                        "title": "President",
+                        "firstName": "Jane",
+                        "lastName": "Rust",
+                        "percentage": 100,
+                        "ssn": "441989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+14174567890",
+                        "email": "janerust@corporation.com",
+                        "isControllingProng": true,
+                        "isPrimaryContact": true,
+                        "isPciContact": true
+                      }
+                    ],
+                    "primaryContact": {
+                      "title": "CFO",
+                      "firstName": "Mark",
+                      "lastName": "Buffalo",
+                      "phone": "+14173298932",
+                      "email": "markbuffalo@corporation.com"
+                    },
+                    "pciContact": {
+                      "firstName": "Smith",
+                      "lastName": "Johnathan",
+                      "phone": "+16072333212",
+                      "email": "smithjohnathan@corporation.com"
+                    },
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "PublicCompany": {
+                  "summary": "Public Company Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Public Company",
+                      "dba": "Prahsys Public Company",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "PUBLIC COMPANY",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "publiccompany@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "primaryContact": {
+                      "title": "President",
+                      "firstName": "John",
+                      "lastName": "Doe",
+                      "phone": "+12234567890",
+                      "email": "johndoe@publiccompany.com"
+                    },
+                    "pciContact": {
+                      "firstName": "Jane",
+                      "lastName": "Earlang",
+                      "phone": "+14172333212",
+                      "email": "janeearlang@publiccompany.com"
+                    },
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "SoleProprietor": {
+                  "summary": "Sole Proprietor Ownership",
+                  "value": {
+                    "legal": {
+                      "name": "John Doe",
+                      "dba": "John Doe",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "SOLE PROPRIETOR",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "soleproprietor@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "owners": [
+                      {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "percentage": 100,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+12234567890",
+                        "email": "johndoe@soleproprietor.com",
+                        "isPrimaryContact": true,
+                        "isControllingProng": true,
+                        "isPciContact": true
+                      }
+                    ],
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                }
               }
             }
           }
@@ -3703,7 +4265,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-12-02T23:37:12.510Z"
+          "createdAt": "2025-12-04T02:21:17.603Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -3942,8 +4504,8 @@
         "description": "All the properties needed in order to create a new merchant",
         "example": {
           "legal": {
-            "name": "Prahsys Test",
-            "dba": "Ethan Prahsys test",
+            "name": "Prahsys Limited",
+            "dba": "Prahsys Limited",
             "locationName": "Main Location",
             "taxId": "666989898",
             "address": {
@@ -3953,11 +4515,11 @@
               "zipCode": "99206"
             },
             "mailingAddressSameAsBusinessAddress": true,
-            "ownershipType": "CORPORATION",
+            "ownershipType": "LIMITED",
             "category": "RETAIL",
             "productsSold": "Test Products",
             "phone": "+12234567890",
-            "email": "business@example.com",
+            "email": "limited@example.com",
             "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
             "website": "https://test.com",
             "averageTicketPrice": 100,
@@ -3983,10 +4545,29 @@
                 "zipCode": "99206"
               },
               "phone": "+12234567890",
-              "email": "ethanbonin@gmail.com",
+              "email": "johndoe@limited.com",
               "isControllingProng": true,
               "isPrimaryContact": true,
               "isPciContact": true
+            },
+            {
+              "title": "President",
+              "firstName": "Jane",
+              "lastName": "Golang",
+              "percentage": 100,
+              "ssn": "441989898",
+              "dob": "1990-05-05T00:00:00.000Z",
+              "address": {
+                "street1": "500 S Main Street",
+                "city": "Spokane",
+                "state": "WA",
+                "zipCode": "99206"
+              },
+              "phone": "+14174567890",
+              "email": "janegolang@limited.com",
+              "isPciContact": true,
+              "isPrimaryContact": true,
+              "isControllingProng": true
             }
           ],
           "bankAccount": {
@@ -4372,7 +4953,7 @@
             "lastName": "Doe",
             "percentage": 100,
             "ssn": "666989898",
-            "dob": "1990-05-05T00:00:00.000Z",
+            "dob": "1990-05-05T05:00:00.000Z",
             "address": {
               "street1": "500 S Main Street",
               "city": "Spokane",
