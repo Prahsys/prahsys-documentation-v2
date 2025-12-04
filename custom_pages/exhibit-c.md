@@ -3,8 +3,6 @@ title: Exhibit C
 fullscreen: false
 hidden: true
 ---
-<br />
-
 **Agent Agreement**  
 **Terms and Conditions**
 
