@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-04T02:21:17.603Z"
+                      "createdAt": "2025-12-04T02:28:32.878Z"
                     }
                   }
                 }
@@ -255,7 +255,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-04T02:21:17.603Z"
+                      "createdAt": "2025-12-04T02:28:32.878Z"
                     }
                   }
                 }
@@ -879,7 +879,7 @@
                         "title": "CEO",
                         "firstName": "John",
                         "lastName": "Doe",
-                        "percentage": 60,
+                        "percentage": 100,
                         "ssn": "666989898",
                         "dob": "1990-05-05T00:00:00.000Z",
                         "address": {
@@ -891,14 +891,13 @@
                         "phone": "+12234567890",
                         "email": "johndoe@jointstock.com",
                         "isControllingProng": true,
-                        "isPrimaryContact": true,
-                        "isPciContact": true
+                        "isPrimaryContact": true
                       },
                       {
                         "title": "President",
                         "firstName": "Jane",
                         "lastName": "Zig",
-                        "percentage": 40,
+                        "percentage": 100,
                         "ssn": "666989898",
                         "dob": "1990-05-05T00:00:00.000Z",
                         "address": {
@@ -909,9 +908,7 @@
                         },
                         "phone": "+14174567890",
                         "email": "janezig@jointstock.com",
-                        "isPrimaryContact": false,
-                        "isControllingProng": false,
-                        "isPciContact": false
+                        "isPciContact": true
                       }
                     ],
                     "bankAccount": {
@@ -970,8 +967,7 @@
                         "phone": "+12234567890",
                         "email": "johndoe@limited.com",
                         "isControllingProng": true,
-                        "isPrimaryContact": true,
-                        "isPciContact": true
+                        "isPrimaryContact": true
                       },
                       {
                         "title": "President",
@@ -988,9 +984,7 @@
                         },
                         "phone": "+14174567890",
                         "email": "janegolang@limited.com",
-                        "isPciContact": true,
-                        "isPrimaryContact": true,
-                        "isControllingProng": true
+                        "isPciContact": true
                       }
                     ],
                     "bankAccount": {
@@ -1116,8 +1110,7 @@
                         "phone": "+12234567890",
                         "email": "johndoe@partnership.com",
                         "isControllingProng": true,
-                        "isPciContact": true,
-                        "isPrimaryContact": true
+                        "isPciContact": true
                       },
                       {
                         "title": "President",
@@ -1134,9 +1127,7 @@
                         },
                         "phone": "+14174567890",
                         "email": "janerust@partnership.com",
-                        "isPrimaryContact": true,
-                        "isControllingProng": true,
-                        "isPciContact": true
+                        "isPrimaryContact": true
                       }
                     ],
                     "bankAccount": {
@@ -1194,9 +1185,7 @@
                         },
                         "phone": "+12234567890",
                         "email": "johndoe@corporation.com",
-                        "isControllingProng": true,
-                        "isPrimaryContact": true,
-                        "isPciContact": true
+                        "isControllingProng": true
                       },
                       {
                         "title": "President",
@@ -1212,10 +1201,7 @@
                           "zipCode": "99206"
                         },
                         "phone": "+14174567890",
-                        "email": "janerust@corporation.com",
-                        "isControllingProng": true,
-                        "isPrimaryContact": true,
-                        "isPciContact": true
+                        "email": "janerust@corporation.com"
                       }
                     ],
                     "primaryContact": {
@@ -1297,7 +1283,7 @@
                   "value": {
                     "legal": {
                       "name": "John Doe",
-                      "dba": "John Doe",
+                      "dba": "John Doe SP",
                       "locationName": "Main Location",
                       "taxId": "666989898",
                       "address": {
@@ -1343,6 +1329,107 @@
                         "isPciContact": true
                       }
                     ],
+                    "bankAccount": {
+                      "name": "Chase",
+                      "routingNumber": "111000614",
+                      "confirmRoutingNumber": "111000614",
+                      "accountNumber": "987654321",
+                      "confirmAccountNumber": "987654321"
+                    }
+                  }
+                },
+                "NoOwnerAsPrimaryOrPciOrControlling": {
+                  "summary": "No Owner as Primary, PCI, or Controlling Prong",
+                  "value": {
+                    "legal": {
+                      "name": "Prahsys Corporation",
+                      "dba": "Prahsys Corporation",
+                      "locationName": "Main Location",
+                      "taxId": "666989898",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "mailingAddressSameAsBusinessAddress": true,
+                      "ownershipType": "CORPORATION",
+                      "category": "RETAIL",
+                      "productsSold": "Test Products",
+                      "phone": "+12234567890",
+                      "email": "corporation@example.com",
+                      "dateOfIncorporation": "2020-01-01T00:00:00.000Z",
+                      "website": "https://test.com",
+                      "averageTicketPrice": 100,
+                      "highTicketPrice": 500,
+                      "averageMonthlyVolume": 10000,
+                      "b2bTransactionPercentage": 60,
+                      "b2cTransactionPercentage": 40,
+                      "cardPresentPercentage": 60,
+                      "cardNotPresentPercentage": 40
+                    },
+                    "owners": [
+                      {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "percentage": 100,
+                        "ssn": "666989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+12234567890",
+                        "email": "johndoe@corporation.com"
+                      },
+                      {
+                        "title": "President",
+                        "firstName": "Jane",
+                        "lastName": "Rust",
+                        "percentage": 100,
+                        "ssn": "441989898",
+                        "dob": "1990-05-05T00:00:00.000Z",
+                        "address": {
+                          "street1": "500 S Main Street",
+                          "city": "Spokane",
+                          "state": "WA",
+                          "zipCode": "99206"
+                        },
+                        "phone": "+14174567890",
+                        "email": "janerust@corporation.com"
+                      }
+                    ],
+                    "primaryContact": {
+                      "title": "CFO",
+                      "firstName": "Mark",
+                      "lastName": "Buffalo",
+                      "phone": "+14173298932",
+                      "email": "markbuffalo@corporation.com"
+                    },
+                    "pciContact": {
+                      "firstName": "Smith",
+                      "lastName": "Johnathan",
+                      "phone": "+16072333212",
+                      "email": "smithjohnathan@corporation.com"
+                    },
+                    "controlProng": {
+                      "title": "President",
+                      "firstName": "Jane",
+                      "lastName": "Rust",
+                      "ssn": "441989898",
+                      "dob": "1990-05-05T00:00:00.000Z",
+                      "address": {
+                        "street1": "500 S Main Street",
+                        "city": "Spokane",
+                        "state": "WA",
+                        "zipCode": "99206"
+                      },
+                      "phone": "+14174567890",
+                      "email": "janerust@corporation.com"
+                    },
                     "bankAccount": {
                       "name": "Chase",
                       "routingNumber": "111000614",
@@ -4265,7 +4352,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-12-04T02:21:17.603Z"
+          "createdAt": "2025-12-04T02:28:32.878Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
