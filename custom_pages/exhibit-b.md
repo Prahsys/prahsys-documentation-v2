@@ -3,8 +3,6 @@ title: Exhibit B
 fullscreen: false
 hidden: true
 ---
-<br />
-
 **Exhibit B**
 
 **Revenue Share**
