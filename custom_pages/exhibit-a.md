@@ -1,9 +1,9 @@
 ---
-title: Exhibit A
+title: Definitions
 fullscreen: false
 hidden: true
 ---
-# **Definitions**
+### Exhibit A
 
 Unless otherwise defined in the Agreement, the terms set forth below shall have the following meanings:
 
