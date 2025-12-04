@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-04T02:28:32.878Z"
+                      "createdAt": "2025-12-04T02:29:44.642Z"
                     }
                   }
                 }
@@ -255,7 +255,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-04T02:28:32.878Z"
+                      "createdAt": "2025-12-04T02:29:44.642Z"
                     }
                   }
                 }
@@ -1340,6 +1340,7 @@
                 },
                 "NoOwnerAsPrimaryOrPciOrControlling": {
                   "summary": "No Owner as Primary, PCI, or Controlling Prong",
+                  "description": "An example where none of the owners are marked as primary contact, PCI contact, or controlling prong so you will have to provide those keys manually.",
                   "value": {
                     "legal": {
                       "name": "Prahsys Corporation",
@@ -4352,7 +4353,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-12-04T02:28:32.878Z"
+          "createdAt": "2025-12-04T02:29:44.642Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
