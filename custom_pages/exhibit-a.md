@@ -3,9 +3,7 @@ title: Exhibit A
 fullscreen: false
 hidden: true
 ---
-**Exhibit A**
-
-**Definitions**
+# **Definitions**
 
 Unless otherwise defined in the Agreement, the terms set forth below shall have the following meanings:
 
