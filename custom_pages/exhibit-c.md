@@ -150,12 +150,12 @@ NOW, THEREFORE in consideration of the recitals and the mutual agreements of the
 
 By Signing below, Infinicept and the undersigned Channel Partner agree to this Agreement.
 
-| Infinicept, Inc., on behalf of itself and, as applicable, its Affiliates (including Launchpay, LLC) |    | [CHANNEL PARTNER LEGAL NAME] |
-| :-------------------------------------------------------------------------------------------------- | :- | :--------------------------- |
-| By:                                                                                                 |   | By:                          |
-| Printed Name: _______________________                                                               |    | Printed Name:                |
-| Title:                                                                                              |   | Title: 					                |
-| Date:                                                                                               |    | Date:                        |
-| Address: Infinicept, Inc.                         	  543 Santa Fe Drive			 Denver, CO  80204        |   | Address:                     |
+| Infinicept, Inc., on behalf of itself and, as applicable, its Affiliates (including Launchpay, LLC) | [CHANNEL PARTNER LEGAL NAME] |
+| :-------------------------------------------------------------------------------------------------- | :--------------------------- |
+| By:                                                                                                 | By:                          |
+| Printed Name: _______________________                                                               | Printed Name:                |
+| Title:                                                                                              | Title: 					                |
+| Date:                                                                                               | Date:                        |
+| Address: Infinicept, Inc.                         	  543 Santa Fe Drive			 Denver, CO  80204        | Address:                     |
 
 Email: [info@Infinicept.com](mailto:info@Infinicept.com)
