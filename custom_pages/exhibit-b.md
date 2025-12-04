@@ -1,7 +1,7 @@
 ---
 title: Exhibit B
 fullscreen: false
-hidden: false
+hidden: true
 ---
 <br />
 
