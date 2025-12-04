@@ -3,7 +3,7 @@ title: Privacy Policy
 fullscreen: false
 hidden: true
 ---
-**Prahsys Privacy Policy**
+## Exhibit E - **Prahsys Privacy Policy**
 
 **Last Updated: March 24, 2025**
 
