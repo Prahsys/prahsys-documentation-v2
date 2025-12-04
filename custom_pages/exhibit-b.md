@@ -3,7 +3,7 @@ title: Exhibit B
 fullscreen: false
 hidden: true
 ---
-**Revenue Share**
+# **Revenue Share**
 
 1. Revenue Sharing Generally.
 
