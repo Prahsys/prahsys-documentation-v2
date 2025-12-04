@@ -8,7 +8,7 @@ hidden: true
 **Agent Agreement**  
 **Terms and Conditions**
 
-This Agent Agreement (this “**Agreement**”) is made and entered into as of the Effective Date between Infinicept, Inc., a Delaware corporation, and, as applicable, its Affiliates (“**Infinicept**”), and [_Insert the Channel Partner Name_], a [_Insert State and Entity Type_] (the “**Channel Partner**”), effective as of [_Insert Month_] [_Insert Day_], [_Insert Year_] (the “**Effective Date**”). Infinicept and Channel Partner may be referred to herein each as a “**Party**” and together as the “**Parties**.”
+This Agent Agreement (this “**Agreement**”) is made and entered into as of the Effective Date between Infinicept, Inc., a Delaware corporation, and, as applicable, its Affiliates (“**Infinicept**”), and the company agreeing to the Prahsys MSA (the “**Channel Partner**”), effective per the agreement of the Prahsys MSA (the “**Effective Date**”). Infinicept and Channel Partner may be referred to herein each as a “**Party**” and together as the “**Parties**.”
 
 **Recitals**
 
