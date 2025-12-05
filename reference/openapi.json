@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.37.0",
+    "version": "1.37.1",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-04T02:29:44.642Z"
+                      "createdAt": "2025-12-05T14:34:52.175Z"
                     }
                   }
                 }
@@ -194,6 +194,15 @@
                     "description": "Id of the channel partner's primary conatct."
                   }
                 }
+              },
+              "examples": {
+                "UpdateRequest": {
+                  "summary": "Update Request Example",
+                  "value": {
+                    "website": "https://newwebsite.com",
+                    "primaryContactId": "EXAMPLEUSERID"
+                  }
+                }
               }
             }
           }
@@ -255,7 +264,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2025-12-04T02:29:44.642Z"
+                      "createdAt": "2025-12-05T14:34:52.175Z"
                     }
                   }
                 }
@@ -449,6 +458,18 @@
                 "required": [
                   "email"
                 ]
+              },
+              "examples": {
+                "CreateRequest": {
+                  "summary": "Create Request Example",
+                  "value": {
+                    "firstName": "customer",
+                    "lastName": "customerLastName",
+                    "phone": "+16054321111",
+                    "email": "newemail@gmail.com",
+                    "dob": "1999-08-25"
+                  }
+                }
               }
             }
           }
@@ -685,6 +706,18 @@
                     "type": "string",
                     "format": "date",
                     "description": "Date of birth of the customer in format of YYYY-MM-DD"
+                  }
+                }
+              },
+              "examples": {
+                "UpdateRequest": {
+                  "summary": "Update Request Example",
+                  "value": {
+                    "firstName": "updated",
+                    "lastName": "customer",
+                    "phone": "+16054321111",
+                    "email": "updatedemail@gmail.com",
+                    "dob": "1999-08-25"
                   }
                 }
               }
@@ -1979,6 +2012,18 @@
                     "description": "Ready for processing status of the merchant (Only for SANDBOX merchant)"
                   }
                 }
+              },
+              "examples": {
+                "UpdateRequest": {
+                  "summary": "Update Request Example",
+                  "value": {
+                    "name": "updated merchant name",
+                    "businessPhone": "+19041234321",
+                    "mailingAddress": {
+                      "street1": "steetAddr Pl"
+                    }
+                  }
+                }
               }
             }
           }
@@ -2274,6 +2319,16 @@
                   "frameAncestors"
                 ],
                 "description": "required request body to generate docusign url"
+              },
+              "examples": {
+                "GenerateRequest": {
+                  "summary": "Generate Request Example",
+                  "value": {
+                    "frameAncestors": [
+                      "https://mysite.com"
+                    ]
+                  }
+                }
               }
             }
           }
@@ -2407,6 +2462,15 @@
                   "description": {
                     "type": "string",
                     "description": "Description of the terminal."
+                  }
+                }
+              },
+              "examples": {
+                "UpdateRequest": {
+                  "summary": "Update Request Example",
+                  "value": {
+                    "title": "Updated Name Terminal",
+                    "description": "new description"
                   }
                 }
               }
@@ -3117,6 +3181,15 @@
                   "email",
                   "role"
                 ]
+              },
+              "examples": {
+                "InviteRequest": {
+                  "summary": "Invite Request Example",
+                  "value": {
+                    "email": "newemail@gmail.com",
+                    "role": "member"
+                  }
+                }
               }
             }
           }
@@ -3375,6 +3448,18 @@
                     "description": "Role of the user"
                   }
                 }
+              },
+              "examples": {
+                "UpdateRequest": {
+                  "summary": "Update Request Example",
+                  "value": {
+                    "firstName": "Mark",
+                    "lastName": "Smith",
+                    "phone": "+14174324324",
+                    "email": "m.smith@newemail.com",
+                    "role": "admin"
+                  }
+                }
               }
             }
           }
@@ -3488,43 +3573,6 @@
             "required": true
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "firstName": {
-                    "type": "string",
-                    "description": "First name of the user."
-                  },
-                  "lastName": {
-                    "type": "string",
-                    "description": "Last name of the user."
-                  },
-                  "phone": {
-                    "type": "string",
-                    "pattern": "^\\+(?:[0-9]){6,14}[0-9]$",
-                    "description": "Phone number of the user."
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "Email of the user."
-                  },
-                  "role": {
-                    "type": "string",
-                    "enum": [
-                      "admin",
-                      "member"
-                    ],
-                    "description": "Role of the user"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -4353,7 +4401,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2025-12-04T02:29:44.642Z"
+          "createdAt": "2025-12-05T14:34:52.175Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -5041,7 +5089,7 @@
             "lastName": "Doe",
             "percentage": 100,
             "ssn": "666989898",
-            "dob": "1990-05-05T05:00:00.000Z",
+            "dob": "1990-05-05T00:00:00.000Z",
             "address": {
               "street1": "500 S Main Street",
               "city": "Spokane",
