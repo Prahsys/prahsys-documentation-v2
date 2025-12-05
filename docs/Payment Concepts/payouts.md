@@ -7,7 +7,7 @@ excerpt: >-
   managed by card networks and payment processors.
 deprecated: false
 hidden: false
-icon: far fa-key-skeleton
+icon: far fa-money-bills
 metadata:
   robots: index
 ---
