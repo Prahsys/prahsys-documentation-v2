@@ -54,7 +54,9 @@ curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?pe
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
-> **Note:** You cannot use both `forLast` and `periodStart`/`periodEnd` in the same query. Choose one approach based on your needs.
+<Callout icon="📘" theme="info">
+  You **cannot** use both `forLast` and `periodStart`/`periodEnd` in the same query. Choose one approach based on your needs.
+</Callout>
 
 ### Intervals and Grouping
 
@@ -93,7 +95,13 @@ Supported timezone formats:
 * **IANA timezone identifiers**: `America/Phoenix`, `America/Los_Angeles`, `America/New_York`, `Europe/London`, etc.
 * **Common abbreviations**: `MST`, `MDT`, `PST`, `PDT`, `EST`, `EDT`, etc.
 
-> **Important:** The timezone affects how intervals are calculated. For example, with `interval=day&timezone=America/Phoenix`, data is grouped by Phoenix days (midnight to midnight Phoenix time), not UTC days.
+<Callout icon="❗️">
+  **Important** 
+
+  The timezone affects how intervals are calculated. 
+
+  For example, with `interval=day&timezone=America/Phoenix`, data is grouped by Phoenix days (midnight to midnight Phoenix time), not UTC days.
+</Callout>
 
 ### Filtering and Scoping
 
