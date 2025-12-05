@@ -43,7 +43,7 @@ You can specify time periods in two ways:
 
 ```bash
 # Last 30 days
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&filter[merchantId]=123456" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -61,7 +61,7 @@ Available values for `forLast`:
 
 ```bash
 # Specific date range (January 2025)
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?periodStart=2025-01-01T00:00:00Z&periodEnd=2025-01-31T23:59:59Z&filter[merchantId]=123456" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?periodStart=2025-01-01T00:00:00Z&periodEnd=2025-01-31T23:59:59Z" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -81,11 +81,11 @@ Available intervals:
 
 ```bash
 # Daily breakdown for the last 30 days
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&interval=day&filter[merchantId]=123456" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&interval=day" \
   -H "Authorization: Bearer YOUR_API_KEY"
 
 # Monthly breakdown for the last year
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=1y&interval=month&filter[merchantId]=123456" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=1y&interval=month" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -95,7 +95,7 @@ By default, all analytics use UTC timezone. You can specify a different timezone
 
 ```bash
 # Group by day in Phoenix timezone
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&interval=day&timezone=America/Phoenix&filter[merchantId]=123456" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&interval=day&timezone=America/Phoenix" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -142,11 +142,11 @@ When querying analytics with many intervals (like daily data for a full year), y
 
 ```bash
 # Get first 100 intervals
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=1y&interval=day&filter[merchantId]=123456&offset=0&limit=100" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=1y&interval=day&offset=0&limit=100" \
   -H "Authorization: Bearer YOUR_API_KEY"
 
 # Get next 100 intervals
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=1y&interval=day&filter[merchantId]=123456&offset=100&limit=100" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=1y&interval=day&offset=100&limit=100" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
