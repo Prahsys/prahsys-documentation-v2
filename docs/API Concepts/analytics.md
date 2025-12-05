@@ -2,7 +2,7 @@
 title: Analytics
 deprecated: false
 hidden: false
-icon: far fa-key-skeleton
+icon: far fa-chart-pie
 metadata:
   robots: index
 ---
