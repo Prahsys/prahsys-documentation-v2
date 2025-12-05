@@ -43,7 +43,7 @@ You can specify time periods in two ways:
 
 ```bash
 # Last 30 days
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&filter[merchantId]=123456" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -273,25 +273,6 @@ Response:
 }
 ```
 
-**Example: Successful Payments Only**
-
-```bash
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&filter[successful]=true&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-**Example: Card Present vs Internet Payments**
-
-```bash
-# Card present only
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&filter[source]=CARD_PRESENT&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-
-# Internet payments only
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&filter[source]=INTERNET&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
 ***
 
 ### Customer Analytics
@@ -364,13 +345,6 @@ Response:
     ]
   }
 }
-```
-
-**Example: Daily Active Customers**
-
-```bash
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/customers?forLast=7d&interval=day&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
 ***
@@ -479,27 +453,6 @@ Response:
 }
 ```
 
-**Example: Card Present Transactions**
-
-```bash
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/transactions?forLast=30d&filter[source]=CARD_PRESENT&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-**Example: Daily Transaction Success Rate**
-
-```bash
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/transactions?forLast=7d&interval=day&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-You can calculate the success rate from the response:
-
-```javascript
-const successRate = (data.successfulTransactions / data.totalTransactions * 100).toFixed(2);
-console.log(`Success rate: ${successRate}%`);
-```
-
 ***
 
 ### Payout Analytics
@@ -585,27 +538,6 @@ Response:
     ]
   }
 }
-```
-
-**Example: Payouts by Settlement Date Range**
-
-```bash
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payouts?filter[settlementDateBetween]=2025-05-01,2025-05-31&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-**Example: Recent Pending Settlements**
-
-```bash
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payouts?forLast=7d&interval=day&filter[merchantId]=123456" \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-You can calculate fee percentage from the response:
-
-```javascript
-const feePercentage = (data.totalFeeAmount / data.totalSettlementAmount * 100).toFixed(2);
-console.log(`Average fee: ${feePercentage}%`);
 ```
 
 ***
