@@ -1,13 +1,16 @@
 ---
 title: Analytics
+excerpt: >-
+  Prahsys provides powerful analytics endpoints that give you deep insights into
+  your payment activity, customer behavior, transaction patterns, and payout
+  details. These endpoints are designed to help you build dashboards, generate
+  reports, and monitor payment trends in real-time.  ##
 deprecated: false
 hidden: false
 icon: far fa-chart-pie
 metadata:
   robots: index
 ---
-Prahsys provides powerful analytics endpoints that give you deep insights into your payment activity, customer behavior, transaction patterns, and payout details. These endpoints are designed to help you build dashboards, generate reports, and monitor payment trends in real-time.
-
 ## What You Can Analyze
 
 Prahsys offers four types of analytics to help you understand different aspects of your payment operations:
