@@ -43,7 +43,7 @@ You can specify time periods in two ways:
 
 ```bash
 # Last 30 days
-curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d&filter[merchantId]=123456" \
+curl "https://api.prahsys.com/n1/organization/Z70B874W63DW/analytics/payments?forLast=30d" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
