@@ -20,17 +20,6 @@ Prahsys offers four types of analytics to help you understand different aspects 
 * **Transaction Analytics** - Analyze transaction types, operation patterns, and success rates
 * **Payout Analytics** - Understand settlement timing, fee structures, and payout amounts
 
-## Common Use Cases
-
-**Building Dashboards**
-Pull analytics data to populate real-time dashboards showing key metrics like daily revenue, success rates, and customer growth.
-
-**Generating Reports**
-Create periodic reports (weekly, monthly, quarterly) to track business performance and identify trends over time.
-
-**Monitoring Payment Trends**
-Track payment patterns to identify peak transaction times, seasonal trends, and potential issues before they become problems.
-
 ## How Analytics Work
 
 All analytics endpoints share a common set of powerful features that give you flexibility in how you query and group your data.
