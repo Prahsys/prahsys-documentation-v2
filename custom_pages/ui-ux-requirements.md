@@ -3,7 +3,7 @@ title: UI / UX Requirements for Channel Partners
 fullscreen: false
 hidden: false
 ---
-**EXHIBIT F**
+### **EXHIBIT F**
 
 This Exhibit F is attached to and made part of that certain Master Service Agreement (the "Agreement") by and between Prahsys Inc., a Delaware corporation ("Prahsys"), and the channel partner identified in the Agreement ("Channel Partner").
 
