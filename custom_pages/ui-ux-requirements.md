@@ -1,7 +1,7 @@
 ---
 title: UI / UX Requirements for Channel Partners
 fullscreen: false
-hidden: false
+hidden: true
 ---
 ### **EXHIBIT F**
 
