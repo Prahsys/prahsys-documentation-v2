@@ -1,7 +1,7 @@
 ---
 title: DentTracks Payments Onboarding
 fullscreen: false
-hidden: false
+hidden: true
 ---
 # Project Plan: DentTracks Payment Processing
 
