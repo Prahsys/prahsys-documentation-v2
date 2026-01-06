@@ -111,11 +111,7 @@ We've built a complete React component library for you to download and integrate
 
 **Download Location:**
 
-```
-/examples/react/unstyled/PrahsysPaymentComponents/
-```
-
-Copy this entire folder into your project to get started.
+In Slack Channel
 
 ***
 
