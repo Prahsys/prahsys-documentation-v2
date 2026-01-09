@@ -9,7 +9,7 @@ icon: far fa-key-skeleton
 metadata:
   robots: index
 ---
-You don't need to write your own form logic. This is what we use to validate the incoming new merchant data. Feel free to copy and paste it and use it to validate your own merchant form. 
+You don't need to write your own form logic. This is what we use to validate the incoming new merchant data. Feel free to copy and paste it and use it to validate your own merchant form.
 
 ```typescript New Merchant Zod
 import { z } from "zod";
@@ -82,7 +82,7 @@ export const baseLegalSchema = z.object({
   taxId: z.string().regex(/^\d{9}$/, "TIN/EIN/SSN must be in format XXXXXXXXX (9 digits)"),
   address: addressSchema,
   mailingAddressSameAsBusinessAddress: z.boolean().default(false),
-  mailingAddress: addressSchema.nullish(),
+  mailingAddress: addressSchema.partial().nullish(),
   ownershipType: ownershipTypeEnum,
   category: z
     .enum(["MOTO", "RETAIL"], {
@@ -182,12 +182,17 @@ const legalSchema = baseLegalSchema
     }
 
     // Business | Mailing Address validation
-    if (!data.mailingAddressSameAsBusinessAddress && !data.mailingAddress) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Mailing address should be provided or marked same as business address",
-        path: ["mailingAddress"],
-      });
+    if (!data.mailingAddressSameAsBusinessAddress) {
+      const { error } = addressSchema.safeParse(data.mailingAddress ?? {});
+      if (error) {
+        error.errors.forEach((e) => {
+          ctx.addIssue({
+            code: e.code,
+            message: e.message,
+            path: e.path.map((p) => `mailingAddress.${p}`),
+          } as IssueData);
+        });
+      }
     }
   });
 
