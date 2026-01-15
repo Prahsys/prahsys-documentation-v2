@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-01-14T19:26:44.822Z"
+                      "createdAt": "2026-01-15T19:20:31.848Z"
                     }
                   }
                 }
@@ -264,7 +264,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-01-14T19:26:44.822Z"
+                      "createdAt": "2026-01-15T19:20:31.848Z"
                     }
                   }
                 }
@@ -4401,7 +4401,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-01-14T19:26:44.822Z"
+          "createdAt": "2026-01-15T19:20:31.848Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
