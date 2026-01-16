@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.41.1",
+    "version": "1.42.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -118,7 +118,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-01-16T17:04:18.160Z"
+                      "createdAt": "2026-01-16T18:36:38.830Z"
                     }
                   }
                 }
@@ -264,7 +264,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-01-16T17:04:18.160Z"
+                      "createdAt": "2026-01-16T18:36:38.830Z"
                     }
                   }
                 }
@@ -1565,6 +1565,11 @@
                       "primaryContactLastName": "Doe",
                       "signingUrl": "https://dashboard.prahsys.com/example-merchant/application/3fe90921-3de5-40ac-a76f-0fde0caf03a6",
                       "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
+                      "accountClosedDescription": null,
+                      "accountClosedJiraTicket": null,
+                      "accountClosedDate": null,
+                      "accountClosedBy": null,
+                      "closedByUserEmail": null,
                       "createdAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
@@ -1723,6 +1728,11 @@
                       "primaryContactLastName": "Doe",
                       "signingUrl": "https://dashboard.prahsys.com/example-merchant/application/3fe90921-3de5-40ac-a76f-0fde0caf03a6",
                       "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
+                      "accountClosedDescription": null,
+                      "accountClosedJiraTicket": null,
+                      "accountClosedDate": null,
+                      "accountClosedBy": null,
+                      "closedByUserEmail": null,
                       "createdAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
@@ -2003,7 +2013,8 @@
                       "APPLICATION_APPROVED",
                       "APPLICATION_DENIED",
                       "APPLICATION_REQUIRES_DOCUMENT_SUBMISSION",
-                      "APPLICATION_AWAITING_DIGITAL_SIGNATURE"
+                      "APPLICATION_AWAITING_DIGITAL_SIGNATURE",
+                      "ACCOUNT_CLOSED"
                     ],
                     "description": "Status of the merchant (Only for SANDBOX merchant)"
                   },
@@ -2125,6 +2136,11 @@
                       "primaryContactLastName": "Doe",
                       "signingUrl": "https://dashboard.prahsys.com/example-merchant/application/3fe90921-3de5-40ac-a76f-0fde0caf03a6",
                       "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
+                      "accountClosedDescription": null,
+                      "accountClosedJiraTicket": null,
+                      "accountClosedDate": null,
+                      "accountClosedBy": null,
+                      "closedByUserEmail": null,
                       "createdAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
@@ -4401,7 +4417,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-01-16T17:04:18.160Z"
+          "createdAt": "2026-01-16T18:36:38.830Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -5691,9 +5707,10 @@
               "APPLICATION_APPROVED",
               "APPLICATION_DENIED",
               "APPLICATION_REQUIRES_DOCUMENT_SUBMISSION",
-              "APPLICATION_AWAITING_DIGITAL_SIGNATURE"
+              "APPLICATION_AWAITING_DIGITAL_SIGNATURE",
+              "ACCOUNT_CLOSED"
             ],
-            "description": "The status of the merchant. Valid values: ONBOARDING_TO_GATEWAY (onboarding to payment gateway), WAITLISTED (added to waitlist), APPROVED_SANDBOX (approved for sandbox testing), APPLICATION_PENDING (started but not submitted), APPLICATION_IN_REVIEW (submitted to Prahsys), APPLICATION_INFORMATION_REQUESTED (additional info needed), APPLICATION_ABANDONED (application abandoned), APPLICATION_APPROVED (approved for live processing), APPLICATION_DENIED (application denied), APPLICATION_REQUIRES_DOCUMENT_SUBMISSION (documents needed), APPLICATION_AWAITING_DIGITAL_SIGNATURE (signatures required)"
+            "description": "The status of the merchant. Valid values: ONBOARDING_TO_GATEWAY (onboarding to payment gateway), WAITLISTED (added to waitlist), APPROVED_SANDBOX (approved for sandbox testing), APPLICATION_PENDING (started but not submitted), APPLICATION_IN_REVIEW (submitted to Prahsys), APPLICATION_INFORMATION_REQUESTED (additional info needed), APPLICATION_ABANDONED (application abandoned), APPLICATION_APPROVED (approved for live processing), APPLICATION_DENIED (application denied), APPLICATION_REQUIRES_DOCUMENT_SUBMISSION (documents needed), APPLICATION_AWAITING_DIGITAL_SIGNATURE (signatures required), ACCOUNT_CLOSED (account permanently closed)"
           },
           "statusUpdatedAt": {
             "type": [
@@ -5876,6 +5893,41 @@
             ],
             "description": "Expiration time for signing url. (5 mins after the url creation for public signing url or NULL if signing url is already expired and providing protected signing url)"
           },
+          "accountClosedDescription": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Description of why the merchant account was closed"
+          },
+          "accountClosedJiraTicket": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Jira ticket URL related to the account closure"
+          },
+          "accountClosedDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date and time when the merchant account was closed"
+          },
+          "accountClosedBy": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "User ID of the admin who closed the merchant account"
+          },
+          "closedByUserEmail": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Email address of the admin who closed the merchant account"
+          },
           "createdAt": {
             "type": "string"
           }
@@ -5913,6 +5965,11 @@
           "primaryContactLastName",
           "signingUrl",
           "signingUrlExpiresAt",
+          "accountClosedDescription",
+          "accountClosedJiraTicket",
+          "accountClosedDate",
+          "accountClosedBy",
+          "closedByUserEmail",
           "createdAt"
         ],
         "title": "Merchant",
@@ -5986,6 +6043,11 @@
           "primaryContactLastName": "Doe",
           "signingUrl": "https://dashboard.prahsys.com/example-merchant/application/3fe90921-3de5-40ac-a76f-0fde0caf03a6",
           "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
+          "accountClosedDescription": null,
+          "accountClosedJiraTicket": null,
+          "accountClosedDate": null,
+          "accountClosedBy": null,
+          "closedByUserEmail": null,
           "createdAt": "2023-01-01T00:00:00.000Z"
         }
       },
@@ -6355,9 +6417,10 @@
               "APPLICATION_APPROVED",
               "APPLICATION_DENIED",
               "APPLICATION_REQUIRES_DOCUMENT_SUBMISSION",
-              "APPLICATION_AWAITING_DIGITAL_SIGNATURE"
+              "APPLICATION_AWAITING_DIGITAL_SIGNATURE",
+              "ACCOUNT_CLOSED"
             ],
-            "description": "The status of the merchant. Valid values: ONBOARDING_TO_GATEWAY (onboarding to payment gateway), WAITLISTED (added to waitlist), APPROVED_SANDBOX (approved for sandbox testing), APPLICATION_PENDING (started but not submitted), APPLICATION_IN_REVIEW (submitted to Prahsys), APPLICATION_INFORMATION_REQUESTED (additional info needed), APPLICATION_ABANDONED (application abandoned), APPLICATION_APPROVED (approved for live processing), APPLICATION_DENIED (application denied), APPLICATION_REQUIRES_DOCUMENT_SUBMISSION (documents needed), APPLICATION_AWAITING_DIGITAL_SIGNATURE (signatures required)"
+            "description": "The status of the merchant. Valid values: ONBOARDING_TO_GATEWAY (onboarding to payment gateway), WAITLISTED (added to waitlist), APPROVED_SANDBOX (approved for sandbox testing), APPLICATION_PENDING (started but not submitted), APPLICATION_IN_REVIEW (submitted to Prahsys), APPLICATION_INFORMATION_REQUESTED (additional info needed), APPLICATION_ABANDONED (application abandoned), APPLICATION_APPROVED (approved for live processing), APPLICATION_DENIED (application denied), APPLICATION_REQUIRES_DOCUMENT_SUBMISSION (documents needed), APPLICATION_AWAITING_DIGITAL_SIGNATURE (signatures required), ACCOUNT_CLOSED (account permanently closed)"
           },
           "statusUpdatedAt": {
             "type": [
