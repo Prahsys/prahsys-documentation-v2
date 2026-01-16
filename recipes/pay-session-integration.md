@@ -65,6 +65,14 @@ CLIENT SIDE
 /**
 CLIENT SIDE
 */
+// JAVASCRIPT FRAME-BREAKER CODE TO PROVIDE PROTECTION AGAINST IFRAME CLICK-JACKING
+if (self === top) {
+    var antiClickjack = document.getElementById("antiClickjack");
+    antiClickjack.parentNode.removeChild(antiClickjack);
+} else {
+    top.location = self.location;
+}
+
 // Configure the Pay Session
 window.PaymentSession.configure({
   session: { id: session.data.id },
