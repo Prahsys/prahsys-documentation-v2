@@ -3,7 +3,7 @@ title: Agent Agreement
 fullscreen: false
 hidden: true
 ---
-### Exhibit B
+### Exhibit C
 
 **Agent Agreement**  
 **Terms and Conditions**
