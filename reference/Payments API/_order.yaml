@@ -3,8 +3,8 @@
 - merchant-purge
 - orders
 - payments
+- status
 - payouts
 - sessions
-- status
 - tokenization
 - transactions
