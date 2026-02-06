@@ -15,11 +15,11 @@ metadata:
 After loading the PaySession object into the window with the PaySession Script:
 
 ```html PaySession Script
-<script src="https://secure.prahsys.com/form/version/100/merchant/{merchantId}/session.js"></script>
+<script src="https://gateway.prahsys.com/n1/merchant/{merchantId}/session/{sessionId}/script.js"></script>
 ```
 
 <Callout icon="❗️" theme="error">
-  When working with a SANDBOX merchant and loading PaySession or PayPortal script, you must put the word `TEST` in-front of the merchant id.
+  When working with a SANDBOX merchant and loading PaySession or PayPortal script, you must use your test API key to create the session (sk_test_123...)
 </Callout>
 
 ```typescript PaySession Interface
