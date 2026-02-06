@@ -26,7 +26,7 @@ After loading the PaySession object into the window with the PaySession Script:
 /**
  * Global PaymentSession object available after loading the session.js script
  * @example
- * <script src="https://secure.prahsys.com/form/version/100/merchant/{merchantId}/session.js"></script>
+ * <script src="https://gateway.prahsys.com/n1/merchant/{merchantId}/session/{sessionId}/script.js"></script>
  */
 declare global {
   interface Window {
@@ -48,7 +48,6 @@ export interface PaySession {
    * @param config - Configuration object for the session
    * @example
    * PaymentSession.configure({
-   *   session: { id: sessionId },
    *   fields: {
    *     card: {
    *       number: "#card-number",
@@ -72,22 +71,6 @@ export interface PaySession {
    * @example PaymentSession.updateSessionFromForm("card");
    */
   updateSessionFromForm(namespace: string): void;
-
-  /**
-   * Validate all configured hosted fields
-   * @param namespace - The payment method namespace to validate
-   * @returns True if all fields are valid, false otherwise
-   * @example
-   * const isValid = PaymentSession.validate("card");
-   */
-  validate(namespace: string): boolean;
-
-  /**
-   * Set focus on a specific hosted field
-   * @param field - The field identifier (e.g., "card.number")
-   * @example PaymentSession.setFocus("card.number");
-   */
-  setFocus(field: string): void;
 
   /**
    * Set CSS styles for when fields are in focus
@@ -126,14 +109,43 @@ export interface PaySession {
   setPlaceholderStyle(fields: string[], styles: FieldStyles): void;
 
   /**
-   * Set the locale for the session
-   * This affects validation rules and triggers card type detection
-   * @param locale - Locale code (e.g., "en_US", "fr_FR")
-   * @example PaymentSession.setLocale("en_US");
+   * Set CSS styles for fields with validation errors
+   * @param fields - Array of field identifiers
+   * @param styles - CSS styles to apply
+   * @example
+   * PaymentSession.setErrorStyle(
+   *   ["card.number", "card.securityCode"],
+   *   { borderColor: "#ef4444", backgroundColor: "#fef2f2" }
+   * );
    */
-  setLocale(locale: string): void;
+  setErrorStyle(fields: string[], styles: FieldStyles): void;
+
+  /**
+   * Set CSS styles for fields with valid input
+   * @param fields - Array of field identifiers
+   * @param styles - CSS styles to apply
+   * @example
+   * PaymentSession.setValidStyle(
+   *   ["card.number"],
+   *   { borderColor: "#10b981" }
+   * );
+   */
+  setValidStyle(fields: string[], styles: FieldStyles): void;
+
+  /**
+   * Programmatically set the state of one or more fields
+   * @param fields - Array of field identifiers
+   * @param state - State to apply ('error', 'valid', or null to clear)
+   * @example
+   * PaymentSession.setFieldState(["card.number"], "error");
+   * PaymentSession.setFieldState(["card.number"], null); // Clear state
+   */
+  setFieldState(fields: string[], state: string | null): void;
 }
 
+// ============================================================================
+// Response Interfaces
+// ============================================================================
 
 /**
  * Generic response structure from PaySession operations
@@ -149,21 +161,14 @@ export interface PaySessionResponse {
  */
 export interface FormSessionUpdateResponse {
   status?: "ok" | "fields_in_error" | "request_timeout" | "system_error";
-  errors?: string[];
-  errorMessages?: {
-    [fieldName: string]: string;
-  };
-  [key: string]: unknown;
-}
-
-/**
- * Response returned from field validation
- */
-export interface ValidationResponse {
-  isValid: boolean;
   errors?: {
     [fieldName: string]: string;
   };
+  session?: {
+    id: string;
+    version?: number;
+  };
+  [key: string]: unknown;
 }
 
 // ============================================================================
@@ -184,11 +189,17 @@ export interface FieldStyles {
   textAlign?: "left" | "right" | "center";
   textDecoration?: string;
   border?: string;
+  borderColor?: string;
+  borderWidth?: string;
+  borderStyle?: string;
   borderRadius?: string;
+  boxShadow?: string;
+  outline?: string;
   padding?: string;
   margin?: string;
   width?: string;
   height?: string;
+  opacity?: string;
   [key: string]: unknown; // Allow any additional CSS properties
 }
 
@@ -261,63 +272,6 @@ export interface PaySessionCallbacks {
    * @param response - Update response with status and any errors
    */
   formSessionUpdate?: (response: FormSessionUpdateResponse) => void;
-
-  /**
-   * Called when a field receives focus
-   * @param field - The field identifier that received focus
-   */
-  onFocus?: (field: string) => void;
-
-  /**
-   * Called when a field loses focus
-   * @param field - The field identifier that lost focus
-   */
-  onBlur?: (field: string) => void;
-
-  /**
-   * Called when a field value changes
-   * @param field - The field identifier that changed
-   * @param value - The new value (may be masked/truncated for security)
-   */
-  onChange?: (field: string, value: string) => void;
-
-  /**
-   * Called when mouse hovers over a field
-   * @param field - The field identifier being hovered
-   */
-  onMouseOver?: (field: string) => void;
-
-  /**
-   * Called when mouse leaves a field
-   * @param field - The field identifier that was left
-   */
-  onMouseOut?: (field: string) => void;
-
-  /**
-   * Called when the card BIN (Bank Identification Number) is detected
-   * @param bin - The detected BIN (first 6-8 digits of card)
-   */
-  onCardBINChange?: (bin: string) => void;
-
-  /**
-   * Called when the card type is detected (e.g., Visa, Mastercard)
-   * @param cardType - The detected card type
-   */
-  onCardTypeChange?: (cardType: string) => void;
-
-  /**
-   * Called when a field's emptiness state changes
-   * @param field - The field identifier
-   * @param isEmpty - Whether the field is now empty
-   */
-  onEmptinessChange?: (field: string, isEmpty: boolean) => void;
-
-  /**
-   * Called when a field's validity state changes
-   * @param field - The field identifier
-   * @param isValid - Whether the field is now valid
-   */
-  onValidityChange?: (field: string, isValid: boolean) => void;
 }
 
 // ============================================================================
@@ -329,15 +283,11 @@ export interface PaySessionCallbacks {
  */
 export interface PaySessionConfig {
   /**
-   * Session information
+   * Session ID (optional - already embedded in script URL)
+   * If provided, will be validated against the session ID from the script URL.
+   * @example "SESSION0002776555072F1187121H61"
    */
-  session: {
-    /**
-     * The session ID obtained from your backend API
-     * @example "SESSION0002776555072F1187121H61"
-     */
-    id: string;
-  };
+  session?: string;
 
   /**
    * Field mappings for payment methods
@@ -354,12 +304,6 @@ export interface PaySessionConfig {
    * Event callbacks for session interactions
    */
   callbacks?: PaySessionCallbacks;
-
-  /**
-   * Locale for the session (affects validation and card detection)
-   * @example "en_US"
-   */
-  locale?: string;
 
   /**
    * Allow additional configuration properties
