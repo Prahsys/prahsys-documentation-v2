@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.53.0",
+    "version": "1.54.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -119,7 +119,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-07T18:12:52.372Z"
+                      "createdAt": "2026-02-07T19:02:53.632Z"
                     }
                   }
                 }
@@ -266,7 +266,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-07T18:12:52.372Z"
+                      "createdAt": "2026-02-07T19:02:53.632Z"
                     }
                   }
                 }
@@ -2668,7 +2668,8 @@
                       "locationId": "12345678",
                       "createdAt": "2023-01-01T00:00:00.000Z",
                       "updatedAt": "2023-01-01T00:00:00.000Z",
-                      "readyForProcessing": true
+                      "readyForProcessing": true,
+                      "readyForProcessingAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
                 }
@@ -2945,7 +2946,8 @@
                         "locationId": "12345678",
                         "createdAt": "2023-01-01T00:00:00.000Z",
                         "updatedAt": "2023-01-01T00:00:00.000Z",
-                        "readyForProcessing": true
+                        "readyForProcessing": true,
+                        "readyForProcessingAt": "2023-01-01T00:00:00.000Z"
                       }
                     ],
                     "limit": 10,
@@ -4585,7 +4587,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-02-07T18:12:52.372Z"
+          "createdAt": "2026-02-07T19:02:53.632Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -6746,6 +6748,13 @@
             "type": "boolean",
             "description": "Ready for processing status of the terminal"
           },
+          "readyForProcessingAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO Datetime of when the terminal was activated for processing"
+          },
           "createdAt": {
             "type": "string",
             "description": "ISO Datetime of when the terminal object was created"
@@ -6771,6 +6780,7 @@
           "apiKey",
           "locationId",
           "readyForProcessing",
+          "readyForProcessingAt",
           "createdAt",
           "updatedAt"
         ],
@@ -6790,7 +6800,8 @@
           "locationId": "12345678",
           "createdAt": "2023-01-01T00:00:00.000Z",
           "updatedAt": "2023-01-01T00:00:00.000Z",
-          "readyForProcessing": true
+          "readyForProcessing": true,
+          "readyForProcessingAt": "2023-01-01T00:00:00.000Z"
         }
       },
       "N1_MerchantItem": {
