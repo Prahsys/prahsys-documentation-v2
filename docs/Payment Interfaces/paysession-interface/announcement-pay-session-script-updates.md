@@ -31,7 +31,7 @@ With requirement to include session id in script url, You will need to create se
 
 #### Steps:
 
-* <Anchor label="Create Session" target="_blank" href="https://docs.prahsys.com/update/reference/createsessionbymerchant">Create Session</Anchor>  to generate session ID
+* Request <Anchor label="Create Session" target="_blank" href="https://docs.prahsys.com/update/reference/createsessionbymerchant">Create Session</Anchor>  to generate session ID
 * Insert above script element with corresponding ids
 * On script tag load, initialize payment session by calling `window.PaymentSession.configure`
 * Rest of the methods functions the same
