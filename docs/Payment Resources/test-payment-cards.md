@@ -26,23 +26,110 @@ metadata:
     - Discover test cards
   robots: index
 ---
-  ## What Are Test Cards?                                                                                                                                               
-                                                                                                                                                                        
+## What Are Test Cards?                                                                                                                                               
+                                                                                                                                                                      
   Test cards are special credit card numbers used to simulate transactions in the sandbox environment. They help you verify that your payment integration is working    
-  correctly without using real money. Sandbox transactions are never submitted to financial institutions for processing.                                              
+  correctly without using real money. Sandbox transactions are never submitted to financial institutions for processing.                                                
                                                                                                                                                                         
   Use these cards when testing your integrations. They will only work in sandbox mode.                                                                                  
+                                                                                                                                                                      
+  ## How Testing Works                                                                                                                                                  
+                                                                                                                                                                      
+  In the CyberSource sandbox, transaction responses are controlled by the **payment amount** and **CVV value** you submit. Use any future expiration date (e.g., 01/30)
+  and any billing address.                                     
 
-  ## Test Card Numbers
+  ## Simple Test Card Reference
 
-  ### Quick Reference
+  Use card number **4111 1111 1111 1111** (Visa) for all testing below.
 
-  | Brand      | Card Number           | CVV |
-  | ---------- | --------------------- | --- |
-  | Visa       | 4111 1111 1111 1111   | Any |
-  | Mastercard | 5555 5555 5555 4444   | Any |
-  | Amex       | 3782 8224 6310 005    | Any |
-  | Discover   | 6011 1111 1111 1117   | Any |
+  ### Transaction Responses
+
+  | Card Number         | Amount  | CVV | Outcome                    |
+  | ------------------- | ------- | --- | -------------------------- |
+  | 4111 1111 1111 1111 | 1.00    | 001 | Approved                   |
+  | 4111 1111 1111 1111 | -1      | 001 | Invalid Request            |
+  | 4111 1111 1111 1111 | 7001.00 | 001 | Declined — Invalid Card    |
+  | 4111 1111 1111 1111 | 7007.00 | 001 | Declined — Invalid Amount  |
+  | 4111 1111 1111 1111 | 7012.00 | 001 | Declined — Invalid Expiry  |
+  | 4111 1111 1111 1111 | 7120.00 | 001 | Declined — Invalid Currency |
+  | 4111111111111112    | 1.00    | 001 | Declined — Failed Luhn Check |
+
+  > Any normal amount (e.g., $1.00 - $999.00) will return an approved transaction. Amounts from $7,001.00 to $7,134.00 trigger specific decline codes. Amounts from
+  $7,135.00 to $7,145.00 return approved.
+
+  ### CVV / CVN Responses
+
+  | Card Number         | Amount  | CVV | Outcome             |
+  | ------------------- | ------- | --- | ------------------- |
+  | 4111 1111 1111 1111 | 0.00    | 001 | CVV Match           |
+  | 4111 1111 1111 1111 | 0.00    | 002 | CVV No Match        |
+  | 4111 1111 1111 1111 | 0.00    | 003 | CVV Not Processed   |
+  | 4111 1111 1111 1111 | 0.00    | 004 | CVV Suspicious      |
+  | 4111 1111 1111 1111 | 0.00    | 005 | CVV Unavailable     |
+
+  Or trigger CVV responses by amount (using any CVV like 123):
+
+  | Card Number         | Amount  | CVV | Outcome             |
+  | ------------------- | ------- | --- | ------------------- |
+  | 4111 1111 1111 1111 | 2001.00 | 123 | CVV Match           |
+  | 4111 1111 1111 1111 | 2002.00 | 123 | CVV No Match        |
+  | 4111 1111 1111 1111 | 2003.00 | 123 | CVV Not Processed   |
+  | 4111 1111 1111 1111 | 2004.00 | 123 | CVV Suspicious      |
+  | 4111 1111 1111 1111 | 2005.00 | 123 | CVV Unavailable     |
+
+  ### AVS (Address Verification) Responses
+
+  Trigger AVS responses by amount (using any CVV like 123):
+
+  | Card Number         | Amount  | CVV | Outcome                                  |
+  | ------------------- | ------- | --- | ---------------------------------------- |
+  | 4111 1111 1111 1111 | 1013.00 | 123 | AVS Full Match (address + zip)           |
+  | 4111 1111 1111 1111 | 1001.00 | 123 | AVS Address Match Only (zip no match)    |
+  | 4111 1111 1111 1111 | 1014.00 | 123 | AVS Zip Match Only (address no match)    |
+  | 4111 1111 1111 1111 | 1009.00 | 123 | AVS No Match                             |
+  | 4111 1111 1111 1111 | 1012.00 | 123 | AVS Unavailable                          |
+  | 4111 1111 1111 1111 | 1011.00 | 123 | AVS System Unavailable (retry)           |
+  | 4111 1111 1111 1111 | 1006.00 | 123 | AVS Not Supported (non-US issuer)        |
+
+  Or trigger AVS responses by CVV value (using amount $0.00):
+
+  | Card Number         | Amount | CVV | Outcome                                  |
+  | ------------------- | ------ | --- | ---------------------------------------- |
+  | 4111 1111 1111 1111 | 0.00   | 033 | AVS Full Match (address + zip)           |
+  | 4111 1111 1111 1111 | 0.00   | 021 | AVS Address Match Only (zip no match)    |
+  | 4111 1111 1111 1111 | 0.00   | 034 | AVS Zip Match Only (address no match)    |
+  | 4111 1111 1111 1111 | 0.00   | 029 | AVS No Match                             |
+  | 4111 1111 1111 1111 | 0.00   | 032 | AVS Unavailable                          |
+  | 4111 1111 1111 1111 | 0.00   | 031 | AVS System Unavailable (retry)           |
+  | 4111 1111 1111 1111 | 0.00   | 026 | AVS Not Supported (non-US issuer)        |
+
+  ## Response Code Reference
+
+  ### CVV Response Codes
+
+  | Code | Meaning                                                              |
+  | ---- | -------------------------------------------------------------------- |
+  | M    | Match — CVV matched successfully                                     |
+  | N    | No Match — CVV did not match                                         |
+  | P    | Not Processed — CVV was not verified by the issuer                   |
+  | S    | Suspicious — Merchant indicated CVV is present but issuer flagged it |
+  | U    | Unavailable — Issuer does not support CVV verification               |
+
+  ### AVS Response Codes
+
+  | Code | Meaning                                              |
+  | ---- | ---------------------------------------------------- |
+  | Y    | Match: street address and postal code both match     |
+  | A    | Partial: street address matches, postal code does not |
+  | Z    | Partial: postal code matches, street address does not |
+  | N    | No match: neither street address nor postal code match |
+  | U    | Unavailable: address information not available        |
+  | R    | Retry: system unavailable                             |
+  | G    | Not supported: non-US issuer does not support AVS     |
+
+  ## Test Card Numbers by Brand
+
+  Use any of the cards below for sandbox testing. For most testing, **4111 1111 1111 1111** (Visa) is recommended.
 
   ### Visa
 
@@ -75,196 +162,10 @@ metadata:
   | ------------------------ | --- |
   | 6011 1111 1111 1117      | Any |
 
-  ### JCB
-
-  | Card Number              | CVV |
-  | ------------------------ | --- |
-  | 3566 1111 1111 1113      | Any |
-
-  ### Maestro (International)
-
-  | Card Number                | CVV |
-  | -------------------------- | --- |
-  | 5033 9619 8909 17          | Any |
-  | 5868 2416 0825 5333 38     | Any |
-
-  ### Maestro (UK Domestic)
-
-  | Card Number                | CVV |
-  | -------------------------- | --- |
-  | 6759 4111 0000 0008        | Any |
-  | 6759 5600 4500 5727 054    | Any |
-  | 5641 8211 1116 6669        | Any |
-
-  ### UATP
-
-  | Card Number              | CVV |
-  | ------------------------ | --- |
-  | 1354 1234 5678 911       | Any |
-
-  ## Default Card Settings
-
-  - **Expiration date:** Use any date in the future (e.g., 01/30)
-  - **CVV:** Where a specific CVV is listed above, use that value. Otherwise, use any 3-digit number for Visa, Mastercard, Discover, JCB. Use any 4-digit number for
-  American Express.
-
-  ## Simulating Transaction Responses
-
-  In the CyberSource sandbox, transaction responses are controlled by the **payment amount**, **CVV value**, or **invalid card data** you submit. This is how you
-  simulate approvals, declines, errors, and other scenarios.
-
-  ### Transaction Responses (Amount-Based)
-
-  Use specific dollar amounts to trigger different transaction outcomes.
-
-  | Amount       | Response        | Description                    |
-  | ------------ | --------------- | ------------------------------ |
-  | Any (e.g. 1) | AUTHORIZED      | Successful transaction         |
-  | -1           | INVALID_REQUEST | Negative amount rejected       |
-  | 100000000000 | INVALID_REQUEST | Amount exceeds maximum         |
-
-  ### Simulating Declines with Invalid Card Data
-
-  You can also trigger declines by submitting intentionally invalid card data.
-
-  | Field            | Test Value         | Response        | Description               |
-  | ---------------- | ------------------ | --------------- | ------------------------- |
-  | Expiration Month | 13                 | INVALID_REQUEST | Invalid month              |
-  | Expiration Year  | 1998               | DECLINE         | Expired card               |
-  | Card Number      | 4111111111111112   | DECLINE         | Failed Luhn check          |
-  | Card Number      | 42423482938483873  | DECLINE         | Invalid card number        |
-  | Card Number      | 411111111111111111111 | DECLINE      | Card number too long (21 digits) |
-
-  ### Common Reject Codes (Amount-Based)
-
-  For more granular testing, these amounts trigger specific processor reject codes.
-
-  | Amount  | Response Code | Description            |
-  | ------- | ------------- | ---------------------- |
-  | 7001.00 | 0001          | Invalid card number length |
-  | 7002.00 | 0002          | Invalid card number    |
-  | 7007.00 | 0009          | Invalid amount         |
-  | 7012.00 | 0014          | Invalid expiration date |
-  | 7054.00 | 0169          | Invalid name/location  |
-  | 7059.00 | 0251          | Missing card number    |
-  | 7067.00 | 0280          | Missing expiration date |
-  | 7120.00 | 0730          | Invalid currency       |
-  | 7135.00 | 00            | Approved               |
-  | 7136.00 | 00            | Approved               |
-  | 7137.00 | 00            | Approved               |
-  | 7138.00 | 00            | Approved               |
-  | 7139.00 | 00            | Approved               |
-  | 7140.00 | 00            | Approved               |
-
-  > Amounts from $7,001.00 to $7,134.00 trigger various decline and error responses. Amounts from $7,135.00 to $7,145.00 trigger successful approvals.
-
-  ## CVV / CVN Responses
-
-  You can simulate different CVV verification outcomes using two methods.
-
-  ### Method 1: By CVV Value
-
-  Submit the transaction with an amount of **$0.00** and one of these CVV values.
-
-  | CVV | Response | Meaning       |
-  | --- | -------- | ------------- |
-  | 001 | M        | Match         |
-  | 002 | N        | No Match      |
-  | 003 | P        | Not Processed |
-  | 004 | S        | Suspicious    |
-  | 005 | U        | Unavailable   |
-
-  ### Method 2: By Amount
-
-  Submit the transaction with any CVV (e.g., 123) and one of these amounts.
-
-  | Amount  | Response | Meaning       |
-  | ------- | -------- | ------------- |
-  | 2001.00 | M        | Match         |
-  | 2002.00 | N        | No Match      |
-  | 2003.00 | P        | Not Processed |
-  | 2004.00 | S        | Suspicious    |
-  | 2005.00 | U        | Unavailable   |
-
-  ### CVV Response Code Definitions
-
-  | Code | Meaning                                                                 |
-  | ---- | ----------------------------------------------------------------------- |
-  | M    | Match — CVV matched successfully                                        |
-  | N    | No Match — CVV did not match                                            |
-  | P    | Not Processed — CVV was not verified (issuer did not process)           |
-  | S    | Suspicious — Merchant indicated CVV is present but issuer flagged it    |
-  | U    | Unavailable — Issuer does not support CVV verification                  |
-
-  ## AVS (Address Verification) Responses
-
-  You can simulate different address verification outcomes using two methods.
-
-  ### Method 1: By CVV Value
-
-  Submit these CVV values to trigger specific AVS response codes.
-
-  | CVV | AVS Code | Meaning                                       |
-  | --- | -------- | --------------------------------------------- |
-  | 021 | A        | Address matches, postal code does not          |
-  | 022 | B        | Address matches, postal code not verified      |
-  | 023 | I        | Address not verified                           |
-  | 024 | D        | Address and postal code match (international)  |
-  | 025 | M        | Address and postal code match (international)  |
-  | 026 | G        | Issuer does not support AVS (non-US)           |
-  | 027 | I        | Address not verified (international)           |
-  | 028 | M        | Address and postal code match (international)  |
-  | 029 | N        | No match (address and postal code)             |
-  | 030 | P        | Postal code matches, address not verified      |
-  | 031 | R        | System unavailable, retry                      |
-  | 032 | U        | Address information unavailable                |
-  | 033 | Y        | Address and postal code match                  |
-  | 034 | Z        | Postal code matches, address does not          |
-
-  ### Method 2: By Amount
-
-  Submit these amounts to trigger specific AVS response codes.
-
-  | Amount  | AVS Code | Meaning                                       |
-  | ------- | -------- | --------------------------------------------- |
-  | 1001.00 | A        | Address matches, postal code does not          |
-  | 1002.00 | B        | Address matches, postal code not verified      |
-  | 1003.00 | I        | Address not verified                           |
-  | 1004.00 | D        | Address and postal code match (international)  |
-  | 1005.00 | M        | Address and postal code match (international)  |
-  | 1006.00 | G        | Issuer does not support AVS (non-US)           |
-  | 1007.00 | I        | Address not verified (international)           |
-  | 1008.00 | M        | Address and postal code match (international)  |
-  | 1009.00 | N        | No match (address and postal code)             |
-  | 1010.00 | P        | Postal code matches, address not verified      |
-  | 1011.00 | R        | System unavailable, retry                      |
-  | 1012.00 | U        | Address information unavailable                |
-  | 1013.00 | Y        | Address and postal code match                  |
-  | 1014.00 | Z        | Postal code matches, address does not          |
-
-  ### AVS Response Code Definitions
-
-  | Code | Meaning                                                    |
-  | ---- | ---------------------------------------------------------- |
-  | A    | Partial match: street address matches, postal code does not |
-  | B    | Partial match: street address matches, postal code not verified |
-  | D    | Match: address and postal code match (international)        |
-  | G    | Not supported: issuer does not support AVS (non-US issuer)  |
-  | I    | Not verified: address information not verified               |
-  | M    | Match: address and postal code match (international)         |
-  | N    | No match: neither street address nor postal code match       |
-  | P    | Partial match: postal code matches, address not verified     |
-  | R    | Retry: system unavailable                                    |
-  | U    | Unavailable: address information not available               |
-  | Y    | Match: street address and 5-digit postal code both match     |
-  | Z    | Partial match: postal code matches, street address does not  |
-
   ## Important Notes
 
   - All test cards and simulation triggers **only work in the sandbox environment**.
   - Sandbox transactions are **never submitted to financial institutions** for processing.
-  - The sandbox is **completely separate** from the live production environment and requires separate credentials.
-  - When using amount-based triggers, the amount controls the response — do not combine multiple trigger types in a single transaction.
-
-  This replaces your entire old doc. The key difference: CyberSource uses amounts and CVV values to control responses, not expiry dates and street addresses like your
-  old gateway did.
+  - Use any future expiration date (e.g., 01/30).
+  - Where "Any" is listed for CVV, use any 3-digit number (or 4-digit for American Express).
+  - **Do not combine** multiple trigger types (e.g., an AVS-triggering amount with a CVV-triggering CVV value) in a single transaction.
