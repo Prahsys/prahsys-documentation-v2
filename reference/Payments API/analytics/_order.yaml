@@ -1,4 +1,4 @@
-- getpaymentanalyticspaymentsbyorganization
-- getcustomeranalyticscustomersbyorganization
-- gettransactionanalyticstransactionsbyorganization
-- getpayoutanalyticspayoutsbyorganization
+- getpaymentanalytics
+- getcustomeranalytics
+- gettransactionanalytics
+- getpayoutanalytics

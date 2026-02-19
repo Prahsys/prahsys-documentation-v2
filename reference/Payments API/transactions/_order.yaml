@@ -1,7 +1,9 @@
-- gettransactionbymerchant
-- authorizeauthorizebymerchant
-- capturecapturebymerchant
-- paypaybymerchant
-- voidvoidbymerchant
-- refundrefundbymerchant
-- verifyverifybymerchant
+- gettransaction
+- authorize
+- capture
+- pay
+- void
+- refund
+- verify
+- listtransactionsformerchant
+- listtransactionsfororganization

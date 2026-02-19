@@ -1,4 +1,4 @@
-- gettokenbymerchant
-- updatetokenbymerchant
-- deletetokenbymerchant
-- createtokenbymerchant
+- gettoken
+- updatetoken
+- deletetoken
+- createtoken

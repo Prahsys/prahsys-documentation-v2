@@ -1,7 +1,7 @@
-- listpaymentsbyorganization
-- listpaymentsbymerchant
-- updateorcreatepaymentbymerchant
-- updatepaymentbymerchant
-- getpaymentbymerchant
-- deletepaymentbymerchant
-- syncpaymentsettlementbymerchant
+- listpaymentsfororganization
+- listpaymentsformerchant
+- updateorcreatepayment
+- updatepayment
+- getpayment
+- deletepayment
+- updatepaymentcustomer
