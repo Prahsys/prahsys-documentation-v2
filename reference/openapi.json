@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.63.0",
+    "version": "1.64.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -119,7 +119,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-14T22:37:43.489Z"
+                      "createdAt": "2026-02-19T14:38:27.224Z"
                     }
                   }
                 }
@@ -266,7 +266,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-14T22:37:43.489Z"
+                      "createdAt": "2026-02-19T14:38:27.224Z"
                     }
                   }
                 }
@@ -1607,6 +1607,8 @@
                       "cashDiscountApproved": null,
                       "cashDiscountDenied": null,
                       "cashDiscountDeniedReason": null,
+                      "cashDiscountDisabled": null,
+                      "cashDiscountRate": 0.03,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -1813,6 +1815,8 @@
                       "cashDiscountApproved": null,
                       "cashDiscountDenied": null,
                       "cashDiscountDeniedReason": null,
+                      "cashDiscountDisabled": null,
+                      "cashDiscountRate": 0.03,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -2278,6 +2282,8 @@
                       "cashDiscountApproved": null,
                       "cashDiscountDenied": null,
                       "cashDiscountDeniedReason": null,
+                      "cashDiscountDisabled": null,
+                      "cashDiscountRate": 0.03,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -4652,7 +4658,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-02-14T22:37:43.489Z"
+          "createdAt": "2026-02-19T14:38:27.224Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -6196,6 +6202,19 @@
             ],
             "description": "Reason for Cash Discount Program denial"
           },
+          "cashDiscountDisabled": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was disabled by the merchant"
+          },
+          "cashDiscountRate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Cash discount rate as a decimal (0-1), where 0.03 represents 3%"
+          },
           "accountClosedDescription": {
             "type": [
               "string",
@@ -6454,6 +6473,8 @@
           "cashDiscountApproved",
           "cashDiscountDenied",
           "cashDiscountDeniedReason",
+          "cashDiscountDisabled",
+          "cashDiscountRate",
           "accountClosedDescription",
           "accountClosedJiraTicket",
           "accountClosedDate",
@@ -6574,6 +6595,8 @@
           "cashDiscountApproved": null,
           "cashDiscountDenied": null,
           "cashDiscountDeniedReason": null,
+          "cashDiscountDisabled": null,
+          "cashDiscountRate": 0.03,
           "accountClosedDescription": null,
           "accountClosedJiraTicket": null,
           "accountClosedDate": null,
