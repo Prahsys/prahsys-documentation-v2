@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.64.0",
+    "version": "1.65.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -111,6 +111,12 @@
                       "amexCnpFee": 0.18,
                       "chargebackFee": 25,
                       "pciNonComplianceFee": 19.95,
+                      "achRate": 1,
+                      "achTransactionFee": 0.49,
+                      "achReturnFee": 5,
+                      "achMonthlyFee": 15,
+                      "batchFee": 15,
+                      "equipmentFee": 15,
                       "cardPresentPercentage": 60,
                       "cardNotPresentPercentage": 40,
                       "logo": "https://prahsys.com/_next/image?url=%2FPrahsys%20Blue.png&w=128&q=75",
@@ -119,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-19T14:38:27.224Z"
+                      "createdAt": "2026-02-20T18:36:21.480Z"
                     }
                   }
                 }
@@ -258,6 +264,12 @@
                       "amexCnpFee": 0.18,
                       "chargebackFee": 25,
                       "pciNonComplianceFee": 19.95,
+                      "achRate": 1,
+                      "achTransactionFee": 0.49,
+                      "achReturnFee": 5,
+                      "achMonthlyFee": 15,
+                      "batchFee": 15,
+                      "equipmentFee": 15,
                       "cardPresentPercentage": 60,
                       "cardNotPresentPercentage": 40,
                       "logo": "https://prahsys.com/_next/image?url=%2FPrahsys%20Blue.png&w=128&q=75",
@@ -266,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-19T14:38:27.224Z"
+                      "createdAt": "2026-02-20T18:36:21.480Z"
                     }
                   }
                 }
@@ -4530,6 +4542,36 @@
             "title": "PCI Non Compliance Fee",
             "description": "The pci non-compliance fee of channel partner"
           },
+          "achRate": {
+            "type": "number",
+            "title": "ACH Rate",
+            "description": "The ACH processing rate percentage."
+          },
+          "achTransactionFee": {
+            "type": "number",
+            "title": "ACH Transaction Fee",
+            "description": "The ACH per-transaction fee."
+          },
+          "achReturnFee": {
+            "type": "number",
+            "title": "ACH Return Fee",
+            "description": "The fee for ACH returns."
+          },
+          "achMonthlyFee": {
+            "type": "number",
+            "title": "ACH Monthly Fee",
+            "description": "The ACH monthly service fee."
+          },
+          "batchFee": {
+            "type": "number",
+            "title": "Batch Fee",
+            "description": "The batch settlement fee."
+          },
+          "equipmentFee": {
+            "type": "number",
+            "title": "Equipment Fee",
+            "description": "The terminal equipment fee."
+          },
           "cardPresentPercentage": {
             "type": [
               "number",
@@ -4616,6 +4658,12 @@
           "amexCnpRate",
           "chargebackFee",
           "pciNonComplianceFee",
+          "achRate",
+          "achTransactionFee",
+          "achReturnFee",
+          "achMonthlyFee",
+          "batchFee",
+          "equipmentFee",
           "cardPresentPercentage",
           "cardNotPresentPercentage",
           "logo",
@@ -4650,6 +4698,12 @@
           "amexCnpFee": 0.18,
           "chargebackFee": 25,
           "pciNonComplianceFee": 19.95,
+          "achRate": 1,
+          "achTransactionFee": 0.49,
+          "achReturnFee": 5,
+          "achMonthlyFee": 15,
+          "batchFee": 15,
+          "equipmentFee": 15,
           "cardPresentPercentage": 60,
           "cardNotPresentPercentage": 40,
           "logo": "https://prahsys.com/_next/image?url=%2FPrahsys%20Blue.png&w=128&q=75",
@@ -4658,7 +4712,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-02-19T14:38:27.224Z"
+          "createdAt": "2026-02-20T18:36:21.480Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
