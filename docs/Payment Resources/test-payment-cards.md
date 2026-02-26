@@ -95,17 +95,6 @@ For system/infrastructure errors (timeout, network error, processor error), the 
 
 This matches Mastercard's real processor behavior where `TIMED_OUT` maps to `ResultEnum::UNKNOWN` + `TransactionErrorEnum::TRANSACTION_FAILED`.
 
-### Full Processing Pipeline
-
-```
-Card Number
-  -> TestCardEnum::fromCardNumber()          -- look up the test card
-  -> TestCardEnum::toErrorCode()             -- map to TransactionErrorEnum (null = success)
-  -> SimulatedTransactionResponseFactory
-     -> normalizeResultAndErrorCode()        -- derive result + errorCode independently
-     -> createTransactionBody()              -- build the full response DTO
-```
-
 ## Notes
 
 * **Brand detection**: Known test cards use their predefined brand. Unknown card numbers are detected via BIN pattern (first digits: 4=Visa, 5=Mastercard, 34/37=Amex, 6011/65=Discover).
