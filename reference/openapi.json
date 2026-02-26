@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.70.0",
+    "version": "1.71.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-26T17:07:44.314Z"
+                      "createdAt": "2026-02-26T23:02:34.838Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-02-26T17:07:44.314Z"
+                      "createdAt": "2026-02-26T23:02:34.838Z"
                     }
                   }
                 }
@@ -4712,7 +4712,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-02-26T17:07:44.314Z"
+          "createdAt": "2026-02-26T23:02:34.838Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -5277,21 +5277,21 @@
             "type": "number",
             "minimum": 0,
             "title": "Average Ticket Price",
-            "description": "This is the average price of a single transaction",
+            "description": "This is the average price of a single transaction. Must be a whole number (decimals will be truncated).",
             "example": 250
           },
           "highTicketPrice": {
             "type": "number",
             "minimum": 0,
             "title": "High Ticket Price",
-            "description": "This is the highest price of a single transaction",
+            "description": "This is the highest price of a single transaction. Must be a whole number (decimals will be truncated).",
             "example": 1000
           },
           "averageMonthlyVolume": {
             "type": "number",
             "minimum": 0,
             "title": "Average Monthly Volume",
-            "description": "This is the average monthly volume of transactions",
+            "description": "This is the average monthly volume of transactions. Must be a whole number (decimals will be truncated).",
             "example": 28000
           },
           "averageYearlyVolume": {
@@ -5301,7 +5301,7 @@
             ],
             "minimum": 0,
             "title": "Average Yearly Volume",
-            "description": "This is the average yearly volume of transactions. You do not have to specify this because it can automatically be calculated from the averageMonthlyVolume.",
+            "description": "This is the average yearly volume of transactions. Must be a whole number (decimals will be truncated). You do not have to specify this because it can automatically be calculated from the averageMonthlyVolume.",
             "example": 336000
           },
           "b2bTransactionPercentage": {
