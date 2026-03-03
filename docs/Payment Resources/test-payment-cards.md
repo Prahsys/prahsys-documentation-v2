@@ -99,3 +99,48 @@ This matches Mastercard's real processor behavior where `TIMED_OUT` maps to `Res
 
 * **Brand detection**: Known test cards use their predefined brand. Unknown card numbers are detected via BIN pattern (first digits: 4=Visa, 5=Mastercard, 34/37=Amex, 6011/65=Discover).
 * **Card number formatting**: Spaces and dashes are stripped automatically, so `4242 4242 4242 4242` and `4242-4242-4242-4242` both work.
+
+## Card Present Test Terminals (TIDs)
+
+Card present transactions use **Terminal IDs (TIDs)** instead of card numbers to control transaction outcomes. Pass the TID as the `terminal` parameter in the pay request.
+
+* Each TID maps to a specific outcome
+* Any TID not in the list below returns `CARD_PRESENT_INVALID_TERMINAL`
+* TID values are the error code names themselves, making test scenarios self-documenting
+
+### Success Terminal
+
+| TID       | Description                                       |
+| --------- | ------------------------------------------------- |
+| `SUCCESS` | Approves all card present transactions successfully after internal validation |
+
+### Decline Terminals (card/issuer rejected the transaction)
+
+| Scenario             | TID                      | Result      | Error Code             | Payment Status |
+| -------------------- | ------------------------ | ----------- | ---------------------- | -------------- |
+| Generic Decline      | `TRANSACTION_DECLINED`   | `DECLINED`  | `TRANSACTION_DECLINED` | `DECLINED`     |
+| Card Expired         | `CARD_EXPIRED`           | `DECLINED`  | `CARD_EXPIRED`         | `DECLINED`     |
+| Debit Requires PIN   | `DEBIT_REQUIRES_PIN`     | `DECLINED`  | `DEBIT_REQUIRES_PIN`   | `DECLINED`     |
+| EULA Disagreed       | `EULA_DISAGREED`         | `DECLINED`  | `EULA_DISAGREED`       | `DECLINED`     |
+
+### Terminal Interaction Errors (device-level issues)
+
+| Scenario                | TID                                  | Result    | Error Code                           | Payment Status |
+| ----------------------- | ------------------------------------ | --------- | ------------------------------------ | -------------- |
+| Customer Aborted        | `CARD_PRESENT_ABORTED`               | `FAILURE` | `CARD_PRESENT_ABORTED`               | `ABORTED`      |
+| Terminal Timeout        | `CARD_PRESENT_TIMEOUT`               | `FAILURE` | `CARD_PRESENT_TIMEOUT`               | `ABORTED`      |
+| No Processor Response   | `CARD_PRESENT_NO_RESPONSE`           | `FAILURE` | `CARD_PRESENT_NO_RESPONSE`           | `FAILED`       |
+| Remove Card             | `CARD_PRESENT_REMOVE_CARD`           | `FAILURE` | `CARD_PRESENT_REMOVE_CARD`           | `FAILED`       |
+| Duplicate Transaction   | `CARD_PRESENT_DUPLICATE`             | `FAILURE` | `CARD_PRESENT_DUPLICATE`             | `FAILED`       |
+| Cannot Connect          | `CARD_PRESENT_CANNOT_CONNECT_TO_DEVICE` | --     | `CARD_PRESENT_CANNOT_CONNECT_TO_DEVICE` | --          |
+
+> **Cannot Connect** is special: the processor was never reached, so the transaction record is deleted entirely. No result or payment status is returned -- the pay request fails with an error response.
+
+### System Error Terminals (infrastructure/gateway-level failures)
+
+| Scenario      | TID             | Result    | Error Code           | Payment Status |
+| ------------- | --------------- | --------- | -------------------- | -------------- |
+| Gateway Error | `GATEWAY_ERROR` | `ERROR`   | `TRANSACTION_FAILED` | `FAILED`       |
+| Timeout       | `TIMEOUT`       | `UNKNOWN` | `TRANSACTION_FAILED` | `FAILED`       |
+
+> System error TIDs normalize the error code to `TRANSACTION_FAILED` (same behavior as the CNP system error cards). The `result` field differentiates them.
