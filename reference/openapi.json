@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.86.0",
+    "version": "1.87.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-12T19:25:29.226Z"
+                      "createdAt": "2026-03-12T21:53:59.246Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-12T19:25:29.226Z"
+                      "createdAt": "2026-03-12T21:53:59.246Z"
                     }
                   }
                 }
@@ -3228,7 +3228,7 @@
                     }
                   ]
                 },
-                "cash_discount_opted_in": {
+                "cash_discount_status": {
                   "anyOf": [
                     {
                       "type": "string"
@@ -3335,7 +3335,12 @@
                         "primaryContactFirstName": "John",
                         "primaryContactLastName": "Doe",
                         "signingUrl": "https://dashboard.prahsys.com/channelpartner-slug/merchants/merchant-slug/application",
-                        "signingUrlExpiresAt": null
+                        "signingUrlExpiresAt": null,
+                        "optInCashDiscountProgram": null,
+                        "cashDiscountApproved": null,
+                        "cashDiscountDenied": null,
+                        "cashDiscountDeniedReason": null,
+                        "cashDiscountDisabled": null
                       },
                       {
                         "id": "org_0987654321",
@@ -3361,7 +3366,12 @@
                         "primaryContactFirstName": "Jane",
                         "primaryContactLastName": "Smith",
                         "signingUrl": "https://dashboard.prahsys.com/channelpartner-slug/merchants/merchant-slug-2/application",
-                        "signingUrlExpiresAt": null
+                        "signingUrlExpiresAt": null,
+                        "optInCashDiscountProgram": null,
+                        "cashDiscountApproved": null,
+                        "cashDiscountDenied": null,
+                        "cashDiscountDeniedReason": null,
+                        "cashDiscountDisabled": null
                       }
                     ],
                     "limit": 10,
@@ -4722,7 +4732,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-12T19:25:29.226Z"
+          "createdAt": "2026-03-12T21:53:59.246Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -7214,6 +7224,41 @@
               "null"
             ],
             "description": "Expiration time for signing url. (5 mins after the url creation for public signing url or NULL if signing url is already expired and providing protected signing url)"
+          },
+          "optInCashDiscountProgram": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the merchant opted into the Cash Discount Program"
+          },
+          "cashDiscountApproved": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was approved by a Prahsys admin"
+          },
+          "cashDiscountDenied": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was denied by a Prahsys admin"
+          },
+          "cashDiscountDeniedReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Reason for Cash Discount Program denial"
+          },
+          "cashDiscountDisabled": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was disabled by the merchant"
           }
         },
         "required": [
@@ -7240,7 +7285,12 @@
           "primaryContactPhone",
           "salesAgent",
           "signingUrl",
-          "signingUrlExpiresAt"
+          "signingUrlExpiresAt",
+          "optInCashDiscountProgram",
+          "cashDiscountApproved",
+          "cashDiscountDenied",
+          "cashDiscountDeniedReason",
+          "cashDiscountDisabled"
         ],
         "title": "Merchant Item",
         "description": "The merchant item return from Prahsys API.",
@@ -7268,7 +7318,12 @@
           "primaryContactLastName": "Doe",
           "salesAgent": null,
           "signingUrl": "https://dashboard.prahsys.com/example-merchant/application",
-          "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z"
+          "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
+          "optInCashDiscountProgram": null,
+          "cashDiscountApproved": null,
+          "cashDiscountDenied": null,
+          "cashDiscountDeniedReason": null,
+          "cashDiscountDisabled": null
         }
       },
       "N1_User": {
