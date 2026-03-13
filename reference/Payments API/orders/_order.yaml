@@ -2,5 +2,5 @@
 - updateorcreateorder
 - updateorder
 - deleteorder
-- getorderinvoiceurl
-- sendorderinvoiceviaemailorsms
+- sendorderinvoice
+- startpayschedule
