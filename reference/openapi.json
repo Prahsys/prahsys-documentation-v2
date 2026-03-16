@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.90.0",
+    "version": "1.91.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-15T19:20:18.077Z"
+                      "createdAt": "2026-03-16T16:07:18.017Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-15T19:20:18.077Z"
+                      "createdAt": "2026-03-16T16:07:18.017Z"
                     }
                   }
                 }
@@ -807,6 +807,1390 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UnprocessableContenctBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/businesses": {
+      "get": {
+        "tags": [
+          "Lead Business"
+        ],
+        "operationId": "getLeadBusinesses",
+        "summary": "Get Lead Businesses",
+        "description": "Get lead businesses for the organization",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Array of keys indicating sort request.",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "name",
+                    "created_at",
+                    "updated_at",
+                    "next_reach_out_date",
+                    "account_type",
+                    "industry",
+                    "-name",
+                    "-created_at",
+                    "-updated_at",
+                    "-next_reach_out_date",
+                    "-account_type",
+                    "-industry"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "name",
+                      "created_at",
+                      "updated_at",
+                      "next_reach_out_date",
+                      "account_type",
+                      "industry",
+                      "-name",
+                      "-created_at",
+                      "-updated_at",
+                      "-next_reach_out_date",
+                      "-account_type",
+                      "-industry"
+                    ]
+                  }
+                }
+              ],
+              "description": "Array of keys indicating sort request."
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "Object with fields and filtering values",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "account_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "industry": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "source": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "description": "Object with fields and filtering values"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Count of result returned.",
+            "schema": {
+              "type": "number",
+              "default": 10,
+              "description": "Count of result returned."
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Offset of returned result. (0 indexed)",
+            "schema": {
+              "type": "number",
+              "default": 0,
+              "description": "Offset of returned result. (0 indexed)"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadBusiness"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Businesses Response",
+                  "description": "JSON response for getting lead businesses"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Business"
+        ],
+        "operationId": "createLeadBusiness",
+        "summary": "Create Lead Business",
+        "description": "Create a new lead business",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name of the business"
+                  },
+                  "accountType": {
+                    "$ref": "#/components/schemas/LeadAccountTypeEnum",
+                    "description": "Account type of the business"
+                  },
+                  "locationAddress": {
+                    "type": "string",
+                    "description": "Location address of the business"
+                  },
+                  "headquartersAddress": {
+                    "type": "string",
+                    "description": "Headquarters address of the business"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number of the business"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email of the business"
+                  },
+                  "website": {
+                    "type": "string",
+                    "description": "Website of the business"
+                  },
+                  "industry": {
+                    "type": "string",
+                    "description": "Industry the business operates in"
+                  },
+                  "managementSoftware": {
+                    "type": "string",
+                    "description": "Management software used"
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "How the lead was acquired"
+                  },
+                  "nextReachOutDate": {
+                    "type": "string",
+                    "description": "Next scheduled reach out date"
+                  },
+                  "ownerUserIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "User IDs to assign as owners"
+                  },
+                  "contactIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Contact IDs to link to this business"
+                  }
+                },
+                "required": [
+                  "name",
+                  "accountType"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadBusiness"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Business Response",
+                  "description": "JSON response for creating a lead business"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/businesses/{leadBusinessId}": {
+      "get": {
+        "tags": [
+          "Lead Business"
+        ],
+        "operationId": "getLeadBusiness",
+        "summary": "Get Lead Business",
+        "description": "Get a lead business by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadBusinessId",
+            "description": "The lead business id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead business id",
+              "example": "LB_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadBusiness"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Get Lead Business Response",
+                  "description": "JSON response for getting a lead business"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Lead Business"
+        ],
+        "operationId": "updateLeadBusiness",
+        "summary": "Update Lead Business",
+        "description": "Update a lead business by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadBusinessId",
+            "description": "The lead business id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead business id",
+              "example": "LB_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name of the business"
+                  },
+                  "accountType": {
+                    "$ref": "#/components/schemas/LeadAccountTypeEnum",
+                    "description": "Account type of the business"
+                  },
+                  "locationAddress": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Location address of the business"
+                  },
+                  "headquartersAddress": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Headquarters address of the business"
+                  },
+                  "phoneNumber": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Phone number of the business"
+                  },
+                  "email": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "email",
+                    "description": "Email of the business"
+                  },
+                  "website": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Website of the business"
+                  },
+                  "industry": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Industry the business operates in"
+                  },
+                  "managementSoftware": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Management software used"
+                  },
+                  "source": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "How the lead was acquired"
+                  },
+                  "nextReachOutDate": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Next scheduled reach out date"
+                  },
+                  "merchantId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Merchant ID if the lead has signed up"
+                  },
+                  "ownerUserIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "User IDs to assign as owners (replaces all)"
+                  },
+                  "contactIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Contact IDs to link to this business (replaces all)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadBusiness"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Business Response",
+                  "description": "JSON response for updating a lead business"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead Business"
+        ],
+        "operationId": "deleteLeadBusiness",
+        "summary": "Delete Lead Business",
+        "description": "Archive a lead business by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadBusinessId",
+            "description": "The lead business id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead business id",
+              "example": "LB_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Unique identifier for the lead business"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "title": "Lead Business",
+                      "description": "A lead business representing a prospective merchant in the sales pipeline"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead Business Response",
+                  "description": "JSON response for archiving a lead business"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/contacts": {
+      "get": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "getLeadContacts",
+        "summary": "Get Lead Contacts",
+        "description": "Get lead contacts for the organization",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Array of keys indicating sort request.",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "first_name",
+                    "last_name",
+                    "created_at",
+                    "updated_at",
+                    "next_reach_out_date",
+                    "email",
+                    "-first_name",
+                    "-last_name",
+                    "-created_at",
+                    "-updated_at",
+                    "-next_reach_out_date",
+                    "-email"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "first_name",
+                      "last_name",
+                      "created_at",
+                      "updated_at",
+                      "next_reach_out_date",
+                      "email",
+                      "-first_name",
+                      "-last_name",
+                      "-created_at",
+                      "-updated_at",
+                      "-next_reach_out_date",
+                      "-email"
+                    ]
+                  }
+                }
+              ],
+              "description": "Array of keys indicating sort request."
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "Object with fields and filtering values",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "email": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "job_title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "description": "Object with fields and filtering values"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Count of result returned.",
+            "schema": {
+              "type": "number",
+              "default": 10,
+              "description": "Count of result returned."
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Offset of returned result. (0 indexed)",
+            "schema": {
+              "type": "number",
+              "default": 0,
+              "description": "Offset of returned result. (0 indexed)"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadContact"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Contacts Response",
+                  "description": "JSON response for getting lead contacts"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "createLeadContact",
+        "summary": "Create Lead Contact",
+        "description": "Create a new lead contact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "First name of the contact"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Last name of the contact"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number of the contact"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address of the contact"
+                  },
+                  "nextReachOutDate": {
+                    "type": "string",
+                    "description": "Next scheduled reach out date"
+                  },
+                  "jobTitle": {
+                    "type": "string",
+                    "description": "Job title of the contact"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Address of the contact"
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Source of the contact"
+                  },
+                  "businessIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Lead business IDs to link to this contact"
+                  },
+                  "userIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "User IDs to link to this contact"
+                  }
+                },
+                "required": [
+                  "firstName",
+                  "lastName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadContact"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Contact Response",
+                  "description": "JSON response for creating a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/contacts/{leadContactId}": {
+      "get": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "getLeadContact",
+        "summary": "Get Lead Contact",
+        "description": "Get a lead contact by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadContactId",
+            "description": "The lead contact id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead contact id",
+              "example": "LC_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadContact"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Get Lead Contact Response",
+                  "description": "JSON response for getting a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "updateLeadContact",
+        "summary": "Update Lead Contact",
+        "description": "Update a lead contact by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadContactId",
+            "description": "The lead contact id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead contact id",
+              "example": "LC_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "First name of the contact"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Last name of the contact"
+                  },
+                  "phoneNumber": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Phone number of the contact"
+                  },
+                  "email": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "email",
+                    "description": "Email address of the contact"
+                  },
+                  "nextReachOutDate": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Next scheduled reach out date"
+                  },
+                  "jobTitle": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Job title of the contact"
+                  },
+                  "address": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Address of the contact"
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Source of the contact"
+                  },
+                  "businessIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Lead business IDs to link (replaces all)"
+                  },
+                  "userIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "User IDs to link (replaces all)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadContact"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Contact Response",
+                  "description": "JSON response for updating a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "deleteLeadContact",
+        "summary": "Delete Lead Contact",
+        "description": "Archive a lead contact by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadContactId",
+            "description": "The lead contact id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead contact id",
+              "example": "LC_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Unique identifier for the contact"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "title": "Lead Contact",
+                      "description": "A contact person associated with a lead business"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead Contact Response",
+                  "description": "JSON response for archiving a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
                 }
               }
             }
@@ -3620,6 +5004,7 @@
                       "lastName": "Doe",
                       "email": "j.doe@email.com",
                       "phone": "+12148787878",
+                      "imageUrl": null,
                       "role": "member",
                       "createdAt": "2023-01-01T00:00:00.000Z",
                       "lastLoggedIn": "2023-01-01T00:00:00.000Z"
@@ -4732,7 +6117,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-15T19:20:18.077Z"
+          "createdAt": "2026-03-16T16:07:18.017Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -4912,6 +6297,451 @@
           "success": false,
           "message": "Unprocessable Content"
         }
+      },
+      "N1_LeadBusiness": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the lead business"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the business"
+          },
+          "locationAddress": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Location address of the business"
+          },
+          "headquartersAddress": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Headquarters address of the business"
+          },
+          "phoneNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Phone number of the business"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Email of the business"
+          },
+          "website": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Website of the business"
+          },
+          "industry": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Industry the business operates in"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/LeadAccountTypeEnum"
+          },
+          "managementSoftware": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Management software used (e.g., Dentrix, Open Dental, Eaglesoft)"
+          },
+          "merchantId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Merchant organization ID if the lead has signed up"
+          },
+          "source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "How the lead was acquired (e.g., Meta, walk-in, email)"
+          },
+          "nextReachOutDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Next scheduled reach out date"
+          },
+          "channelPartnerId": {
+            "type": "string",
+            "description": "ID of the channel partner this lead belongs to"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the lead was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the lead was last updated"
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadStatus"
+            },
+            "description": "Status history of the lead"
+          },
+          "deal": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/N1_LeadDeal"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Associated deal, if any"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadContact"
+            },
+            "description": "Contacts associated with this lead"
+          },
+          "touchPoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadTouchPoint"
+            },
+            "description": "Touch points for this lead"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "locationAddress",
+          "headquartersAddress",
+          "phoneNumber",
+          "email",
+          "website",
+          "industry",
+          "accountType",
+          "managementSoftware",
+          "merchantId",
+          "source",
+          "nextReachOutDate",
+          "channelPartnerId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Business",
+        "description": "A lead business representing a prospective merchant in the sales pipeline"
+      },
+      "LeadAccountTypeEnum": {
+        "type": "string",
+        "enum": [
+          "DSO",
+          "MULTI_LOCATION",
+          "PRIVATE",
+          "OTHER"
+        ],
+        "title": "Lead Account Type",
+        "description": "The account type of the lead business. Valid values: DSO (dental service organization), MULTI_LOCATION (multi-location business), PRIVATE (private practice), OTHER",
+        "example": "PRIVATE"
+      },
+      "N1_LeadStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the status entry"
+          },
+          "leadBusinessId": {
+            "type": "string",
+            "description": "ID of the associated lead business"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LeadStatusEnum"
+          },
+          "date": {
+            "type": "string",
+            "description": "When the status change occurred"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the status record was created"
+          }
+        },
+        "required": [
+          "id",
+          "leadBusinessId",
+          "status",
+          "date",
+          "createdAt"
+        ],
+        "title": "Lead Status",
+        "description": "A status history entry for a lead business. The latest entry represents the current status."
+      },
+      "LeadStatusEnum": {
+        "type": "string",
+        "enum": [
+          "NEW",
+          "ATTEMPTED_TO_CONTACT",
+          "OPEN",
+          "DEFERRED",
+          "ONBOARDING",
+          "CUSTOMER",
+          "FORMER_CUSTOMER",
+          "APPLICATION_DECLINED"
+        ],
+        "title": "Lead Status",
+        "description": "The status of a lead. Valid values: NEW (untouched), ATTEMPTED_TO_CONTACT (rep actively trying to connect), OPEN (in communication), DEFERRED (declined or unresponsive), ONBOARDING (merchant application opened), CUSTOMER (active Prahsys user), FORMER_CUSTOMER (previously used Prahsys), APPLICATION_DECLINED (underwriting declined)",
+        "example": "NEW"
+      },
+      "N1_LeadDeal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the deal"
+          },
+          "leadBusinessId": {
+            "type": "string",
+            "description": "ID of the associated lead business"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LeadDealStatusEnum"
+          },
+          "dateWon": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the deal was won"
+          },
+          "dateLost": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the deal was lost"
+          },
+          "expectedCloseDate": {
+            "type": "string",
+            "description": "Expected close date for the deal"
+          },
+          "monthlyProcessing": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Estimated monthly processing volume"
+          },
+          "rateDesired": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadDealRateDesiredEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Desired rate type for the deal"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the deal was created"
+          }
+        },
+        "required": [
+          "id",
+          "leadBusinessId",
+          "status",
+          "dateWon",
+          "dateLost",
+          "expectedCloseDate",
+          "monthlyProcessing",
+          "rateDesired",
+          "createdAt"
+        ],
+        "title": "Lead Deal",
+        "description": "A deal associated with a lead business when the lead status is OPEN"
+      },
+      "LeadDealStatusEnum": {
+        "type": "string",
+        "enum": [
+          "INFORM",
+          "DEMO_SCHEDULED",
+          "DEMO_DONE",
+          "MERCHANT_STATEMENTS_REQUESTED",
+          "STATEMENT_ANALYSIS_SENT",
+          "IN_UNDERWRITING",
+          "WON",
+          "LOST"
+        ],
+        "title": "Lead Deal Status",
+        "description": "The status of a lead deal pipeline. Valid values: INFORM (initial contact), DEMO_SCHEDULED, DEMO_DONE, MERCHANT_STATEMENTS_REQUESTED, STATEMENT_ANALYSIS_SENT, IN_UNDERWRITING, WON, LOST",
+        "example": "INFORM"
+      },
+      "LeadDealRateDesiredEnum": {
+        "type": "string",
+        "enum": [
+          "STANDARD",
+          "PROMOTIONAL",
+          "CASH_DISCOUNT"
+        ],
+        "title": "Lead Deal Rate Desired",
+        "description": "The desired rate type for the lead deal. Valid values: STANDARD, PROMOTIONAL, CASH_DISCOUNT (cash discount program)",
+        "example": "STANDARD"
+      },
+      "N1_LeadContact": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the contact"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the contact"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the contact"
+          },
+          "phoneNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Phone number of the contact"
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Email address of the contact"
+          },
+          "nextReachOutDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Next scheduled reach out date"
+          },
+          "jobTitle": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Job title of the contact"
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Address of the contact"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the contact, e.g. 'By Ethan'"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the contact was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the contact was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "phoneNumber",
+          "email",
+          "nextReachOutDate",
+          "jobTitle",
+          "address",
+          "source",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Contact",
+        "description": "A contact person associated with a lead business"
+      },
+      "N1_LeadTouchPoint": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the touch point"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Optional note or description of the touch point"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of the touch point interaction"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user who created the touch point"
+          },
+          "leadBusinessId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the associated lead business, if any"
+          },
+          "leadContactId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the associated lead contact, if any"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the touch point was created"
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "date",
+          "userId",
+          "leadBusinessId",
+          "leadContactId",
+          "createdAt"
+        ],
+        "title": "Lead Touch Point",
+        "description": "An internal note or interaction record for a lead business or contact"
       },
       "N1_NewMerchant": {
         "type": "object",
@@ -7363,6 +9193,14 @@
             ],
             "description": "Email of the user."
           },
+          "imageUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": null,
+            "description": "Profile image URL of the user."
+          },
           "role": {
             "type": "string",
             "enum": [
@@ -7390,6 +9228,7 @@
           "lastName",
           "phone",
           "email",
+          "imageUrl",
           "role",
           "createdAt",
           "lastLoggedIn"
@@ -7402,6 +9241,7 @@
           "lastName": "Doe",
           "email": "j.doe@email.com",
           "phone": "+12148787878",
+          "imageUrl": null,
           "role": "member",
           "createdAt": "2023-01-01T00:00:00.000Z",
           "lastLoggedIn": "2023-01-01T00:00:00.000Z"
