@@ -55,22 +55,13 @@ These cards simulate specific failure scenarios. Each card maps through a proces
 
 ### Decline Cards (card/issuer rejected the transaction)
 
-| Scenario           | Card Number      | Result   | Error Code                  | Payment Status |
-| ------------------ | ---------------- | -------- | --------------------------- | -------------- |
-| Generic Decline    | 4000000000000002 | DECLINED | TRANSACTION_DECLINED        | DECLINED       |
-| Insufficient Funds | 4000000000009995 | DECLINED | TRANSACTION_DECLINED        | DECLINED       |
-| Card Expired       | 4000000000000069 | DECLINED | CARD_EXPIRED                | DECLINED       |
-| Invalid Card       | 4000000000000127 | DECLINED | INVALID_CARD_NUMBER         | DECLINED       |
-| CSC Mismatch       | 4000000000000101 | DECLINED | CSC_VERIFICATION_FAILED     | DECLINED       |
-| AVS Mismatch       | 4000000000000010 | DECLINED | ADDRESS_VERIFICATION_FAILED | DECLINED       |
-
-### System Error Cards (infrastructure/processor-level failures)
-
-| Scenario        | Card Number      | Result  | Error Code         | Payment Status |
-| --------------- | ---------------- | ------- | ------------------ | -------------- |
-| Timeout         | 4000000000009987 | UNKNOWN | TRANSACTION_FAILED | FAILED         |
-| Network Error   | 4000000000000119 | ERROR   | TRANSACTION_FAILED | FAILED         |
-| Processor Error | 4000000000000341 | FAILURE | TRANSACTION_FAILED | FAILED         |
+| Scenario        | Card Number      | Result   | Error Code                  | Payment Status |
+| --------------- | ---------------- | -------- | --------------------------- | -------------- |
+| Generic Decline | 4000000000000002 | DECLINED | TRANSACTION_DECLINED        | DECLINED       |
+| Card Expired    | 4000000000000069 | DECLINED | CARD_EXPIRED                | DECLINED       |
+| Invalid Card    | 4000000000000127 | DECLINED | INVALID_CARD_NUMBER         | DECLINED       |
+| CSC Mismatch    | 4000000000000101 | DECLINED | CSC_VERIFICATION_FAILED     | DECLINED       |
+| AVS Mismatch    | 4000000000000010 | DECLINED | ADDRESS_VERIFICATION_FAILED | DECLINED       |
 
 ## Understanding Result vs Error Code
 
@@ -80,20 +71,6 @@ The API response contains two independent fields for error scenarios:
 * **`errorCode`** -- The user-facing error classification. Tells you _what to display or act on_.
 
 These are derived independently, mirroring how real processors (e.g., Mastercard) map a single processor response code to both a result and an error code separately.
-
-### Why do system errors all show TRANSACTION_FAILED?
-
-For system/infrastructure errors (timeout, network error, processor error), the `errorCode` is intentionally normalized to the generic `TRANSACTION_FAILED`. The internal details (timeout vs network vs processor) are not exposed to API consumers. Instead, the **`result`** field differentiates them:
-
-| Result     | Meaning                                                                                      |
-| ---------- | -------------------------------------------------------------------------------------------- |
-| `SUCCESS`  | Transaction processed successfully                                                           |
-| `DECLINED` | Card/issuer declined the transaction (try a different card)                                  |
-| `UNKNOWN`  | Outcome is indeterminate -- the transaction may or may not have gone through (e.g., timeout) |
-| `ERROR`    | A system error occurred on our side (e.g., network failure)                                  |
-| `FAILURE`  | The transaction definitively failed (e.g., processor rejected it)                            |
-
-This matches Mastercard's real processor behavior where `TIMED_OUT` maps to `ResultEnum::UNKNOWN` + `TransactionErrorEnum::TRANSACTION_FAILED`.
 
 ## Card Present Test Terminals (TIDs)
 
@@ -130,12 +107,3 @@ Card present transactions use **Terminal IDs (TIDs)** instead of card numbers to
 | Cannot Connect        | `CARD_PRESENT_CANNOT_CONNECT_TO_DEVICE` | --        | `CARD_PRESENT_CANNOT_CONNECT_TO_DEVICE` | --             |
 
 > **Cannot Connect** is special: the processor was never reached, so the transaction record is deleted entirely. No result or payment status is returned -- the pay request fails with an error response.
-
-### System Error Terminals (infrastructure/gateway-level failures)
-
-| Scenario      | TID             | Result    | Error Code           | Payment Status |
-| ------------- | --------------- | --------- | -------------------- | -------------- |
-| Gateway Error | `GATEWAY_ERROR` | `ERROR`   | `TRANSACTION_FAILED` | `FAILED`       |
-| Timeout       | `TIMEOUT`       | `UNKNOWN` | `TRANSACTION_FAILED` | `FAILED`       |
-
-> System error TIDs normalize the error code to `TRANSACTION_FAILED` (same behavior as the CNP system error cards). The `result` field differentiates them.
