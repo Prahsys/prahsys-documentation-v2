@@ -4,3 +4,5 @@
 - deleteorder
 - sendorderinvoice
 - startpayschedule
+- listordersfororganization
+- listordersformerchant
