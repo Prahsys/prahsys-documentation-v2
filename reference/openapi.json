@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.95.0",
+    "version": "1.96.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-20T01:29:15.917Z"
+                      "createdAt": "2026-03-20T18:35:03.349Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-20T01:29:15.917Z"
+                      "createdAt": "2026-03-20T18:35:03.349Z"
                     }
                   }
                 }
@@ -845,7 +845,7 @@
                     "name",
                     "created_at",
                     "updated_at",
-                    "next_reach_out_date",
+                    "next_reachout_date",
                     "account_type",
                     "industry",
                     "lead_status",
@@ -853,7 +853,7 @@
                     "-name",
                     "-created_at",
                     "-updated_at",
-                    "-next_reach_out_date",
+                    "-next_reachout_date",
                     "-account_type",
                     "-industry",
                     "-lead_status",
@@ -868,7 +868,7 @@
                       "name",
                       "created_at",
                       "updated_at",
-                      "next_reach_out_date",
+                      "next_reachout_date",
                       "account_type",
                       "industry",
                       "lead_status",
@@ -876,7 +876,7 @@
                       "-name",
                       "-created_at",
                       "-updated_at",
-                      "-next_reach_out_date",
+                      "-next_reachout_date",
                       "-account_type",
                       "-industry",
                       "-lead_status",
@@ -1167,10 +1167,6 @@
                     "pattern": "^[a-z0-9-]+$",
                     "description": "Campaign identifier (lowercase-hyphenated)"
                   },
-                  "nextReachOutDate": {
-                    "type": "string",
-                    "description": "Next scheduled reach out date"
-                  },
                   "ownerUserIds": {
                     "type": "array",
                     "items": {
@@ -1435,13 +1431,6 @@
                     ],
                     "pattern": "^[a-z0-9-]+$",
                     "description": "Campaign identifier (lowercase-hyphenated)"
-                  },
-                  "nextReachOutDate": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "description": "Next scheduled reach out date"
                   },
                   "merchantId": {
                     "type": [
@@ -1751,13 +1740,11 @@
                     "last_name",
                     "created_at",
                     "updated_at",
-                    "next_reach_out_date",
                     "email",
                     "-first_name",
                     "-last_name",
                     "-created_at",
                     "-updated_at",
-                    "-next_reach_out_date",
                     "-email"
                   ]
                 },
@@ -1770,13 +1757,11 @@
                       "last_name",
                       "created_at",
                       "updated_at",
-                      "next_reach_out_date",
                       "email",
                       "-first_name",
                       "-last_name",
                       "-created_at",
                       "-updated_at",
-                      "-next_reach_out_date",
                       "-email"
                     ]
                   }
@@ -1951,10 +1936,6 @@
                     "type": "string",
                     "format": "email",
                     "description": "Email address of the contact"
-                  },
-                  "nextReachOutDate": {
-                    "type": "string",
-                    "description": "Next scheduled reach out date"
                   },
                   "jobTitle": {
                     "type": "string",
@@ -2175,13 +2156,6 @@
                     "format": "email",
                     "description": "Email address of the contact"
                   },
-                  "nextReachOutDate": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "description": "Next scheduled reach out date"
-                  },
                   "jobTitle": {
                     "type": [
                       "string",
@@ -2394,7 +2368,7 @@
             "name": "limit",
             "schema": {
               "type": "number",
-              "default": 50
+              "default": 100
             }
           },
           {
@@ -2524,6 +2498,535 @@
                   ],
                   "title": "Create Lead Industry Response",
                   "description": "JSON response for creating a lead industry"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/management-softwares": {
+      "get": {
+        "tags": [
+          "Lead Management Software"
+        ],
+        "operationId": "getLeadManagementSoftwares",
+        "summary": "Get Lead Management Softwares",
+        "description": "Get the global list of lead management softwares",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadManagementSoftware"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Management Softwares Response",
+                  "description": "JSON response for getting lead management softwares"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Management Software"
+        ],
+        "operationId": "createLeadManagementSoftware",
+        "summary": "Create Lead Management Software",
+        "description": "Create a new global lead management software",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name of the management software to create"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadManagementSoftware"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Management Software Response",
+                  "description": "JSON response for creating a lead management software"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/reach-outs": {
+      "get": {
+        "tags": [
+          "Lead Reach Outs"
+        ],
+        "operationId": "getLeadReachOuts",
+        "summary": "Get Lead Reach Outs",
+        "description": "Get all scheduled reach outs for a lead business and/or lead contacts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "leadBusinessId",
+            "description": "ID of the lead business to fetch reach outs for",
+            "schema": {
+              "type": "string",
+              "description": "ID of the lead business to fetch reach outs for"
+            }
+          },
+          {
+            "in": "query",
+            "name": "leadContactIds",
+            "description": "One or more lead contact IDs to include in the feed",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "description": "One or more lead contact IDs to include in the feed"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadReachOut"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Reach Outs Response",
+                  "description": "JSON response for getting lead reach outs"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Reach Outs"
+        ],
+        "operationId": "createLeadReachOut",
+        "summary": "Create Lead Reach Out",
+        "description": "Schedule a new reach out on a lead business or contact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "$ref": "#/components/schemas/LeadReachOutTypeEnum",
+                    "description": "The type of reach out to schedule"
+                  },
+                  "scheduledDate": {
+                    "type": "string",
+                    "description": "When the reach out is scheduled for"
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Optional note about the reach out"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "description": "DB record ID of the user creating the reach out"
+                  },
+                  "leadBusinessId": {
+                    "type": "string",
+                    "description": "ID of the lead business to attach this reach out to"
+                  },
+                  "leadContactId": {
+                    "type": "string",
+                    "description": "ID of the lead contact to attach this reach out to"
+                  }
+                },
+                "required": [
+                  "type",
+                  "scheduledDate",
+                  "userId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadReachOut"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Reach Out Response",
+                  "description": "JSON response for creating a lead reach out"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/reach-outs/{reachOutId}": {
+      "patch": {
+        "tags": [
+          "Lead Reach Outs"
+        ],
+        "operationId": "updateLeadReachOut",
+        "summary": "Update Lead Reach Out",
+        "description": "Update a scheduled reach out (type, date, note, or completion status)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reachOutId",
+            "description": "The reach out id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The reach out id",
+              "example": "RO_EXAMPLE_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "$ref": "#/components/schemas/LeadReachOutTypeEnum",
+                    "description": "Updated type for this reach out"
+                  },
+                  "scheduledDate": {
+                    "type": "string",
+                    "description": "Updated scheduled date"
+                  },
+                  "note": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Updated note"
+                  },
+                  "completedAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Set to a date to mark complete, null to un-complete"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadReachOut"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Reach Out Response",
+                  "description": "JSON response for updating a lead reach out"
                 }
               }
             }
@@ -2694,6 +3197,10 @@
                     "minLength": 1,
                     "description": "The note or comment to record as a touch point"
                   },
+                  "type": {
+                    "$ref": "#/components/schemas/LeadTouchPointTypeEnum",
+                    "description": "The type of interaction for this touch point"
+                  },
                   "userId": {
                     "type": "string",
                     "description": "DB record ID of the user creating the touch point"
@@ -2709,6 +3216,7 @@
                 },
                 "required": [
                   "description",
+                  "type",
                   "userId"
                 ]
               }
@@ -2809,11 +3317,12 @@
                     "type": "string",
                     "minLength": 1,
                     "description": "The new edited message content for this touch point"
+                  },
+                  "type": {
+                    "$ref": "#/components/schemas/LeadTouchPointTypeEnum",
+                    "description": "Updated type for this touch point"
                   }
-                },
-                "required": [
-                  "editedMessage"
-                ]
+                }
               }
             }
           }
@@ -6808,7 +7317,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-20T01:29:15.917Z"
+          "createdAt": "2026-03-20T18:35:03.349Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -7091,13 +7600,6 @@
             ],
             "description": "Campaign identifier (lowercase-hyphenated)"
           },
-          "nextReachOutDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Next scheduled reach out date"
-          },
           "channelPartnerId": {
             "type": "string",
             "description": "ID of the channel partner this lead belongs to"
@@ -7145,6 +7647,13 @@
             },
             "description": "Touch points for this lead"
           },
+          "reachOuts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadReachOut"
+            },
+            "description": "Scheduled reach outs for this lead"
+          },
           "owners": {
             "type": "array",
             "items": {
@@ -7158,6 +7667,13 @@
               "null"
             ],
             "description": "Date of the most recent touch point"
+          },
+          "nextReachoutDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date of the next upcoming incomplete reachout"
           }
         },
         "required": [
@@ -7175,7 +7691,6 @@
           "leadChannel",
           "leadSource",
           "leadCampaign",
-          "nextReachOutDate",
           "channelPartnerId",
           "createdAt",
           "updatedAt"
@@ -7449,13 +7964,6 @@
             ],
             "description": "Email address of the contact"
           },
-          "nextReachOutDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Next scheduled reach out date"
-          },
           "jobTitle": {
             "type": [
               "string",
@@ -7480,6 +7988,13 @@
               "null"
             ],
             "description": "When the contact was last updated"
+          },
+          "nextReachoutDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date of the next upcoming incomplete reachout"
           }
         },
         "required": [
@@ -7488,7 +8003,6 @@
           "lastName",
           "phoneNumber",
           "email",
-          "nextReachOutDate",
           "jobTitle",
           "address",
           "createdAt",
@@ -7503,6 +8017,10 @@
           "id": {
             "type": "string",
             "description": "Unique identifier for the touch point"
+          },
+          "type": {
+            "$ref": "#/components/schemas/LeadTouchPointTypeEnum",
+            "description": "Type of the touch point interaction"
           },
           "description": {
             "type": [
@@ -7595,6 +8113,7 @@
         },
         "required": [
           "id",
+          "type",
           "description",
           "date",
           "userId",
@@ -7607,6 +8126,190 @@
         ],
         "title": "Lead Touch Point",
         "description": "An internal note or interaction record for a lead business or contact"
+      },
+      "LeadTouchPointTypeEnum": {
+        "type": "string",
+        "enum": [
+          "PHONE_CALL",
+          "EMAIL",
+          "VOICEMAIL",
+          "TEXT",
+          "LINKEDIN_MESSAGE",
+          "MEETING_VIRTUAL",
+          "MEETING_IN_PERSON",
+          "DEMO",
+          "WEBINAR",
+          "NOTE"
+        ],
+        "title": "Lead Touch Point Type",
+        "description": "The type of touch point interaction. Valid values: PHONE_CALL, EMAIL, VOICEMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, NOTE",
+        "example": "NOTE"
+      },
+      "N1_LeadReachOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the reach out"
+          },
+          "type": {
+            "$ref": "#/components/schemas/LeadReachOutTypeEnum",
+            "description": "Type of the scheduled reach out"
+          },
+          "scheduledDate": {
+            "type": "string",
+            "description": "When the reach out is scheduled for"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Optional note about the reach out"
+          },
+          "completedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the reach out was completed, null if pending"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user who created the reach out"
+          },
+          "leadBusinessId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the associated lead business, if any"
+          },
+          "leadContactId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the associated lead contact, if any"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the reach out was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the reach out was last updated"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "ID of the user who created the reach out"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the creator"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the creator"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email of the creator"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the creator"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "email",
+              "imageUrl"
+            ],
+            "description": "User who created the reach out"
+          },
+          "completedBy": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "ID of the user who completed the reach out"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "email",
+              "imageUrl"
+            ],
+            "description": "User who completed the reach out"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "scheduledDate",
+          "note",
+          "completedAt",
+          "userId",
+          "leadBusinessId",
+          "leadContactId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Reach Out",
+        "description": "A scheduled reach out for a lead business or contact"
+      },
+      "LeadReachOutTypeEnum": {
+        "type": "string",
+        "enum": [
+          "PHONE_CALL",
+          "EMAIL",
+          "TEXT",
+          "LINKEDIN_MESSAGE",
+          "MEETING_VIRTUAL",
+          "MEETING_IN_PERSON",
+          "DEMO",
+          "WEBINAR",
+          "OTHER"
+        ],
+        "title": "Lead Reach Out Type",
+        "description": "The type of scheduled reach out. Valid values: PHONE_CALL, EMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, OTHER",
+        "example": "PHONE_CALL"
       },
       "N1_LeadOwner": {
         "type": "object",
@@ -7676,6 +8379,38 @@
         ],
         "title": "Lead Industry",
         "description": "A globally shared industry classification for lead businesses"
+      },
+      "N1_LeadManagementSoftware": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the management software"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the management software"
+          },
+          "createdByUserId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the user who created this entry, if known"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the entry was created"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdByUserId",
+          "createdAt"
+        ],
+        "title": "Lead Management Software",
+        "description": "A globally shared management software entry for lead businesses"
       },
       "N1_NewMerchant": {
         "type": "object",
