@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.91.0",
+    "version": "1.95.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-16T16:07:18.017Z"
+                      "createdAt": "2026-03-20T01:29:15.917Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-16T16:07:18.017Z"
+                      "createdAt": "2026-03-20T01:29:15.917Z"
                     }
                   }
                 }
@@ -848,12 +848,16 @@
                     "next_reach_out_date",
                     "account_type",
                     "industry",
+                    "lead_status",
+                    "last_touch_date",
                     "-name",
                     "-created_at",
                     "-updated_at",
                     "-next_reach_out_date",
                     "-account_type",
-                    "-industry"
+                    "-industry",
+                    "-lead_status",
+                    "-last_touch_date"
                   ]
                 },
                 {
@@ -867,12 +871,16 @@
                       "next_reach_out_date",
                       "account_type",
                       "industry",
+                      "lead_status",
+                      "last_touch_date",
                       "-name",
                       "-created_at",
                       "-updated_at",
                       "-next_reach_out_date",
                       "-account_type",
-                      "-industry"
+                      "-industry",
+                      "-lead_status",
+                      "-last_touch_date"
                     ]
                   }
                 }
@@ -926,7 +934,59 @@
                     }
                   ]
                 },
-                "source": {
+                "lead_channel": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "lead_status": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "deal_status": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "archived": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "owner_id": {
                   "anyOf": [
                     {
                       "type": "string"
@@ -1093,9 +1153,19 @@
                     "type": "string",
                     "description": "Management software used"
                   },
-                  "source": {
+                  "leadChannel": {
+                    "$ref": "#/components/schemas/LeadChannelEnum",
+                    "description": "Acquisition channel for the lead"
+                  },
+                  "leadSource": {
                     "type": "string",
-                    "description": "How the lead was acquired"
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Source within the channel (lowercase-hyphenated)"
+                  },
+                  "leadCampaign": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Campaign identifier (lowercase-hyphenated)"
                   },
                   "nextReachOutDate": {
                     "type": "string",
@@ -1118,7 +1188,8 @@
                 },
                 "required": [
                   "name",
-                  "accountType"
+                  "accountType",
+                  "leadChannel"
                 ]
               }
             }
@@ -1345,12 +1416,25 @@
                     ],
                     "description": "Management software used"
                   },
-                  "source": {
+                  "leadChannel": {
+                    "$ref": "#/components/schemas/LeadChannelEnum",
+                    "description": "Acquisition channel for the lead"
+                  },
+                  "leadSource": {
                     "type": [
                       "string",
                       "null"
                     ],
-                    "description": "How the lead was acquired"
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Source within the channel (lowercase-hyphenated)"
+                  },
+                  "leadCampaign": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Campaign identifier (lowercase-hyphenated)"
                   },
                   "nextReachOutDate": {
                     "type": [
@@ -1543,6 +1627,108 @@
         }
       }
     },
+    "/n1/leads/businesses/{leadBusinessId}/statuses": {
+      "post": {
+        "tags": [
+          "Lead Business"
+        ],
+        "operationId": "createLeadStatus",
+        "summary": "Create Lead Status",
+        "description": "Add a new status entry to the lead business status history",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadBusinessId",
+            "description": "The lead business id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead business id",
+              "example": "LB_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "$ref": "#/components/schemas/LeadStatusEnum",
+                    "description": "The new status to set for this lead"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadBusiness"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Status Response",
+                  "description": "JSON response for creating a lead status"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/n1/leads/contacts": {
       "get": {
         "tags": [
@@ -1606,19 +1792,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "source": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  ]
-                },
                 "email": {
                   "anyOf": [
                     {
@@ -1768,7 +1941,6 @@
                   },
                   "lastName": {
                     "type": "string",
-                    "minLength": 1,
                     "description": "Last name of the contact"
                   },
                   "phoneNumber": {
@@ -1792,10 +1964,6 @@
                     "type": "string",
                     "description": "Address of the contact"
                   },
-                  "source": {
-                    "type": "string",
-                    "description": "Source of the contact"
-                  },
                   "businessIds": {
                     "type": "array",
                     "items": {
@@ -1812,8 +1980,7 @@
                   }
                 },
                 "required": [
-                  "firstName",
-                  "lastName"
+                  "firstName"
                 ]
               }
             }
@@ -1987,8 +2154,10 @@
                     "description": "First name of the contact"
                   },
                   "lastName": {
-                    "type": "string",
-                    "minLength": 1,
+                    "type": [
+                      "string",
+                      "null"
+                    ],
                     "description": "Last name of the contact"
                   },
                   "phoneNumber": {
@@ -2026,10 +2195,6 @@
                       "null"
                     ],
                     "description": "Address of the contact"
-                  },
-                  "source": {
-                    "type": "string",
-                    "description": "Source of the contact"
                   },
                   "businessIds": {
                     "type": "array",
@@ -2181,6 +2346,523 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/industries": {
+      "get": {
+        "tags": [
+          "Lead Industry"
+        ],
+        "operationId": "getLeadIndustries",
+        "summary": "Get Lead Industries",
+        "description": "Get the global list of lead industries",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 50
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadIndustry"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Industries Response",
+                  "description": "JSON response for getting lead industries"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Industry"
+        ],
+        "operationId": "createLeadIndustry",
+        "summary": "Create Lead Industry",
+        "description": "Create a new global lead industry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name of the industry to create"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadIndustry"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Industry Response",
+                  "description": "JSON response for creating a lead industry"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/touch-points": {
+      "get": {
+        "tags": [
+          "Lead Touch Points"
+        ],
+        "operationId": "getLeadTouchPoints",
+        "summary": "Get Lead Touch Points",
+        "description": "Get all touch points for a lead business and/or lead contacts, merged and sorted by date",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "leadBusinessId",
+            "description": "ID of the lead business to fetch touch points for",
+            "schema": {
+              "type": "string",
+              "description": "ID of the lead business to fetch touch points for"
+            }
+          },
+          {
+            "in": "query",
+            "name": "leadContactIds",
+            "description": "One or more lead contact IDs to include in the feed",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "description": "One or more lead contact IDs to include in the feed"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadTouchPoint"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Touch Points Response",
+                  "description": "JSON response for getting lead touch points"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Touch Points"
+        ],
+        "operationId": "createLeadTouchPoint",
+        "summary": "Create Lead Touch Point",
+        "description": "Create a new touch point (comment/note) on a lead business or contact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The note or comment to record as a touch point"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "description": "DB record ID of the user creating the touch point"
+                  },
+                  "leadBusinessId": {
+                    "type": "string",
+                    "description": "ID of the lead business to attach this touch point to"
+                  },
+                  "leadContactId": {
+                    "type": "string",
+                    "description": "ID of the lead contact to attach this touch point to"
+                  }
+                },
+                "required": [
+                  "description",
+                  "userId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadTouchPoint"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Touch Point Response",
+                  "description": "JSON response for creating a lead touch point"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/touch-points/{touchPointId}": {
+      "patch": {
+        "tags": [
+          "Lead Touch Points"
+        ],
+        "operationId": "updateLeadTouchPoint",
+        "summary": "Update Lead Touch Point",
+        "description": "Edit the message of an existing touch point. The original message is preserved in description.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "touchPointId",
+            "description": "The touch point id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The touch point id",
+              "example": "TP_EXAMPLE_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "editedMessage": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The new edited message content for this touch point"
+                  }
+                },
+                "required": [
+                  "editedMessage"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadTouchPoint"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Touch Point Response",
+                  "description": "JSON response for updating a lead touch point"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
                 }
               }
             }
@@ -3007,6 +3689,8 @@
                       "cashDiscountDisabled": null,
                       "cashDiscountRate": 0.03,
                       "includeSimulatedTerminals": true,
+                      "cashPaymentsEnabled": true,
+                      "checkPaymentsEnabled": true,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -3014,7 +3698,7 @@
                       "closedByUserEmail": null,
                       "channelPartnerName": "Prahsys",
                       "channelPartnerSlug": "prahsys",
-                      "salesAgent": null,
+                      "salesAgents": [],
                       "createdAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
@@ -3217,6 +3901,8 @@
                       "cashDiscountDisabled": null,
                       "cashDiscountRate": 0.03,
                       "includeSimulatedTerminals": true,
+                      "cashPaymentsEnabled": true,
+                      "checkPaymentsEnabled": true,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -3224,7 +3910,7 @@
                       "closedByUserEmail": null,
                       "channelPartnerName": "Prahsys",
                       "channelPartnerSlug": "prahsys",
-                      "salesAgent": null,
+                      "salesAgents": [],
                       "createdAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
@@ -3312,10 +3998,13 @@
                     "minLength": 1,
                     "description": "Id of the merchant's user."
                   },
-                  "salesAgentId": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Id of the merchant's sales agent."
+                  "salesAgentIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "description": "Ids of the merchant's sales agents."
                   },
                   "businessAddress": {
                     "type": "object",
@@ -3690,6 +4379,8 @@
                       "cashDiscountDisabled": null,
                       "cashDiscountRate": 0.03,
                       "includeSimulatedTerminals": true,
+                      "cashPaymentsEnabled": true,
+                      "checkPaymentsEnabled": true,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -3697,7 +4388,7 @@
                       "closedByUserEmail": null,
                       "channelPartnerName": "Prahsys",
                       "channelPartnerSlug": "prahsys",
-                      "salesAgent": null,
+                      "salesAgents": [],
                       "createdAt": "2023-01-01T00:00:00.000Z"
                     }
                   }
@@ -4702,7 +5393,7 @@
                         "website": "https://test.com",
                         "businessPhone": "+1417567890",
                         "applicationId": 123456789,
-                        "salesAgent": null,
+                        "salesAgents": [],
                         "createdAt": "2023-01-01T00:00:00.000Z",
                         "readyForProcessing": true,
                         "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
@@ -4733,7 +5424,7 @@
                         "website": "https://merchant.com",
                         "businessPhone": "+14175678901",
                         "applicationId": 483729,
-                        "salesAgent": null,
+                        "salesAgents": [],
                         "createdAt": "2023-01-02T00:00:00.000Z",
                         "readyForProcessing": true,
                         "readyForProcessingAt": "2023-01-02T00:00:00.000Z",
@@ -6117,7 +6808,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-16T16:07:18.017Z"
+          "createdAt": "2026-03-20T01:29:15.917Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -6368,12 +7059,37 @@
             ],
             "description": "Merchant organization ID if the lead has signed up"
           },
-          "source": {
+          "merchantName": {
             "type": [
               "string",
               "null"
             ],
-            "description": "How the lead was acquired (e.g., Meta, walk-in, email)"
+            "description": "Name of the connected merchant organization"
+          },
+          "leadChannel": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadChannelEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Acquisition channel for the lead"
+          },
+          "leadSource": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Source within the channel (lowercase-hyphenated)"
+          },
+          "leadCampaign": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Campaign identifier (lowercase-hyphenated)"
           },
           "nextReachOutDate": {
             "type": [
@@ -6428,6 +7144,20 @@
               "$ref": "#/components/schemas/N1_LeadTouchPoint"
             },
             "description": "Touch points for this lead"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadOwner"
+            },
+            "description": "Owners assigned to this lead"
+          },
+          "lastTouchDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date of the most recent touch point"
           }
         },
         "required": [
@@ -6442,7 +7172,9 @@
           "accountType",
           "managementSoftware",
           "merchantId",
-          "source",
+          "leadChannel",
+          "leadSource",
+          "leadCampaign",
           "nextReachOutDate",
           "channelPartnerId",
           "createdAt",
@@ -6463,6 +7195,35 @@
         "description": "The account type of the lead business. Valid values: DSO (dental service organization), MULTI_LOCATION (multi-location business), PRIVATE (private practice), OTHER",
         "example": "PRIVATE"
       },
+      "LeadChannelEnum": {
+        "type": "string",
+        "enum": [
+          "INSIDE_SALES",
+          "OUTSIDE_SALES",
+          "PARTNER_REFERRAL",
+          "COMMUNITY",
+          "PRESS",
+          "REFERRAL",
+          "OTHER",
+          "UNKNOWN",
+          "ORGANIC_SEARCH",
+          "DIRECT",
+          "ORGANIC_SOCIAL",
+          "PAID_SEARCH",
+          "PAID_SOCIAL",
+          "SPONSORED_CONTENT",
+          "REVIEW_SITES",
+          "CONTENT_BLOG",
+          "WEBINAR_EVENT",
+          "INTEGRATION_MARKETPLACE",
+          "AFFILIATE",
+          "FREE_TRIAL",
+          "IN_APP_REFERRAL"
+        ],
+        "title": "Lead Channel",
+        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL",
+        "example": "REFERRAL"
+      },
       "N1_LeadStatus": {
         "type": "object",
         "properties": {
@@ -6481,6 +7242,52 @@
             "type": "string",
             "description": "When the status change occurred"
           },
+          "setById": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the user who set this status, null if system-set"
+          },
+          "setByUser": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Database user ID"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the user who set this status"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the user who set this status"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email of the user who set this status"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the user"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "email",
+              "imageUrl"
+            ],
+            "description": "User who set this status, null if system-set or pre-migration"
+          },
           "createdAt": {
             "type": "string",
             "description": "When the status record was created"
@@ -6491,6 +7298,8 @@
           "leadBusinessId",
           "status",
           "date",
+          "setById",
+          "setByUser",
           "createdAt"
         ],
         "title": "Lead Status",
@@ -6620,7 +7429,10 @@
             "description": "First name of the contact"
           },
           "lastName": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Last name of the contact"
           },
           "phoneNumber": {
@@ -6658,10 +7470,6 @@
             ],
             "description": "Address of the contact"
           },
-          "source": {
-            "type": "string",
-            "description": "Source of the contact, e.g. 'By Ethan'"
-          },
           "createdAt": {
             "type": "string",
             "description": "When the contact was created"
@@ -6683,7 +7491,6 @@
           "nextReachOutDate",
           "jobTitle",
           "address",
-          "source",
           "createdAt",
           "updatedAt"
         ],
@@ -6729,6 +7536,61 @@
           "createdAt": {
             "type": "string",
             "description": "When the touch point was created"
+          },
+          "editedMessage": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The edited message content. Original message is preserved in description."
+          },
+          "sourceType": {
+            "type": "string",
+            "enum": [
+              "business",
+              "contact"
+            ],
+            "description": "Whether this touch point is on a business or contact lead"
+          },
+          "sourceLabel": {
+            "type": "string",
+            "description": "Display label for the source — 'Business' or the contact's name"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "ID of the user who created the touch point"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the user who created the touch point"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the user who created the touch point"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email of the user who created the touch point"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the user"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "email",
+              "imageUrl"
+            ],
+            "description": "User who created the touch point"
           }
         },
         "required": [
@@ -6738,10 +7600,82 @@
           "userId",
           "leadBusinessId",
           "leadContactId",
-          "createdAt"
+          "createdAt",
+          "editedMessage",
+          "sourceType",
+          "sourceLabel"
         ],
         "title": "Lead Touch Point",
         "description": "An internal note or interaction record for a lead business or contact"
+      },
+      "N1_LeadOwner": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Database user ID of the owner"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the owner"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the owner"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the owner"
+          },
+          "imageUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Profile image URL from Clerk"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "imageUrl"
+        ],
+        "title": "Lead Owner",
+        "description": "An owner assigned to a lead business"
+      },
+      "N1_LeadIndustry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the industry"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the industry"
+          },
+          "createdByUserId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the user who created this industry, if known"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the industry was created"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdByUserId",
+          "createdAt"
+        ],
+        "title": "Lead Industry",
+        "description": "A globally shared industry classification for lead businesses"
       },
       "N1_NewMerchant": {
         "type": "object",
@@ -6753,12 +7687,22 @@
             ],
             "description": "Custom rate application ID to use for this merchant's rates"
           },
-          "salesAgentId": {
+          "salesAgentIds": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Sales Agents who onboarded the merchant"
+          },
+          "leadId": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Sales Agent who onboarded the merchant"
+            "description": "Optional lead business ID. When provided, the lead status will be updated to ONBOARDING and a deal will be created/updated to IN_UNDERWRITING."
           },
           "cashDiscountProgram": {
             "type": "boolean",
@@ -8130,6 +9074,14 @@
             "type": "boolean",
             "description": "Whether simulated terminals are included in terminal listings when accessed via sandbox API keys"
           },
+          "cashPaymentsEnabled": {
+            "type": "boolean",
+            "description": "Whether cash payments are visible and enabled for this merchant"
+          },
+          "checkPaymentsEnabled": {
+            "type": "boolean",
+            "description": "Whether check payments are visible and enabled for this merchant"
+          },
           "accountClosedDescription": {
             "type": [
               "string",
@@ -8165,39 +9117,46 @@
             ],
             "description": "Email address of the admin who closed the merchant account"
           },
-          "salesAgent": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
+          "salesAgents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "imageUrl": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
               },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
+              "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "imageUrl"
+              ]
             },
-            "required": [
-              "id",
-              "firstName",
-              "lastName",
-              "email",
-              "phone"
-            ],
-            "description": "Sales agent who signed the merchant"
+            "description": "Sales agents assigned to the merchant"
           },
           "feeProfile": {
             "type": [
@@ -8391,12 +9350,14 @@
           "cashDiscountDisabled",
           "cashDiscountRate",
           "includeSimulatedTerminals",
+          "cashPaymentsEnabled",
+          "checkPaymentsEnabled",
           "accountClosedDescription",
           "accountClosedJiraTicket",
           "accountClosedDate",
           "accountClosedBy",
           "closedByUserEmail",
-          "salesAgent",
+          "salesAgents",
           "feeProfile",
           "createdAt"
         ],
@@ -8515,6 +9476,8 @@
           "cashDiscountDisabled": null,
           "cashDiscountRate": 0.03,
           "includeSimulatedTerminals": true,
+          "cashPaymentsEnabled": true,
+          "checkPaymentsEnabled": true,
           "accountClosedDescription": null,
           "accountClosedJiraTicket": null,
           "accountClosedDate": null,
@@ -8522,7 +9485,7 @@
           "closedByUserEmail": null,
           "channelPartnerName": "Prahsys",
           "channelPartnerSlug": "prahsys",
-          "salesAgent": null,
+          "salesAgents": [],
           "createdAt": "2023-01-01T00:00:00.000Z"
         }
       },
@@ -9006,39 +9969,46 @@
             "nullable": true,
             "description": "The primary contact phone of the merchant"
           },
-          "salesAgent": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
+          "salesAgents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "imageUrl": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
               },
-              "firstName": {
-                "type": "string"
-              },
-              "lastName": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "phone": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
+              "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "imageUrl"
+              ]
             },
-            "required": [
-              "id",
-              "firstName",
-              "lastName",
-              "email",
-              "phone"
-            ],
-            "description": "Sales agent who signed the merchant"
+            "description": "Sales agents assigned to the merchant"
           },
           "signingUrl": {
             "type": [
@@ -9089,6 +10059,13 @@
               "null"
             ],
             "description": "Date when the Cash Discount Program was disabled by the merchant"
+          },
+          "channelPartnerName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The name of the channel partner organization this merchant belongs to"
           }
         },
         "required": [
@@ -9113,7 +10090,7 @@
           "primaryContactLastName",
           "primaryContactEmail",
           "primaryContactPhone",
-          "salesAgent",
+          "salesAgents",
           "signingUrl",
           "signingUrlExpiresAt",
           "optInCashDiscountProgram",
@@ -9146,14 +10123,15 @@
           "primaryContactPhone": "+1234567890",
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
-          "salesAgent": null,
+          "salesAgents": [],
           "signingUrl": "https://dashboard.prahsys.com/example-merchant/application",
           "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
           "optInCashDiscountProgram": null,
           "cashDiscountApproved": null,
           "cashDiscountDenied": null,
           "cashDiscountDeniedReason": null,
-          "cashDiscountDisabled": null
+          "cashDiscountDisabled": null,
+          "channelPartnerName": "Example Channel Partner"
         }
       },
       "N1_User": {
