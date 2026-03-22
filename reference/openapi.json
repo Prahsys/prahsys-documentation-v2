@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.97.0",
+    "version": "1.98.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-20T21:21:37.489Z"
+                      "createdAt": "2026-03-22T14:29:47.356Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-20T21:21:37.489Z"
+                      "createdAt": "2026-03-22T14:29:47.356Z"
                     }
                   }
                 }
@@ -1125,11 +1125,69 @@
                     "description": "Account type of the business"
                   },
                   "locationAddress": {
-                    "type": "string",
+                    "type": "object",
+                    "properties": {
+                      "street1": {
+                        "type": "string",
+                        "description": "Primary street address"
+                      },
+                      "street2": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Secondary address line (suite, apt, etc.)"
+                      },
+                      "city": {
+                        "type": "string",
+                        "description": "City"
+                      },
+                      "state": {
+                        "type": "string",
+                        "description": "State abbreviation (e.g. TX)"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "description": "ZIP/postal code"
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Country code"
+                      }
+                    },
                     "description": "Location address of the business"
                   },
                   "headquartersAddress": {
-                    "type": "string",
+                    "type": "object",
+                    "properties": {
+                      "street1": {
+                        "type": "string",
+                        "description": "Primary street address"
+                      },
+                      "street2": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Secondary address line (suite, apt, etc.)"
+                      },
+                      "city": {
+                        "type": "string",
+                        "description": "City"
+                      },
+                      "state": {
+                        "type": "string",
+                        "description": "State abbreviation (e.g. TX)"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "description": "ZIP/postal code"
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Country code"
+                      }
+                    },
                     "description": "Headquarters address of the business"
                   },
                   "phoneNumber": {
@@ -1364,17 +1422,91 @@
                   },
                   "locationAddress": {
                     "type": [
-                      "string",
+                      "object",
                       "null"
                     ],
-                    "description": "Location address of the business"
+                    "properties": {
+                      "street1": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Primary street address"
+                      },
+                      "street2": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Secondary address line (suite, apt, etc.)"
+                      },
+                      "city": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "City"
+                      },
+                      "state": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "State abbreviation (e.g. TX)"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "description": "ZIP/postal code"
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Country code"
+                      }
+                    },
+                    "required": [
+                      "street1",
+                      "city",
+                      "state"
+                    ],
+                    "description": "Location address of the business. Pass null to remove."
                   },
                   "headquartersAddress": {
                     "type": [
-                      "string",
+                      "object",
                       "null"
                     ],
-                    "description": "Headquarters address of the business"
+                    "properties": {
+                      "street1": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Primary street address"
+                      },
+                      "street2": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Secondary address line (suite, apt, etc.)"
+                      },
+                      "city": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "City"
+                      },
+                      "state": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "State abbreviation (e.g. TX)"
+                      },
+                      "zipCode": {
+                        "type": "string",
+                        "description": "ZIP/postal code"
+                      },
+                      "country": {
+                        "type": "string",
+                        "description": "Country code"
+                      }
+                    },
+                    "required": [
+                      "street1",
+                      "city",
+                      "state"
+                    ],
+                    "description": "Headquarters address of the business. Pass null to remove."
                   },
                   "phoneNumber": {
                     "type": [
@@ -1955,8 +2087,31 @@
                     "description": "Job title of the contact"
                   },
                   "address": {
-                    "type": "string",
-                    "description": "Address of the contact"
+                    "type": "object",
+                    "properties": {
+                      "street1": {
+                        "type": "string"
+                      },
+                      "street2": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "zipCode": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "Structured address of the contact"
                   },
                   "businessIds": {
                     "type": "array",
@@ -2178,10 +2333,33 @@
                   },
                   "address": {
                     "type": [
-                      "string",
+                      "object",
                       "null"
                     ],
-                    "description": "Address of the contact"
+                    "properties": {
+                      "street1": {
+                        "type": "string"
+                      },
+                      "street2": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "zipCode": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "Structured address of the contact. Send null to delete the address."
                   },
                   "businessIds": {
                     "type": "array",
@@ -2548,6 +2726,185 @@
         }
       }
     },
+    "/n1/leads/industries/{industryId}": {
+      "patch": {
+        "tags": [
+          "Lead Industry"
+        ],
+        "operationId": "updateLeadIndustry",
+        "summary": "Update Lead Industry",
+        "description": "Update an existing lead industry name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "industryId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Updated industry name"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadIndustry"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Industry Response",
+                  "description": "JSON response for updating a lead industry"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead Industry"
+        ],
+        "operationId": "deleteLeadIndustry",
+        "summary": "Delete Lead Industry",
+        "description": "Delete a lead industry and clear references from lead businesses",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "industryId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadIndustry"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead Industry Response",
+                  "description": "JSON response for deleting a lead industry"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/n1/leads/management-softwares": {
       "get": {
         "tags": [
@@ -2699,6 +3056,185 @@
                   ],
                   "title": "Create Lead Management Software Response",
                   "description": "JSON response for creating a lead management software"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/management-softwares/{softwareId}": {
+      "patch": {
+        "tags": [
+          "Lead Management Software"
+        ],
+        "operationId": "updateLeadManagementSoftware",
+        "summary": "Update Lead Management Software",
+        "description": "Update an existing lead management software name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "softwareId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Updated management software name"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadManagementSoftware"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Management Software Response",
+                  "description": "JSON response for updating a lead management software"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead Management Software"
+        ],
+        "operationId": "deleteLeadManagementSoftware",
+        "summary": "Delete Lead Management Software",
+        "description": "Delete a lead management software and clear references from lead businesses",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "softwareId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadManagementSoftware"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead Management Software Response",
+                  "description": "JSON response for deleting a lead management software"
                 }
               }
             }
@@ -7330,7 +7866,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-20T21:21:37.489Z"
+          "createdAt": "2026-03-22T14:29:47.356Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -7522,19 +8058,12 @@
             "type": "string",
             "description": "Name of the business"
           },
-          "locationAddress": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Location address of the business"
-          },
-          "headquartersAddress": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Headquarters address of the business"
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadAddress"
+            },
+            "description": "Structured addresses for this lead business"
           },
           "phoneNumber": {
             "type": [
@@ -7692,8 +8221,6 @@
         "required": [
           "id",
           "name",
-          "locationAddress",
-          "headquartersAddress",
           "phoneNumber",
           "email",
           "website",
@@ -7710,6 +8237,88 @@
         ],
         "title": "Lead Business",
         "description": "A lead business representing a prospective merchant in the sales pipeline"
+      },
+      "N1_LeadAddress": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the address"
+          },
+          "addressType": {
+            "$ref": "#/components/schemas/LeadAddressTypeEnum",
+            "description": "Type of address"
+          },
+          "street1": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Primary street address"
+          },
+          "street2": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Secondary address line (suite, apt, etc.)"
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "City"
+          },
+          "state": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "State abbreviation (e.g. TX)"
+          },
+          "zipCode": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ZIP/postal code"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code (e.g. US)"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the address was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the address was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "addressType",
+          "country",
+          "createdAt"
+        ],
+        "title": "Lead Address",
+        "description": "A structured address associated with a lead business or contact"
+      },
+      "LeadAddressTypeEnum": {
+        "type": "string",
+        "enum": [
+          "LOCATION",
+          "HEADQUARTERS",
+          "CONTACT"
+        ],
+        "title": "Lead Address Type",
+        "description": "The type of address for a lead business or contact. LOCATION is the physical location, HEADQUARTERS is the corporate headquarters, CONTACT is a contact's address.",
+        "example": "LOCATION"
       },
       "LeadAccountTypeEnum": {
         "type": "string",
@@ -7985,11 +8594,15 @@
             "description": "Job title of the contact"
           },
           "address": {
-            "type": [
-              "string",
-              "null"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/N1_LeadAddress"
+              },
+              {
+                "type": "null"
+              }
             ],
-            "description": "Address of the contact"
+            "description": "Structured address of the contact"
           },
           "createdAt": {
             "type": "string",
@@ -8017,7 +8630,6 @@
           "phoneNumber",
           "email",
           "jobTitle",
-          "address",
           "createdAt",
           "updatedAt"
         ],
@@ -8379,16 +8991,58 @@
             ],
             "description": "ID of the user who created this industry, if known"
           },
+          "createdByUser": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Database user ID"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the creator"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the creator"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the creator"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "imageUrl"
+            ],
+            "description": "User who created this industry"
+          },
           "createdAt": {
             "type": "string",
             "description": "When the industry was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the industry was last updated"
           }
         },
         "required": [
           "id",
           "name",
           "createdByUserId",
-          "createdAt"
+          "createdAt",
+          "updatedAt"
         ],
         "title": "Lead Industry",
         "description": "A globally shared industry classification for lead businesses"
@@ -8411,16 +9065,58 @@
             ],
             "description": "ID of the user who created this entry, if known"
           },
+          "createdByUser": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Database user ID"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the creator"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the creator"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the creator"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "imageUrl"
+            ],
+            "description": "User who created this management software"
+          },
           "createdAt": {
             "type": "string",
             "description": "When the entry was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the entry was last updated"
           }
         },
         "required": [
           "id",
           "name",
           "createdByUserId",
-          "createdAt"
+          "createdAt",
+          "updatedAt"
         ],
         "title": "Lead Management Software",
         "description": "A globally shared management software entry for lead businesses"
