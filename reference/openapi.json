@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.98.1",
+    "version": "1.99.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-23T14:58:41.263Z"
+                      "createdAt": "2026-03-23T15:36:49.002Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-23T14:58:41.263Z"
+                      "createdAt": "2026-03-23T15:36:49.002Z"
                     }
                   }
                 }
@@ -7866,7 +7866,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-23T14:58:41.263Z"
+          "createdAt": "2026-03-23T15:36:49.002Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -8621,6 +8621,13 @@
               "null"
             ],
             "description": "Date of the next upcoming incomplete reachout"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadOwner"
+            },
+            "description": "Users assigned to this contact"
           }
         },
         "required": [
@@ -8635,6 +8642,43 @@
         ],
         "title": "Lead Contact",
         "description": "A contact person associated with a lead business"
+      },
+      "N1_LeadOwner": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Database user ID of the owner"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the owner"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the owner"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the owner"
+          },
+          "imageUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Profile image URL from Clerk"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "imageUrl"
+        ],
+        "title": "Lead Owner",
+        "description": "An owner assigned to a lead business"
       },
       "N1_LeadTouchPoint": {
         "type": "object",
@@ -8935,43 +8979,6 @@
         "title": "Lead Reach Out Type",
         "description": "The type of scheduled reach out. Valid values: PHONE_CALL, EMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, OTHER",
         "example": "PHONE_CALL"
-      },
-      "N1_LeadOwner": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Database user ID of the owner"
-          },
-          "firstName": {
-            "type": "string",
-            "description": "First name of the owner"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last name of the owner"
-          },
-          "email": {
-            "type": "string",
-            "description": "Email of the owner"
-          },
-          "imageUrl": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Profile image URL from Clerk"
-          }
-        },
-        "required": [
-          "id",
-          "firstName",
-          "lastName",
-          "email",
-          "imageUrl"
-        ],
-        "title": "Lead Owner",
-        "description": "An owner assigned to a lead business"
       },
       "N1_LeadIndustry": {
         "type": "object",
