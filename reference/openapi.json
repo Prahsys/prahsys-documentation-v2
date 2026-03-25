@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.103.0",
+    "version": "1.104.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-25T01:10:10.925Z"
+                      "createdAt": "2026-03-25T14:54:00.486Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-25T01:10:10.925Z"
+                      "createdAt": "2026-03-25T14:54:00.486Z"
                     }
                   }
                 }
@@ -8276,7 +8276,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-25T01:10:10.925Z"
+          "createdAt": "2026-03-25T14:54:00.486Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -11253,6 +11253,13 @@
             ],
             "description": "The slug of the channel partner organization this merchant belongs to"
           },
+          "merchantMid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Merchant ID (MID) assigned by the payment processor. Only present for Prahsys admin requests."
+          },
           "createdAt": {
             "type": "string"
           }
@@ -12016,6 +12023,13 @@
               "null"
             ],
             "description": "The name of the channel partner organization this merchant belongs to"
+          },
+          "merchantMid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Merchant ID (MID) assigned by the payment processor. Only present for Prahsys admin requests."
           }
         },
         "required": [
