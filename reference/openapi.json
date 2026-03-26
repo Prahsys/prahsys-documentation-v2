@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.105.0",
+    "version": "1.106.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -114,7 +114,7 @@
                       "achRate": 1,
                       "achTransactionFee": 0.49,
                       "achReturnFee": 5,
-                      "achMonthlyFee": 15,
+                      "monthlyMaintenanceFee": 15,
                       "batchFee": 15,
                       "equipmentFee": 15,
                       "cardPresentPercentage": 60,
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-25T16:45:42.028Z"
+                      "createdAt": "2026-03-26T17:08:19.609Z"
                     }
                   }
                 }
@@ -267,7 +267,7 @@
                       "achRate": 1,
                       "achTransactionFee": 0.49,
                       "achReturnFee": 5,
-                      "achMonthlyFee": 15,
+                      "monthlyMaintenanceFee": 15,
                       "batchFee": 15,
                       "equipmentFee": 15,
                       "cardPresentPercentage": 60,
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-25T16:45:42.028Z"
+                      "createdAt": "2026-03-26T17:08:19.609Z"
                     }
                   }
                 }
@@ -8121,10 +8121,10 @@
             "title": "ACH Return Fee",
             "description": "The fee for ACH returns."
           },
-          "achMonthlyFee": {
+          "monthlyMaintenanceFee": {
             "type": "number",
-            "title": "ACH Monthly Fee",
-            "description": "The ACH monthly service fee."
+            "title": "Monthly Maintenance Fee",
+            "description": "The monthly maintenance fee."
           },
           "batchFee": {
             "type": "number",
@@ -8225,7 +8225,7 @@
           "achRate",
           "achTransactionFee",
           "achReturnFee",
-          "achMonthlyFee",
+          "monthlyMaintenanceFee",
           "batchFee",
           "equipmentFee",
           "cardPresentPercentage",
@@ -8265,7 +8265,7 @@
           "achRate": 1,
           "achTransactionFee": 0.49,
           "achReturnFee": 5,
-          "achMonthlyFee": 15,
+          "monthlyMaintenanceFee": 15,
           "batchFee": 15,
           "equipmentFee": 15,
           "cardPresentPercentage": 60,
@@ -8276,7 +8276,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-25T16:45:42.028Z"
+          "createdAt": "2026-03-26T17:08:19.609Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
