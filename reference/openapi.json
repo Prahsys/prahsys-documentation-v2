@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.110.0",
+    "version": "1.111.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-27T03:00:16.961Z"
+                      "createdAt": "2026-03-27T23:53:23.003Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-03-27T03:00:16.961Z"
+                      "createdAt": "2026-03-27T23:53:23.003Z"
                     }
                   }
                 }
@@ -5159,6 +5159,8 @@
                       "includeSimulatedTerminals": true,
                       "cashPaymentsEnabled": true,
                       "checkPaymentsEnabled": true,
+                      "receiveReceipts": true,
+                      "receiptEmail": null,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -5371,6 +5373,8 @@
                       "includeSimulatedTerminals": true,
                       "cashPaymentsEnabled": true,
                       "checkPaymentsEnabled": true,
+                      "receiveReceipts": true,
+                      "receiptEmail": null,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -5849,6 +5853,8 @@
                       "includeSimulatedTerminals": true,
                       "cashPaymentsEnabled": true,
                       "checkPaymentsEnabled": true,
+                      "receiveReceipts": true,
+                      "receiptEmail": null,
                       "accountClosedDescription": null,
                       "accountClosedJiraTicket": null,
                       "accountClosedDate": null,
@@ -8276,7 +8282,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-03-27T03:00:16.961Z"
+          "createdAt": "2026-03-27T23:53:23.003Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -11032,6 +11038,17 @@
             "type": "boolean",
             "description": "Whether check payments are visible and enabled for this merchant"
           },
+          "receiveReceipts": {
+            "type": "boolean",
+            "description": "Whether the merchant has opted in to automatically receive payment receipts via email"
+          },
+          "receiptEmail": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The email address to send payment receipts to. Falls back to primary contact email if not set."
+          },
           "accountClosedDescription": {
             "type": [
               "string",
@@ -11309,6 +11326,8 @@
           "includeSimulatedTerminals",
           "cashPaymentsEnabled",
           "checkPaymentsEnabled",
+          "receiveReceipts",
+          "receiptEmail",
           "accountClosedDescription",
           "accountClosedJiraTicket",
           "accountClosedDate",
@@ -11435,6 +11454,8 @@
           "includeSimulatedTerminals": true,
           "cashPaymentsEnabled": true,
           "checkPaymentsEnabled": true,
+          "receiveReceipts": true,
+          "receiptEmail": null,
           "accountClosedDescription": null,
           "accountClosedJiraTicket": null,
           "accountClosedDate": null,
