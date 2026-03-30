@@ -17,8 +17,13 @@ excerpt: >-
   one-time invoice).
 
 
-  When providing pay schedule data, `paySchedule.frequency` is required. The
-  `reminderBeforeDueDays` and `retryAfterDueDays`
+  When providing pay schedule data for the first time, `paySchedule.frequency`
+  and `paySchedule.recurringAmount` are required.
+
+  When updating an existing pay schedule, both fields are optional (existing
+  values are preserved).
+
+  The `reminderBeforeDueDays` and `retryAfterDueDays`
 
   arrays must contain positive integers that do not exceed the frequency's
   maximum offset days
