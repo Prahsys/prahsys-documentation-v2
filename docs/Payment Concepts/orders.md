@@ -2,7 +2,7 @@
 title: Orders
 deprecated: false
 hidden: true
-icon: far fa-key-skeleton
+icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
 ---
