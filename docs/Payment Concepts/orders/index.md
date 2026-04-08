@@ -4,7 +4,7 @@ excerpt: >-
   Orders are the key to collecting payments through tools like invoicing and
   recurring billing 
 deprecated: false
-hidden: true
+hidden: false
 icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
