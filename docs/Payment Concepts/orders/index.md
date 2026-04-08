@@ -32,7 +32,7 @@ flowchart LR
 flowchart TB
     O["🧾 Order — $1,200
     Dental Implant"]
-    O --> P1["Apr $200"]
+    O --> P1["💳 Payment 1 - Apr - $200"]
     O --> P2["May $200"]
     O --> P3["Jun $200"]
     O --> P4["Jul $200"]
