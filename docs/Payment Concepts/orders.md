@@ -9,7 +9,7 @@ icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
 ---
-At it's core, an Order is just a way to organize and manage payments. You can set due dates, schedule recurring payments, or send an invoice directly to customers. An order can be used for something as simple as splitting a single charge into multiple payment methods (e.g. splitting a bill between two cards) or as complex as a payment plan with autopay. In any case, the goal is the same, provide an interface that you can "set and forget." You specify the parameters for the order, and we'll handle the rest. 
+At it's core, an Order is just a way to organize and manage payments. You can set due dates, schedule recurring payments, or send an invoice directly to customers. An order can be used for something as simple as splitting a single charge into multiple payment methods (e.g. splitting a bill between two cards) or as complex as a payment plan with autopay. In any case, the goal is the same, provide an interface that you can "set and forget." You specify the parameters for the order, and we'll handle the rest.
 
 ## Order basics
 
@@ -308,7 +308,7 @@ gantt
     axisFormat %b %d
 
     section Schedule
-    Waiting period (no billing)     :done, wait, 2026-04-07, 2026-05-01
+    Waiting period (no billing)     :crit, wait, 2026-04-07, 2026-05-01
     Period 1 (payment due May 1)    :active, p1, 2026-05-01, 30d
     Period 2                        :p2, after p1, 30d
 ```
@@ -340,12 +340,12 @@ gantt
 
     section Schedule
     Period 1 (no payment yet)  :active, p1, 2026-04-07, 30d
-    Payment due                :milestone, m1, 2026-05-07, 0d
+    First Payment due                :milestone, m1, 2026-05-07, 0d
     Period 2                   :p2, 2026-05-07, 30d
 ```
 
-* **`payOnStart: true`** — a payment is processed immediately (or due on the `startOn` date if set). This requires either a `billing.token` on the pay schedule or a `session.id` in the request.
-* **`payOnStart: false`** — no payment is made at the start. The first payment is due one full period later. An invoice is sent to the customer.
+* **`payOnStart: true`** — a payment is processed immediately (or due on the `startOn` date if set). This requires either a `billing.token` on the pay schedule or a `session.id` in the request (if not using `startOn`). If autopay is not enabled and you're using `startOn`, then no payment method is required. We'll just check that a payment is made at that future start date and mark the order as past due if not. 
+* **`payOnStart: false`** — no payment is made at the start. The first payment is due one full period later. An invoice is sent to the customer immediately (if `sendSms` and/or `sendEmail` is enabled).
 
 ## Cancelling a pay schedule
 
