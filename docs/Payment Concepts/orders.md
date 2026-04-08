@@ -162,6 +162,39 @@ When adding a `paySchedule` to an order, two fields are required:
 * `recurringAmount` — the amount due each period
 * `frequency` — how often a payment is due: `DAILY`, `WEEKLY`, `BI_WEEKLY`, `MONTHLY`, or `YEARLY`
 
+### Optional fields
+
+| Field                   | Type    | Default             | Description                                                                                                |
+| ----------------------- | ------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `autopay`               | boolean | `false`             | Automatically charge the stored billing method each period. See [Setting up autopay](#setting-up-autopay). |
+| `billing`               | object  | `null`              | Payment method for autopay. Must contain a `token` (pay token).                                            |
+| `sendEmail`             | boolean | `true`              | Send email notifications (reminders, invoices, receipts) to attached customers.                            |
+| `sendSms`               | boolean | `false`             | Send SMS notifications to attached customers.                                                              |
+| `reminderBeforeDueDays` | int[]   | Varies by frequency | Days before the next due date to send payment reminders.                                                   |
+| `retryAfterDueDays`     | int[]   | Varies by frequency | Days after the due date to retry failed autopay charges or send past due reminders.                        |
+
+**Default reminder and retry days by frequency:**
+
+| Frequency   | Reminder days (before due) | Retry days (after due) |
+| ----------- | -------------------------- | ---------------------- |
+| `DAILY`     | None                       | None                   |
+| `WEEKLY`    | 3                          | 1, 3                   |
+| `BI_WEEKLY` | 5                          | 1, 3, 7                |
+| `MONTHLY`   | 7, 3                       | 1, 3, 7                |
+| `YEARLY`    | 30, 7, 3                   | 1, 7, 30               |
+
+You can override these defaults by passing your own arrays. For example, to send reminders 10 and 5 days before each due date:
+
+```json
+{
+  "paySchedule": {
+    "recurringAmount": 200.00,
+    "frequency": "MONTHLY",
+    "reminderBeforeDueDays": [10, 5]
+  }
+}
+```
+
 ### Payment plan example
 
 ```json
@@ -344,7 +377,7 @@ gantt
     Period 2                   :p2, 2026-05-07, 30d
 ```
 
-* **`payOnStart: true`** — a payment is processed immediately (or due on the `startOn` date if set). This requires either a `billing.token` on the pay schedule or a `session.id` in the request (if not using `startOn`). If autopay is not enabled and you're using `startOn`, then no payment method is required. We'll just check that a payment is made at that future start date and mark the order as past due if not. 
+* **`payOnStart: true`** — a payment is processed immediately (or due on the `startOn` date if set). This requires either a `billing.token` on the pay schedule or a `session.id` in the request (if not using `startOn`). If autopay is not enabled and you're using `startOn`, then no payment method is required. We'll just check that a payment is made at that future start date and mark the order as past due if not.
 * **`payOnStart: false`** — no payment is made at the start. The first payment is due one full period later. An invoice is sent to the customer immediately (if `sendSms` and/or `sendEmail` is enabled).
 
 ## Cancelling a pay schedule
