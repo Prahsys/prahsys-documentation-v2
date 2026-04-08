@@ -136,7 +136,7 @@ To use autopay, you need a **pay token** attached to the pay schedule's billing.
 }
 ```
 
-**Option 2: Provide a session when starting.** If you're using Prahsys session iframes to collect card details, you can pass a `session.id` in the start request instead. The system will automatically pull the card info from the session and tokenize it at the time of starting. The session iframes must contain the required card fields for tokenization.
+**Option 2: Provide a session when starting.** If you're using Prahsys session iframes to collect card details (see <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> ), you can pass a `session.id` in the start request instead (see [start endpoint](#start-endpoint) ). The system will automatically pull the card info from the session and tokenize it at the time of starting. The session iframes must contain the required card fields for tokenization.
 
 ## How a pay schedule works without autopay
 
@@ -154,7 +154,7 @@ The customer pays manually — either through the invoice page or through a paym
 There are two ways to start a pay schedule:
 
 * **Manually via the API** — call the start endpoint yourself (described below)
-* **Let the customer start it** — send the order invoice. If the order has an inactive pay schedule, the invoice page gives the customer the option to add a billing method and start the subscription or payment plan themselves.
+* **Let the customer start it** — send the order invoice. If the order has an inactive pay schedule, the invoice page gives the customer the option to add a billing method and make the first payment, which will automatically start the subscription or payment plan.
 
 ### Start endpoint
 
@@ -168,7 +168,7 @@ POST /n1/merchant/{merchantId}/order/{orderId}/pay-schedule/start
 }
 ```
 
-If autopay is enabled, a pay token must be attached to the pay schedule's billing before this endpoint is called. Alternatively, provide a `session.id` in the request body and the card will be tokenized automatically:
+If autopay is enabled, a pay token must be attached to the pay schedule's billing before this endpoint is called. Alternatively, provide a `session.id` in the request body and the card will be tokenized automatically (see <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> ):
 
 ```json
 {
