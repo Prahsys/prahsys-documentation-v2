@@ -19,7 +19,7 @@ A pay schedule turns an order into a recurring billing arrangement. There are tw
 
   _Example: A gym charges $49.99/month for a membership with no end date._
 
-### Required fields 
+### Required fields
 
 When adding a `paySchedule` to an order, two fields are required:
 
@@ -110,13 +110,15 @@ The response will have `"type": "SUBSCRIPTION"` because `amount` is omitted and 
 
 ## Setting up autopay
 
-Autopay means the system automatically charges the customer's stored payment method on each due date. If a charge fails, it retries on the days you configure with `retryAfterDueDays`. 
+Autopay means the system automatically charges the customer's stored payment method on each due date. If a charge fails, it retries on the days you configure with `retryAfterDueDays`.
 
-📘 Autopay is deactivated by default to avoid unexpected charges. However, for classic subscriptions or payment plans, using autopay provides the most reliable experience and insures that your merchant gets paid on time. 
+<Callout icon="📘">
+  Autopay is deactivated by default to avoid unexpected charges. However, for classic subscriptions or payment plans, using autopay provides the most reliable experience and insures that your merchant gets paid on time.
+</Callout>
 
 ### Requirements
 
-To use autopay, you need a **pay token** attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly. You can attach one in two ways:
+To use autopay, you need a **pay token** attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="#tokenization">tokenization</Anchor>) . You can attach one in two ways:
 
 **Option 1: Set the token directly.** If you already have a pay token, pass it in the `paySchedule.billing.token` field when creating or updating the order:
 
