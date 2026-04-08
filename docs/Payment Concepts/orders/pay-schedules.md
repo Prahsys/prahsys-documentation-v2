@@ -5,7 +5,6 @@ excerpt: >-
   configurable reminders.   
 deprecated: false
 hidden: false
-icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
 ---
