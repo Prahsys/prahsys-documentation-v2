@@ -248,6 +248,35 @@ gantt
 * **`payOnStart: true`** — a payment is processed immediately (or due on the `startOn` date if set). This requires either a `billing.token` on the pay schedule or a `session.id` in the request (if not using `startOn`). If autopay is not enabled and you're using `startOn`, then no payment method is required. We'll just check that a payment is made at that future start date and mark the order as past due if not.
 * **`payOnStart: false`** — no payment is made at the start. The first payment is due one full period later. An invoice is sent to the customer immediately (if `sendSms` and/or `sendEmail` is enabled).
 
+## Updating an active pay schedule
+
+You can update a pay schedule while it's active — no need to cancel and recreate it. Use the [update order](orders#updating-an-order) endpoints (POST upsert or PUT) and include the `paySchedule` fields you want to change. For example, to change the recurring amount:
+
+```json
+{
+  "paySchedule": {
+    "recurringAmount": 250.00
+  }
+}
+```
+
+Changes take effect on the **next** billing period. The current period is unaffected.
+
+```mermaid
+gantt
+    title Updating recurringAmount mid-period
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+
+    section Schedule
+    Period 1 — $200 due       :active, p1, 2026-04-01, 30d
+    Update to $250            :milestone, m1, 2026-04-15, 0d
+    Period 2 — $250 due       :p2, 2026-05-01, 30d
+    Period 3 — $250 due       :p3, 2026-05-31, 30d
+```
+
+This works for any updatable pay schedule field — `recurringAmount`, `frequency`, `autopay`, `billing`, `sendEmail`, `sendSms`, `reminderBeforeDueDays`, and `retryAfterDueDays`.
+
 ## Cancelling a pay schedule
 
 ```
