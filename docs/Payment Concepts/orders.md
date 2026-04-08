@@ -1,41 +1,38 @@
 ---
 title: Orders
+excerpt: >-
+  Create invoices, set up subscriptions, and manage payment plans — all through
+  the Order resource. 
 deprecated: false
 hidden: true
 icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
 ---
----
-title: "Orders"
-slug: "orders"
-excerpt: "Create invoices, set up subscriptions, and manage payment plans — all through the Order resource."
----
-
 An order is a record that links one or more payments to a product or service. You create an order, optionally send your customer an invoice, and the order tracks every payment until the balance is settled. Every order automatically gets a hosted invoice page where customers can view what they owe and make payments.
 
 Orders come in three flavors — one-time invoices, payment plans, and subscriptions — but you never set the type directly. The API figures it out from the fields you provide.
 
 ## Order types at a glance
 
-| | Unscheduled | Payment Plan | Subscription |
-|---|---|---|---|
-| **What it is** | A simple invoice for a fixed amount | A total balance split into recurring installments | An open-ended recurring charge |
-| **Has `paySchedule`?** | No | Yes | Yes |
-| **Has `amount`?** | Yes | Yes (total owed) | No (`null` or omitted) |
-| **Extra payments?** | Yes | Yes — pay it off early | No |
-| **Ends when** | Paid in full | Paid in full | Explicitly cancelled |
-| **Example use case** | One-time invoice, deposit | Dental work financed over 6 months | Monthly membership fee |
+|                        | Unscheduled                         | Payment Plan                                      | Subscription                   |
+| ---------------------- | ----------------------------------- | ------------------------------------------------- | ------------------------------ |
+| **What it is**         | A simple invoice for a fixed amount | A total balance split into recurring installments | An open-ended recurring charge |
+| **Has `paySchedule`?** | No                                  | Yes                                               | Yes                            |
+| **Has `amount`?**      | Yes                                 | Yes (total owed)                                  | No (`null` or omitted)         |
+| **Extra payments?**    | Yes                                 | Yes — pay it off early                            | No                             |
+| **Ends when**          | Paid in full                        | Paid in full                                      | Explicitly cancelled           |
+| **Example use case**   | One-time invoice, deposit           | Dental work financed over 6 months                | Monthly membership fee         |
 
 > 📘 How the API determines the type
 >
-> You never send a `type` field. The API infers it automatically:
->
-> | `paySchedule` | `amount` | Resulting `type` |
-> |---|---|---|
-> | Absent | Set (e.g. `250.00`) | `UNSCHEDULED` |
-> | Present | Set (e.g. `1200.00`) | `PAYMENT_PLAN` |
-> | Present | `null` or omitted | `SUBSCRIPTION` |
+> You never send a `type` field. The API infers it automatically based on which fields you include.
+
+| `paySchedule` | `amount`             | Resulting `type` |
+| ------------- | -------------------- | ---------------- |
+| Absent        | Set (e.g. `250.00`)  | `UNSCHEDULED`    |
+| Present       | Set (e.g. `1200.00`) | `PAYMENT_PLAN`   |
+| Present       | `null` or omitted    | `SUBSCRIPTION`   |
 
 ## Order lifecycle
 
@@ -68,23 +65,23 @@ stateDiagram-v2
 
 **All order types:**
 
-| Status | Description |
-|---|---|
-| `PENDING` | Awaiting payment |
-| `PARTIALLY_PAID` | Some payment received, balance remaining |
-| `PAID` | Fully paid — `remainingBalance` is 0 |
-| `PAST_DUE` | Due date passed with outstanding balance |
-| `REFUNDED` | All captured payments fully refunded |
-| `PARTIALLY_REFUNDED` | Partial refund issued |
+| Status               | Description                              |
+| -------------------- | ---------------------------------------- |
+| `PENDING`            | Awaiting payment                         |
+| `PARTIALLY_PAID`     | Some payment received, balance remaining |
+| `PAID`               | Fully paid — `remainingBalance` is 0     |
+| `PAST_DUE`           | Due date passed with outstanding balance |
+| `REFUNDED`           | All captured payments fully refunded     |
+| `PARTIALLY_REFUNDED` | Partial refund issued                    |
 
 **Subscription-only:**
 
-| Status | Description |
-|---|---|
-| `SUBSCRIPTION_NOT_STARTED` | Pay schedule configured but not yet activated |
-| `SUBSCRIPTION_ACTIVE` | Running and current on payments |
-| `SUBSCRIPTION_PAST_DUE` | A scheduled payment was missed |
-| `SUBSCRIPTION_CANCELLED` | Cancelled — customer still owes through the current billing period |
+| Status                     | Description                                                        |
+| -------------------------- | ------------------------------------------------------------------ |
+| `SUBSCRIPTION_NOT_STARTED` | Pay schedule configured but not yet activated                      |
+| `SUBSCRIPTION_ACTIVE`      | Running and current on payments                                    |
+| `SUBSCRIPTION_PAST_DUE`    | A scheduled payment was missed                                     |
+| `SUBSCRIPTION_CANCELLED`   | Cancelled — customer still owes through the current billing period |
 
 ## Working with unscheduled orders
 
@@ -226,11 +223,11 @@ A subscription has a `paySchedule` but no total `amount`. A fixed `recurringAmou
 
 Both types support:
 
-- **Autopay** — automatically charge a stored payment method on each due date
-- **Manual payment** — send invoices and let the customer pay through the hosted invoice page
-- **Reminders** — configurable notifications sent before the due date
-- **Retries** — automatic retry attempts after failed autopay charges
-- **Two-step activation** — create the order with a `paySchedule`, then start it with a separate API call
+* **Autopay** — automatically charge a stored payment method on each due date
+* **Manual payment** — send invoices and let the customer pay through the hosted invoice page
+* **Reminders** — configurable notifications sent before the due date
+* **Retries** — automatic retry attempts after failed autopay charges
+* **Two-step activation** — create the order with a `paySchedule`, then start it with a separate API call
 
 > ⚠️ Two-step activation
 >
@@ -239,8 +236,8 @@ Both types support:
 
 > 📘 Detailed guides
 >
-> - [Payment Plans Guide](payment-plans) — step-by-step examples for creating, starting, and managing payment plans
-> - [Subscriptions Guide](subscriptions) — step-by-step examples for creating, starting, and cancelling subscriptions
+> * [Payment Plans Guide](payment-plans) — step-by-step examples for creating, starting, and managing payment plans
+> * [Subscriptions Guide](subscriptions) — step-by-step examples for creating, starting, and cancelling subscriptions
 
 ## The invoice page
 
@@ -250,25 +247,25 @@ The invoice page shows the order status, amount due, and payment history. Custom
 
 ## Key endpoints
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/n1/merchant/{merchantId}/order/{orderId?}` | Create or update an order (upsert) |
-| `GET` | `/n1/merchant/{merchantId}/order/{orderId}` | Get an order |
-| `GET` | `/n1/merchant/{merchantId}/orders` | List orders with filtering, sorting, and pagination |
-| `PUT` | `/n1/merchant/{merchantId}/order/{orderId}` | Partial update |
-| `DELETE` | `/n1/merchant/{merchantId}/order/{orderId}` | Delete an order |
-| `POST` | `/n1/merchant/{merchantId}/order/{orderId}/send` | Send invoice via email/SMS |
-| `POST` | `.../order/{orderId}/pay-schedule/start` | Start a pay schedule |
-| `POST` | `.../order/{orderId}/pay-schedule/cancel` | Cancel a pay schedule |
+| Method   | Endpoint                                         | Description                                         |
+| -------- | ------------------------------------------------ | --------------------------------------------------- |
+| `POST`   | `/n1/merchant/{merchantId}/order/{orderId?}`     | Create or update an order (upsert)                  |
+| `GET`    | `/n1/merchant/{merchantId}/order/{orderId}`      | Get an order                                        |
+| `GET`    | `/n1/merchant/{merchantId}/orders`               | List orders with filtering, sorting, and pagination |
+| `PUT`    | `/n1/merchant/{merchantId}/order/{orderId}`      | Partial update                                      |
+| `DELETE` | `/n1/merchant/{merchantId}/order/{orderId}`      | Delete an order                                     |
+| `POST`   | `/n1/merchant/{merchantId}/order/{orderId}/send` | Send invoice via email/SMS                          |
+| `POST`   | `.../order/{orderId}/pay-schedule/start`         | Start a pay schedule                                |
+| `POST`   | `.../order/{orderId}/pay-schedule/cancel`        | Cancel a pay schedule                               |
 
 > ⚠️ Heads up
 >
-> - `dueDate` and `paySchedule` are **mutually exclusive**. Use `dueDate` for unscheduled orders, `paySchedule` for subscriptions and payment plans.
-> - Orders with processed payments **cannot be deleted**.
-> - Currency defaults to `USD` if not specified.
+> * `dueDate` and `paySchedule` are **mutually exclusive**. Use `dueDate` for unscheduled orders, `paySchedule` for subscriptions and payment plans.
+> * Orders with processed payments **cannot be deleted**.
+> * Currency defaults to `USD` if not specified.
 
 ## What's next
 
-- [Payment Plans](payment-plans) — creating and managing installment-based payment plans
-- [Subscriptions](subscriptions) — setting up and cancelling recurring subscriptions
-- [API Reference: Orders](../api-reference/orders) — full endpoint documentation with all fields and validation rules
+* [Payment Plans](payment-plans) — creating and managing installment-based payment plans
+* [Subscriptions](subscriptions) — setting up and cancelling recurring subscriptions
+* [API Reference: Orders](../api-reference/orders) — full endpoint documentation with all fields and validation rules
