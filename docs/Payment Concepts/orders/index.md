@@ -8,6 +8,11 @@ hidden: true
 icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
+next:
+  pages:
+    - slug: pay-schedules
+      title: Pay Schedules
+      type: basic
 ---
 At it's core, an Order is just a way to organize and manage payments. You can set due dates, schedule recurring payments, or send an invoice directly to customers. An order can be used for something as simple as splitting a single charge into multiple payment methods (e.g. splitting a bill between two cards) or as complex as a payment plan with autopay. In any case, the goal is the same, provide an interface that you can "set and forget." You specify the parameters for the order, and we'll handle the rest.
 
