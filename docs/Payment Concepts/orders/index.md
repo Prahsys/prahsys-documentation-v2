@@ -148,6 +148,48 @@ You can set a `dueDate` on an order to indicate when payment is expected. Once t
 >
 > `dueDate` is only for orders **without** a pay schedule. If you add a `paySchedule`, the schedule manages its own due dates automatically. The two fields are mutually exclusive.
 
+## Updating an order
+
+There are two ways to update an order:
+
+**Option 1: Use the upsert endpoint (POST).** This is the same endpoint used to create an order. If you pass an existing `orderId`, the order is updated with the fields you provide:
+
+```
+POST /n1/merchant/{merchantId}/order/{orderId}
+```
+
+**Option 2: Use the dedicated update endpoint (PUT).** This is a partial update — only the fields you include in the request body are changed. Everything else stays the same:
+
+```
+PUT /n1/merchant/{merchantId}/order/{orderId}
+```
+
+```json
+{
+  "description": "Teeth cleaning - updated description",
+  "amount": 300.00
+}
+```
+
+**Response** `200 OK`:
+
+The response contains the full order object with the updated fields.
+
+### Updatable fields
+
+| Field         | Description                                                                |
+| ------------- | -------------------------------------------------------------------------- |
+| `description` | Order description                                                          |
+| `amount`      | Total order amount                                                         |
+| `currency`    | Currency code (ISO 4217)                                                   |
+| `dueDate`     | Due date (unscheduled orders only)                                         |
+| `customers`   | Customer list — replaces the existing list                                 |
+| `paySchedule` | Pay schedule configuration — updates individual fields within the schedule |
+
+> 📘 Updating customers
+>
+> The `customers` array is additive — new customers are attached to the order, but existing customers are not removed.
+
 ## Pay schedules
 
 You can add a `paySchedule` to an order to turn it into a recurring billing arrangement — either a **payment plan** (fixed total, payments until paid off) or a **subscription** (no total, recurring indefinitely).
