@@ -26,22 +26,25 @@ flowchart LR
     Credit Card — $200"]
 ```
 
+<br />
+
+```mermaid
+gantt
+    title 🧾 Order — $1,200 Dental Implant
+    dateFormat YYYY-MM
+    axisFormat %b
+    section Payments
+    $200 :p1, 2026-04, 30d
+    $200 :p2, 2026-05, 30d
+    $200 :p3, 2026-06, 30d
+    $200 :p4, 2026-07, 30d
+    $200 :p5, 2026-08, 30d
+    $200 :p6, 2026-09, 30d
+```
+
 ```mermaid
 flowchart LR
-    O["🧾 Order — $1,200
-    Dental Implant"]
-    O --> P1["Apr
-    $200"]
-    O --> P2["May
-    $200"]
-    O --> P3["Jun
-    $200"]
-    O --> P4["Jul
-    $200"]
-    O --> P5["Aug
-    $200"]
-    O --> P6["Sep
-    $200"]
+    O["🧾 Order — $1,200"] --> P1["Apr $200"] --> P2["May $200"] --> P3["Jun $200"] --> P4["Jul $200"] --> P5["Aug $200"] --> P6["Sep $200"]
 ```
 
 ## Order basics
