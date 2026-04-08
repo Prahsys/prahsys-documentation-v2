@@ -112,13 +112,13 @@ The response will have `"type": "SUBSCRIPTION"` because `amount` is omitted and 
 
 Autopay means the system automatically charges the customer's stored payment method on each due date. If a charge fails, it retries on the days you configure with `retryAfterDueDays`.
 
-<Callout icon="📘">
+<Callout icon="📘" theme="info">
   Autopay is deactivated by default to avoid unexpected charges. However, for classic subscriptions or payment plans, using autopay provides the most reliable experience and insures that your merchant gets paid on time.
 </Callout>
 
 ### Requirements
 
-To use autopay, you need a **pay token** attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="#tokenization">tokenization</Anchor>) . You can attach one in two ways:
+To use autopay, you need a **pay token** attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>) . You can attach one in two ways:
 
 **Option 1: Set the token directly.** If you already have a pay token, pass it in the `paySchedule.billing.token` field when creating or updating the order:
 
