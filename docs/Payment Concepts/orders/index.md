@@ -16,6 +16,34 @@ next:
 ---
 At it's core, an Order is just a way to organize and manage payments. You can set due dates, schedule recurring payments, or send an invoice directly to customers. An order can be used for something as simple as splitting a single charge into multiple payment methods (e.g. splitting a bill between two cards) or as complex as a payment plan with autopay. In any case, the goal is the same, provide an interface that you can "set and forget." You specify the parameters for the order, and we'll handle the rest.
 
+```mermaid
+flowchart LR
+    O["🧾 Order — $500
+    Teeth Cleaning"]
+    O --> P1["💳 Payment 1
+    HSA Card — $300"]
+    O --> P2["💳 Payment 2
+    Credit Card — $200"]
+```
+
+```mermaid
+flowchart LR
+    O["🧾 Order — $1,200
+    Dental Implant"]
+    O --> P1["Apr
+    $200"]
+    O --> P2["May
+    $200"]
+    O --> P3["Jun
+    $200"]
+    O --> P4["Jul
+    $200"]
+    O --> P5["Aug
+    $200"]
+    O --> P6["Sep
+    $200"]
+```
+
 ## Order basics
 
 An order is a record that links one or more payments to a product or service. At its simplest, all you need is an `amount` and a `description` and you're good to go. From there, you can attach payments to the order via the API (by setting the `orderId` field on a payment request) or send your customer a link to the order's invoice page where they can pay directly.
