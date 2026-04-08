@@ -19,7 +19,7 @@ A pay schedule turns an order into a recurring billing arrangement. There are tw
 
   _Example: A gym charges $49.99/month for a membership with no end date._
 
-### Required fields
+### Required fields 
 
 When adding a `paySchedule` to an order, two fields are required:
 
@@ -102,17 +102,6 @@ The response will have `"type": "PAYMENT_PLAN"` because both `amount` and `paySc
 
 The response will have `"type": "SUBSCRIPTION"` because `amount` is omitted and `paySchedule` is present.
 
-### How a pay schedule works without autopay
-
-If autopay is not enabled, the schedule doesn't charge the customer automatically. Instead, each period the system:
-
-1. Checks whether the customer has made a payment on the order
-2. Sends email reminders before the due date (configurable via `reminderBeforeDueDays`)
-3. Sends an invoice at the start of each new period
-4. Marks the order as past due if the customer misses a pay period
-
-The customer pays manually — either through the invoice page or through a payment you process via the API.
-
 ### Two-step activation
 
 > ❗ Important
@@ -121,7 +110,9 @@ The customer pays manually — either through the invoice page or through a paym
 
 ## Setting up autopay
 
-Autopay means the system automatically charges the customer's stored payment method on each due date. If a charge fails, it retries on the days you configure with `retryAfterDueDays`.
+Autopay means the system automatically charges the customer's stored payment method on each due date. If a charge fails, it retries on the days you configure with `retryAfterDueDays`. 
+
+📘 Autopay is deactivated by default to avoid unexpected charges. However, for classic subscriptions or payment plans, using autopay provides the most reliable experience and insures that your merchant gets paid on time. 
 
 ### Requirements
 
@@ -144,6 +135,17 @@ To use autopay, you need a **pay token** attached to the pay schedule's billing.
 ```
 
 **Option 2: Provide a session when starting.** If you're using Prahsys session iframes to collect card details, you can pass a `session.id` in the start request instead. The system will automatically pull the card info from the session and tokenize it at the time of starting. The session iframes must contain the required card fields for tokenization.
+
+## How a pay schedule works without autopay
+
+If autopay is not enabled, the schedule doesn't charge the customer automatically. Instead, each period the system:
+
+1. Checks whether the customer has made a payment on the order
+2. Sends email reminders before the due date (configurable via `reminderBeforeDueDays`)
+3. Sends an invoice at the start of each new period
+4. Marks the order as past due if the customer misses a pay period
+
+The customer pays manually — either through the invoice page or through a payment you process via the API.
 
 ## Starting a pay schedule
 
