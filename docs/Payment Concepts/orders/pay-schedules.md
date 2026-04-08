@@ -283,7 +283,7 @@ This works for any updatable pay schedule field — `recurringAmount`, `frequenc
 POST /n1/merchant/{merchantId}/order/{orderId}/pay-schedule/cancel
 ```
 
-Cancelling a pay schedule deactivates it immediately. All upcoming due dates and scheduled reminders are cleared, and a cancellation email is sent to the customer.
+Cancelling a pay schedule deactivates it immediately. The `paySchedule.isActive` field will be set to `false`. All upcoming due dates and scheduled reminders are cleared, and a cancellation email is sent to the customer.
 
 > ⚠️ Restrictions
 >
