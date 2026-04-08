@@ -62,8 +62,8 @@ The `orderId` in the URL is optional. Provide your own ID (like an internal invo
 
 There are two ways to collect payment on an order:
 
-* **Via the API** — when creating a payment, set the `orderId` field in the payment request body to associate it with the order. The order's `remainingBalance` and `status` update automatically as payments are captured.
-* **Via the invoice page** — every order response includes an `invoiceUrl`. Send this link to your customer and they can make payments directly through the hosted invoice page.
+* **Via the API** — when creating a payment, set the `orderId` field in the payment request body to associate it with the order. The order's `remainingBalance` and `status` update automatically as payments are captured. For transactions (like the <Anchor label="pay transaction" target="_blank" href="doc:transactions#pay">pay transaction</Anchor> ) you can set the `payment.orderId` field to link the payment to the order.
+* **Via the invoice page** — every order response includes an `invoiceUrl` (see below). Send this link to your customer and they can make payments directly through the hosted invoice page.
 
 ## View and send invoice links
 
@@ -118,7 +118,7 @@ You can attach one or more customers to an order by including a `customers` arra
 }
 ```
 
-Attaching customers helps with your own record keeping, but it also sets the contacts for the order. When you send invoices using the boolean flags (`sendToCustomerEmails`, `sendToCustomerPhones`), these are the recipients. Customers also receive email and SMS notifications for pay schedule reminders, past due notices, and receipts.
+Attaching customers helps with your own record keeping, but it also sets the contacts for the order. When you send invoices using the boolean flags (`sendToCustomerEmails`, `sendToCustomerPhones`), these are the recipients. Customers can also receive email and SMS notifications for pay schedule reminders, past due notices, and receipts.
 
 ## Setting a due date
 
