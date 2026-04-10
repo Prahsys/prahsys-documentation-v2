@@ -7,6 +7,12 @@ deprecated: false
 hidden: false
 metadata:
   robots: index
+next:
+  description: Learn how to implement subscriptions with this practical example...
+  pages:
+    - slug: subscription-example-with-autopay
+      title: Subscription Example (with autopay)
+      type: basic
 ---
 This guide walks through a complete payment plan with autopay — from creating a $500 order to the final payment. You'll see every API call, webhook, and email along the way.
 
