@@ -127,7 +127,7 @@ POST /n1/merchant/{merchantId}/order/A3K7-NP2W/send
 >
 > You don't have to send the email through our API. The `invoiceUrl` in the order response points to the same invoice page — you can give that URL to the customer directly, or link to it from your own app.
 
-**Step 3: Customer completes setup.** On the invoice page, Maria adds her card (which gets tokenized automatically) and makes the first $150 payment. This activates the schedule and the same webhooks fire as in Option B below.
+**Step 3: Customer completes setup.** On the invoice page, Maria adds her card (which gets tokenized automatically) and makes the first $150 payment. This activates the schedule and the same webhooks and emails are sent as in Option B below.
 
 ### Option B: Merchant starts via the API
 
