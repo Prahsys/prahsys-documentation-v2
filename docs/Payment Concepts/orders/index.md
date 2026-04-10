@@ -9,6 +9,7 @@ icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
 next:
+  description: 'Learn how to create payment plans and subscriptions for orders:'
   pages:
     - slug: pay-schedules
       title: Pay Schedules
@@ -25,8 +26,6 @@ flowchart LR
     O --> P2["💳 Payment 2
     Credit Card — $200"]
 ```
-
-<br />
 
 ```mermaid
 flowchart TB
@@ -211,6 +210,31 @@ The response contains the full order object with the updated fields.
 > 📘 Updating customers
 >
 > The `customers` array is additive — new customers are attached to the order, but existing customers are not removed.
+
+## Webhooks
+
+Order status change webhooks let you react in real time when an order's status transitions — for example, from `PENDING` to `PARTIALLY_PAID` or from `PARTIALLY_PAID` to `PAID`. This applies to **all** orders, not just those with pay schedules.
+
+| Event type              | Fires when                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| `orders.status_changed` | The order's status transitions to a different value (e.g., `PENDING` → `PAID`) |
+
+The webhook payload includes the full order object plus the previous and new status values:
+
+```json
+{
+  "eventType": "orders.status_changed",
+  "payload": {
+    "data": { /* full order object */ },
+    "previousStatus": "PENDING",
+    "newStatus": "PARTIALLY_PAID"
+  }
+}
+```
+
+> 📘 Pay schedule webhooks
+>
+> Orders with pay schedules have additional webhook events for schedule lifecycle changes. See the [Pay Schedules — Webhooks](pay-schedules#webhooks) section for details.
 
 ## Pay schedules
 
