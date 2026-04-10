@@ -121,7 +121,7 @@ POST /n1/merchant/{merchantId}/order/A3K7-NP2W/send
 }
 ```
 
-**Step 2: Customer receives the email.** Maria gets a welcome email with a link to the invoice page. [Preview the welcome email.](https://gateway.prahsys.com/test/emails/pay-schedule-welcome?orderType=PAYMENT_PLAN\&autopay=true)
+**Step 2: Customer receives the email.** Maria gets a welcome email with a link to the invoice page. <Anchor label="Preview the welcome email." target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-welcome?orderType=PAYMENT_PLAN&autopay=true">Preview the welcome email.</Anchor>
 
 > 📘 Direct link
 >
