@@ -591,10 +591,6 @@ Each failed attempt fires an `orders.pay_schedule.autopay.failed` webhook and se
 >
 > If all retry attempts fail (days 1, 3, and 7 for MONTHLY), the subscription stays active and advances to the next period. The past-due amount rolls forward into the next charge. The customer can also pay manually through the invoice page at any time.
 
-> ⚠️ Cannot cancel while past due
->
-> While the subscription is in `SUBSCRIPTION_PAST_DUE` status, the cancel endpoint will return an error. The past due balance must be resolved first — either through a successful retry or a manual payment on the invoice page.
-
 ## Subscription vs. payment plan — quick comparison
 
 |                           | Subscription                                                                                         | Payment Plan                                    |
