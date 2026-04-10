@@ -275,7 +275,7 @@ With `payOnStart: true`, the first $150 is charged immediately.
 }
 ```
 
-**Step 4: "Started" email sent to Maria.** [Preview the started email.](https://gateway.prahsys.com/test/emails/pay-schedule-started?orderType=PAYMENT_PLAN\&autopay=true\&payOnStart=true)
+**Step 4: "Started" email sent to Maria.** <Anchor label="Preview the started email." target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-started?orderType=PAYMENT_PLAN&autopay=true&payOnStart=true">Preview the started email.</Anchor>
 
 ## 3. What happens each month
 
@@ -334,7 +334,7 @@ sequenceDiagram
     System->>Customer: Payment receipt email
 ```
 
-* **7 days before due:** Autopay reminder email. [Preview.](https://gateway.prahsys.com/test/emails/autopay-reminder?orderType=PAYMENT_PLAN)
+* **7 days before due:** Autopay reminder email. <Anchor label="Preview." target="_blank" href="https://gateway.prahsys.com/test/emails/autopay-reminder?orderType=PAYMENT_PLAN">Preview.</Anchor>
 * **3 days before due:** Second reminder email.
 * **On the due date:** Autopay charges the stored card. The `orders.pay_schedule.period.fulfilled` webhook fires and a payment receipt is emailed to Maria.
 
@@ -419,7 +419,7 @@ Two webhooks fire for the final payment:
 }
 ```
 
-Maria receives a payment receipt and a plan completed email. [Preview the completed email.](https://gateway.prahsys.com/test/emails/pay-schedule-completed?orderType=PAYMENT_PLAN)
+Maria receives a payment receipt and a plan completed email. <Anchor label="Preview the completed email." target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-completed?orderType=PAYMENT_PLAN">Preview the completed email.</Anchor>
 
 > 📘 No need to cancel
 >
@@ -459,7 +459,7 @@ sequenceDiagram
     System->>Customer: Payment receipt email
 ```
 
-Each failed attempt fires an `orders.pay_schedule.autopay.failed` webhook and sends a failure email to the customer. The email includes a link to the invoice page where they can update their payment method. [Preview the autopay failed email.](https://gateway.prahsys.com/test/emails/autopay-failed?orderType=PAYMENT_PLAN)
+Each failed attempt fires an `orders.pay_schedule.autopay.failed` webhook and sends a failure email to the customer. The email includes a link to the invoice page where they can update their payment method. <Anchor label="Preview the autopay failed email." target="_blank" href="https://gateway.prahsys.com/test/emails/autopay-failed?orderType=PAYMENT_PLAN">Preview the autopay failed email.</Anchor>
 
 > ⚠️ After all retries are exhausted
 >
@@ -467,16 +467,16 @@ Each failed attempt fires an `orders.pay_schedule.autopay.failed` webhook and se
 
 ## Email reference
 
-| When                                    | Email            | Preview                                                                                                                       |
-| --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Invoice sent (schedule not yet started) | Welcome          | [Preview](https://gateway.prahsys.com/test/emails/pay-schedule-welcome?orderType=PAYMENT_PLAN\&autopay=true)                  |
-| Schedule started                        | Started          | [Preview](https://gateway.prahsys.com/test/emails/pay-schedule-started?orderType=PAYMENT_PLAN\&autopay=true\&payOnStart=true) |
-| Before due date (7 and 3 days)          | Autopay reminder | [Preview](https://gateway.prahsys.com/test/emails/autopay-reminder?orderType=PAYMENT_PLAN)                                    |
-| After successful charge                 | Payment receipt  | —                                                                                                                             |
-| Autopay charge fails                    | Autopay failed   | [Preview](https://gateway.prahsys.com/test/emails/autopay-failed?orderType=PAYMENT_PLAN)                                      |
-| Plan fully paid                         | Completed        | [Preview](https://gateway.prahsys.com/test/emails/pay-schedule-completed?orderType=PAYMENT_PLAN)                              |
-| Schedule cancelled                      | Cancelled        | [Preview](https://gateway.prahsys.com/test/emails/pay-schedule-cancelled?orderType=PAYMENT_PLAN)                              |
+| When                                    | Email            | Preview                                                                                                                                                                          |
+| --------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Invoice sent (schedule not yet started) | Welcome          | <Anchor label="Preview" target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-welcome?orderType=PAYMENT_PLAN&autopay=true">Preview</Anchor>                 |
+| Schedule started                        | Started          | <Anchor label="Preview" target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-started?orderType=PAYMENT_PLAN&autopay=true&payOnStart=true">Preview</Anchor> |
+| Before due date (7 and 3 days)          | Autopay reminder | <Anchor label="Preview" target="_blank" href="https://gateway.prahsys.com/test/emails/autopay-reminder?orderType=PAYMENT_PLAN">Preview</Anchor>                                  |
+| After successful charge                 | Payment receipt  | —                                                                                                                                                                                |
+| Autopay charge fails                    | Autopay failed   | <Anchor label="Preview" target="_blank" href="https://gateway.prahsys.com/test/emails/autopay-failed?orderType=PAYMENT_PLAN">Preview</Anchor>                                    |
+| Plan fully paid                         | Completed        | <Anchor label="Preview" target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-completed?orderType=PAYMENT_PLAN">Preview</Anchor>                            |
+| Schedule cancelled                      | Cancelled        | <Anchor label="Preview" target="_blank" href="https://gateway.prahsys.com/test/emails/pay-schedule-cancelled?orderType=PAYMENT_PLAN">Preview</Anchor>                            |
 
 ## Webhook reference
 
-For the full list of pay schedule webhook events and their payloads, see [Pay Schedules — Webhooks](pay-schedules#webhooks).
+For the full list of pay schedule webhook events and their payloads, see <Anchor label="Pay Schedules — Webhooks" target="_blank" href="pay-schedules#webhooks">Pay Schedules — Webhooks</Anchor>.
