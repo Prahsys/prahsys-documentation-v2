@@ -9,7 +9,7 @@ icon: fad fa-file-invoice-dollar
 metadata:
   robots: index
 next:
-  description: 'Learn how to create payment plans and subscriptions for orders:'
+  description: Learn how to create payment plans and subscriptions for orders...
   pages:
     - slug: pay-schedules
       title: Pay Schedules
