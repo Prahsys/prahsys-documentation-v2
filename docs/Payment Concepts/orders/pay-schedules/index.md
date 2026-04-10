@@ -7,6 +7,12 @@ deprecated: false
 hidden: false
 metadata:
   robots: index
+next:
+  description: Learn how to implement payment plans with this practical example
+  pages:
+    - slug: payment-plan-example-with-autopay
+      title: Payment Plan Example (with autopay)
+      type: basic
 ---
 A pay schedule turns an order into a recurring billing arrangement. There are two kinds, and the API determines which one based on whether the order has an `amount`:
 
@@ -288,3 +294,39 @@ Cancelling a pay schedule deactivates it immediately. The `paySchedule.isActive`
 >
 > * The pay schedule must be active to cancel it.
 > * You cannot cancel a pay schedule that has an outstanding past due balance. The customer must pay what they owe for past periods before the schedule can be cancelled.
+
+## Webhooks
+
+Pay schedule webhooks notify you of key lifecycle events so you can keep your systems in sync. These fire for any order that has a pay schedule attached (both payment plans and subscriptions).
+
+| Event type                             | Fires when                                                                                                     | Extra payload fields               |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `orders.pay_schedule.started`          | A pay schedule is activated (via the API or the invoice page)                                                  | —                                  |
+| `orders.pay_schedule.cancelled`        | A pay schedule is cancelled                                                                                    | —                                  |
+| `orders.pay_schedule.period.fulfilled` | A billing period has been fully paid                                                                           | `periodStartDate`, `periodEndDate` |
+| `orders.pay_schedule.autopay.failed`   | An automatic payment attempt fails                                                                             | —                                  |
+| `orders.status_changed`                | The order's status transitions (e.g., `PENDING` → `PARTIALLY_PAID`). See [Orders — Webhooks](orders#webhooks). | `previousStatus`, `newStatus`      |
+
+All pay schedule webhook payloads include the full order object (including the pay schedule and payment history) under `payload.data`:
+
+```json
+{
+  "eventType": "orders.pay_schedule.started",
+  "payload": {
+    "data": { /* full order object */ }
+  }
+}
+```
+
+The `orders.pay_schedule.period.fulfilled` webhook fires once a billing period is fulfilled and includes the period's date range:
+
+```json
+{
+  "eventType": "orders.pay_schedule.period.fulfilled",
+  "payload": {
+    "data": { /* full order object */ },
+    "periodStartDate": "2026-04-01",
+    "periodEndDate": "2026-04-30"
+  }
+}
+```
