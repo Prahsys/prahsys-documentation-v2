@@ -8,7 +8,7 @@ hidden: false
 metadata:
   robots: index
 next:
-  description: Learn how to implement payment plans with this practical example
+  description: 'Learn how to implement payment plans with this practical example:'
   pages:
     - slug: payment-plan-example-with-autopay
       title: Payment Plan Example (with autopay)
