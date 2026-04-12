@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.123.0",
+    "version": "1.124.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-09T22:53:32.912Z"
+                      "createdAt": "2026-04-12T15:31:14.607Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-09T22:53:32.912Z"
+                      "createdAt": "2026-04-12T15:31:14.607Z"
                     }
                   }
                 }
@@ -1243,6 +1243,10 @@
                     "type": "string",
                     "description": "Management software used"
                   },
+                  "specialty": {
+                    "type": "string",
+                    "description": "Specialty of the business within its industry"
+                  },
                   "paymentProvider": {
                     "type": "string",
                     "description": "Payment provider used"
@@ -1579,6 +1583,13 @@
                       "null"
                     ],
                     "description": "Management software used"
+                  },
+                  "specialty": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Specialty of the business within its industry"
                   },
                   "paymentProvider": {
                     "type": [
@@ -2966,6 +2977,13 @@
           },
           {
             "in": "query",
+            "name": "industryName",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "limit",
             "schema": {
               "type": "number",
@@ -3065,6 +3083,10 @@
                     "type": "string",
                     "minLength": 1,
                     "description": "Name of the management software to create"
+                  },
+                  "industryName": {
+                    "type": "string",
+                    "description": "Name of the industry to associate this software with"
                   }
                 },
                 "required": [
@@ -3820,7 +3842,8 @@
                   },
                   "note": {
                     "type": "string",
-                    "description": "Optional note about the reach out"
+                    "minLength": 1,
+                    "description": "Note about the reach out"
                   },
                   "userId": {
                     "type": "string",
@@ -3838,6 +3861,7 @@
                 "required": [
                   "type",
                   "scheduledDate",
+                  "note",
                   "userId"
                 ]
               }
@@ -3943,10 +3967,8 @@
                     "description": "Updated scheduled date"
                   },
                   "note": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
+                    "minLength": 1,
                     "description": "Updated note"
                   },
                   "completedAt": {
@@ -3986,6 +4008,386 @@
                   ],
                   "title": "Update Lead Reach Out Response",
                   "description": "JSON response for updating a lead reach out"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/specialties": {
+      "get": {
+        "tags": [
+          "Lead Specialty"
+        ],
+        "operationId": "getLeadSpecialties",
+        "summary": "Get Lead Specialties",
+        "description": "Get the list of lead specialties, optionally filtered by industry",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "industryName",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadSpecialty"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Specialties Response",
+                  "description": "JSON response for getting lead specialties"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Specialty"
+        ],
+        "operationId": "createLeadSpecialty",
+        "summary": "Create Lead Specialty",
+        "description": "Create a new lead specialty linked to an industry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name of the specialty to create"
+                  },
+                  "industryName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name of the industry this specialty belongs to"
+                  }
+                },
+                "required": [
+                  "name",
+                  "industryName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadSpecialty"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Specialty Response",
+                  "description": "JSON response for creating a lead specialty"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/specialties/{specialtyId}": {
+      "patch": {
+        "tags": [
+          "Lead Specialty"
+        ],
+        "operationId": "updateLeadSpecialty",
+        "summary": "Update Lead Specialty",
+        "description": "Update an existing lead specialty name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "specialtyId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Updated specialty name"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadSpecialty"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Specialty Response",
+                  "description": "JSON response for updating a lead specialty"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead Specialty"
+        ],
+        "operationId": "deleteLeadSpecialty",
+        "summary": "Delete Lead Specialty",
+        "description": "Delete a lead specialty and clear references from lead businesses",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "specialtyId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadSpecialty"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead Specialty Response",
+                  "description": "JSON response for deleting a lead specialty"
                 }
               }
             }
@@ -8293,7 +8695,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-04-09T22:53:32.912Z"
+          "createdAt": "2026-04-12T15:31:14.607Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -8530,6 +8932,13 @@
             ],
             "description": "Management software used (e.g., Dentrix, Open Dental, Eaglesoft)"
           },
+          "specialty": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Specialty of the business within its industry"
+          },
           "paymentProvider": {
             "type": [
               "string",
@@ -8605,6 +9014,13 @@
             },
             "description": "Status history of the lead"
           },
+          "dealStatuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadDealStatus"
+            },
+            "description": "Deal pipeline status history of the lead"
+          },
           "deal": {
             "oneOf": [
               {
@@ -8668,6 +9084,7 @@
           "industry",
           "accountType",
           "managementSoftware",
+          "specialty",
           "paymentProvider",
           "merchantId",
           "leadChannel",
@@ -8887,18 +9304,119 @@
       "LeadStatusEnum": {
         "type": "string",
         "enum": [
-          "NEW",
-          "ATTEMPTED_TO_CONTACT",
+          "NEW_UNASSIGNED",
+          "NEW_ASSIGNED",
           "OPEN",
-          "DEFERRED",
-          "ONBOARDING",
           "CUSTOMER",
-          "FORMER_CUSTOMER",
-          "APPLICATION_DECLINED"
+          "NURTURE"
         ],
         "title": "Lead Status",
-        "description": "The status of a lead. Valid values: NEW (untouched), ATTEMPTED_TO_CONTACT (rep actively trying to connect), OPEN (in communication), DEFERRED (declined or unresponsive), ONBOARDING (merchant application opened), CUSTOMER (active Prahsys user), FORMER_CUSTOMER (previously used Prahsys), APPLICATION_DECLINED (underwriting declined)",
-        "example": "NEW"
+        "description": "The status of a lead. Valid values: NEW_UNASSIGNED (no owner assigned), NEW_ASSIGNED (owner assigned, not yet engaged), OPEN (actively in pipeline), CUSTOMER (live merchant), NURTURE (declined, lost, or deferred)",
+        "example": "NEW_UNASSIGNED"
+      },
+      "N1_LeadDealStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the deal status entry"
+          },
+          "leadBusinessId": {
+            "type": "string",
+            "description": "ID of the associated lead business"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LeadDealStatusEnum"
+          },
+          "date": {
+            "type": "string",
+            "description": "When the deal status change occurred"
+          },
+          "setById": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the user who set this status, null if system-set"
+          },
+          "setByUser": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Database user ID"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the user who set this status"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the user who set this status"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email of the user who set this status"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the user"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "email",
+              "imageUrl"
+            ],
+            "description": "User who set this status, null if system-set"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the deal status record was created"
+          }
+        },
+        "required": [
+          "id",
+          "leadBusinessId",
+          "status",
+          "date",
+          "setById",
+          "setByUser",
+          "createdAt"
+        ],
+        "title": "Lead Deal Status",
+        "description": "A deal pipeline status history entry for a lead business."
+      },
+      "LeadDealStatusEnum": {
+        "type": "string",
+        "enum": [
+          "NEW_UNASSIGNED",
+          "NEW_ASSIGNED",
+          "DISCOVERY",
+          "STATEMENT_REQUESTED",
+          "STATEMENT_RECEIVED",
+          "PROPOSAL",
+          "COMMIT",
+          "CLOSED_WON",
+          "AWAITING_SIGNATURE",
+          "UNDERWRITING",
+          "INFO_REQUESTED",
+          "ONBOARDING",
+          "LIVE",
+          "DECLINED",
+          "LOST"
+        ],
+        "title": "Lead Deal Status",
+        "description": "The status of a lead deal pipeline. Valid values: NEW_UNASSIGNED, NEW_ASSIGNED, DISCOVERY, STATEMENT_REQUESTED, STATEMENT_RECEIVED, PROPOSAL, COMMIT, CLOSED_WON, AWAITING_SIGNATURE, UNDERWRITING, INFO_REQUESTED, ONBOARDING, LIVE, DECLINED, LOST",
+        "example": "NEW_UNASSIGNED"
       },
       "N1_LeadDeal": {
         "type": "object",
@@ -8950,6 +9468,42 @@
             ],
             "description": "Desired rate type for the deal"
           },
+          "wonReasonCategory": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadDealWonReasonCategoryEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Category of the reason the deal was won"
+          },
+          "wonReasonNote": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Additional notes on why the deal was won"
+          },
+          "lostReasonCategory": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadDealLostReasonCategoryEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Category of the reason the deal was lost or declined"
+          },
+          "lostReasonNote": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Additional notes on why the deal was lost or declined"
+          },
           "createdAt": {
             "type": "string",
             "description": "When the deal was created"
@@ -8969,22 +9523,6 @@
         "title": "Lead Deal",
         "description": "A deal associated with a lead business when the lead status is OPEN"
       },
-      "LeadDealStatusEnum": {
-        "type": "string",
-        "enum": [
-          "INFORM",
-          "DEMO_SCHEDULED",
-          "DEMO_DONE",
-          "MERCHANT_STATEMENTS_REQUESTED",
-          "STATEMENT_ANALYSIS_SENT",
-          "IN_UNDERWRITING",
-          "WON",
-          "LOST"
-        ],
-        "title": "Lead Deal Status",
-        "description": "The status of a lead deal pipeline. Valid values: INFORM (initial contact), DEMO_SCHEDULED, DEMO_DONE, MERCHANT_STATEMENTS_REQUESTED, STATEMENT_ANALYSIS_SENT, IN_UNDERWRITING, WON, LOST",
-        "example": "INFORM"
-      },
       "LeadDealRateDesiredEnum": {
         "type": "string",
         "enum": [
@@ -8995,6 +9533,36 @@
         "title": "Lead Deal Rate Desired",
         "description": "The desired rate type for the lead deal. Valid values: STANDARD, PROMOTIONAL, CASH_DISCOUNT (cash discount program)",
         "example": "STANDARD"
+      },
+      "LeadDealWonReasonCategoryEnum": {
+        "type": "string",
+        "enum": [
+          "PRICING",
+          "PRODUCT_FIT",
+          "RELATIONSHIP",
+          "SERVICE_SUPPORT",
+          "TECHNOLOGY",
+          "REFERRAL",
+          "OTHER"
+        ],
+        "title": "Lead Deal Won Reason Category",
+        "description": "Category of the reason the deal was won",
+        "example": "PRICING"
+      },
+      "LeadDealLostReasonCategoryEnum": {
+        "type": "string",
+        "enum": [
+          "PRICING",
+          "COMPETITOR",
+          "TIMING",
+          "NO_DECISION",
+          "PRODUCT_FIT",
+          "WENT_DARK",
+          "OTHER"
+        ],
+        "title": "Lead Deal Lost Reason Category",
+        "description": "Category of the reason the deal was lost or declined",
+        "example": "COMPETITOR"
       },
       "N1_LeadContact": {
         "type": "object",
@@ -9250,7 +9818,9 @@
           "MEETING_IN_PERSON",
           "DEMO",
           "WEBINAR",
-          "NOTE"
+          "NOTE",
+          "STATEMENT_ANALYSIS",
+          "FIRST_TRANSACTION"
         ],
         "title": "Lead Touch Point Type",
         "description": "The type of touch point interaction. Valid values: PHONE_CALL, EMAIL, VOICEMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, NOTE",
@@ -9272,11 +9842,8 @@
             "description": "When the reach out is scheduled for"
           },
           "note": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Optional note about the reach out"
+            "type": "string",
+            "description": "Note about the reach out"
           },
           "completedAt": {
             "type": [
@@ -9416,6 +9983,7 @@
           "MEETING_IN_PERSON",
           "DEMO",
           "WEBINAR",
+          "TRAINING",
           "OTHER"
         ],
         "title": "Lead Reach Out Type",
@@ -9506,6 +10074,20 @@
           "name": {
             "type": "string",
             "description": "Name of the management software"
+          },
+          "industryId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the associated industry"
+          },
+          "industryName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Name of the associated industry"
           },
           "createdByUserId": {
             "type": [
@@ -9643,6 +10225,92 @@
         ],
         "title": "Lead Payment Provider",
         "description": "A channel-partner-scoped payment provider entry for lead businesses"
+      },
+      "N1_LeadSpecialty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the specialty"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the specialty"
+          },
+          "industryId": {
+            "type": "string",
+            "description": "ID of the associated industry"
+          },
+          "industryName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Name of the associated industry"
+          },
+          "createdByUserId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the user who created this entry, if known"
+          },
+          "createdByUser": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Database user ID"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the creator"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the creator"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the creator"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "imageUrl"
+            ],
+            "description": "User who created this specialty"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the entry was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the entry was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "industryId",
+          "createdByUserId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Specialty",
+        "description": "A channel-partner-scoped specialty entry linked to an industry"
       },
       "N1_NewMerchant": {
         "type": "object",
