@@ -116,6 +116,9 @@ POST /n1/merchant/{merchantId}/order/{orderId}/send
 }
 ```
 
+  **Note:** _If there are no customers attached to the order, then no emails will be sent_
+
+
 **Method 2: Send to specific addresses.** Provide your own list of recipients. When you provide `emails`, the `sendToCustomerEmails` flag is ignored (same for `phoneNumbers` and `sendToCustomerPhones`):
 
 ```json
@@ -127,7 +130,7 @@ POST /n1/merchant/{merchantId}/order/{orderId}/send
 
 ## Attaching customers
 
-You can attach one or more customers to an order by including a `customers` array when creating or updating the order:
+You can optionally attach one or more customers to an order by including a `customers` array when creating or updating the order:
 
 ```json
 {
