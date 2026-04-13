@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.125.1",
+    "version": "1.125.2",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-12T22:46:59.193Z"
+                      "createdAt": "2026-04-12T23:52:33.855Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-12T22:46:59.193Z"
+                      "createdAt": "2026-04-12T23:52:33.855Z"
                     }
                   }
                 }
@@ -7050,18 +7050,14 @@
                   "type": "string",
                   "enum": [
                     "ready_for_processing",
-                    "merchant_status",
                     "number_of_employees",
-                    "status_updated_at",
                     "created_at",
                     "name",
                     "slug",
                     "early_access_reason",
                     "created_at",
                     "-ready_for_processing",
-                    "-merchant_status",
                     "-number_of_employees",
-                    "-status_updated_at",
                     "-created_at",
                     "-name",
                     "-slug",
@@ -7075,18 +7071,14 @@
                     "type": "string",
                     "enum": [
                       "ready_for_processing",
-                      "merchant_status",
                       "number_of_employees",
-                      "status_updated_at",
                       "created_at",
                       "name",
                       "slug",
                       "early_access_reason",
                       "created_at",
                       "-ready_for_processing",
-                      "-merchant_status",
                       "-number_of_employees",
-                      "-status_updated_at",
                       "-created_at",
                       "-name",
                       "-slug",
@@ -8695,7 +8687,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-04-12T22:46:59.193Z"
+          "createdAt": "2026-04-12T23:52:33.855Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
