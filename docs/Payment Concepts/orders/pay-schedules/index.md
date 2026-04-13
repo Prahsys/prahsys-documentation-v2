@@ -33,14 +33,14 @@ When adding a `paySchedule` to an order, two fields are required:
 
 ### Optional fields
 
-| Field                   | Type    | Default             | Description                                                                                                |
-| ----------------------- | ------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `autopay`               | boolean | `false`             | Automatically charge the stored billing method each period. See [Setting up autopay](#setting-up-autopay). |
-| `billing`               | object  | `null`              | Payment method for autopay. Must contain a `token` (pay token).                                            |
-| `sendEmail`             | boolean | `true`              | Send email notifications (reminders, invoices, receipts) to attached customers.                            |
-| `sendSms`               | boolean | `false`             | Send SMS notifications to attached customers.                                                              |
-| `reminderBeforeDueDays` | int[]   | Varies by frequency | Days before the next due date to send payment reminders.                                                   |
-| `retryAfterDueDays`     | int[]   | Varies by frequency | Days after the due date to retry failed autopay charges or send past due reminders.                        |
+| Field                   | Type    | Default             | Description                                                                                                                                                                                                                                      |
+| ----------------------- | ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `autopay`               | boolean | `false`             | Automatically charge the stored billing method each period. See [Setting up autopay](#setting-up-autopay).                                                                                                                                       |
+| `billing`               | object  | `null`              | Payment method for autopay. Must contain a `token` (pay token). This field is optional when creating the order. There are several ways to add a billing method, but it must be present before [starting the schedule](#starting-a-pay-schedule). |
+| `sendEmail`             | boolean | `true`              | Send email notifications (reminders, invoices, receipts) to attached customers.                                                                                                                                                                  |
+| `sendSms`               | boolean | `false`             | Send SMS notifications to attached customers.                                                                                                                                                                                                    |
+| `reminderBeforeDueDays` | int[]   | Varies by frequency | Days before the next due date to send payment reminders.                                                                                                                                                                                         |
+| `retryAfterDueDays`     | int[]   | Varies by frequency | Days after the due date to retry failed autopay charges or send past due reminders.                                                                                                                                                              |
 
 **Default reminder and retry days by frequency:**
 
