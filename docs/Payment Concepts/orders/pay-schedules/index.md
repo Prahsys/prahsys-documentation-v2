@@ -149,6 +149,17 @@ To use autopay, you need a **pay token** attached to the pay schedule's billing.
 }
 ```
 
+**Option 2 example** — pass `session.id` in the [start request](#start-endpoint); the card is tokenized automatically:
+
+```json
+{
+  "payOnStart": true,
+  "session": {
+    "id": "ses_abc123def456"
+  }
+}
+```
+
 ## How a pay schedule works without autopay
 
 If autopay is not enabled, the schedule doesn't charge the customer automatically. Instead, each period the system:
