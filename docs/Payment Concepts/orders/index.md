@@ -107,7 +107,7 @@ Use the send endpoint to deliver the invoice link via email or SMS:
 POST /n1/merchant/{merchantId}/order/{orderId}/send
 ```
 
-**Method 1: Send to customers on the order.** Use the boolean flags to send to all emails or phone numbers of customers attached to the order:
+**Method 1: Send to customers on the order.** Use the boolean flags to send to all emails or phone numbers of customers attached to the order (_if there are no customers attached to the order, then no emails will be sent_):
 
 ```json
 {
@@ -115,9 +115,6 @@ POST /n1/merchant/{merchantId}/order/{orderId}/send
   "sendToCustomerPhones": false
 }
 ```
-
-  **Note:** _If there are no customers attached to the order, then no emails will be sent_
-
 
 **Method 2: Send to specific addresses.** Provide your own list of recipients. When you provide `emails`, the `sendToCustomerEmails` flag is ignored (same for `phoneNumbers` and `sendToCustomerPhones`):
 
