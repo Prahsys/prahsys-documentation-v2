@@ -116,7 +116,7 @@ POST /n1/merchant/{merchantId}/order/{orderId}/send
 }
 ```
 
-**Method 2: Send to specific addresses.** Provide your own list of recipients. When you provide `emails`, the `sendToCustomerEmails` flag is ignored (same for `phoneNumbers` and `sendToCustomerPhones`). These contact methods with _not_ be added to the customers for the order.:
+**Method 2: Send to specific addresses.** Provide your own list of recipients. When you provide `emails`, the `sendToCustomerEmails` flag is ignored (same for `phoneNumbers` and `sendToCustomerPhones`). These contact methods with _not_ be saved to the customers list for the order. 
 
 ```json
 {
