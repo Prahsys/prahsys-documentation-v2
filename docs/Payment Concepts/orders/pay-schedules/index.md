@@ -307,6 +307,8 @@ POST /n1/merchant/{merchantId}/order/{orderId}/pay-schedule/cancel
 
 Cancelling a pay schedule deactivates it immediately. The `paySchedule.isActive` field will be set to `false`. All upcoming due dates and scheduled reminders are cleared, and a cancellation email is sent to the customer.
 
+Note: For subscriptions, the `order.status` will change to `SUBSCRIPTION_CANCELLED`. The order status for payment plans will remain the same since the order itself remains `PAID` or `PARTIALLY_PAID` regardless of whether the schedule is active. 
+
 > ⚠️ Restrictions
 >
 > * The pay schedule must be active to cancel it.
