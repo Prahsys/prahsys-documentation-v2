@@ -121,11 +121,19 @@ Autopay means the system automatically charges the customer's stored payment met
   Autopay is deactivated by default to avoid unexpected charges. However, for classic subscriptions or payment plans, using autopay provides the most reliable experience and insures that your merchant gets paid on time.
 </Callout>
 
+<br />
+
 ### Requirements
 
-Before an autopay schedule can be activated, a **pay token** needs to be attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>) . You can attach one in two ways:
+To use autopay, you need a **pay token** attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>) . You can attach one in two ways:
 
-**Option 1: Set the token directly.** If you already have a pay token, pass it in the `paySchedule.billing.token` field when creating or updating the order:
+|               | **Option 1: Set the token directly**                                              | **Option 2: Provide a session when starting**                                                                                      |
+| ------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Best when** | You already have a pay token                                                      | You're collecting card details via <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> iframes |
+| **How**       | Pass the token in `paySchedule.billing.token` when creating or updating the order | Pass a `session.id` in the [start request](#start-endpoint) — the system tokenizes it automatically at start time                  |
+| **Requires**  | An existing pay token                                                             | Session iframes with the required card fields                                                                                      |
+
+**Option 1 example** — pass `paySchedule.billing.token` when creating or updating the order:
 
 ```json
 {
@@ -140,8 +148,6 @@ Before an autopay schedule can be activated, a **pay token** needs to be attache
   }
 }
 ```
-
-**Option 2: Provide a session when starting.** If you're using Prahsys session iframes to collect card details (see <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> ), you can pass a `session.id` in the start request instead (see [start endpoint](#start-endpoint) ). The system will automatically pull the card info from the session and tokenize it at the time of starting. The session iframes must contain the required card fields for tokenization.
 
 ## How a pay schedule works without autopay
 
