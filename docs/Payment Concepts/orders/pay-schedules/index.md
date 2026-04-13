@@ -123,7 +123,7 @@ Autopay means the system automatically charges the customer's stored payment met
 
 ### Requirements
 
-To use autopay, you need a **pay token** attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>) . You can attach one in two ways:
+Before an autopay schedule can be activated, a **pay token** needs to be attached to the pay schedule's billing. A pay token is a tokenized payment method that can be charged repeatedly (see <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>) . You can attach one in two ways:
 
 **Option 1: Set the token directly.** If you already have a pay token, pass it in the `paySchedule.billing.token` field when creating or updating the order:
 
