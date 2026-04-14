@@ -116,7 +116,7 @@ POST /n1/merchant/{merchantId}/order/{orderId}/send
 }
 ```
 
-**Method 2: Send to specific addresses.** Provide your own list of recipients. When you provide `emails`, the `sendToCustomerEmails` flag is ignored (same for `phoneNumbers` and `sendToCustomerPhones`). These contact methods with _not_ be saved to the customers list for the order. 
+**Method 2: Send to specific addresses.** Provide your own list of recipients. When you provide `emails`, the `sendToCustomerEmails` flag is ignored (same for `phoneNumbers` and `sendToCustomerPhones`). These contact methods with _not_ be saved to the customers list for the order.
 
 ```json
 {
@@ -198,18 +198,14 @@ The response contains the full order object with the updated fields.
 
 ### Updatable fields
 
-| Field         | Description                                                                |
-| ------------- | -------------------------------------------------------------------------- |
-| `description` | Order description                                                          |
-| `amount`      | Total order amount                                                         |
-| `currency`    | Currency code (ISO 4217)                                                   |
-| `dueDate`     | Due date (unscheduled orders only)                                         |
-| `customers`   | Customer list — replaces the existing list                                 |
-| `paySchedule` | Pay schedule configuration — updates individual fields within the schedule |
-
-> 📘 Updating customers
->
-> The `customers` array is additive — new customers are attached to the order, but existing customers are not removed.
+| Field         | Description                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `description` | Order description                                                                                                                    |
+| `amount`      | Total order amount                                                                                                                   |
+| `currency`    | Currency code (ISO 4217)                                                                                                             |
+| `dueDate`     | Due date (unscheduled orders only)                                                                                                   |
+| `customers`   | Customer list — replaces the existing list. Send `[]` to remove all customers. Omit the field to leave existing customers unchanged. |
+| `paySchedule` | Pay schedule configuration — updates individual fields within the schedule                                                           |
 
 ## Webhooks
 
