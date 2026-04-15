@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.125.2",
+    "version": "1.126.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-12T23:52:33.855Z"
+                      "createdAt": "2026-04-15T16:46:05.823Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-12T23:52:33.855Z"
+                      "createdAt": "2026-04-15T16:46:05.823Z"
                     }
                   }
                 }
@@ -1237,6 +1237,7 @@
                   },
                   "industry": {
                     "type": "string",
+                    "minLength": 1,
                     "description": "Industry the business operates in"
                   },
                   "managementSoftware": {
@@ -1265,6 +1266,18 @@
                     "pattern": "^[a-z0-9-]+$",
                     "description": "Campaign identifier (lowercase-hyphenated)"
                   },
+                  "numberOfLocations": {
+                    "type": "integer",
+                    "description": "Number of locations for this business"
+                  },
+                  "numberOfProviders": {
+                    "type": "integer",
+                    "description": "Number of providers at this business"
+                  },
+                  "dsoSize": {
+                    "$ref": "#/components/schemas/LeadDsoSizeEnum",
+                    "description": "DSO size category — only applicable for DSO Parent account type"
+                  },
                   "ownerUserIds": {
                     "type": "array",
                     "items": {
@@ -1283,6 +1296,7 @@
                 "required": [
                   "name",
                   "accountType",
+                  "industry",
                   "leadChannel"
                 ]
               }
@@ -1571,10 +1585,8 @@
                     "description": "Website of the business"
                   },
                   "industry": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
+                    "minLength": 1,
                     "description": "Industry the business operates in"
                   },
                   "managementSoftware": {
@@ -1617,6 +1629,31 @@
                     ],
                     "pattern": "^[a-z0-9-]+$",
                     "description": "Campaign identifier (lowercase-hyphenated)"
+                  },
+                  "numberOfLocations": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "description": "Number of locations for this business"
+                  },
+                  "numberOfProviders": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "description": "Number of providers at this business"
+                  },
+                  "dsoSize": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/LeadDsoSizeEnum"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "DSO size category — only applicable for DSO Parent account type"
                   },
                   "merchantId": {
                     "type": [
@@ -8687,7 +8724,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-04-12T23:52:33.855Z"
+          "createdAt": "2026-04-15T16:46:05.823Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -8917,6 +8954,31 @@
           "accountType": {
             "$ref": "#/components/schemas/LeadAccountTypeEnum"
           },
+          "numberOfLocations": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Number of locations for this business"
+          },
+          "numberOfProviders": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Number of providers at this business"
+          },
+          "dsoSize": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadDsoSizeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "DSO size category — only applicable for DSO Parent account type"
+          },
           "managementSoftware": {
             "type": [
               "string",
@@ -8962,6 +9024,17 @@
               }
             ],
             "description": "Acquisition channel for the lead"
+          },
+          "leadSourceType": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadSourceTypeEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Whether this lead was rep-generated (outbound) or company-generated (inbound/marketing)"
           },
           "leadSource": {
             "type": [
@@ -9052,6 +9125,13 @@
             },
             "description": "Owners assigned to this lead"
           },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadRelationship"
+            },
+            "description": "Related lead businesses connected to this lead"
+          },
           "lastTouchDate": {
             "type": [
               "string",
@@ -9080,6 +9160,7 @@
           "paymentProvider",
           "merchantId",
           "leadChannel",
+          "leadSourceType",
           "leadSource",
           "leadCampaign",
           "channelPartnerId",
@@ -9174,14 +9255,31 @@
       "LeadAccountTypeEnum": {
         "type": "string",
         "enum": [
-          "DSO",
-          "MULTI_LOCATION",
           "PRIVATE",
-          "OTHER"
+          "PRIVATE_CHILD_LOCATION",
+          "DSO_PARENT",
+          "DSO_PRACTICE",
+          "DSO_CHILD_LOCATION",
+          "COMMUNITY_CLINIC",
+          "GOVERNMENT_CLINIC",
+          "SCHOOL",
+          "GPO"
         ],
         "title": "Lead Account Type",
-        "description": "The account type of the lead business. Valid values: DSO (dental service organization), MULTI_LOCATION (multi-location business), PRIVATE (private practice), OTHER",
+        "description": "The account type of the lead business. PRIVATE: independent practice, PRIVATE_CHILD_LOCATION: sub-location of a private practice, DSO_PARENT: DSO parent org, DSO_PRACTICE: practice associated with a DSO, DSO_CHILD_LOCATION: sub-location of a DSO practice, COMMUNITY_CLINIC: nonprofit/FQHC, GOVERNMENT_CLINIC: government dental clinic, SCHOOL: dental school, GPO: group purchasing organization",
         "example": "PRIVATE"
+      },
+      "LeadDsoSizeEnum": {
+        "type": "string",
+        "enum": [
+          "EMERGING",
+          "MID_MARKET",
+          "ELITE",
+          "MOBILE"
+        ],
+        "title": "Lead DSO Size",
+        "description": "The size category for a DSO Parent account. EMERGING (3-9 locations), MID_MARKET (10-75 locations), ELITE (76+ locations), MOBILE (mobile practice)",
+        "example": "EMERGING"
       },
       "LeadChannelEnum": {
         "type": "string",
@@ -9211,6 +9309,16 @@
         "title": "Lead Channel",
         "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL",
         "example": "REFERRAL"
+      },
+      "LeadSourceTypeEnum": {
+        "type": "string",
+        "enum": [
+          "REP_GENERATED",
+          "COMPANY_GENERATED"
+        ],
+        "title": "Lead Source Type",
+        "description": "Whether the lead was generated by a rep (outbound outreach) or by the company (inbound/marketing). REP_GENERATED: Inside Sales, Outside Sales. COMPANY_GENERATED: all other channels.",
+        "example": "REP_GENERATED"
       },
       "N1_LeadStatus": {
         "type": "object",
@@ -9981,6 +10089,35 @@
         "title": "Lead Reach Out Type",
         "description": "The type of scheduled reach out. Valid values: PHONE_CALL, EMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, OTHER",
         "example": "PHONE_CALL"
+      },
+      "N1_LeadRelationship": {
+        "type": "object",
+        "properties": {
+          "relatedLeadId": {
+            "type": "string",
+            "description": "ID of the related lead business"
+          },
+          "relatedLeadName": {
+            "type": "string",
+            "description": "Name of the related lead business"
+          },
+          "relatedLeadAccountType": {
+            "$ref": "#/components/schemas/LeadAccountTypeEnum",
+            "description": "Account type of the related lead"
+          },
+          "connectedAt": {
+            "type": "string",
+            "description": "When the relationship was created"
+          }
+        },
+        "required": [
+          "relatedLeadId",
+          "relatedLeadName",
+          "relatedLeadAccountType",
+          "connectedAt"
+        ],
+        "title": "Lead Relationship",
+        "description": "A relationship between two lead businesses"
       },
       "N1_LeadIndustry": {
         "type": "object",
