@@ -9,9 +9,9 @@
 - payouts
 - receipts
 - sessions
-- status
 - transaction-exports
 - tags
+- status
 - tokenization
 - payout-exports
 - transactions
