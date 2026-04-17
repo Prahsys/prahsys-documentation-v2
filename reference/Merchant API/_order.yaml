@@ -1,14 +1,14 @@
 - channel-partner
 - customer
-- merchant
-- terminal
-- user
 - status-1
 - lead-business
 - lead-contact
 - lead-industry
 - lead-touch-points
 - lead-management-software
+- merchant
 - lead-reach-outs
 - lead-payment-provider
+- terminal
+- user
 - lead-specialty
