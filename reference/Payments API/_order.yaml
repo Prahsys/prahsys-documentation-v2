@@ -5,13 +5,13 @@
 - merchant-purge
 - orders
 - payments
+- monthly-statements
 - payouts
 - receipts
-- monthly-statements
 - sessions
-- tags
-- transaction-exports
 - status
+- transaction-exports
+- tags
 - tokenization
 - payout-exports
 - transactions
