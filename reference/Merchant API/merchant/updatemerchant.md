@@ -1,6 +1,4 @@
 ---
-title: Update Merchant
-excerpt: Update an existing merchant from Prahsys
 api:
   file: openapi.json
   operationId: updateMerchant

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.130.0",
+    "version": "1.131.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-18T03:01:23.800Z"
+                      "createdAt": "2026-04-20T20:52:04.355Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-18T03:01:23.800Z"
+                      "createdAt": "2026-04-20T20:52:04.355Z"
                     }
                   }
                 }
@@ -3870,7 +3870,7 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "$ref": "#/components/schemas/LeadReachOutTypeEnum",
+                    "$ref": "#/components/schemas/LeadActivityTypeEnum",
                     "description": "The type of reach out to schedule"
                   },
                   "scheduledDate": {
@@ -3996,7 +3996,7 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "$ref": "#/components/schemas/LeadReachOutTypeEnum",
+                    "$ref": "#/components/schemas/LeadActivityTypeEnum",
                     "description": "Updated type for this reach out"
                   },
                   "scheduledDate": {
@@ -4596,7 +4596,7 @@
                     "description": "The note or comment to record as a touch point"
                   },
                   "type": {
-                    "$ref": "#/components/schemas/LeadTouchPointTypeEnum",
+                    "$ref": "#/components/schemas/LeadActivityTypeEnum",
                     "description": "The type of interaction for this touch point"
                   },
                   "userId": {
@@ -4717,7 +4717,7 @@
                     "description": "The new edited message content for this touch point"
                   },
                   "type": {
-                    "$ref": "#/components/schemas/LeadTouchPointTypeEnum",
+                    "$ref": "#/components/schemas/LeadActivityTypeEnum",
                     "description": "Updated type for this touch point"
                   }
                 }
@@ -8724,7 +8724,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-04-18T03:01:23.800Z"
+          "createdAt": "2026-04-20T20:52:04.355Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9404,15 +9404,14 @@
       "LeadStatusEnum": {
         "type": "string",
         "enum": [
-          "NEW_UNASSIGNED",
-          "NEW_ASSIGNED",
+          "NEW",
           "OPEN",
           "CUSTOMER",
           "NURTURE"
         ],
         "title": "Lead Status",
-        "description": "The status of a lead. Valid values: NEW_UNASSIGNED (no owner assigned), NEW_ASSIGNED (owner assigned, not yet engaged), OPEN (actively in pipeline), CUSTOMER (live merchant), NURTURE (declined, lost, or deferred)",
-        "example": "NEW_UNASSIGNED"
+        "description": "The status of a lead. Valid values: NEW (initial state — not yet engaged), OPEN (actively in pipeline), CUSTOMER (live merchant), NURTURE (declined, lost, or deferred)",
+        "example": "NEW"
       },
       "N1_LeadDealStatus": {
         "type": "object",
@@ -9498,8 +9497,7 @@
       "LeadDealStatusEnum": {
         "type": "string",
         "enum": [
-          "NEW_UNASSIGNED",
-          "NEW_ASSIGNED",
+          "NEW",
           "DISCOVERY",
           "STATEMENT_REQUESTED",
           "STATEMENT_RECEIVED",
@@ -9515,8 +9513,8 @@
           "LOST"
         ],
         "title": "Lead Deal Status",
-        "description": "The status of a lead deal pipeline. Valid values: NEW_UNASSIGNED, NEW_ASSIGNED, DISCOVERY, STATEMENT_REQUESTED, STATEMENT_RECEIVED, PROPOSAL, COMMIT, CLOSED_WON, AWAITING_SIGNATURE, UNDERWRITING, INFO_REQUESTED, ONBOARDING, LIVE, DECLINED, LOST",
-        "example": "NEW_UNASSIGNED"
+        "description": "The status of a lead deal pipeline. Valid values: NEW, DISCOVERY, STATEMENT_REQUESTED, STATEMENT_RECEIVED, PROPOSAL, COMMIT, CLOSED_WON, AWAITING_SIGNATURE, UNDERWRITING, INFO_REQUESTED, ONBOARDING, LIVE, DECLINED, LOST",
+        "example": "NEW"
       },
       "N1_LeadDeal": {
         "type": "object",
@@ -9798,7 +9796,7 @@
             "description": "Unique identifier for the touch point"
           },
           "type": {
-            "$ref": "#/components/schemas/LeadTouchPointTypeEnum",
+            "$ref": "#/components/schemas/LeadActivityTypeEnum",
             "description": "Type of the touch point interaction"
           },
           "description": {
@@ -9906,7 +9904,7 @@
         "title": "Lead Touch Point",
         "description": "An internal note or interaction record for a lead business or contact"
       },
-      "LeadTouchPointTypeEnum": {
+      "LeadActivityTypeEnum": {
         "type": "string",
         "enum": [
           "PHONE_CALL",
@@ -9920,10 +9918,11 @@
           "WEBINAR",
           "NOTE",
           "STATEMENT_ANALYSIS",
-          "FIRST_TRANSACTION"
+          "TRAINING",
+          "OTHER"
         ],
-        "title": "Lead Touch Point Type",
-        "description": "The type of touch point interaction. Valid values: PHONE_CALL, EMAIL, VOICEMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, NOTE",
+        "title": "Lead Activity Type",
+        "description": "The type of lead activity. Valid values: PHONE_CALL, EMAIL, VOICEMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, NOTE, STATEMENT_ANALYSIS, FIRST_TRANSACTION, TRAINING, OTHER",
         "example": "NOTE"
       },
       "N1_LeadReachOut": {
@@ -9934,7 +9933,7 @@
             "description": "Unique identifier for the reach out"
           },
           "type": {
-            "$ref": "#/components/schemas/LeadReachOutTypeEnum",
+            "$ref": "#/components/schemas/LeadActivityTypeEnum",
             "description": "Type of the scheduled reach out"
           },
           "scheduledDate": {
@@ -10071,24 +10070,6 @@
         ],
         "title": "Lead Reach Out",
         "description": "A scheduled reach out for a lead business or contact"
-      },
-      "LeadReachOutTypeEnum": {
-        "type": "string",
-        "enum": [
-          "PHONE_CALL",
-          "EMAIL",
-          "TEXT",
-          "LINKEDIN_MESSAGE",
-          "MEETING_VIRTUAL",
-          "MEETING_IN_PERSON",
-          "DEMO",
-          "WEBINAR",
-          "TRAINING",
-          "OTHER"
-        ],
-        "title": "Lead Reach Out Type",
-        "description": "The type of scheduled reach out. Valid values: PHONE_CALL, EMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, OTHER",
-        "example": "PHONE_CALL"
       },
       "N1_LeadRelationship": {
         "type": "object",

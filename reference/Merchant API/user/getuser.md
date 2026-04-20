@@ -1,6 +1,4 @@
 ---
-title: Get User
-excerpt: Get an existing user from the organization
 api:
   file: openapi.json
   operationId: getUser
