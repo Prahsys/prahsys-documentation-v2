@@ -4,14 +4,14 @@
 - exports
 - merchant-purge
 - orders
-- payments
 - monthly-statements
+- payments
 - payouts
 - receipts
-- sessions
 - transaction-exports
-- tags
+- sessions
 - status
+- tags
 - tokenization
 - payout-exports
 - transactions

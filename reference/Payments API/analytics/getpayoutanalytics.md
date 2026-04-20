@@ -1,5 +1,4 @@
 ---
-title: Get Payout Analytics
 api:
   file: payments-openapi.json
   operationId: getPayoutAnalytics
