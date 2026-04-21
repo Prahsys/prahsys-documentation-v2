@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.132.3",
+    "version": "1.133.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-21T17:51:06.871Z"
+                      "createdAt": "2026-04-21T20:25:53.381Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-21T17:51:06.871Z"
+                      "createdAt": "2026-04-21T20:25:53.381Z"
                     }
                   }
                 }
@@ -1291,6 +1291,10 @@
                       "type": "string"
                     },
                     "description": "Contact IDs to link to this business"
+                  },
+                  "dsoConnectId": {
+                    "type": "string",
+                    "description": "DSO Connect entity id (parent_dso_id, subsidiary_id, or practice_location_id) — must be unique per lead."
                   }
                 },
                 "required": [
@@ -8724,7 +8728,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-04-21T17:51:06.871Z"
+          "createdAt": "2026-04-21T20:25:53.381Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9304,10 +9308,11 @@
           "INTEGRATION_MARKETPLACE",
           "AFFILIATE",
           "FREE_TRIAL",
-          "IN_APP_REFERRAL"
+          "IN_APP_REFERRAL",
+          "DSO_CONNECT"
         ],
         "title": "Lead Channel",
-        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL",
+        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
         "example": "REFERRAL"
       },
       "LeadSourceTypeEnum": {
