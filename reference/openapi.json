@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.136.0",
+    "version": "1.137.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-22T18:20:08.850Z"
+                      "createdAt": "2026-04-23T19:56:28.800Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-04-22T18:20:08.850Z"
+                      "createdAt": "2026-04-23T19:56:28.800Z"
                     }
                   }
                 }
@@ -8728,7 +8728,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-04-22T18:20:08.850Z"
+          "createdAt": "2026-04-23T19:56:28.800Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -11927,6 +11927,12 @@
                     "string",
                     "null"
                   ]
+                },
+                "bips": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000,
+                  "description": "Commission rate in basis points (bips) for this sales agent on this merchant, snapshotted at the time the agent was attached. 1 bip = 0.01%. Only present on the N1_Merchant detail object."
                 }
               },
               "required": [
@@ -12817,6 +12823,12 @@
                     "string",
                     "null"
                   ]
+                },
+                "bips": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000,
+                  "description": "Commission rate in basis points (bips) for this sales agent on this merchant, snapshotted at the time the agent was attached. 1 bip = 0.01%. Only present on the N1_Merchant detail object."
                 }
               },
               "required": [
