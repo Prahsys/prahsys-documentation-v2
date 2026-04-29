@@ -1,4 +1,0 @@
----
-title: Endpoints
-hidden: false
----
