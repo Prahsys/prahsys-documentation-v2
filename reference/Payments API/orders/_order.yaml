@@ -7,3 +7,12 @@
 - listordersfororganization
 - listordersformerchant
 - cancelpayschedule
+- listordersfororganization-1
+- listordersformerchant-1
+- getorder-1
+- updateorcreateorder-1
+- updateorder-1
+- deleteorder-1
+- sendorderinvoice-1
+- startpayschedule-1
+- cancelpayschedule-1

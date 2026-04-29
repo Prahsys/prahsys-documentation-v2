@@ -2,3 +2,7 @@
 - getexportstatus
 - deleteexport
 - downloadexportfile
+- listexportsfororganization-1
+- getexportstatus-1
+- deleteexport-1
+- downloadexportfile-1
