@@ -1,4 +1,0 @@
----
-title: Payouts
-hidden: false
----
