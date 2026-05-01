@@ -1,0 +1,9 @@
+- listordersfororganization
+- listordersformerchant
+- getorder
+- updateorcreateorder
+- updateorder
+- deleteorder
+- sendorderinvoice
+- startpayschedule
+- cancelpayschedule
