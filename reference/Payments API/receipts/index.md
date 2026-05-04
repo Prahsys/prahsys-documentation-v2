@@ -1,0 +1,4 @@
+---
+title: Receipts
+hidden: false
+---
