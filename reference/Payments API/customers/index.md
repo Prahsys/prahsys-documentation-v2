@@ -1,4 +1,0 @@
----
-title: Customers
-hidden: false
----
