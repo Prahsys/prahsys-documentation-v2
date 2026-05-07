@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.143.0",
+    "version": "1.144.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-07T16:52:01.693Z"
+                      "createdAt": "2026-05-07T19:44:12.083Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-07T16:52:01.693Z"
+                      "createdAt": "2026-05-07T19:44:12.083Z"
                     }
                   }
                 }
@@ -8728,7 +8728,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-05-07T16:52:01.693Z"
+          "createdAt": "2026-05-07T19:44:12.083Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9515,10 +9515,11 @@
           "ONBOARDING",
           "LIVE",
           "DECLINED",
-          "LOST"
+          "LOST",
+          "CHURNED"
         ],
         "title": "Lead Deal Status",
-        "description": "The status of a lead deal pipeline. Valid values: NEW, DISCOVERY, STATEMENT_REQUESTED, STATEMENT_RECEIVED, PROPOSAL, COMMIT, CLOSED_WON, AWAITING_SIGNATURE, UNDERWRITING, INFO_REQUESTED, ONBOARDING, LIVE, DECLINED, LOST",
+        "description": "The status of a lead deal pipeline. Valid values: NEW, DISCOVERY, STATEMENT_REQUESTED, STATEMENT_RECEIVED, PROPOSAL, COMMIT, CLOSED_WON, AWAITING_SIGNATURE, UNDERWRITING, INFO_REQUESTED, ONBOARDING, LIVE, DECLINED, LOST, CHURNED",
         "example": "NEW"
       },
       "N1_LeadDeal": {
