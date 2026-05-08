@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.144.1",
+    "version": "1.145.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-08T15:40:48.741Z"
+                      "createdAt": "2026-05-08T20:22:22.848Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-08T15:40:48.741Z"
+                      "createdAt": "2026-05-08T20:22:22.848Z"
                     }
                   }
                 }
@@ -4012,6 +4012,14 @@
                     "minLength": 1,
                     "description": "Updated note"
                   },
+                  "completionNote": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "description": "Note added when marking the reach out as complete"
+                  },
                   "completedAt": {
                     "type": [
                       "string",
@@ -4614,6 +4622,10 @@
                   "leadContactId": {
                     "type": "string",
                     "description": "ID of the lead contact to attach this touch point to"
+                  },
+                  "eventDate": {
+                    "type": "string",
+                    "description": "When the activity occurred. Defaults to now if not provided."
                   }
                 },
                 "required": [
@@ -4723,6 +4735,10 @@
                   "type": {
                     "$ref": "#/components/schemas/LeadActivityTypeEnum",
                     "description": "Updated type for this touch point"
+                  },
+                  "eventDate": {
+                    "type": "string",
+                    "description": "Updated event date for this touch point"
                   }
                 }
               }
@@ -8728,7 +8744,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-05-08T15:40:48.741Z"
+          "createdAt": "2026-05-08T20:22:22.848Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9605,6 +9621,13 @@
             ],
             "description": "Additional notes on why the deal was lost or declined"
           },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "General note about the deal"
+          },
           "createdAt": {
             "type": "string",
             "description": "When the deal was created"
@@ -9813,6 +9836,13 @@
             "type": "string",
             "description": "Date of the touch point interaction"
           },
+          "eventDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the activity actually occurred. User-settable; defaults to creation time."
+          },
           "userId": {
             "type": "string",
             "description": "ID of the user who created the touch point"
@@ -9896,6 +9926,7 @@
           "type",
           "description",
           "date",
+          "eventDate",
           "userId",
           "leadBusinessId",
           "leadContactId",
@@ -9946,6 +9977,13 @@
           "note": {
             "type": "string",
             "description": "Note about the reach out"
+          },
+          "completionNote": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Note added when the reachout was completed"
           },
           "completedAt": {
             "type": [
