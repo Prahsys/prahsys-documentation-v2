@@ -24,6 +24,11 @@ metadata:
     - card data collection
     - secure checkout
   robots: index
+next:
+  pages:
+    - slug: direct-pay
+      title: Pay API
+      type: basic
 ---
 <Recipe slug="pay-session-integration" title="Pay Session" />
 
@@ -256,6 +261,8 @@ PaymentSession.configure({
         // response.session.id is the updated session — send to your server.
       } else if (response.status === "fields_in_error") {
         // response.errors contains per-field codes; see "Handling Validation Errors".
+      } else {
+        // system_error — network failure or server error. Show a generic message.
       }
     },
   },
@@ -268,6 +275,8 @@ When the customer is ready to pay, call `updateSessionFromForm("card")`. The cac
 PaymentSession.updateSessionFromForm("card");
 ```
 
+<br />
+
 ## Styling Payment Fields
 
 Pay Session exposes per-state styling methods so the iframes blend into your design.
@@ -277,27 +286,26 @@ Pay Session exposes per-state styling methods so the iframes blend into your des
 3. **`setPlaceholderStyle()`** — styles applied to the placeholder pseudo-element.
 4. **`setErrorStyle()`** — styles applied when a field is in the error state (set automatically on validation failure, or manually via `setFieldState`).
 5. **`setValidStyle()`** — styles applied when a field is in the valid state.
-6. **`setStyle()`** — generic setter that accepts any combination of the above states in a single call.
+6. **`setStyle()`** — generic setter that accepts any combination of the above states, plus `default`, in a single call.
 7. **`setFieldState()`** — programmatically toggle a field into the error or valid state (or pass `null` to clear).
 
 <Callout icon="ℹ️" theme="info">
-  Only a whitelist of CSS properties is honored inside the iframes — typography (font, color, line-height, letter-spacing, text-align), padding, border, border-radius, background, box-shadow, outline, and opacity. Unsupported properties (margin, width, position, transforms, etc.) are silently ignored. Layout of the iframe itself is controlled by your outer container.
+  Style properties are split internally between the iframe container and the input inside it. Border, box-shadow, and outline properties apply to the iframe element itself. Everything else — typography, padding, color, background — applies to the input inside. This split happens automatically; you pass styles as a single flat object.
 </Callout>
 
 ```javascript Simple Styling Example
 PaymentSession.setFocusStyle(["card.number", "card.securityCode"], {
-  borderColor: "red",
-  borderWidth: "3px",
+  borderColor: "#3b82f6",
+  borderWidth: "2px",
 });
 
 PaymentSession.setHoverStyle(["card.number", "card.securityCode"], {
-  borderColor: "red",
-  borderWidth: "3px",
+  borderColor: "#6366f1",
 });
 
 PaymentSession.setPlaceholderStyle(["card.number", "card.nameOnCard"], {
-  color: "blue",
-  fontWeight: "bold",
+  color: "#9ca3af",
+  fontWeight: "400",
 });
 
 PaymentSession.setErrorStyle(["card.number", "card.securityCode"], {
@@ -319,76 +327,28 @@ const fields = [
   "card.expiryYear",
 ];
 
-// Inject CSS to force a font on the underlying iframe inputs
-const style = document.createElement("style");
-style.textContent = `
-  input[id="card-number"],
-  input[id="security-code"],
-  input[id="expiry-month"],
-  input[id="expiry-year"],
-  input[id="cardholder-name"] {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  }
-`;
-document.head.appendChild(style);
-
-PaymentSession.setFocusStyle(fields, {
-  borderColor: "#3b82f6",
-  borderWidth: "2px",
-  fontWeight: "400",
-});
-
-PaymentSession.setPlaceholderStyle(fields, {
-  color: "#9ca3af",
-  fontWeight: "400",
-});
-
-// Or set all states in a single call
+// Set default styles (applied immediately, not tied to a state).
+// Use this to set fonts, padding, and background to match your form.
 PaymentSession.setStyle(fields, {
-  focus: { borderColor: "#3b82f6", borderWidth: "2px" },
-  error: { borderColor: "#ef4444", borderWidth: "2px" },
-  valid: { borderColor: "#10b981" },
+  default: {
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontSize: "14px",
+    color: "#111827",
+    backgroundColor: "#ffffff",
+    paddingTop: "8px",
+    paddingBottom: "8px",
+    paddingLeft: "12px",
+    paddingRight: "12px",
+  },
 });
-```
 
-## Using Drop-down Fields
-
-If you prefer drop-down inputs for expiry, define standard `<select>` elements and reference them by selector. Pay Session reads the selected value just like a text input.
-
-```html
-<div>Expiry Month: 
-  <select id="expiry-month" class="form-control input-md" required readonly>
-    <option value="">Select Month</option>
-    <option value="01">January</option>
-    <option value="02">February</option>
-    <option value="03">March</option>
-    <option value="04">April</option>
-    <option value="05">May</option>
-    <option value="06">June</option>
-    <option value="07">July</option>
-    <option value="08">August</option>
-    <option value="09">September</option>
-    <option value="10">October</option>
-    <option value="11">November</option>
-    <option value="12">December</option>
-  </select>
-</div>
-<div>Expiry Year: 
-  <select id="expiry-year" class="form-control input-md" required readonly>
-    <option value="">Select Year</option>
-    <option>25</option>
-    <option>26</option>
-    <option>27</option>
-    <option>28</option>
-    <option>29</option>
-    <option>30</option>
-    <option>31</option>
-    <option>32</option>
-    <option>33</option>
-    <option>34</option>
-    <option>35</option>
-  </select>
-</div>
+// Or set multiple states in a single call.
+PaymentSession.setStyle(fields, {
+  default:      { borderColor: "#d1d5db", borderWidth: "1px" },
+  focus:        { borderColor: "#3b82f6", borderWidth: "2px" },
+  error:        { borderColor: "#ef4444", borderWidth: "2px" },
+  valid:        { borderColor: "#10b981" },
+});
 ```
 
 ## Handling Validation Errors
@@ -402,8 +362,8 @@ const errorMessages = {
 };
 
 function showFieldErrors(errors) {
-  // Mark fields in error so setErrorStyle takes effect
-  PaymentSession.setFieldState(Object.keys(errors), "error");
+  // Note: error styles are applied automatically — setFieldState is not required here.
+  // Call it manually only if you need to mark additional fields as errors.
 
   Object.entries(errors).forEach(([fieldName, code]) => {
     const messageEl = document.getElementById(`${fieldName}-error`);
@@ -438,3 +398,5 @@ PaymentSession.configure({
 ```
 
 When the customer corrects the input and resubmits, the previous error states are cleared automatically before the new submission is validated.
+
+<br />
