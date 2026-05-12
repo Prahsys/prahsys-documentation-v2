@@ -26,6 +26,11 @@ metadata:
     - payment method storage
     - customer payment data
   robots: index
+next:
+  pages:
+    - slug: transactions
+      title: Transactions
+      type: basic
 ---
 TODO: RECEIPE
 
