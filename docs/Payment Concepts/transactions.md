@@ -26,6 +26,11 @@ metadata:
     - payment API
     - recurring billing
   robots: index
+next:
+  pages:
+    - slug: payouts
+      title: Payouts
+      type: basic
 ---
 <br />
 
