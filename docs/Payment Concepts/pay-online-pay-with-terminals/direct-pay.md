@@ -26,6 +26,11 @@ metadata:
     - verify payments
     - payment APIRetry
   robots: index
+next:
+  pages:
+    - slug: tokenization
+      title: Tokenization
+      type: basic
 ---
 ## What is Pay API?
 
