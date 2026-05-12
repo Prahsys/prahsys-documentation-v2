@@ -31,7 +31,7 @@ Maria Gonzalez owes $500 for orthodontic treatment. She'll pay $150/month with a
 
 ## 1. Create the order
 
-Create an order with a pay schedule that charges $150/month with autopay enabled.
+Create an order with a pay schedule that charges $150/month with autopay enabled by using the [Update or Create Order](/reference/updateorcreateorder) endpoint.
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId?}
@@ -115,7 +115,7 @@ There are two ways to kick things off. Pick whichever fits your integration.
 
 Send the invoice and let the customer handle the rest.
 
-**Step 1: Send the invoice.**
+**Step 1: Send the invoice.** Use the [Send Order Invoice](/reference/sendorderinvoice) endpoint to email Maria a link to the invoice page.
 
 ```
 POST /n1/merchant/{merchantId}/order/A3K7-NP2W/send
@@ -131,13 +131,13 @@ POST /n1/merchant/{merchantId}/order/A3K7-NP2W/send
 
 > 📘 Direct link
 >
-> You don't have to send the email through our API. The `invoiceUrl` in the order response points to the same invoice page — you can give that URL to the customer directly, or link to it from your own app.
+> You don't have to send the email with the [Send Order Invoice](/reference/sendorderinvoice) endpoint. The `invoiceUrl` in the order response points to the same invoice page — you can give that URL to the customer directly, or link to it from your own app.
 
 **Step 3: Customer completes setup.** On the invoice page, Maria adds her card (which gets tokenized automatically) and makes the first $150 payment. This activates the schedule and the same webhooks and emails are sent as in Option B below.
 
 ### Option B: Merchant starts via the API
 
-**Step 1: Attach a billing token.** If you already have a pay token from <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>, attach it to the pay schedule:
+**Step 1: Attach a billing token.** If you already have a pay token from <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>, attach it to the pay schedule with the [Update Order](/reference/updateorder) endpoint:
 
 ```
 PUT /n1/merchant/{merchantId}/order/A3K7-NP2W
@@ -155,9 +155,9 @@ PUT /n1/merchant/{merchantId}/order/A3K7-NP2W
 
 > 📘 Using a session instead
 >
-> You can skip this step and provide a `session.id` in the start request instead. The system will tokenize the session's payment method automatically. See the <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> docs for details.
+> You can skip this step and provide a `session.id` in the [Start Pay Schedule](/reference/startpayschedule) request instead. The system will tokenize the session's payment method automatically. See the <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> docs for details.
 
-**Step 2: Start the schedule.**
+**Step 2: Start the schedule.** Use the [Start Pay Schedule](/reference/startpayschedule) endpoint to activate the pay schedule and process the first payment.
 
 ```
 POST /n1/merchant/{merchantId}/order/A3K7-NP2W/pay-schedule/start
@@ -346,7 +346,7 @@ sequenceDiagram
 
 > 📘 Configurable reminders
 >
-> The 7-day and 3-day reminders are the `MONTHLY` defaults. You can customize the schedule by setting `reminderBeforeDueDays` when creating or updating the pay schedule — for example, `[10, 5, 1]` to send reminders 10, 5, and 1 day before each due date.
+> The 7-day and 3-day reminders are the `MONTHLY` defaults. You can customize the schedule by setting `reminderBeforeDueDays` when creating the pay schedule with [Update or Create Order](/reference/updateorcreateorder) or updating it with [Update Order](/reference/updateorder) — for example, `[10, 5, 1]` to send reminders 10, 5, and 1 day before each due date.
 
 ### Running balance
 
@@ -429,7 +429,7 @@ Maria receives a payment receipt and a plan completed email. <Anchor label="Prev
 
 > 📘 No need to cancel
 >
-> When a payment plan is fully paid, the schedule deactivates automatically (`isActive` becomes `false`). You don't need to call the cancel endpoint.
+> When a payment plan is fully paid, the schedule deactivates automatically (`isActive` becomes `false`). You don't need to call the [Cancel Pay Schedule](/reference/cancelpayschedule) endpoint.
 
 ## 5. What if autopay fails?
 
