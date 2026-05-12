@@ -26,7 +26,7 @@ A pay schedule turns an order into a recurring billing arrangement. There are tw
 
 ### Required fields
 
-When adding a `paySchedule` to an order, two fields are required:
+When adding a `paySchedule` to an order with the [Update or Create Order](/reference/updateorcreateorder) endpoint, two fields are required:
 
 * `recurringAmount` — the amount due each period
 * `frequency` — how often a payment is due: `DAILY`, `WEEKLY`, `BI_WEEKLY`, `MONTHLY`, or `YEARLY`
@@ -52,7 +52,7 @@ When adding a `paySchedule` to an order, two fields are required:
 | `MONTHLY`   | 7, 3                       | 1, 3, 7                |
 | `YEARLY`    | 30, 7, 3                   | 1, 7, 30               |
 
-You can override these defaults by passing your own arrays. For example, to send reminders 10 and 5 days before each due date:
+You can override these defaults by passing your own arrays in a [Update or Create Order](/reference/updateorcreateorder) request. For example, to send reminders 10 and 5 days before each due date:
 
 ```json
 {
@@ -65,6 +65,8 @@ You can override these defaults by passing your own arrays. For example, to send
 ```
 
 ### Payment plan example
+
+Send this body to the [Update or Create Order](/reference/updateorcreateorder) endpoint to create a payment plan:
 
 ```json
 {
@@ -87,6 +89,8 @@ You can override these defaults by passing your own arrays. For example, to send
 The response will have `"type": "PAYMENT_PLAN"` because both `amount` and `paySchedule` are present.
 
 ### Subscription example
+
+Send this body to the [Update or Create Order](/reference/updateorcreateorder) endpoint to create a subscription:
 
 ```json
 {
@@ -111,7 +115,7 @@ The response will have `"type": "SUBSCRIPTION"` because `amount` is omitted and 
 
 > ❗ Important
 >
-> Creating an order with a `paySchedule` does **not** start billing. The schedule remains inactive (`"isActive": false`) until you explicitly start it. See [Starting a pay schedule](#starting-a-pay-schedule) below.
+> Creating an order with a `paySchedule` does **not** start billing. The schedule remains inactive (`"isActive": false`) until you explicitly start it with the [Start Pay Schedule](/reference/startpayschedule) endpoint. See [Starting a pay schedule](#starting-a-pay-schedule) below.
 
 ## Setting up autopay
 
@@ -130,10 +134,10 @@ To use autopay, you need a **pay token** attached to the pay schedule's billing.
 |               | **Option 1: Set the token directly**                                              | **Option 2: Provide a session when starting**                                                                                      |
 | ------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | **Best when** | You already have a pay token                                                      | You're collecting card details via <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> iframes |
-| **How**       | Pass the token in `paySchedule.billing.token` when creating or updating the order | Pass a `session.id` in the [start request](#start-endpoint) — the system tokenizes it automatically at start time                  |
+| **How**       | Pass the token in `paySchedule.billing.token` when creating or updating the order with [Update or Create Order](/reference/updateorcreateorder) | Pass a `session.id` in the [Start Pay Schedule](/reference/startpayschedule) request — the system tokenizes it automatically at start time                  |
 | **Requires**  | An existing pay token                                                             | Session iframes with the required card fields                                                                                      |
 
-**Option 1 example** — pass `paySchedule.billing.token` when creating or updating the order:
+**Option 1 example** — pass `paySchedule.billing.token` when creating or updating the order with [Update or Create Order](/reference/updateorcreateorder):
 
 ```json
 {
@@ -149,7 +153,7 @@ To use autopay, you need a **pay token** attached to the pay schedule's billing.
 }
 ```
 
-**Option 2 example** — pass `session.id` in the [start request](#start-endpoint); the card is tokenized automatically:
+**Option 2 example** — pass `session.id` in the [Start Pay Schedule](/reference/startpayschedule) request; the card is tokenized automatically:
 
 ```json
 {
@@ -169,16 +173,18 @@ If autopay is not enabled, the schedule doesn't charge the customer automaticall
 3. Sends an invoice at the start of each new period
 4. Marks the order as past due if the customer misses a pay period
 
-The customer pays manually — either through the invoice page or through a payment you process via the API.
+The customer pays manually — either through the invoice page or through a payment you process with the [Pay](/reference/pay) endpoint.
 
 ## Starting a pay schedule
 
 There are two ways to start a pay schedule:
 
-* **Manually via the API** — call the start endpoint yourself (described below)
-* **Let the customer start it** — send the order invoice. If the order has an inactive pay schedule, the invoice page gives the customer the option to add a billing method and make the first payment, which will automatically start the subscription or payment plan.
+* **Manually via the API** — call the [Start Pay Schedule](/reference/startpayschedule) endpoint yourself (described below)
+* **Let the customer start it** — send the order invoice with the [Send Order Invoice](/reference/sendorderinvoice) endpoint. If the order has an inactive pay schedule, the invoice page gives the customer the option to add a billing method and make the first payment, which will automatically start the subscription or payment plan.
 
 ### Start endpoint
+
+Use the [Start Pay Schedule](/reference/startpayschedule) endpoint to activate an inactive schedule:
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId}/pay-schedule/start
@@ -190,7 +196,7 @@ POST /n1/merchant/{merchantId}/order/{orderId}/pay-schedule/start
 }
 ```
 
-If autopay is enabled, a pay token must be attached to the pay schedule's billing before this endpoint is called. Alternatively, provide a `session.id` in the request body and the card will be tokenized automatically (see <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> ):
+If autopay is enabled, a pay token must be attached to the pay schedule's billing before the [Start Pay Schedule](/reference/startpayschedule) endpoint is called. Alternatively, provide a `session.id` in the request body and the card will be tokenized automatically (see <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> ):
 
 ```json
 {
@@ -203,7 +209,7 @@ If autopay is enabled, a pay token must be attached to the pay schedule's billin
 
 ### The `startOn` parameter
 
-Use `startOn` to defer the start of the schedule to a future date. This is useful when a customer signs up today but their first billing period shouldn't begin until later — for example, a gym membership that starts on the first of next month.
+Use `startOn` in the [Start Pay Schedule](/reference/startpayschedule) request to defer the start of the schedule to a future date. This is useful when a customer signs up today but their first billing period shouldn't begin until later — for example, a gym membership that starts on the first of next month.
 
 ```json
 {
@@ -240,7 +246,7 @@ When `startOn` is set, no payment is processed immediately regardless of other p
 
 ### The `payOnStart` parameter
 
-`payOnStart` controls whether a payment is due at the **beginning** or **end** of the first period.
+`payOnStart` controls whether a payment is due at the **beginning** or **end** of the first period when you call [Start Pay Schedule](/reference/startpayschedule).
 
 ```mermaid
 gantt
@@ -272,7 +278,7 @@ gantt
 
 ## Updating an active pay schedule
 
-You can update a pay schedule while it's active — no need to cancel and recreate it. Use the [update order](orders#updating-an-order) endpoints (POST upsert or PUT) and include the `paySchedule` fields you want to change. For example, to change the recurring amount:
+You can update a pay schedule while it's active — no need to cancel and recreate it. Use the [Update or Create Order](/reference/updateorcreateorder) endpoint (POST upsert) or the [Update Order](/reference/updateorder) endpoint (PUT) and include the `paySchedule` fields you want to change. For example, to change the recurring amount:
 
 ```json
 {
@@ -300,6 +306,8 @@ gantt
 This works for any updatable pay schedule field — `recurringAmount`, `frequency`, `autopay`, `billing`, `sendEmail`, `sendSms`, `reminderBeforeDueDays`, and `retryAfterDueDays`.
 
 ## Cancelling a pay schedule
+
+Use the [Cancel Pay Schedule](/reference/cancelpayschedule) endpoint to deactivate an active schedule:
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId}/pay-schedule/cancel
