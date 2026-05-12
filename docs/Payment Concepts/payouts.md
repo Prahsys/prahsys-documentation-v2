@@ -79,14 +79,16 @@ Payouts move through different statuses based on their transaction states:
 
 ## Retrieving Payouts
 
-Access your payout information through the Prahsys API:
+Access your payout information with the [List Payouts for Merchant](/reference/listpayoutsformerchant) endpoint:
 
 ```bash
 curl -X GET "https://api.prahsys.com/merchants/{merchantId}/payouts" \
   -H "Authorization: Bearer $PRAHSYS_API_KEY"
 ```
 
-The API supports pagination, filtering by date ranges and amounts, and sorting by various fields. Use your sandbox API key (`sk_test_`) to retrieve test payouts, or your live key (`sk_live_`) for production payouts.
+The [List Payouts for Merchant](/reference/listpayoutsformerchant) endpoint supports pagination, filtering by date ranges and amounts, and sorting by various fields. Use your sandbox API key (`sk_test_`) to retrieve test payouts, or your live key (`sk_live_`) for production payouts.
+
+To retrieve one payout record, use the [Get Payout](/reference/getpayout) endpoint. To retrieve payouts across an organization, use the [List Payouts for Organization](/reference/listpayoutsfororganization) endpoint.
 
 ## Key Differences: Sandbox vs Live
 
