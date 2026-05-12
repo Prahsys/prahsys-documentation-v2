@@ -64,7 +64,7 @@ sequenceDiagram
 
 ## Token Management Operations
 
-The Tokenization API provides several endpoints for creating, retrieving, updating, and deleting tokens.
+The Tokenization API provides endpoints for [creating](/reference/createtoken), [retrieving](/reference/gettoken), [updating](/reference/updatetoken), and [deleting](/reference/deletetoken) tokens.
 
 ### Creating a Token
 
@@ -72,7 +72,7 @@ There are multiple ways to create a token, depending on your integration method:
 
 #### Session-Based Tokenization
 
-When using Pay Portal or Pay Session, you can generate tokens from session data:
+When using Pay Portal or Pay Session, you can generate tokens from session data with the [Create Token](/reference/createtoken) endpoint:
 
 ```javascript filename="Server-side JavaScript - Using a session"
 const response = await fetch("https://api.prahsys.com/payments/n1/merchant/{merchantId}/token", {
@@ -89,11 +89,11 @@ const response = await fetch("https://api.prahsys.com/payments/n1/merchant/{merc
 });
 ```
 
-> The session must have processed a transaction to tokenize the payment information.
+> The session must have processed a transaction before you call the [Create Token](/reference/createtoken) endpoint to tokenize the payment information. Create the original session with the [Create Session](/reference/createsession) endpoint.
 
 #### Pay API Tokenization (Higher PCI Scope)
 
-When using Pay API, you can tokenize card details directly (requires higher [PCI Compliance](doc:pci-compliants))
+When using Pay API, you can tokenize card details directly with the [Create Token](/reference/createtoken) endpoint (requires higher [PCI Compliance](doc:pci-compliants)).
 Read more about [Pay API](doc:direct-pay)
 
 ```javascript filename="Server-side JavaScript - Using card details"
@@ -120,7 +120,7 @@ const response = await fetch("https://api.prahsys.com/payments/n1/merchant/{merc
 
 ### Retrieving a Token
 
-You can retrieve details about a token:
+You can retrieve details about a token with the [Get Token](/reference/gettoken) endpoint:
 
 ```javascript filename="Server-side JavaScript"
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/token/${tokenId}`, {
@@ -133,7 +133,7 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
 
 ### Updating a Token
 
-You can update certain token attributes:
+You can update certain token attributes with the [Update Token](/reference/updatetoken) endpoint:
 
 ```javascript filename="Server-side JavaScript"
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/token/${tokenId}`, {
@@ -158,7 +158,7 @@ const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merc
 
 ### Deleting a Token
 
-You can delete a token when it's no longer needed:
+You can delete a token when it's no longer needed with the [Delete Token](/reference/deletetoken) endpoint:
 
 ```javascript filename="Server-side JavaScript"
 const response = await fetch(`https://api.prahsys.com/payments/n1/merchant/{merchantId}/token/${tokenId}`, {
