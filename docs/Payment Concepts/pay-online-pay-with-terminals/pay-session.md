@@ -99,16 +99,16 @@ Once loaded, the script registers `window.PaymentSession`, which is the object y
 
 Pay Session currently supports card payments. Each entry below is a key under `fields.card` in your `configure()` call and maps a CSS selector in your page to a secure iframe.
 
-| Field          | Description                                                                                                                                            |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `number`       | Card number (13–19 digits, Luhn-validated)                                                                                                             |
-| `securityCode` | CVV / CSC (3–4 digits)                                                                                                                                 |
-| `expiryMonth`  | Expiry month, `MM`                                                                                                                                     |
-| `expiryYear`   | Expiry year, `YY`                                                                                                                                      |
-| `expiryDate`   | Combined `MM/YY` expiry (use instead of `expiryMonth` + `expiryYear`). It's recommended to use this field since it works best with Google's autofill.  |
-| `nameOnCard`   | Cardholder name                                                                                                                                        |
+| Field          | Description                                                           |
+| -------------- | --------------------------------------------------------------------- |
+| `number`       | Card number (13–19 digits, Luhn-validated)                            |
+| `securityCode` | CVV / CSC (3–4 digits)                                                |
+| `expiryMonth`  | Expiry month, `MM`                                                    |
+| `expiryYear`   | Expiry year, `YY`                                                     |
+| `expiryDate`   | Combined `MM/YY` expiry (use instead of `expiryMonth` + `expiryYear`) |
+| `nameOnCard`   | Cardholder name                                                       |
 
-You can mix and match — for example, use the combined `expiryDate` field if you want a single input instead of separate month/year fields.
+Use the combined `expiryDate` field if you want a single input instead of separate month/year fields. This is recommended since it works better with Google's autofill in Chrome browsers. 
 
 ## TypeScript Interface for PaymentSession
 
