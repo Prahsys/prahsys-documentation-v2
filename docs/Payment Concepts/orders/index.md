@@ -51,6 +51,8 @@ POST /n1/merchant/{merchantId}/order/{orderId?}
 
 The `orderId` in the URL is optional. Provide your own ID (like an internal invoice number) or omit it to let the API generate one automatically. This endpoint is an **upsert** — if an order with that ID already exists, it will be updated instead.
 
+**Request body**
+
 ```json
 {
   "description": "Teeth cleaning - June 2026",
