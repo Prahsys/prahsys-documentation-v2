@@ -39,17 +39,17 @@ flowchart TB
 
 ## Order basics
 
-An order is a record that links one or more payments to a product or service. At its simplest, all you need is an `amount` and a `description` and you're good to go. From there, you can attach payments to the order via the API (by setting the `orderId` field on a payment request) or send your customer a link to the order's invoice page where they can pay directly.
+An order is a record that links one or more payments to a product or service. At its simplest, all you need is an `amount` and a `description` and you're good to go. From there, you can attach payments to the order via the [Update or Create Payment](/reference/updateorcreatepayment) endpoint (by setting the `orderId` field on a payment request) or send your customer a link to the order's invoice page where they can pay directly.
 
 ### Creating an order
 
-Use the create-or-update endpoint to create an order:
+Use the [Update or Create Order](/reference/updateorcreateorder) endpoint to create an order:
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId?}
 ```
 
-The `orderId` in the URL is optional. Provide your own ID (like an internal invoice number) or omit it to let the API generate one automatically. This endpoint is an **upsert** — if an order with that ID already exists, it will be updated instead.
+The `orderId` in the URL is optional. Provide your own ID (like an internal invoice number) or omit it to let the API generate one automatically. The [Update or Create Order](/reference/updateorcreateorder) endpoint is an **upsert** — if an order with that ID already exists, it will be updated instead.
 
 **Request body**
 
@@ -90,7 +90,7 @@ The `orderId` in the URL is optional. Provide your own ID (like an internal invo
 
 There are two ways to collect payment on an order:
 
-* **Via the API** — when creating a payment, set the `orderId` field in the payment request body to associate it with the order. The order's `remainingBalance` and `status` update automatically as payments are captured. For transactions (like the <Anchor label="pay transaction" target="_blank" href="doc:transactions#pay">pay transaction</Anchor> ) you can set the `payment.orderId` field to link the payment to the order.
+* **Via the API** — when creating a payment with the [Update or Create Payment](/reference/updateorcreatepayment) endpoint, set the `orderId` field in the payment request body to associate it with the order. The order's `remainingBalance` and `status` update automatically as payments are captured. For transactions (like the [Pay transaction](/reference/pay)) you can set the `payment.orderId` field to link the payment to the order.
 * **Via the invoice page** — every order response includes an `invoiceUrl` (see below). Send this link to your customer and they can make payments directly through the hosted invoice page.
 
 ## View and send invoice links
@@ -99,11 +99,11 @@ Every order has a hosted invoice page where customers can view what they owe and
 
 > ⚠️ Unique signatures
 >
-> The invoice URL contains a unique signature that is regenerated each time you retrieve the order. Don't store these URLs long-term — fetch a fresh one from the API when you need it.
+> The invoice URL contains a unique signature that is regenerated each time you retrieve the order. Don't store these URLs long-term — fetch a fresh one with the [Get Order](/reference/getorder) endpoint when you need it.
 
 ### Sending invoices
 
-Use the send endpoint to deliver the invoice link via email or SMS:
+Use the [Send Order Invoice](/reference/sendorderinvoice) endpoint to deliver the invoice link via email or SMS:
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId}/send
@@ -129,7 +129,7 @@ POST /n1/merchant/{merchantId}/order/{orderId}/send
 
 ## Attaching customers
 
-You can optionally attach one or more customers to an order by including a `customers` array when creating or updating the order:
+You can optionally attach one or more customers to an order by including a `customers` array when creating or updating the order with the [Update or Create Order](/reference/updateorcreateorder) endpoint:
 
 ```json
 {
@@ -175,13 +175,13 @@ You can set a `dueDate` on an order to indicate when payment is expected. Once t
 
 There are two ways to update an order:
 
-**Option 1: Use the upsert endpoint (POST).** This is the same endpoint used to create an order. If you pass an existing `orderId`, the order is updated with the fields you provide:
+**Option 1: Use the [Update or Create Order](/reference/updateorcreateorder) endpoint (POST).** This is the same endpoint used to create an order. If you pass an existing `orderId`, the order is updated with the fields you provide:
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId}
 ```
 
-**Option 2: Use the dedicated update endpoint (PUT).** This is a partial update — only the fields you include in the request body are changed. Everything else stays the same:
+**Option 2: Use the [Update Order](/reference/updateorder) endpoint (PUT).** This is a partial update — only the fields you include in the request body are changed. Everything else stays the same:
 
 ```
 PUT /n1/merchant/{merchantId}/order/{orderId}
