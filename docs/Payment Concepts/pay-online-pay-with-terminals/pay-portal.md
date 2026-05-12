@@ -25,6 +25,11 @@ metadata:
     - payment session
     - payment integration
   robots: index
+next:
+  pages:
+    - slug: pay-session
+      title: Pay Session
+      type: basic
 ---
 <Recipe slug="pay-portal-integration" title="Pay Portal Integration" />
 
