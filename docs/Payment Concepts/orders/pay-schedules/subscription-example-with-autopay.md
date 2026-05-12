@@ -55,7 +55,7 @@ stateDiagram-v2
 
 ## 1. Create the order
 
-Create an order **without** an `amount` field — this tells the API it's a subscription. Include a `paySchedule` with the monthly charge and enable autopay.
+Create an order with the [Update or Create Order](/reference/updateorcreateorder) endpoint **without** an `amount` field — this tells the API it's a subscription. Include a `paySchedule` with the monthly charge and enable autopay.
 
 ```
 POST /n1/merchant/{merchantId}/order/{orderId?}
@@ -137,7 +137,7 @@ There are two ways to kick things off. Pick whichever fits your integration.
 
 Send the invoice and let the customer handle the rest.
 
-**Step 1: Send the invoice.**
+**Step 1: Send the invoice.** Use the [Send Order Invoice](/reference/sendorderinvoice) endpoint to email Alex a link to the invoice page.
 
 ```
 POST /n1/merchant/{merchantId}/order/GYM1-AX7K/send
@@ -153,13 +153,13 @@ POST /n1/merchant/{merchantId}/order/GYM1-AX7K/send
 
 > 📘 Direct link
 >
-> You don't have to send the email through our API. The `invoiceUrl` in the order response points to the same invoice page — you can give that URL to the customer directly, or link to it from your own app.
+> You don't have to send the email with the [Send Order Invoice](/reference/sendorderinvoice) endpoint. The `invoiceUrl` in the order response points to the same invoice page — you can give that URL to the customer directly, or link to it from your own app.
 
 **Step 3: Customer completes setup.** On the invoice page, Alex adds a card (which gets tokenized automatically) and makes the first $49.99 payment. This activates the schedule and the same webhooks and emails are sent as in Option B below.
 
 ### Option B: Merchant starts via the API
 
-**Step 1: Attach a billing token.** If you already have a pay token from <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>, attach it to the pay schedule:
+**Step 1: Attach a billing token.** If you already have a pay token from <Anchor label="tokenization" target="_blank" href="doc:tokenization">tokenization</Anchor>, attach it to the pay schedule with the [Update Order](/reference/updateorder) endpoint:
 
 ```
 PUT /n1/merchant/{merchantId}/order/GYM1-AX7K
@@ -177,9 +177,9 @@ PUT /n1/merchant/{merchantId}/order/GYM1-AX7K
 
 > 📘 Using a session instead
 >
-> You can skip this step and provide a `session.id` in the start request instead. The system will tokenize the session's payment method automatically. See the <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> docs for details.
+> You can skip this step and provide a `session.id` in the [Start Pay Schedule](/reference/startpayschedule) request instead. The system will tokenize the session's payment method automatically. See the <Anchor label="Pay Session" target="_blank" href="doc:pay-session">Pay Session</Anchor> docs for details.
 
-**Step 2: Start the schedule.**
+**Step 2: Start the schedule.** Use the [Start Pay Schedule](/reference/startpayschedule) endpoint to activate the subscription and process the first payment.
 
 ```
 POST /n1/merchant/{merchantId}/order/GYM1-AX7K/pay-schedule/start
@@ -367,7 +367,7 @@ sequenceDiagram
 
 > 📘 Configurable reminders
 >
-> The 7-day and 3-day reminders are the `MONTHLY` defaults. You can customize the schedule by setting `reminderBeforeDueDays` when creating or updating the pay schedule — for example, `[10, 5, 1]` to send reminders 10, 5, and 1 day before each due date.
+> The 7-day and 3-day reminders are the `MONTHLY` defaults. You can customize the schedule by setting `reminderBeforeDueDays` when creating the pay schedule with [Update or Create Order](/reference/updateorcreateorder) or updating it with [Update Order](/reference/updateorder) — for example, `[10, 5, 1]` to send reminders 10, 5, and 1 day before each due date.
 
 ### Running billing
 
@@ -391,7 +391,7 @@ Unlike a payment plan, there is no remaining balance to track. The same charge r
 
 ## 4. Cancelling the subscription
 
-When you're ready to end the subscription — whether the customer requests it or you decide to stop billing — call the cancel endpoint. Subscriptions run indefinitely, so this is the only way to stop them.
+When you're ready to end the subscription — whether the customer requests it or you decide to stop billing — call the [Cancel Pay Schedule](/reference/cancelpayschedule) endpoint. Subscriptions run indefinitely, so this is the only way to stop them.
 
 ```
 POST /n1/merchant/{merchantId}/order/GYM1-AX7K/pay-schedule/cancel
@@ -549,7 +549,7 @@ Alex receives a cancellation email. <Anchor label="Preview the cancelled email."
 
 > 📘 Cancellation is immediate
 >
-> Once cancelled, no further charges or reminders will be sent. The billing token remains on file but is never used again. If the customer wants to resubscribe, create a new order.
+> Once cancelled, no further charges or reminders will be sent. The billing token remains on file but is never used again. If the customer wants to resubscribe, create a new order with the [Update or Create Order](/reference/updateorcreateorder) endpoint.
 
 ## 5. What if autopay fails?
 
