@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.147.0",
+    "version": "1.148.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-11T22:19:42.524Z"
+                      "createdAt": "2026-05-13T16:50:50.680Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-11T22:19:42.524Z"
+                      "createdAt": "2026-05-13T16:50:50.680Z"
                     }
                   }
                 }
@@ -1030,6 +1030,19 @@
                       }
                     }
                   ]
+                },
+                "lead_event_id": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -1295,6 +1308,10 @@
                   "dsoConnectId": {
                     "type": "string",
                     "description": "DSO Connect entity id (parent_dso_id, subsidiary_id, or practice_location_id) — must be unique per lead."
+                  },
+                  "leadEventId": {
+                    "type": "string",
+                    "description": "ID of the lead event to enroll this business in at creation time."
                   }
                 },
                 "required": [
@@ -1679,6 +1696,13 @@
                       "type": "string"
                     },
                     "description": "Contact IDs to link to this business (replaces all)"
+                  },
+                  "leadEventId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "ID of the lead event to enroll this business in. Pass null to un-enroll."
                   }
                 }
               }
@@ -2596,6 +2620,520 @@
                   ],
                   "title": "Delete Lead Contact Response",
                   "description": "JSON response for archiving a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/events": {
+      "get": {
+        "tags": [
+          "Lead Events"
+        ],
+        "operationId": "getLeadEvents",
+        "summary": "Get Lead Events",
+        "description": "Get all lead events for a channel partner",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Filter by name (case-insensitive substring)",
+            "schema": {
+              "type": "string",
+              "description": "Filter by name (case-insensitive substring)"
+            }
+          },
+          {
+            "in": "query",
+            "name": "includeArchived",
+            "description": "Include archived events. Defaults to false.",
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "description": "Include archived events. Defaults to false."
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Max results to return",
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "default": 50,
+              "description": "Max results to return"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "default": 0,
+              "description": "Pagination offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadEvent"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead Events Response",
+                  "description": "JSON response for getting lead events"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead Events"
+        ],
+        "operationId": "createLeadEvent",
+        "summary": "Create Lead Event",
+        "description": "Create a new lead event for the channel partner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Event name"
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "description": "Event start date"
+                  },
+                  "endDate": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Event end date (optional)"
+                  }
+                },
+                "required": [
+                  "name",
+                  "startDate"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadEvent"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead Event Response",
+                  "description": "JSON response for creating a lead event"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/events/{leadEventId}": {
+      "get": {
+        "tags": [
+          "Lead Events"
+        ],
+        "operationId": "getLeadEvent",
+        "summary": "Get Lead Event",
+        "description": "Get a lead event by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadEventId",
+            "description": "Lead event ID",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Lead event ID"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadEvent"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Get Lead Event Response",
+                  "description": "JSON response for getting a lead event"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Lead Events"
+        ],
+        "operationId": "updateLeadEvent",
+        "summary": "Update Lead Event",
+        "description": "Update a lead event by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadEventId",
+            "description": "Lead event ID",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Lead event ID"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Updated event name"
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "description": "Updated start date"
+                  },
+                  "endDate": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Updated end date. Pass null to clear."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadEvent"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead Event Response",
+                  "description": "JSON response for updating a lead event"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead Events"
+        ],
+        "operationId": "deleteLeadEvent",
+        "summary": "Delete Lead Event",
+        "description": "Archive a lead event by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadEventId",
+            "description": "Lead event ID",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Lead event ID"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Unique identifier for the event"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "title": "Lead Event",
+                      "description": "A channel-partner-scoped event that lead businesses can be enrolled in"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead Event Response",
+                  "description": "JSON response for archiving a lead event"
                 }
               }
             }
@@ -4626,6 +5164,10 @@
                   "eventDate": {
                     "type": "string",
                     "description": "When the activity occurred. Defaults to now if not provided."
+                  },
+                  "leadEventId": {
+                    "type": "string",
+                    "description": "ID of the lead event to link to this touch point"
                   }
                 },
                 "required": [
@@ -4739,6 +5281,13 @@
                   "eventDate": {
                     "type": "string",
                     "description": "Updated event date for this touch point"
+                  },
+                  "leadEventId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Update or clear the linked lead event"
                   }
                 }
               }
@@ -8744,7 +9293,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-05-11T22:19:42.524Z"
+          "createdAt": "2026-05-13T16:50:50.680Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9137,6 +9686,17 @@
               "$ref": "#/components/schemas/N1_LeadReachOut"
             },
             "description": "Scheduled reach outs for this lead"
+          },
+          "event": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/N1_LeadEvent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Event this lead business is enrolled in"
           },
           "owners": {
             "type": "array",
@@ -9872,6 +10432,20 @@
             ],
             "description": "The edited message content. Original message is preserved in description."
           },
+          "leadEventId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the linked lead event, if any"
+          },
+          "leadEventName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Name of the linked lead event for display"
+          },
           "sourceType": {
             "type": "string",
             "enum": [
@@ -9953,6 +10527,7 @@
           "NOTE",
           "STATEMENT_ANALYSIS",
           "TRAINING",
+          "EVENT",
           "OTHER"
         ],
         "title": "Lead Activity Type",
@@ -10111,6 +10686,64 @@
         ],
         "title": "Lead Reach Out",
         "description": "A scheduled reach out for a lead business or contact"
+      },
+      "N1_LeadEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the event"
+          },
+          "name": {
+            "type": "string",
+            "description": "Event name"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Event start date"
+          },
+          "endDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Event end date"
+          },
+          "channelPartnerId": {
+            "type": "string",
+            "description": "Owning channel partner ID"
+          },
+          "archivedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Soft-delete timestamp"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Record creation timestamp"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "startDate",
+          "endDate",
+          "channelPartnerId",
+          "archivedAt",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Event",
+        "description": "A channel-partner-scoped event that lead businesses can be enrolled in"
       },
       "N1_LeadRelationship": {
         "type": "object",
