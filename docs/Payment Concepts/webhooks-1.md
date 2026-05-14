@@ -3,6 +3,7 @@ title: Webhooks
 excerpt: Event reference for webhooks emitted by the payments gateway
 deprecated: false
 hidden: false
+icon: far fa-webhook
 metadata:
   robots: index
 ---
@@ -28,22 +29,21 @@ A few events add sibling fields next to `data` (for example `previousStatus` and
 
 ## Events at a glance
 
-| Event                                                                            | Fires when                                   | Payload type          |
-| -------------------------------------------------------------------------------- | -------------------------------------------- | --------------------- |
-| [`payments.payment.transaction.authorize`](#paymentspaymenttransactionauthorize) | An authorize-only transaction succeeds       | Transaction           |
-| [`payments.payment.transaction.capture`](#paymentspaymenttransactioncapture)     | A prior authorization is captured            | Transaction           |
-| [`payments.payment.transaction.pay`](#paymentspaymenttransactionpay)             | A one-shot auth+capture succeeds             | Transaction           |
-| [`payments.payment.transaction.refund`](#paymentspaymenttransactionrefund)       | A refund is processed                        | Transaction           |
-| [`payments.payment.transaction.void`](#paymentspaymenttransactionvoid)           | An unsettled authorization is voided         | Transaction           |
-| [`payments.payment.transaction.verify`](#paymentspaymenttransactionverify)       | A $0 verify / card-on-file check succeeds    | Transaction           |
-| [`orders.status_changed`](#ordersstatus_changed)                                 | An order moves between statuses              | Order + status fields |
-| [`orders.pay_schedule.started`](#orderspay_schedulestarted)                      | A pay schedule begins                        | Order                 |
-| [`orders.pay_schedule.cancelled`](#orderspay_schedulecancelled)                  | A pay schedule is cancelled                  | Order                 |
-| [`orders.pay_schedule.period.fulfilled`](#orderspay_scheduleperiodfulfilled)     | A billing period is paid in full             | Order + period fields |
-| [`orders.pay_schedule.autopay.failed`](#orderspay_scheduleautopayfailed)         | An autopay attempt fails                     | Order                 |
-| [`exports.export.completed`](#exportsexportcompleted)                            | An export finishes and is ready to download  | Export                |
-| [`payments.merchant.purge`](#paymentsmerchantpurge)                              | A sandbox merchant data purge finishes       | Purge results         |
-| [`test`](#the-test-event)                                                        | You click "Send test event" in the dashboard | Empty                 |
+| Event                                                                            | Fires when                                  | Payload type          |
+| -------------------------------------------------------------------------------- | ------------------------------------------- | --------------------- |
+| [`payments.payment.transaction.authorize`](#paymentspaymenttransactionauthorize) | An authorize-only transaction succeeds      | Transaction           |
+| [`payments.payment.transaction.capture`](#paymentspaymenttransactioncapture)     | A prior authorization is captured           | Transaction           |
+| [`payments.payment.transaction.pay`](#paymentspaymenttransactionpay)             | A one-shot auth+capture succeeds            | Transaction           |
+| [`payments.payment.transaction.refund`](#paymentspaymenttransactionrefund)       | A refund is processed                       | Transaction           |
+| [`payments.payment.transaction.void`](#paymentspaymenttransactionvoid)           | An unsettled authorization is voided        | Transaction           |
+| [`payments.payment.transaction.verify`](#paymentspaymenttransactionverify)       | A $0 card verification check succeeds       | Transaction           |
+| [`orders.status_changed`](#ordersstatus_changed)                                 | An order moves between statuses             | Order + status fields |
+| [`orders.pay_schedule.started`](#orderspay_schedulestarted)                      | A pay schedule begins                       | Order                 |
+| [`orders.pay_schedule.cancelled`](#orderspay_schedulecancelled)                  | A pay schedule is cancelled                 | Order                 |
+| [`orders.pay_schedule.period.fulfilled`](#orderspay_scheduleperiodfulfilled)     | A billing period is paid in full            | Order + period fields |
+| [`orders.pay_schedule.autopay.failed`](#orderspay_scheduleautopayfailed)         | An autopay attempt fails                    | Order                 |
+| [`exports.export.completed`](#exportsexportcompleted)                            | An export finishes and is ready to download | Export                |
+| [`payments.merchant.purge`](#paymentsmerchantpurge)                              | A sandbox merchant data purge finishes      | Purge results         |
 
 ## Payment events
 
@@ -317,10 +317,6 @@ Fires when an asynchronous export (transactions, payouts, monthly statements) fi
   "eventId": "..."
 }
 ```
-
-## The `test` event
-
-When you click **Send test event** for an endpoint in the Prahsys Dashboard, you'll receive an event with `eventType: "test"` and a minimal payload. It's the right way to confirm a fresh endpoint is reachable and that your signature verification is wired up correctly — _before_ a real transaction depends on it going through.
 
 ## Handling events well
 
