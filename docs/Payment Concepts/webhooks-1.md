@@ -6,8 +6,8 @@ hidden: false
 metadata:
   robots: index
 ---
-<Callout icon="📘">
-  For everything _around_ webhooks — registering an endpoint, grabbing the signing secret, retry behavior, > replaying failed deliveries — see the generic [Webhooks](/docs/webhooks) page. This page is only the catalogue: what > events fire, when they fire, and what's in the payload.
+<Callout icon="📘" theme="info">
+  For everything _around_ webhooks — registering an endpoint, grabbing the signing secret, retry behavior, replaying failed deliveries — see the generic [Webhooks](/docs/webhooks) page. This page is only the catalogue: what events fire, when they fire, and what's in the payload.
 </Callout>
 
 ## The envelope
