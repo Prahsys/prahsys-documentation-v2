@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.153.0",
+    "version": "1.154.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-19T17:17:43.389Z"
+                      "createdAt": "2026-05-19T20:08:53.414Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-19T17:17:43.389Z"
+                      "createdAt": "2026-05-19T20:08:53.414Z"
                     }
                   }
                 }
@@ -9293,7 +9293,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-05-19T17:17:43.389Z"
+          "createdAt": "2026-05-19T20:08:53.414Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9569,6 +9569,20 @@
             ],
             "description": "Payment provider used by the lead business (e.g., Rectangle Health, Stripe)"
           },
+          "dsoConnectId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "DSO Connect entity ID linking this lead to a DSO record"
+          },
+          "dsoId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "DB UUID of the connected DSO record, for navigation"
+          },
           "merchantId": {
             "type": [
               "string",
@@ -9582,6 +9596,13 @@
               "null"
             ],
             "description": "Name of the connected merchant organization"
+          },
+          "merchantSlug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Slug of the connected merchant, for navigation"
           },
           "leadChannel": {
             "oneOf": [
