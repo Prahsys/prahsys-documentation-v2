@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.156.0",
+    "version": "1.157.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-20T16:37:53.886Z"
+                      "createdAt": "2026-05-20T20:02:40.651Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-20T16:37:53.886Z"
+                      "createdAt": "2026-05-20T20:02:40.651Z"
                     }
                   }
                 }
@@ -1312,6 +1312,15 @@
                   "leadEventId": {
                     "type": "string",
                     "description": "ID of the lead event to enroll this business in at creation time."
+                  },
+                  "dealMonthlyProcessing": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "description": "Initial monthly processing amount for the deal."
+                  },
+                  "dealNote": {
+                    "type": "string",
+                    "description": "Explanatory note for the deal (e.g. how the amount was calculated)."
                   }
                 },
                 "required": [
@@ -9293,7 +9302,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-05-20T16:37:53.886Z"
+          "createdAt": "2026-05-20T20:02:40.651Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
