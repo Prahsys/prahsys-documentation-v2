@@ -1,0 +1,4 @@
+---
+title: Practices
+hidden: false
+---

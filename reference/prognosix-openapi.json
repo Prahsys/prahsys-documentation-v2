@@ -1,0 +1,1088 @@
+{
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "properties": {
+          "message": {
+            "examples": [
+              "Unauthorized"
+            ],
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "default": false,
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "N1_Practice": {
+        "properties": {
+          "accountClosedBy": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accountclosedby"
+          },
+          "accountClosedDate": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accountcloseddate"
+          },
+          "accountClosedDescription": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accountcloseddescription"
+          },
+          "channelPartnerId": {
+            "examples": [
+              "Y60A763V52CV"
+            ],
+            "title": "Channelpartnerid",
+            "type": "string"
+          },
+          "createdAt": {
+            "examples": [
+              "2026-01-15T10:30:00Z"
+            ],
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "id": {
+            "examples": [
+              "Z70B874W63DW"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "examples": [
+              "Sunrise Dental"
+            ],
+            "title": "Name",
+            "type": "string"
+          },
+          "slug": {
+            "examples": [
+              "sunrise-dental"
+            ],
+            "title": "Slug",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "channelPartnerId",
+          "createdAt"
+        ],
+        "title": "N1_Practice",
+        "type": "object"
+      },
+      "N1_User": {
+        "properties": {
+          "createdAt": {
+            "examples": [
+              "2026-01-15T10:30:00Z"
+            ],
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "email": {
+            "examples": [
+              "jane.smith@sunrisedental.com"
+            ],
+            "title": "Email",
+            "type": "string"
+          },
+          "firstName": {
+            "examples": [
+              "Jane"
+            ],
+            "title": "Firstname",
+            "type": "string"
+          },
+          "id": {
+            "examples": [
+              "usr_2xNpM7kL9qR4wT"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "imageUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              "https://img.clerk.com/eyJhbGciOiJSUzI1NiJ9"
+            ],
+            "title": "Imageurl"
+          },
+          "lastLoggedIn": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              "2026-05-20T14:22:00Z"
+            ],
+            "title": "Lastloggedin"
+          },
+          "lastName": {
+            "examples": [
+              "Smith"
+            ],
+            "title": "Lastname",
+            "type": "string"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              "+15125550123"
+            ],
+            "title": "Phone"
+          },
+          "role": {
+            "examples": [
+              "ADMIN"
+            ],
+            "title": "Role",
+            "type": "string"
+          },
+          "theme": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Theme"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              "system"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "role",
+          "createdAt"
+        ],
+        "title": "N1_User",
+        "type": "object"
+      },
+      "PaginatedResponse_N1_Practice_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/N1_Practice"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "success": {
+            "default": true,
+            "title": "Success",
+            "type": "boolean"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "data",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "title": "PaginatedResponse[N1_Practice]",
+        "type": "object"
+      },
+      "PaginatedResponse_N1_User_": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/N1_User"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "success": {
+            "default": true,
+            "title": "Success",
+            "type": "boolean"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "data",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "title": "PaginatedResponse[N1_User]",
+        "type": "object"
+      },
+      "SuccessResponse_N1_Practice_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/N1_Practice"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "default": true,
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message",
+          "data"
+        ],
+        "title": "SuccessResponse[N1_Practice]",
+        "type": "object"
+      },
+      "SuccessResponse_N1_User_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/N1_User"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "default": true,
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "message",
+          "data"
+        ],
+        "title": "SuccessResponse[N1_User]",
+        "type": "object"
+      },
+      "Theme": {
+        "enum": [
+          "system",
+          "light",
+          "dark"
+        ],
+        "title": "Theme",
+        "type": "string"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Prognosix API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "health_check_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health Check",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/organization/{organization_id}/users": {
+      "get": {
+        "operationId": "listOrganizationUsers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "examples": [
+                "Z70B874W63DW"
+              ],
+              "title": "Organization Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "examples": [
+                100
+              ],
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "examples": [
+                0
+              ],
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": [
+                    {
+                      "createdAt": "2026-01-15T10:30:00Z",
+                      "email": "jane.smith@sunrisedental.com",
+                      "firstName": "Jane",
+                      "id": "usr_2xNpM7kL9qR4wT",
+                      "lastLoggedIn": "2026-05-20T14:22:00Z",
+                      "lastName": "Smith",
+                      "phone": "+15125550123",
+                      "role": "ADMIN",
+                      "theme": "system"
+                    }
+                  ],
+                  "limit": 100,
+                  "offset": 0,
+                  "success": true,
+                  "total": 1
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_N1_User_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Organization Users",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/organization/{organization_id}/users/{user_id}": {
+      "get": {
+        "operationId": "getOrganizationUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "examples": [
+                "Z70B874W63DW"
+              ],
+              "title": "Organization Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "examples": [
+                "usr_2xNpM7kL9qR4wT"
+              ],
+              "title": "User Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": {
+                    "createdAt": "2026-01-15T10:30:00Z",
+                    "email": "jane.smith@sunrisedental.com",
+                    "firstName": "Jane",
+                    "id": "usr_2xNpM7kL9qR4wT",
+                    "lastLoggedIn": "2026-05-20T14:22:00Z",
+                    "lastName": "Smith",
+                    "phone": "+15125550123",
+                    "role": "ADMIN",
+                    "theme": "system"
+                  },
+                  "message": "User retrieved successfully",
+                  "success": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse_N1_User_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Organization User",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/practices": {
+      "get": {
+        "operationId": "listPractices",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "examples": [
+                10
+              ],
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "examples": [
+                0
+              ],
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": [
+                    {
+                      "channelPartnerId": "Y60A763V52CV",
+                      "createdAt": "2026-01-15T10:30:00Z",
+                      "id": "Z70B874W63DW",
+                      "name": "Sunrise Dental",
+                      "slug": "sunrise-dental"
+                    }
+                  ],
+                  "limit": 10,
+                  "offset": 0,
+                  "success": true,
+                  "total": 1
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_N1_Practice_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Practices",
+        "tags": [
+          "Practices"
+        ]
+      },
+      "post": {
+        "operationId": "createPractice",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "businessAddress": {
+                  "city": "Austin",
+                  "country": "US",
+                  "postalCode": "78701",
+                  "state": "TX",
+                  "street1": "123 Main St"
+                },
+                "businessPhone": "+15125550123",
+                "mailingAddress": {
+                  "city": "Austin",
+                  "country": "US",
+                  "postalCode": "78701",
+                  "state": "TX",
+                  "street1": "123 Main St"
+                },
+                "name": "Sunrise Dental",
+                "primaryContactId": "usr_2xNpM7kL9qR4wT",
+                "slug": "sunrise-dental"
+              },
+              "schema": {
+                "properties": {
+                  "businessAddress": {
+                    "properties": {
+                      "city": {
+                        "examples": [
+                          "Austin"
+                        ],
+                        "type": "string"
+                      },
+                      "country": {
+                        "examples": [
+                          "US"
+                        ],
+                        "type": "string"
+                      },
+                      "postalCode": {
+                        "examples": [
+                          "78701"
+                        ],
+                        "type": "string"
+                      },
+                      "state": {
+                        "examples": [
+                          "TX"
+                        ],
+                        "type": "string"
+                      },
+                      "street1": {
+                        "examples": [
+                          "123 Main St"
+                        ],
+                        "type": "string"
+                      },
+                      "street2": {
+                        "examples": [
+                          "Suite 100"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "street1",
+                      "city",
+                      "state",
+                      "country",
+                      "postalCode"
+                    ],
+                    "type": "object"
+                  },
+                  "businessPhone": {
+                    "examples": [
+                      "+15125550123"
+                    ],
+                    "type": "string"
+                  },
+                  "legalName": {
+                    "examples": [
+                      "Sunrise Dental LLC"
+                    ],
+                    "type": "string"
+                  },
+                  "mailingAddress": {
+                    "properties": {
+                      "city": {
+                        "examples": [
+                          "Austin"
+                        ],
+                        "type": "string"
+                      },
+                      "country": {
+                        "examples": [
+                          "US"
+                        ],
+                        "type": "string"
+                      },
+                      "postalCode": {
+                        "examples": [
+                          "78701"
+                        ],
+                        "type": "string"
+                      },
+                      "state": {
+                        "examples": [
+                          "TX"
+                        ],
+                        "type": "string"
+                      },
+                      "street1": {
+                        "examples": [
+                          "123 Main St"
+                        ],
+                        "type": "string"
+                      },
+                      "street2": {
+                        "examples": [
+                          "Suite 100"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "street1",
+                      "city",
+                      "state",
+                      "country",
+                      "postalCode"
+                    ],
+                    "type": "object"
+                  },
+                  "name": {
+                    "examples": [
+                      "Sunrise Dental"
+                    ],
+                    "type": "string"
+                  },
+                  "primaryContactId": {
+                    "examples": [
+                      "usr_2xNpM7kL9qR4wT"
+                    ],
+                    "type": "string"
+                  },
+                  "slug": {
+                    "examples": [
+                      "sunrise-dental"
+                    ],
+                    "type": "string"
+                  },
+                  "website": {
+                    "examples": [
+                      "https://www.sunrisedental.com"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "primaryContactId",
+                  "businessPhone",
+                  "businessAddress",
+                  "mailingAddress"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": {
+                    "channelPartnerId": "Y60A763V52CV",
+                    "createdAt": "2026-01-15T10:30:00Z",
+                    "id": "Z70B874W63DW",
+                    "name": "Sunrise Dental",
+                    "slug": "sunrise-dental"
+                  },
+                  "message": "Practice created successfully",
+                  "success": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse_N1_Practice_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Practice",
+        "tags": [
+          "Practices"
+        ]
+      }
+    },
+    "/api/practices/{practice_id}": {
+      "get": {
+        "operationId": "getPractice",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "practice_id",
+            "required": true,
+            "schema": {
+              "examples": [
+                "Z70B874W63DW"
+              ],
+              "title": "Practice Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": {
+                    "channelPartnerId": "Y60A763V52CV",
+                    "createdAt": "2026-01-15T10:30:00Z",
+                    "id": "Z70B874W63DW",
+                    "name": "Sunrise Dental",
+                    "slug": "sunrise-dental"
+                  },
+                  "message": "Practice retrieved successfully",
+                  "success": true
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse_N1_Practice_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Practice",
+        "tags": [
+          "Practices"
+        ]
+      }
+    }
+  }
+}
