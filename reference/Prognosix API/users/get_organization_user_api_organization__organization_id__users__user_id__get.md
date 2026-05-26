@@ -1,6 +1,0 @@
----
-api:
-  file: prognosix-openapi.json
-  operationId: get_organization_user_api_organization__organization_id__users__user_id__get
-hidden: false
----
