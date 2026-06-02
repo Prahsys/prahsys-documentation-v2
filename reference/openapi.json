@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.158.0",
+    "version": "1.160.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-20T22:12:55.243Z"
+                      "createdAt": "2026-06-02T15:15:14.194Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-05-20T22:12:55.243Z"
+                      "createdAt": "2026-06-02T15:15:14.194Z"
                     }
                   }
                 }
@@ -6091,6 +6091,7 @@
                       "processorId": 987654321,
                       "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
                       "defaultCnpGateway": "MASTERCARD",
+                      "rateType": "FLAT_RATE",
                       "companyType": "CORPORATION",
                       "averageMonthlyRevenue": 20000,
                       "averageTicketPrice": 250,
@@ -6299,6 +6300,7 @@
                       "processorId": 987654321,
                       "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
                       "defaultCnpGateway": "MASTERCARD",
+                      "rateType": "FLAT_RATE",
                       "companyType": "CORPORATION",
                       "averageMonthlyRevenue": 20000,
                       "averageTicketPrice": 250,
@@ -6715,6 +6717,14 @@
                     ],
                     "description": "Default CNP gateway for the merchant (Only for Prahsys Admin)"
                   },
+                  "rateType": {
+                    "type": "string",
+                    "enum": [
+                      "FLAT_RATE",
+                      "INTERCHANGE_PLUS"
+                    ],
+                    "description": "Pricing rate type for the merchant (Only for Prahsys Admin)"
+                  },
                   "includeSimulatedTerminals": {
                     "type": "boolean",
                     "description": "Whether to include simulated terminals when accessed via sandbox API keys"
@@ -6782,6 +6792,7 @@
                       "processorId": 987654321,
                       "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
                       "defaultCnpGateway": "MASTERCARD",
+                      "rateType": "FLAT_RATE",
                       "companyType": "CORPORATION",
                       "averageMonthlyRevenue": 20000,
                       "averageTicketPrice": 250,
@@ -9306,7 +9317,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-05-20T22:12:55.243Z"
+          "createdAt": "2026-06-02T15:15:14.194Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -12245,6 +12256,14 @@
             ],
             "description": "Default card-not-present gateway for the merchant"
           },
+          "rateType": {
+            "type": "string",
+            "enum": [
+              "FLAT_RATE",
+              "INTERCHANGE_PLUS"
+            ],
+            "description": "Merchant pricing rate type. FLAT_RATE or INTERCHANGE_PLUS."
+          },
           "readyForProcessing": {
             "type": "boolean",
             "description": "If Merchant is ready for payment processing"
@@ -12819,6 +12838,7 @@
           "processorId",
           "merchantIdentifier",
           "defaultCnpGateway",
+          "rateType",
           "readyForProcessing",
           "readyForProcessingAt",
           "signed",
@@ -12884,6 +12904,7 @@
           "processorId": 987654321,
           "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
           "defaultCnpGateway": "MASTERCARD",
+          "rateType": "FLAT_RATE",
           "companyType": "CORPORATION",
           "averageMonthlyRevenue": 20000,
           "averageTicketPrice": 250,
