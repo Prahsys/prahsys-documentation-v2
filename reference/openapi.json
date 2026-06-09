@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.160.0",
+    "version": "1.161.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-02T15:15:14.194Z"
+                      "createdAt": "2026-06-09T17:38:36.359Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-02T15:15:14.194Z"
+                      "createdAt": "2026-06-09T17:38:36.359Z"
                     }
                   }
                 }
@@ -2218,6 +2218,11 @@
                     "type": "string",
                     "description": "Job title of the contact"
                   },
+                  "linkedInUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "LinkedIn profile URL of the contact"
+                  },
                   "address": {
                     "type": "object",
                     "properties": {
@@ -2462,6 +2467,14 @@
                       "null"
                     ],
                     "description": "Job title of the contact"
+                  },
+                  "linkedInUrl": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri",
+                    "description": "LinkedIn profile URL. Send null to clear."
                   },
                   "address": {
                     "type": [
@@ -9317,7 +9330,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-06-02T15:15:14.194Z"
+          "createdAt": "2026-06-09T17:38:36.359Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9911,6 +9924,9 @@
         "enum": [
           "INSIDE_SALES",
           "OUTSIDE_SALES",
+          "INBOUND_ORGANIC",
+          "EMAIL_MARKETING",
+          "PAID_ADVERTISING",
           "PARTNER_REFERRAL",
           "COMMUNITY",
           "PRESS",
@@ -9933,7 +9949,7 @@
           "DSO_CONNECT"
         ],
         "title": "Lead Channel",
-        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
+        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, INBOUND_ORGANIC, EMAIL_MARKETING, PAID_ADVERTISING, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
         "example": "REFERRAL"
       },
       "LeadSourceTypeEnum": {
@@ -10333,6 +10349,13 @@
             ],
             "description": "Job title of the contact"
           },
+          "linkedInUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "LinkedIn profile URL of the contact"
+          },
           "address": {
             "oneOf": [
               {
@@ -10377,6 +10400,7 @@
           "phoneNumber",
           "email",
           "jobTitle",
+          "linkedInUrl",
           "createdAt",
           "updatedAt"
         ],
