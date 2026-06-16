@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.164.0",
+    "version": "1.165.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-12T18:54:56.734Z"
+                      "createdAt": "2026-06-16T00:27:58.574Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-12T18:54:56.734Z"
+                      "createdAt": "2026-06-16T00:27:58.574Z"
                     }
                   }
                 }
@@ -2124,7 +2124,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/N1_LeadContact"
+                        "$ref": "#/components/schemas/N1_LeadContactDetail"
                       },
                       "default": []
                     },
@@ -4344,6 +4344,90 @@
                 }
               ],
               "description": "One or more lead contact IDs to include in the feed"
+            }
+          },
+          {
+            "in": "query",
+            "name": "userId",
+            "description": "Filter reach-outs by the user who created them. Used for user-scoped date queries.",
+            "schema": {
+              "type": "string",
+              "description": "Filter reach-outs by the user who created them. Used for user-scoped date queries."
+            }
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "description": "ISO datetime string. For status=completed, applied to completed_at. For pending/all, applied to scheduled_date.",
+            "schema": {
+              "type": "string",
+              "description": "ISO datetime string. For status=completed, applied to completed_at. For pending/all, applied to scheduled_date."
+            }
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "description": "ISO datetime string. For status=completed, applied to completed_at. For pending/all, applied to scheduled_date.",
+            "schema": {
+              "type": "string",
+              "description": "ISO datetime string. For status=completed, applied to completed_at. For pending/all, applied to scheduled_date."
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Filter by completion status. pending = completedAt is null. completed = completedAt is set. all = no filter.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "completed",
+                "all"
+              ],
+              "default": "all",
+              "description": "Filter by completion status. pending = completedAt is null. completed = completedAt is set. all = no filter."
+            }
+          },
+          {
+            "in": "query",
+            "name": "includeLeadBusiness",
+            "description": "When true, each reach-out includes a lightweight leadBusiness summary (id, name, phone, city, state, current statuses).",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "const": "true"
+                },
+                {
+                  "type": "string",
+                  "const": "false"
+                },
+                {
+                  "type": "boolean"
+                }
+              ],
+              "description": "When true, each reach-out includes a lightweight leadBusiness summary (id, name, phone, city, state, current statuses)."
+            }
+          },
+          {
+            "in": "query",
+            "name": "orgWide",
+            "description": "When true, returns reach-outs across all reps in the organization for the given date range and status. Requires dateFrom or dateTo. Admin-only — enforced at the MCP tool layer.",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "const": "true"
+                },
+                {
+                  "type": "string",
+                  "const": "false"
+                },
+                {
+                  "type": "boolean"
+                }
+              ],
+              "description": "When true, returns reach-outs across all reps in the organization for the given date range and status. Requires dateFrom or dateTo. Admin-only — enforced at the MCP tool layer."
             }
           }
         ],
@@ -9330,7 +9414,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-06-12T18:54:56.734Z"
+          "createdAt": "2026-06-16T00:27:58.574Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9783,6 +9867,24 @@
               "null"
             ],
             "description": "Date of the next upcoming incomplete reachout"
+          },
+          "merchant": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/N1_Merchant"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Full merchant record — populated only when ?include=merchant is passed"
+          },
+          "emailLogs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadEmailLog"
+            },
+            "description": "All email logs for this lead — populated only when ?include=emailLogs is passed"
           }
         },
         "required": [
@@ -10740,6 +10842,67 @@
               "imageUrl"
             ],
             "description": "User who completed the reach out"
+          },
+          "leadBusiness": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the lead business"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the lead business"
+              },
+              "phone": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Phone number of the lead business"
+              },
+              "city": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "City of the lead business primary location"
+              },
+              "state": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "State of the lead business primary location"
+              },
+              "currentLeadStatus": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Most recent lead pipeline status"
+              },
+              "currentDealStatus": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Most recent deal pipeline status"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "phone",
+              "city",
+              "state",
+              "currentLeadStatus",
+              "currentDealStatus"
+            ],
+            "description": "Lightweight lead business summary — populated when fetching reach-outs by user/date. Null for contact-only reach-outs. Not populated when fetching reach-outs from within a lead business record."
           }
         },
         "required": [
@@ -10843,6 +11006,1147 @@
         ],
         "title": "Lead Relationship",
         "description": "A relationship between two lead businesses"
+      },
+      "N1_Merchant": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The unique id of the merchant"
+          },
+          "taxId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Masked Tax id of the merchant"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the organization"
+          },
+          "legalName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The legal name of the merchant"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug for the merchant. This can be used to easily redirect a user to the merchant's dashboard: https://dashboard.prahsys.com/{slug}"
+          },
+          "website": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The website of the merchant"
+          },
+          "applicationId": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "The underwriting application number for payment processing"
+          },
+          "internalApplicationId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "The internal underwriting application id for payment processing"
+          },
+          "applicationLevel": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MerchantApplicationLevelEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Application level of the merchant"
+          },
+          "processorId": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Prahsys Processor ID"
+          },
+          "merchantIdentifier": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Prahsys Merchant Identifier"
+          },
+          "defaultCnpGateway": {
+            "type": "string",
+            "enum": [
+              "MASTERCARD",
+              "SOFTPOINT_CNP"
+            ],
+            "description": "Default card-not-present gateway for the merchant"
+          },
+          "rateType": {
+            "type": "string",
+            "enum": [
+              "FLAT_RATE",
+              "INTERCHANGE_PLUS"
+            ],
+            "description": "Merchant pricing rate type. FLAT_RATE or INTERCHANGE_PLUS."
+          },
+          "readyForProcessing": {
+            "type": "boolean",
+            "description": "If Merchant is ready for payment processing"
+          },
+          "readyForProcessingAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Merchant's ready for payment processing time"
+          },
+          "signed": {
+            "type": "boolean",
+            "description": "If Merchant has signed the agreement or not"
+          },
+          "type": {
+            "$ref": "#/components/schemas/MerchantOrganizationTypeEnum"
+          },
+          "enabledDirectPay": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A merchant is allowed to accept payments using the raw card information within sourceOfFunds."
+          },
+          "enabledTokenByPaymentId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A merchant is allowed to tokenize by payment id."
+          },
+          "companyType": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Merchant's company/ownership type"
+          },
+          "averageMonthlyRevenue": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Merchant's average monthly revenue"
+          },
+          "averageTicketPrice": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Merchant's average ticket price"
+          },
+          "highestTicketPrice": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Merchant's highest ticket price"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ONBOARDING_TO_GATEWAY",
+              "WAITLISTED",
+              "APPROVED_SANDBOX",
+              "APPLICATION_PENDING",
+              "APPLICATION_IN_REVIEW",
+              "APPLICATION_INFORMATION_REQUESTED",
+              "APPLICATION_ABANDONED",
+              "APPLICATION_APPROVED",
+              "APPLICATION_DENIED",
+              "APPLICATION_REQUIRES_DOCUMENT_SUBMISSION",
+              "APPLICATION_AWAITING_DIGITAL_SIGNATURE",
+              "ACCOUNT_CLOSED"
+            ],
+            "description": "The status of the merchant. Valid values: ONBOARDING_TO_GATEWAY (onboarding to payment gateway), WAITLISTED (added to waitlist), APPROVED_SANDBOX (approved for sandbox testing), APPLICATION_PENDING (started but not submitted), APPLICATION_IN_REVIEW (submitted to Prahsys), APPLICATION_INFORMATION_REQUESTED (additional info needed), APPLICATION_ABANDONED (application abandoned), APPLICATION_APPROVED (approved for live processing), APPLICATION_DENIED (application denied), APPLICATION_REQUIRES_DOCUMENT_SUBMISSION (documents needed), APPLICATION_AWAITING_DIGITAL_SIGNATURE (signatures required), ACCOUNT_CLOSED (account permanently closed)"
+          },
+          "statusUpdatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Latest time status has updated at"
+          },
+          "cardPresentTerminalIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of card-present terminal ids of registered merchant(Deprecated, use 'terminals' property instead)",
+            "deprecated": true
+          },
+          "cardNotPresentTerminalIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of card-not-present terminal ids of registered merchant (Deprecated, use 'terminals' property instead)",
+            "deprecated": true
+          },
+          "terminals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MerchantTerminal"
+            },
+            "description": "List of terminal information of registered merchant"
+          },
+          "businessPhone": {
+            "type": "string",
+            "pattern": "^\\+(?:[0-9]){6,14}[0-9]$",
+            "title": "Business Phone",
+            "description": "business phone number of the merchant"
+          },
+          "businessAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MerchantBusinessAddress"
+              }
+            ],
+            "title": "Merchant Business Address",
+            "description": "Business address of the merchant",
+            "example": {
+              "street1": "Street Addr",
+              "street2": null,
+              "city": "Seattle",
+              "state": "WA",
+              "postalCode": "98102"
+            }
+          },
+          "mailingAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MerchantBusinessAddress"
+              }
+            ],
+            "title": "Merchant Business Address",
+            "description": "Mailing address of the merchant",
+            "example": {
+              "street1": "Street Addr",
+              "street2": null,
+              "city": "Seattle",
+              "state": "WA",
+              "postalCode": "98102"
+            }
+          },
+          "bankDetail": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "accountNumber": {
+                "type": "string",
+                "description": "Masked bank account number.",
+                "example": "******4321"
+              },
+              "routingNumber": {
+                "type": "string",
+                "description": "bank routing number."
+              }
+            },
+            "required": [
+              "accountNumber",
+              "routingNumber"
+            ],
+            "description": "Bank detail of the merchant (Only for approved `LIVE` merchant)"
+          },
+          "approvedParameters": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "monthlyVolume": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Approved monthly volume for a merchant."
+              },
+              "highTicketAmount": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Approved high ticket amount for a merchant."
+              },
+              "averageTicketAmount": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Approved average ticket amount for a merchant."
+              },
+              "cardNotPresentPercentage": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Approved card not present percentage for a merchant."
+              },
+              "cardPresentPercentage": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Approved card present percentage for a merchant."
+              }
+            },
+            "required": [
+              "monthlyVolume",
+              "highTicketAmount",
+              "averageTicketAmount",
+              "cardNotPresentPercentage",
+              "cardPresentPercentage"
+            ],
+            "description": "Approved parameters for the merchant (Only for approved `LIVE` merchant)"
+          },
+          "primaryContactEmail": {
+            "type": "string",
+            "title": "Primary Contact Email",
+            "description": "The primary contact email of the merchant."
+          },
+          "primaryContactPhone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^\\+(?:[0-9]){6,14}[0-9]$",
+            "title": "Primary Contact Phone",
+            "nullable": true,
+            "description": "The primary contact phone of the merchant"
+          },
+          "primaryContactFirstName": {
+            "type": "string",
+            "title": "Primary Contact First Name",
+            "description": "The primary contact first name of the merchant."
+          },
+          "primaryContactLastName": {
+            "type": "string",
+            "title": "Primary Contact Last Name",
+            "description": "The primary contact last name of the merchant."
+          },
+          "signingUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The signing URL for the merchant to sign the agreement in order to start the underwriting process. (If required for merchant)",
+            "example": "https://dashboard.prahsys.com/example-merchant/application"
+          },
+          "signingUrlExpiresAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Expiration time for signing url. (5 mins after the url creation for public signing url or NULL if signing url is already expired and providing protected signing url)"
+          },
+          "optInCashDiscountProgram": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the merchant opted into the Cash Discount Program"
+          },
+          "cashDiscountApproved": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was approved by a Prahsys admin"
+          },
+          "cashDiscountDenied": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was denied by a Prahsys admin"
+          },
+          "cashDiscountDeniedReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Reason for Cash Discount Program denial"
+          },
+          "cashDiscountDisabled": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date when the Cash Discount Program was disabled by the merchant"
+          },
+          "cashDiscountRate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Cash discount rate as a decimal (0-1), where 0.03 represents 3%"
+          },
+          "includeSimulatedTerminals": {
+            "type": "boolean",
+            "description": "Whether simulated terminals are included in terminal listings when accessed via sandbox API keys"
+          },
+          "cashPaymentsEnabled": {
+            "type": "boolean",
+            "description": "Whether cash payments are visible and enabled for this merchant"
+          },
+          "checkPaymentsEnabled": {
+            "type": "boolean",
+            "description": "Whether check payments are visible and enabled for this merchant"
+          },
+          "receiveReceipts": {
+            "type": "boolean",
+            "description": "Whether the merchant has opted in to automatically receive payment receipts via email"
+          },
+          "receiptEmail": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The email address to send payment receipts to. Falls back to primary contact email if not set."
+          },
+          "accountClosedDescription": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Description of why the merchant account was closed"
+          },
+          "accountClosedJiraTicket": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Jira ticket URL related to the account closure"
+          },
+          "accountClosedDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Date and time when the merchant account was closed"
+          },
+          "accountClosedBy": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "User ID of the admin who closed the merchant account"
+          },
+          "closedByUserEmail": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Email address of the admin who closed the merchant account"
+          },
+          "salesAgents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "imageUrl": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "bips": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000,
+                  "description": "Commission rate in basis points (bips) for this sales agent on this merchant, snapshotted at the time the agent was attached. 1 bip = 0.01%. Only present on the N1_Merchant detail object."
+                }
+              },
+              "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "imageUrl"
+              ]
+            },
+            "description": "Sales agents assigned to the merchant"
+          },
+          "feeProfile": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "discountRate": {
+                "type": "number"
+              },
+              "transactionFee": {
+                "type": "number"
+              },
+              "cardNotPresentFee": {
+                "type": "number"
+              },
+              "cardNotPresentRate": {
+                "type": "number"
+              },
+              "debitCardTransactionFee": {
+                "type": "number"
+              },
+              "debitCardTransactionRate": {
+                "type": "number"
+              },
+              "debitAdjustmentFee": {
+                "type": "number"
+              },
+              "monthlyFee": {
+                "type": "number"
+              },
+              "visaMastercardRate": {
+                "type": "number"
+              },
+              "visaMastercardFee": {
+                "type": "number"
+              },
+              "discoverFee": {
+                "type": "number"
+              },
+              "discoverRate": {
+                "type": "number"
+              },
+              "amexRate": {
+                "type": "number"
+              },
+              "amexFee": {
+                "type": "number"
+              },
+              "chargebackFee": {
+                "type": "number"
+              },
+              "gatewayFee": {
+                "type": "number"
+              },
+              "batchFee": {
+                "type": "number"
+              },
+              "returnFee": {
+                "type": "number"
+              },
+              "feeBilling": {
+                "type": "number"
+              },
+              "amexStatus": {
+                "type": "number"
+              },
+              "chargePayfacFeeOnRefunds": {
+                "type": "boolean"
+              },
+              "assessExclusivelyPerItemAmountOnRefunds": {
+                "type": "boolean"
+              },
+              "interchangeFeeAssessor": {
+                "type": "number"
+              },
+              "processorFeeAssessor": {
+                "type": "number"
+              },
+              "assessmentFeeAssessor": {
+                "type": "number"
+              },
+              "commissionFeeAssessor": {
+                "type": "number"
+              },
+              "achTransactionFee": {
+                "type": "number"
+              },
+              "achTransactionRate": {
+                "type": "number"
+              },
+              "achReturnFee": {
+                "type": "number"
+              },
+              "terminalEquipmentFee": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "discountRate",
+              "transactionFee",
+              "cardNotPresentFee",
+              "cardNotPresentRate",
+              "debitCardTransactionFee",
+              "debitCardTransactionRate",
+              "debitAdjustmentFee",
+              "monthlyFee",
+              "visaMastercardRate",
+              "visaMastercardFee",
+              "discoverFee",
+              "discoverRate",
+              "amexRate",
+              "amexFee",
+              "chargebackFee",
+              "gatewayFee",
+              "batchFee",
+              "returnFee",
+              "feeBilling",
+              "amexStatus",
+              "chargePayfacFeeOnRefunds",
+              "assessExclusivelyPerItemAmountOnRefunds",
+              "interchangeFeeAssessor",
+              "processorFeeAssessor",
+              "assessmentFeeAssessor",
+              "commissionFeeAssessor",
+              "achTransactionFee",
+              "achTransactionRate",
+              "achReturnFee",
+              "terminalEquipmentFee"
+            ],
+            "description": "Onboarded merchant's fee profile"
+          },
+          "channelPartnerName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The name of the channel partner organization this merchant belongs to"
+          },
+          "channelPartnerSlug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The slug of the channel partner organization this merchant belongs to"
+          },
+          "merchantMid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The Merchant ID (MID) assigned by the payment processor. Only present for Prahsys admin requests."
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "taxId",
+          "name",
+          "legalName",
+          "slug",
+          "website",
+          "applicationId",
+          "internalApplicationId",
+          "applicationLevel",
+          "processorId",
+          "merchantIdentifier",
+          "defaultCnpGateway",
+          "rateType",
+          "readyForProcessing",
+          "readyForProcessingAt",
+          "signed",
+          "type",
+          "enabledDirectPay",
+          "enabledTokenByPaymentId",
+          "companyType",
+          "averageMonthlyRevenue",
+          "averageTicketPrice",
+          "highestTicketPrice",
+          "status",
+          "statusUpdatedAt",
+          "cardPresentTerminalIds",
+          "cardNotPresentTerminalIds",
+          "terminals",
+          "businessPhone",
+          "businessAddress",
+          "mailingAddress",
+          "bankDetail",
+          "approvedParameters",
+          "primaryContactEmail",
+          "primaryContactPhone",
+          "primaryContactFirstName",
+          "primaryContactLastName",
+          "signingUrl",
+          "signingUrlExpiresAt",
+          "optInCashDiscountProgram",
+          "cashDiscountApproved",
+          "cashDiscountDenied",
+          "cashDiscountDeniedReason",
+          "cashDiscountDisabled",
+          "cashDiscountRate",
+          "includeSimulatedTerminals",
+          "cashPaymentsEnabled",
+          "checkPaymentsEnabled",
+          "receiveReceipts",
+          "receiptEmail",
+          "accountClosedDescription",
+          "accountClosedJiraTicket",
+          "accountClosedDate",
+          "accountClosedBy",
+          "closedByUserEmail",
+          "salesAgents",
+          "feeProfile",
+          "createdAt"
+        ],
+        "title": "Merchant",
+        "description": "The merchant object return from Prahsys API.",
+        "example": {
+          "id": "MxExRxCxHxAxNxT",
+          "taxId": "******123",
+          "name": "Merchant Name",
+          "legalName": "Merchant Inc",
+          "website": "https://test.com",
+          "slug": "merchant-name",
+          "applicationId": 123456789,
+          "internalApplicationId": "9381cd3d-5532-4e57-ba14-5292358ff8dc",
+          "readyForProcessing": true,
+          "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
+          "signed": true,
+          "type": "LIVE",
+          "applicationLevel": "LEVEL3",
+          "processorId": 987654321,
+          "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
+          "defaultCnpGateway": "MASTERCARD",
+          "rateType": "FLAT_RATE",
+          "companyType": "CORPORATION",
+          "averageMonthlyRevenue": 20000,
+          "averageTicketPrice": 250,
+          "highestTicketPrice": 1000,
+          "enabledDirectPay": "2023-01-01T00:00:00.000Z",
+          "enabledTokenByPaymentId": "2023-01-08T00:00:00.000Z",
+          "status": "APPLICATION_APPROVED",
+          "statusUpdatedAt": "2023-01-01T00:00:00.000Z",
+          "cardPresentTerminalIds": [
+            "22823427",
+            "73821217"
+          ],
+          "cardNotPresentTerminalIds": [
+            "83942347"
+          ],
+          "terminals": [
+            {
+              "id": "7e81cd3d-5532-4e57-ba14-5299058ff8dc",
+              "title": "Merchant Terminal",
+              "description": "Terminal to be used for business A",
+              "tid": "83942347",
+              "type": "CARD_PRESENT",
+              "provider": "SOFTPOINT",
+              "createdAt": "2023-01-01T00:00:00.000Z",
+              "updatedAt": "2023-01-01T00:00:00.000Z",
+              "readyForProcessing": true
+            }
+          ],
+          "businessPhone": "+1417567890",
+          "businessAddress": {
+            "street1": "Street Addr",
+            "street2": "E2",
+            "city": "Seattle",
+            "state": "WA",
+            "postalCode": "98102"
+          },
+          "mailingAddress": {
+            "street1": "Street Addr",
+            "street2": "E2",
+            "city": "Seattle",
+            "state": "WA",
+            "postalCode": "98102"
+          },
+          "bankDetail": {
+            "accountNumber": "******4321",
+            "routingNumber": "026009593"
+          },
+          "approvedParameters": {
+            "monthlyVolume": 10000,
+            "highTicketAmount": 500,
+            "averageTicketAmount": 100,
+            "cardNotPresentPercentage": 80,
+            "cardPresentPercentage": 20
+          },
+          "primaryContactEmail": "contact@prahsys.com",
+          "primaryContactPhone": "+1234567890",
+          "primaryContactFirstName": "John",
+          "primaryContactLastName": "Doe",
+          "feeProfile": {
+            "discountRate": 0,
+            "transactionFee": 0,
+            "cardNotPresentFee": 0.49,
+            "cardNotPresentRate": 0.029,
+            "debitCardTransactionFee": 0.49,
+            "debitCardTransactionRate": 0.029,
+            "debitAdjustmentFee": 0,
+            "monthlyFee": 0,
+            "visaMastercardRate": 0.029,
+            "visaMastercardFee": 0.49,
+            "discoverFee": 0.49,
+            "discoverRate": 0.029,
+            "amexRate": 0.029,
+            "amexFee": 0.49,
+            "chargebackFee": 45,
+            "gatewayFee": 0,
+            "batchFee": 0,
+            "returnFee": 0,
+            "feeBilling": 1,
+            "amexStatus": 1,
+            "chargePayfacFeeOnRefunds": true,
+            "assessExclusivelyPerItemAmountOnRefunds": true,
+            "interchangeFeeAssessor": 0,
+            "processorFeeAssessor": 0,
+            "assessmentFeeAssessor": 0,
+            "commissionFeeAssessor": 0,
+            "achTransactionFee": 0,
+            "achTransactionRate": 0,
+            "achReturnFee": 0,
+            "terminalEquipmentFee": 15
+          },
+          "signingUrl": "https://dashboard.prahsys.com/example-merchant/application/3fe90921-3de5-40ac-a76f-0fde0caf03a6",
+          "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
+          "optInCashDiscountProgram": null,
+          "cashDiscountApproved": null,
+          "cashDiscountDenied": null,
+          "cashDiscountDeniedReason": null,
+          "cashDiscountDisabled": null,
+          "cashDiscountRate": 0.03,
+          "includeSimulatedTerminals": true,
+          "cashPaymentsEnabled": true,
+          "checkPaymentsEnabled": true,
+          "receiveReceipts": true,
+          "receiptEmail": null,
+          "accountClosedDescription": null,
+          "accountClosedJiraTicket": null,
+          "accountClosedDate": null,
+          "accountClosedBy": null,
+          "closedByUserEmail": null,
+          "channelPartnerName": "Prahsys",
+          "channelPartnerSlug": "prahsys",
+          "salesAgents": [],
+          "createdAt": "2023-01-01T00:00:00.000Z"
+        }
+      },
+      "MerchantApplicationLevelEnum": {
+        "type": "string",
+        "enum": [
+          "LEVEL1",
+          "LEVEL2",
+          "LEVEL3",
+          "LEVEL4"
+        ],
+        "title": "Merchant Application Level",
+        "description": "Application level of a merchant based on monthly volume. Valid values: LEVEL1 (≤$10,000), LEVEL2 ($10,000-$50,000), LEVEL3 ($50,000-$250,000), LEVEL4 (>$250,000)",
+        "example": "LEVEL3"
+      },
+      "MerchantOrganizationTypeEnum": {
+        "type": "string",
+        "enum": [
+          "LIVE",
+          "SANDBOX"
+        ],
+        "title": "Organization Type",
+        "description": "The type of organization. Valid values: LIVE (production environment operations), SANDBOX (sandbox environment only)",
+        "example": "LIVE"
+      },
+      "MerchantTerminal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tid": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CARD_PRESENT",
+              "CARD_NOT_PRESENT"
+            ]
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "MASTERCARD",
+              "SOFTPOINT",
+              "SOFTPOINT_CNP",
+              "SIMULATED"
+            ]
+          },
+          "readyForProcessing": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "tid",
+          "type",
+          "readyForProcessing",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Merchant Terminal",
+        "description": "Merchant's terminal information",
+        "example": {
+          "id": "7e81cd3d-5532-4e57-ba14-5299058ff8dc",
+          "title": "Merchant Terminal",
+          "description": "Terminal to be used for business A",
+          "tid": "83942347",
+          "type": "CARD_PRESENT",
+          "provider": "SOFTPOINT",
+          "readyForProcessing": true,
+          "createdAt": "2023-01-01T00:00:00.000Z",
+          "updatedAt": "2023-01-01T00:00:00.000Z"
+        }
+      },
+      "MerchantBusinessAddress": {
+        "type": "object",
+        "properties": {
+          "street1": {
+            "type": "string"
+          },
+          "street2": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "AL",
+              "AK",
+              "AS",
+              "AZ",
+              "AR",
+              "CA",
+              "CO",
+              "CT",
+              "DE",
+              "DC",
+              "FM",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "ID",
+              "IL",
+              "IN",
+              "IA",
+              "KS",
+              "KY",
+              "LA",
+              "ME",
+              "MH",
+              "MD",
+              "MA",
+              "MI",
+              "MN",
+              "MS",
+              "MO",
+              "MT",
+              "NE",
+              "NV",
+              "NH",
+              "NJ",
+              "NM",
+              "NY",
+              "NC",
+              "ND",
+              "MP",
+              "OH",
+              "OK",
+              "OR",
+              "PW",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VT",
+              "VI",
+              "VA",
+              "WA",
+              "WV",
+              "WI",
+              "WY"
+            ]
+          },
+          "postalCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "street1",
+          "street2",
+          "city",
+          "state",
+          "postalCode"
+        ],
+        "title": "Merchant Business Address",
+        "description": "Merchant's business address",
+        "example": {
+          "street1": "Street Addr",
+          "street2": null,
+          "city": "Seattle",
+          "state": "WA",
+          "postalCode": "98102"
+        }
+      },
+      "N1_LeadEmailLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the email log"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the email was sent"
+          },
+          "templateName": {
+            "type": "string",
+            "description": "SendGrid template name used for this email"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "FAILED"
+            ],
+            "description": "Whether the email was successfully delivered"
+          },
+          "recipientEmail": {
+            "type": "string",
+            "description": "Email address of the recipient"
+          },
+          "fromEmail": {
+            "type": "string",
+            "description": "Sender email address"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line"
+          },
+          "htmlBody": {
+            "type": "string",
+            "description": "Full rendered HTML body of the email"
+          },
+          "errorMessage": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Error message if delivery failed, null on success"
+          },
+          "sendgridMessageId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "SendGrid message ID for tracking and delivery status lookup"
+          },
+          "triggeredByName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Full name of the user who triggered this email, null if system-triggered"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "templateName",
+          "status",
+          "recipientEmail",
+          "fromEmail",
+          "subject",
+          "htmlBody",
+          "errorMessage",
+          "triggeredByName"
+        ],
+        "title": "Lead Email Log",
+        "description": "A record of an email sent in the context of a lead business"
+      },
+      "N1_LeadContactDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/N1_LeadContact"
+          }
+        ],
+        "properties": {
+          "businesses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadBusiness"
+            },
+            "description": "Lead businesses associated with this contact"
+          }
+        },
+        "title": "Lead Contact Detail",
+        "description": "A contact person with associated lead businesses"
       },
       "N1_LeadIndustry": {
         "type": "object",
@@ -12193,1053 +13497,6 @@
           "confirmAccountNumber": "987654321012"
         }
       },
-      "N1_Merchant": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The unique id of the merchant"
-          },
-          "taxId": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Masked Tax id of the merchant"
-          },
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The name of the organization"
-          },
-          "legalName": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The legal name of the merchant"
-          },
-          "slug": {
-            "type": "string",
-            "description": "The slug for the merchant. This can be used to easily redirect a user to the merchant's dashboard: https://dashboard.prahsys.com/{slug}"
-          },
-          "website": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The website of the merchant"
-          },
-          "applicationId": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "description": "The underwriting application number for payment processing"
-          },
-          "internalApplicationId": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uuid",
-            "description": "The internal underwriting application id for payment processing"
-          },
-          "applicationLevel": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/MerchantApplicationLevelEnum"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Application level of the merchant"
-          },
-          "processorId": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "description": "Prahsys Processor ID"
-          },
-          "merchantIdentifier": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uuid",
-            "description": "Prahsys Merchant Identifier"
-          },
-          "defaultCnpGateway": {
-            "type": "string",
-            "enum": [
-              "MASTERCARD",
-              "SOFTPOINT_CNP"
-            ],
-            "description": "Default card-not-present gateway for the merchant"
-          },
-          "rateType": {
-            "type": "string",
-            "enum": [
-              "FLAT_RATE",
-              "INTERCHANGE_PLUS"
-            ],
-            "description": "Merchant pricing rate type. FLAT_RATE or INTERCHANGE_PLUS."
-          },
-          "readyForProcessing": {
-            "type": "boolean",
-            "description": "If Merchant is ready for payment processing"
-          },
-          "readyForProcessingAt": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Merchant's ready for payment processing time"
-          },
-          "signed": {
-            "type": "boolean",
-            "description": "If Merchant has signed the agreement or not"
-          },
-          "type": {
-            "$ref": "#/components/schemas/MerchantOrganizationTypeEnum"
-          },
-          "enabledDirectPay": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "A merchant is allowed to accept payments using the raw card information within sourceOfFunds."
-          },
-          "enabledTokenByPaymentId": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "A merchant is allowed to tokenize by payment id."
-          },
-          "companyType": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Merchant's company/ownership type"
-          },
-          "averageMonthlyRevenue": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "description": "Merchant's average monthly revenue"
-          },
-          "averageTicketPrice": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "description": "Merchant's average ticket price"
-          },
-          "highestTicketPrice": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "description": "Merchant's highest ticket price"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "ONBOARDING_TO_GATEWAY",
-              "WAITLISTED",
-              "APPROVED_SANDBOX",
-              "APPLICATION_PENDING",
-              "APPLICATION_IN_REVIEW",
-              "APPLICATION_INFORMATION_REQUESTED",
-              "APPLICATION_ABANDONED",
-              "APPLICATION_APPROVED",
-              "APPLICATION_DENIED",
-              "APPLICATION_REQUIRES_DOCUMENT_SUBMISSION",
-              "APPLICATION_AWAITING_DIGITAL_SIGNATURE",
-              "ACCOUNT_CLOSED"
-            ],
-            "description": "The status of the merchant. Valid values: ONBOARDING_TO_GATEWAY (onboarding to payment gateway), WAITLISTED (added to waitlist), APPROVED_SANDBOX (approved for sandbox testing), APPLICATION_PENDING (started but not submitted), APPLICATION_IN_REVIEW (submitted to Prahsys), APPLICATION_INFORMATION_REQUESTED (additional info needed), APPLICATION_ABANDONED (application abandoned), APPLICATION_APPROVED (approved for live processing), APPLICATION_DENIED (application denied), APPLICATION_REQUIRES_DOCUMENT_SUBMISSION (documents needed), APPLICATION_AWAITING_DIGITAL_SIGNATURE (signatures required), ACCOUNT_CLOSED (account permanently closed)"
-          },
-          "statusUpdatedAt": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Latest time status has updated at"
-          },
-          "cardPresentTerminalIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "List of card-present terminal ids of registered merchant(Deprecated, use 'terminals' property instead)",
-            "deprecated": true
-          },
-          "cardNotPresentTerminalIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "List of card-not-present terminal ids of registered merchant (Deprecated, use 'terminals' property instead)",
-            "deprecated": true
-          },
-          "terminals": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MerchantTerminal"
-            },
-            "description": "List of terminal information of registered merchant"
-          },
-          "businessPhone": {
-            "type": "string",
-            "pattern": "^\\+(?:[0-9]){6,14}[0-9]$",
-            "title": "Business Phone",
-            "description": "business phone number of the merchant"
-          },
-          "businessAddress": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MerchantBusinessAddress"
-              }
-            ],
-            "title": "Merchant Business Address",
-            "description": "Business address of the merchant",
-            "example": {
-              "street1": "Street Addr",
-              "street2": null,
-              "city": "Seattle",
-              "state": "WA",
-              "postalCode": "98102"
-            }
-          },
-          "mailingAddress": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MerchantBusinessAddress"
-              }
-            ],
-            "title": "Merchant Business Address",
-            "description": "Mailing address of the merchant",
-            "example": {
-              "street1": "Street Addr",
-              "street2": null,
-              "city": "Seattle",
-              "state": "WA",
-              "postalCode": "98102"
-            }
-          },
-          "bankDetail": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "accountNumber": {
-                "type": "string",
-                "description": "Masked bank account number.",
-                "example": "******4321"
-              },
-              "routingNumber": {
-                "type": "string",
-                "description": "bank routing number."
-              }
-            },
-            "required": [
-              "accountNumber",
-              "routingNumber"
-            ],
-            "description": "Bank detail of the merchant (Only for approved `LIVE` merchant)"
-          },
-          "approvedParameters": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "monthlyVolume": {
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "description": "Approved monthly volume for a merchant."
-              },
-              "highTicketAmount": {
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "description": "Approved high ticket amount for a merchant."
-              },
-              "averageTicketAmount": {
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "description": "Approved average ticket amount for a merchant."
-              },
-              "cardNotPresentPercentage": {
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "description": "Approved card not present percentage for a merchant."
-              },
-              "cardPresentPercentage": {
-                "type": [
-                  "number",
-                  "null"
-                ],
-                "description": "Approved card present percentage for a merchant."
-              }
-            },
-            "required": [
-              "monthlyVolume",
-              "highTicketAmount",
-              "averageTicketAmount",
-              "cardNotPresentPercentage",
-              "cardPresentPercentage"
-            ],
-            "description": "Approved parameters for the merchant (Only for approved `LIVE` merchant)"
-          },
-          "primaryContactEmail": {
-            "type": "string",
-            "title": "Primary Contact Email",
-            "description": "The primary contact email of the merchant."
-          },
-          "primaryContactPhone": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "pattern": "^\\+(?:[0-9]){6,14}[0-9]$",
-            "title": "Primary Contact Phone",
-            "nullable": true,
-            "description": "The primary contact phone of the merchant"
-          },
-          "primaryContactFirstName": {
-            "type": "string",
-            "title": "Primary Contact First Name",
-            "description": "The primary contact first name of the merchant."
-          },
-          "primaryContactLastName": {
-            "type": "string",
-            "title": "Primary Contact Last Name",
-            "description": "The primary contact last name of the merchant."
-          },
-          "signingUrl": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The signing URL for the merchant to sign the agreement in order to start the underwriting process. (If required for merchant)",
-            "example": "https://dashboard.prahsys.com/example-merchant/application"
-          },
-          "signingUrlExpiresAt": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Expiration time for signing url. (5 mins after the url creation for public signing url or NULL if signing url is already expired and providing protected signing url)"
-          },
-          "optInCashDiscountProgram": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Date when the merchant opted into the Cash Discount Program"
-          },
-          "cashDiscountApproved": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Date when the Cash Discount Program was approved by a Prahsys admin"
-          },
-          "cashDiscountDenied": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Date when the Cash Discount Program was denied by a Prahsys admin"
-          },
-          "cashDiscountDeniedReason": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Reason for Cash Discount Program denial"
-          },
-          "cashDiscountDisabled": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Date when the Cash Discount Program was disabled by the merchant"
-          },
-          "cashDiscountRate": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 1,
-            "description": "Cash discount rate as a decimal (0-1), where 0.03 represents 3%"
-          },
-          "includeSimulatedTerminals": {
-            "type": "boolean",
-            "description": "Whether simulated terminals are included in terminal listings when accessed via sandbox API keys"
-          },
-          "cashPaymentsEnabled": {
-            "type": "boolean",
-            "description": "Whether cash payments are visible and enabled for this merchant"
-          },
-          "checkPaymentsEnabled": {
-            "type": "boolean",
-            "description": "Whether check payments are visible and enabled for this merchant"
-          },
-          "receiveReceipts": {
-            "type": "boolean",
-            "description": "Whether the merchant has opted in to automatically receive payment receipts via email"
-          },
-          "receiptEmail": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The email address to send payment receipts to. Falls back to primary contact email if not set."
-          },
-          "accountClosedDescription": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Description of why the merchant account was closed"
-          },
-          "accountClosedJiraTicket": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Jira ticket URL related to the account closure"
-          },
-          "accountClosedDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Date and time when the merchant account was closed"
-          },
-          "accountClosedBy": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "User ID of the admin who closed the merchant account"
-          },
-          "closedByUserEmail": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "Email address of the admin who closed the merchant account"
-          },
-          "salesAgents": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "firstName": {
-                  "type": "string"
-                },
-                "lastName": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "phone": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "imageUrl": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "bips": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 10000,
-                  "description": "Commission rate in basis points (bips) for this sales agent on this merchant, snapshotted at the time the agent was attached. 1 bip = 0.01%. Only present on the N1_Merchant detail object."
-                }
-              },
-              "required": [
-                "id",
-                "firstName",
-                "lastName",
-                "email",
-                "phone",
-                "imageUrl"
-              ]
-            },
-            "description": "Sales agents assigned to the merchant"
-          },
-          "feeProfile": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "discountRate": {
-                "type": "number"
-              },
-              "transactionFee": {
-                "type": "number"
-              },
-              "cardNotPresentFee": {
-                "type": "number"
-              },
-              "cardNotPresentRate": {
-                "type": "number"
-              },
-              "debitCardTransactionFee": {
-                "type": "number"
-              },
-              "debitCardTransactionRate": {
-                "type": "number"
-              },
-              "debitAdjustmentFee": {
-                "type": "number"
-              },
-              "monthlyFee": {
-                "type": "number"
-              },
-              "visaMastercardRate": {
-                "type": "number"
-              },
-              "visaMastercardFee": {
-                "type": "number"
-              },
-              "discoverFee": {
-                "type": "number"
-              },
-              "discoverRate": {
-                "type": "number"
-              },
-              "amexRate": {
-                "type": "number"
-              },
-              "amexFee": {
-                "type": "number"
-              },
-              "chargebackFee": {
-                "type": "number"
-              },
-              "gatewayFee": {
-                "type": "number"
-              },
-              "batchFee": {
-                "type": "number"
-              },
-              "returnFee": {
-                "type": "number"
-              },
-              "feeBilling": {
-                "type": "number"
-              },
-              "amexStatus": {
-                "type": "number"
-              },
-              "chargePayfacFeeOnRefunds": {
-                "type": "boolean"
-              },
-              "assessExclusivelyPerItemAmountOnRefunds": {
-                "type": "boolean"
-              },
-              "interchangeFeeAssessor": {
-                "type": "number"
-              },
-              "processorFeeAssessor": {
-                "type": "number"
-              },
-              "assessmentFeeAssessor": {
-                "type": "number"
-              },
-              "commissionFeeAssessor": {
-                "type": "number"
-              },
-              "achTransactionFee": {
-                "type": "number"
-              },
-              "achTransactionRate": {
-                "type": "number"
-              },
-              "achReturnFee": {
-                "type": "number"
-              },
-              "terminalEquipmentFee": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "discountRate",
-              "transactionFee",
-              "cardNotPresentFee",
-              "cardNotPresentRate",
-              "debitCardTransactionFee",
-              "debitCardTransactionRate",
-              "debitAdjustmentFee",
-              "monthlyFee",
-              "visaMastercardRate",
-              "visaMastercardFee",
-              "discoverFee",
-              "discoverRate",
-              "amexRate",
-              "amexFee",
-              "chargebackFee",
-              "gatewayFee",
-              "batchFee",
-              "returnFee",
-              "feeBilling",
-              "amexStatus",
-              "chargePayfacFeeOnRefunds",
-              "assessExclusivelyPerItemAmountOnRefunds",
-              "interchangeFeeAssessor",
-              "processorFeeAssessor",
-              "assessmentFeeAssessor",
-              "commissionFeeAssessor",
-              "achTransactionFee",
-              "achTransactionRate",
-              "achReturnFee",
-              "terminalEquipmentFee"
-            ],
-            "description": "Onboarded merchant's fee profile"
-          },
-          "channelPartnerName": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The name of the channel partner organization this merchant belongs to"
-          },
-          "channelPartnerSlug": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The slug of the channel partner organization this merchant belongs to"
-          },
-          "merchantMid": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "The Merchant ID (MID) assigned by the payment processor. Only present for Prahsys admin requests."
-          },
-          "createdAt": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "taxId",
-          "name",
-          "legalName",
-          "slug",
-          "website",
-          "applicationId",
-          "internalApplicationId",
-          "applicationLevel",
-          "processorId",
-          "merchantIdentifier",
-          "defaultCnpGateway",
-          "rateType",
-          "readyForProcessing",
-          "readyForProcessingAt",
-          "signed",
-          "type",
-          "enabledDirectPay",
-          "enabledTokenByPaymentId",
-          "companyType",
-          "averageMonthlyRevenue",
-          "averageTicketPrice",
-          "highestTicketPrice",
-          "status",
-          "statusUpdatedAt",
-          "cardPresentTerminalIds",
-          "cardNotPresentTerminalIds",
-          "terminals",
-          "businessPhone",
-          "businessAddress",
-          "mailingAddress",
-          "bankDetail",
-          "approvedParameters",
-          "primaryContactEmail",
-          "primaryContactPhone",
-          "primaryContactFirstName",
-          "primaryContactLastName",
-          "signingUrl",
-          "signingUrlExpiresAt",
-          "optInCashDiscountProgram",
-          "cashDiscountApproved",
-          "cashDiscountDenied",
-          "cashDiscountDeniedReason",
-          "cashDiscountDisabled",
-          "cashDiscountRate",
-          "includeSimulatedTerminals",
-          "cashPaymentsEnabled",
-          "checkPaymentsEnabled",
-          "receiveReceipts",
-          "receiptEmail",
-          "accountClosedDescription",
-          "accountClosedJiraTicket",
-          "accountClosedDate",
-          "accountClosedBy",
-          "closedByUserEmail",
-          "salesAgents",
-          "feeProfile",
-          "createdAt"
-        ],
-        "title": "Merchant",
-        "description": "The merchant object return from Prahsys API.",
-        "example": {
-          "id": "MxExRxCxHxAxNxT",
-          "taxId": "******123",
-          "name": "Merchant Name",
-          "legalName": "Merchant Inc",
-          "website": "https://test.com",
-          "slug": "merchant-name",
-          "applicationId": 123456789,
-          "internalApplicationId": "9381cd3d-5532-4e57-ba14-5292358ff8dc",
-          "readyForProcessing": true,
-          "readyForProcessingAt": "2023-01-01T00:00:00.000Z",
-          "signed": true,
-          "type": "LIVE",
-          "applicationLevel": "LEVEL3",
-          "processorId": 987654321,
-          "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
-          "defaultCnpGateway": "MASTERCARD",
-          "rateType": "FLAT_RATE",
-          "companyType": "CORPORATION",
-          "averageMonthlyRevenue": 20000,
-          "averageTicketPrice": 250,
-          "highestTicketPrice": 1000,
-          "enabledDirectPay": "2023-01-01T00:00:00.000Z",
-          "enabledTokenByPaymentId": "2023-01-08T00:00:00.000Z",
-          "status": "APPLICATION_APPROVED",
-          "statusUpdatedAt": "2023-01-01T00:00:00.000Z",
-          "cardPresentTerminalIds": [
-            "22823427",
-            "73821217"
-          ],
-          "cardNotPresentTerminalIds": [
-            "83942347"
-          ],
-          "terminals": [
-            {
-              "id": "7e81cd3d-5532-4e57-ba14-5299058ff8dc",
-              "title": "Merchant Terminal",
-              "description": "Terminal to be used for business A",
-              "tid": "83942347",
-              "type": "CARD_PRESENT",
-              "provider": "SOFTPOINT",
-              "createdAt": "2023-01-01T00:00:00.000Z",
-              "updatedAt": "2023-01-01T00:00:00.000Z",
-              "readyForProcessing": true
-            }
-          ],
-          "businessPhone": "+1417567890",
-          "businessAddress": {
-            "street1": "Street Addr",
-            "street2": "E2",
-            "city": "Seattle",
-            "state": "WA",
-            "postalCode": "98102"
-          },
-          "mailingAddress": {
-            "street1": "Street Addr",
-            "street2": "E2",
-            "city": "Seattle",
-            "state": "WA",
-            "postalCode": "98102"
-          },
-          "bankDetail": {
-            "accountNumber": "******4321",
-            "routingNumber": "026009593"
-          },
-          "approvedParameters": {
-            "monthlyVolume": 10000,
-            "highTicketAmount": 500,
-            "averageTicketAmount": 100,
-            "cardNotPresentPercentage": 80,
-            "cardPresentPercentage": 20
-          },
-          "primaryContactEmail": "contact@prahsys.com",
-          "primaryContactPhone": "+1234567890",
-          "primaryContactFirstName": "John",
-          "primaryContactLastName": "Doe",
-          "feeProfile": {
-            "discountRate": 0,
-            "transactionFee": 0,
-            "cardNotPresentFee": 0.49,
-            "cardNotPresentRate": 0.029,
-            "debitCardTransactionFee": 0.49,
-            "debitCardTransactionRate": 0.029,
-            "debitAdjustmentFee": 0,
-            "monthlyFee": 0,
-            "visaMastercardRate": 0.029,
-            "visaMastercardFee": 0.49,
-            "discoverFee": 0.49,
-            "discoverRate": 0.029,
-            "amexRate": 0.029,
-            "amexFee": 0.49,
-            "chargebackFee": 45,
-            "gatewayFee": 0,
-            "batchFee": 0,
-            "returnFee": 0,
-            "feeBilling": 1,
-            "amexStatus": 1,
-            "chargePayfacFeeOnRefunds": true,
-            "assessExclusivelyPerItemAmountOnRefunds": true,
-            "interchangeFeeAssessor": 0,
-            "processorFeeAssessor": 0,
-            "assessmentFeeAssessor": 0,
-            "commissionFeeAssessor": 0,
-            "achTransactionFee": 0,
-            "achTransactionRate": 0,
-            "achReturnFee": 0,
-            "terminalEquipmentFee": 15
-          },
-          "signingUrl": "https://dashboard.prahsys.com/example-merchant/application/3fe90921-3de5-40ac-a76f-0fde0caf03a6",
-          "signingUrlExpiresAt": "2023-01-01T00:05:00.000Z",
-          "optInCashDiscountProgram": null,
-          "cashDiscountApproved": null,
-          "cashDiscountDenied": null,
-          "cashDiscountDeniedReason": null,
-          "cashDiscountDisabled": null,
-          "cashDiscountRate": 0.03,
-          "includeSimulatedTerminals": true,
-          "cashPaymentsEnabled": true,
-          "checkPaymentsEnabled": true,
-          "receiveReceipts": true,
-          "receiptEmail": null,
-          "accountClosedDescription": null,
-          "accountClosedJiraTicket": null,
-          "accountClosedDate": null,
-          "accountClosedBy": null,
-          "closedByUserEmail": null,
-          "channelPartnerName": "Prahsys",
-          "channelPartnerSlug": "prahsys",
-          "salesAgents": [],
-          "createdAt": "2023-01-01T00:00:00.000Z"
-        }
-      },
-      "MerchantApplicationLevelEnum": {
-        "type": "string",
-        "enum": [
-          "LEVEL1",
-          "LEVEL2",
-          "LEVEL3",
-          "LEVEL4"
-        ],
-        "title": "Merchant Application Level",
-        "description": "Application level of a merchant based on monthly volume. Valid values: LEVEL1 (≤$10,000), LEVEL2 ($10,000-$50,000), LEVEL3 ($50,000-$250,000), LEVEL4 (>$250,000)",
-        "example": "LEVEL3"
-      },
-      "MerchantOrganizationTypeEnum": {
-        "type": "string",
-        "enum": [
-          "LIVE",
-          "SANDBOX"
-        ],
-        "title": "Organization Type",
-        "description": "The type of organization. Valid values: LIVE (production environment operations), SANDBOX (sandbox environment only)",
-        "example": "LIVE"
-      },
-      "MerchantTerminal": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "tid": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "CARD_PRESENT",
-              "CARD_NOT_PRESENT"
-            ]
-          },
-          "provider": {
-            "type": "string",
-            "enum": [
-              "MASTERCARD",
-              "SOFTPOINT",
-              "SOFTPOINT_CNP",
-              "SIMULATED"
-            ]
-          },
-          "readyForProcessing": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "description",
-          "tid",
-          "type",
-          "readyForProcessing",
-          "createdAt",
-          "updatedAt"
-        ],
-        "title": "Merchant Terminal",
-        "description": "Merchant's terminal information",
-        "example": {
-          "id": "7e81cd3d-5532-4e57-ba14-5299058ff8dc",
-          "title": "Merchant Terminal",
-          "description": "Terminal to be used for business A",
-          "tid": "83942347",
-          "type": "CARD_PRESENT",
-          "provider": "SOFTPOINT",
-          "readyForProcessing": true,
-          "createdAt": "2023-01-01T00:00:00.000Z",
-          "updatedAt": "2023-01-01T00:00:00.000Z"
-        }
-      },
-      "MerchantBusinessAddress": {
-        "type": "object",
-        "properties": {
-          "street1": {
-            "type": "string"
-          },
-          "street2": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string",
-            "enum": [
-              "AL",
-              "AK",
-              "AS",
-              "AZ",
-              "AR",
-              "CA",
-              "CO",
-              "CT",
-              "DE",
-              "DC",
-              "FM",
-              "FL",
-              "GA",
-              "GU",
-              "HI",
-              "ID",
-              "IL",
-              "IN",
-              "IA",
-              "KS",
-              "KY",
-              "LA",
-              "ME",
-              "MH",
-              "MD",
-              "MA",
-              "MI",
-              "MN",
-              "MS",
-              "MO",
-              "MT",
-              "NE",
-              "NV",
-              "NH",
-              "NJ",
-              "NM",
-              "NY",
-              "NC",
-              "ND",
-              "MP",
-              "OH",
-              "OK",
-              "OR",
-              "PW",
-              "PA",
-              "PR",
-              "RI",
-              "SC",
-              "SD",
-              "TN",
-              "TX",
-              "UT",
-              "VT",
-              "VI",
-              "VA",
-              "WA",
-              "WV",
-              "WI",
-              "WY"
-            ]
-          },
-          "postalCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "street1",
-          "street2",
-          "city",
-          "state",
-          "postalCode"
-        ],
-        "title": "Merchant Business Address",
-        "description": "Merchant's business address",
-        "example": {
-          "street1": "Street Addr",
-          "street2": null,
-          "city": "Seattle",
-          "state": "WA",
-          "postalCode": "98102"
-        }
-      },
       "N1_Terminal": {
         "type": "object",
         "properties": {
@@ -13792,6 +14049,27 @@
               "null"
             ],
             "description": "Last time the user information has changed in ISO Datetime format."
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "URL-friendly identifier for the user."
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Job title of the user."
+          },
+          "linkedinUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "LinkedIn profile URL of the user."
           }
         },
         "required": [
