@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.165.0",
+    "version": "1.166.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-16T00:27:58.574Z"
+                      "createdAt": "2026-06-23T19:21:24.668Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-16T00:27:58.574Z"
+                      "createdAt": "2026-06-23T19:21:24.668Z"
                     }
                   }
                 }
@@ -1265,6 +1265,15 @@
                     "type": "string",
                     "description": "Payment provider used"
                   },
+                  "cbctScanner": {
+                    "type": "string",
+                    "description": "CBCT scanner model used by the practice"
+                  },
+                  "scansPerWeek": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Approximate number of CBCT scans performed per week"
+                  },
                   "leadChannel": {
                     "$ref": "#/components/schemas/LeadChannelEnum",
                     "description": "Acquisition channel for the lead"
@@ -1644,6 +1653,21 @@
                     ],
                     "description": "Payment provider used"
                   },
+                  "cbctScanner": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "CBCT scanner model. Pass null to clear."
+                  },
+                  "scansPerWeek": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "description": "Approximate number of CBCT scans per week. Pass null to clear."
+                  },
                   "leadChannel": {
                     "$ref": "#/components/schemas/LeadChannelEnum",
                     "description": "Acquisition channel for the lead"
@@ -1945,6 +1969,373 @@
                   ],
                   "title": "Create Lead Status Response",
                   "description": "JSON response for creating a lead status"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/cbct-scanners": {
+      "get": {
+        "tags": [
+          "Lead CBCT Scanner"
+        ],
+        "operationId": "getLeadCbctScanners",
+        "summary": "Get Lead CBCT Scanners",
+        "description": "Get the list of CBCT scanner models for this channel partner",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/N1_LeadCbctScanner"
+                      },
+                      "default": []
+                    },
+                    "total": {
+                      "type": "number"
+                    },
+                    "offset": {
+                      "type": "number"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data",
+                    "total",
+                    "offset",
+                    "limit"
+                  ],
+                  "title": "Get Lead CBCT Scanners Response",
+                  "description": "JSON response for getting CBCT scanners"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lead CBCT Scanner"
+        ],
+        "operationId": "createLeadCbctScanner",
+        "summary": "Create Lead CBCT Scanner",
+        "description": "Create a new CBCT scanner model entry for this channel partner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Name/model of the CBCT scanner to create"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadCbctScanner"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Create Lead CBCT Scanner Response",
+                  "description": "JSON response for creating a CBCT scanner"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/cbct-scanners/{scannerId}": {
+      "patch": {
+        "tags": [
+          "Lead CBCT Scanner"
+        ],
+        "operationId": "updateLeadCbctScanner",
+        "summary": "Update Lead CBCT Scanner",
+        "description": "Update an existing CBCT scanner name/model",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scannerId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Updated CBCT scanner name/model"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadCbctScanner"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Update Lead CBCT Scanner Response",
+                  "description": "JSON response for updating a CBCT scanner"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lead CBCT Scanner"
+        ],
+        "operationId": "deleteLeadCbctScanner",
+        "summary": "Delete Lead CBCT Scanner",
+        "description": "Delete a CBCT scanner and clear references from lead businesses",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "scannerId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/N1_LeadCbctScanner"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Delete Lead CBCT Scanner Response",
+                  "description": "JSON response for deleting a CBCT scanner"
                 }
               }
             }
@@ -4412,7 +4803,7 @@
           {
             "in": "query",
             "name": "orgWide",
-            "description": "When true, returns reach-outs across all reps in the organization for the given date range and status. Requires dateFrom or dateTo. Admin-only — enforced at the MCP tool layer.",
+            "description": "When true, returns reach-outs across all reps in the organization for the given date range and status.",
             "schema": {
               "anyOf": [
                 {
@@ -4427,7 +4818,7 @@
                   "type": "boolean"
                 }
               ],
-              "description": "When true, returns reach-outs across all reps in the organization for the given date range and status. Requires dateFrom or dateTo. Admin-only — enforced at the MCP tool layer."
+              "description": "When true, returns reach-outs across all reps in the organization for the given date range and status."
             }
           }
         ],
@@ -6281,6 +6672,7 @@
                       "includeSimulatedTerminals": true,
                       "cashPaymentsEnabled": true,
                       "checkPaymentsEnabled": true,
+                      "achEnabled": true,
                       "receiveReceipts": true,
                       "receiptEmail": null,
                       "accountClosedDescription": null,
@@ -6499,6 +6891,7 @@
                       "includeSimulatedTerminals": true,
                       "cashPaymentsEnabled": true,
                       "checkPaymentsEnabled": true,
+                      "achEnabled": true,
                       "receiveReceipts": true,
                       "receiptEmail": null,
                       "accountClosedDescription": null,
@@ -6991,6 +7384,7 @@
                       "includeSimulatedTerminals": true,
                       "cashPaymentsEnabled": true,
                       "checkPaymentsEnabled": true,
+                      "achEnabled": true,
                       "receiveReceipts": true,
                       "receiptEmail": null,
                       "accountClosedDescription": null,
@@ -9414,7 +9808,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-06-16T00:27:58.574Z"
+          "createdAt": "2026-06-23T19:21:24.668Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -9689,6 +10083,21 @@
               "null"
             ],
             "description": "Payment provider used by the lead business (e.g., Rectangle Health, Stripe)"
+          },
+          "cbctScanner": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "CBCT scanner model used by the practice (e.g., Carestream CS 9600, i-CAT FLX)"
+          },
+          "scansPerWeek": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "description": "Approximate number of CBCT scans performed per week"
           },
           "dsoConnectId": {
             "type": [
@@ -10048,10 +10457,11 @@
           "AFFILIATE",
           "FREE_TRIAL",
           "IN_APP_REFERRAL",
-          "DSO_CONNECT"
+          "DSO_CONNECT",
+          "PRONGOSIX"
         ],
         "title": "Lead Channel",
-        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, INBOUND_ORGANIC, EMAIL_MARKETING, PAID_ADVERTISING, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
+        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, INBOUND_ORGANIC, EMAIL_MARKETING, PAID_ADVERTISING, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN, PRONGOSIX. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
         "example": "REFERRAL"
       },
       "LeadSourceTypeEnum": {
@@ -11414,6 +11824,10 @@
             "type": "boolean",
             "description": "Whether check payments are visible and enabled for this merchant"
           },
+          "achEnabled": {
+            "type": "boolean",
+            "description": "Whether ACH bank-account tokenization is enabled for this merchant"
+          },
           "receiveReceipts": {
             "type": "boolean",
             "description": "Whether the merchant has opted in to automatically receive payment receipts via email"
@@ -11712,6 +12126,7 @@
           "includeSimulatedTerminals",
           "cashPaymentsEnabled",
           "checkPaymentsEnabled",
+          "achEnabled",
           "receiveReceipts",
           "receiptEmail",
           "accountClosedDescription",
@@ -11844,6 +12259,7 @@
           "includeSimulatedTerminals": true,
           "cashPaymentsEnabled": true,
           "checkPaymentsEnabled": true,
+          "achEnabled": true,
           "receiveReceipts": true,
           "receiptEmail": null,
           "accountClosedDescription": null,
@@ -12129,6 +12545,80 @@
         ],
         "title": "Lead Email Log",
         "description": "A record of an email sent in the context of a lead business"
+      },
+      "N1_LeadCbctScanner": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the CBCT scanner"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name/model of the CBCT scanner"
+          },
+          "createdByUserId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ID of the user who created this entry, if known"
+          },
+          "createdByUser": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Database user ID"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the creator"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the creator"
+              },
+              "imageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Profile image URL of the creator"
+              }
+            },
+            "required": [
+              "id",
+              "firstName",
+              "lastName",
+              "imageUrl"
+            ],
+            "description": "User who created this CBCT scanner entry"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the entry was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When the entry was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdByUserId",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead CBCT Scanner",
+        "description": "A CBCT scanner model entry for lead businesses"
       },
       "N1_LeadContactDetail": {
         "allOf": [
@@ -14035,7 +14525,8 @@
             "enum": [
               "admin",
               "member",
-              "sales"
+              "sales",
+              "patient"
             ],
             "description": "Role of the user."
           },
