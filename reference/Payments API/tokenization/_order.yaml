@@ -2,3 +2,5 @@
 - updatetoken
 - deletetoken
 - createtoken
+- disabletoken
+- enabletoken
