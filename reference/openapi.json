@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.167.2",
+    "version": "1.168.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-26T12:51:25.993Z"
+                      "createdAt": "2026-07-03T15:23:53.725Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-06-26T12:51:25.993Z"
+                      "createdAt": "2026-07-03T15:23:53.725Z"
                     }
                   }
                 }
@@ -3037,6 +3037,134 @@
                   ],
                   "title": "Delete Lead Contact Response",
                   "description": "JSON response for archiving a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/contacts/{leadContactId}/primary": {
+      "patch": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "setLeadContactPrimary",
+        "summary": "Set Lead Contact Primary Status",
+        "description": "Mark or unmark a contact as primary for a specific lead business",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadContactId",
+            "description": "The lead contact id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead contact id",
+              "example": "LC_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leadBusinessId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The lead business ID for which to set the primary status on this contact",
+                    "example": "LB_SEED_001"
+                  },
+                  "isPrimary": {
+                    "type": "boolean",
+                    "description": "true to mark this contact as primary for the lead, false to remove the primary flag",
+                    "example": true
+                  }
+                },
+                "required": [
+                  "leadBusinessId",
+                  "isPrimary"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "isPrimary": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "isPrimary"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Set Lead Contact Primary Response",
+                  "description": "JSON response for setting a lead contact's primary status"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseBody"
                 }
               }
             }
@@ -9808,7 +9936,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-06-26T12:51:25.993Z"
+          "createdAt": "2026-07-03T15:23:53.725Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10903,6 +11031,10 @@
               "$ref": "#/components/schemas/N1_LeadOwner"
             },
             "description": "Users assigned to this contact"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this contact is marked as a primary contact for the lead they are viewed in context of. Only present when fetched in lead context."
           }
         },
         "required": [
