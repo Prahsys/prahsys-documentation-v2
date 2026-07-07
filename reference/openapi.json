@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.168.1",
+    "version": "1.169.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-07T16:13:00.161Z"
+                      "createdAt": "2026-07-07T22:15:02.927Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-07T16:13:00.161Z"
+                      "createdAt": "2026-07-07T22:15:02.927Z"
                     }
                   }
                 }
@@ -1334,6 +1334,14 @@
                   "initialStatus": {
                     "$ref": "#/components/schemas/LeadStatusEnum",
                     "description": "Initial lead status. Defaults to NEW if not provided. Pass PROSPECT to create a pre-pipeline lead."
+                  },
+                  "initialDealStatus": {
+                    "$ref": "#/components/schemas/LeadDealStatusEnum",
+                    "description": "Initial deal status. Defaults to NEW if not provided (e.g. DISCOVERY for a self-onboarded merchant)."
+                  },
+                  "merchantId": {
+                    "type": "string",
+                    "description": "DB id of an existing merchant to link this lead to (LeadBusinesses.merchant_id). Must be unique per merchant."
                   }
                 },
                 "required": [
@@ -9936,7 +9944,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-07T16:13:00.161Z"
+          "createdAt": "2026-07-07T22:15:02.927Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
