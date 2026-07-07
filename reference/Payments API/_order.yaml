@@ -4,6 +4,7 @@
 - exports
 - merchant-purge
 - monthly-statements
+- order-templates
 - orders
 - payments
 - payout-exports

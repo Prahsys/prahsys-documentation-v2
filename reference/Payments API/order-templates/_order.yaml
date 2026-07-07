@@ -1,0 +1,6 @@
+- listordertemplatesfororganization
+- listordertemplatesformerchant
+- getordertemplate
+- updateorcreateordertemplate
+- deleteordertemplate
+- instantiateordertemplate
