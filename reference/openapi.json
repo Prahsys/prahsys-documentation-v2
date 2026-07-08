@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.169.0",
+    "version": "1.170.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-07T22:15:02.927Z"
+                      "createdAt": "2026-07-08T16:42:30.984Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-07T22:15:02.927Z"
+                      "createdAt": "2026-07-08T16:42:30.984Z"
                     }
                   }
                 }
@@ -4871,6 +4871,25 @@
                 }
               ],
               "description": "One or more lead contact IDs to include in the feed"
+            }
+          },
+          {
+            "in": "query",
+            "name": "leadBusinessIds",
+            "description": "One or more lead business IDs to include in the feed. Used to fetch all reachouts across a contact's associated lead businesses in a single request.",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "description": "One or more lead business IDs to include in the feed. Used to fetch all reachouts across a contact's associated lead businesses in a single request."
             }
           },
           {
@@ -9944,7 +9963,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-07T22:15:02.927Z"
+          "createdAt": "2026-07-08T16:42:30.984Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
