@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.170.0",
+    "version": "1.171.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-08T16:42:30.984Z"
+                      "createdAt": "2026-07-12T15:08:09.693Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-08T16:42:30.984Z"
+                      "createdAt": "2026-07-12T15:08:09.693Z"
                     }
                   }
                 }
@@ -3045,6 +3045,120 @@
                   ],
                   "title": "Delete Lead Contact Response",
                   "description": "JSON response for archiving a lead contact"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/contacts/{leadContactId}/merge": {
+      "post": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "mergeLeadContact",
+        "summary": "Merge Lead Contact",
+        "description": "Merges the source contact into the target contact. The target survives and absorbs the source's data (touch points, reach-outs, business associations, assigned users, and null-field backfills). The source is soft-archived after the merge.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadContactId",
+            "description": "The lead contact id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead contact id",
+              "example": "LC_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sourceLeadContactId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The ID of the contact to merge into this one. It will be archived after merge.",
+                    "example": "LC_SOURCE_001"
+                  }
+                },
+                "required": [
+                  "sourceLeadContactId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Merge Lead Contact Response",
+                  "description": "JSON response confirming the merge completed successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseBody"
                 }
               }
             }
@@ -9963,7 +10077,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-08T16:42:30.984Z"
+          "createdAt": "2026-07-12T15:08:09.693Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10267,6 +10381,13 @@
               "null"
             ],
             "description": "DB UUID of the connected DSO record, for navigation"
+          },
+          "practiceCount": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Total number of DSO practices linked to this lead. Only populated when dsoId is present."
           },
           "merchantId": {
             "type": [
