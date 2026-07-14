@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.171.0",
+    "version": "1.172.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-12T15:08:09.693Z"
+                      "createdAt": "2026-07-14T19:23:21.927Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-12T15:08:09.693Z"
+                      "createdAt": "2026-07-14T19:23:21.927Z"
                     }
                   }
                 }
@@ -2606,12 +2606,82 @@
                   },
                   "phoneNumber": {
                     "type": "string",
-                    "description": "Phone number of the contact"
+                    "description": "DEPRECATED: use phones array. Single phone number (promoted to MOBILE type)."
                   },
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "description": "Email address of the contact"
+                    "description": "DEPRECATED: use emails array. Single email address (promoted to WORK type)."
+                  },
+                  "phones": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "phoneNumber": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Phone number in any format"
+                        },
+                        "phoneType": {
+                          "type": "string",
+                          "enum": [
+                            "MOBILE",
+                            "WORK",
+                            "HOME",
+                            "OFFICE_DIRECT",
+                            "MAIN_FRONT_DESK",
+                            "FAX",
+                            "AFTER_HOURS",
+                            "OTHER"
+                          ],
+                          "description": "Phone type label",
+                          "default": "MOBILE"
+                        },
+                        "isPrimary": {
+                          "type": "boolean",
+                          "description": "Mark as primary. Auto-set to true when only one entry exists. Required when 2+ entries exist."
+                        }
+                      },
+                      "required": [
+                        "phoneNumber"
+                      ]
+                    },
+                    "maxItems": 5,
+                    "description": "Array of phone numbers (max 5). When 2+ entries are provided, exactly one must have isPrimary: true. Replaces the deprecated phoneNumber field."
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "description": "Email address"
+                        },
+                        "emailType": {
+                          "type": "string",
+                          "enum": [
+                            "WORK",
+                            "PERSONAL",
+                            "CORPORATE_HQ",
+                            "OTHER"
+                          ],
+                          "description": "Email type label",
+                          "default": "WORK"
+                        },
+                        "isPrimary": {
+                          "type": "boolean",
+                          "description": "Mark as primary. Auto-set to true when only one entry exists. Required when 2+ entries exist."
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ]
+                    },
+                    "maxItems": 5,
+                    "description": "Array of email addresses (max 5). When 2+ entries are provided, exactly one must have isPrimary: true. Replaces the deprecated email field."
                   },
                   "jobTitle": {
                     "type": "string",
@@ -2850,7 +2920,7 @@
                       "string",
                       "null"
                     ],
-                    "description": "Phone number of the contact"
+                    "description": "DEPRECATED: use phones array. Single phone number."
                   },
                   "email": {
                     "type": [
@@ -2858,7 +2928,77 @@
                       "null"
                     ],
                     "format": "email",
-                    "description": "Email address of the contact"
+                    "description": "DEPRECATED: use emails array. Single email address."
+                  },
+                  "phones": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "phoneNumber": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Phone number in any format"
+                        },
+                        "phoneType": {
+                          "type": "string",
+                          "enum": [
+                            "MOBILE",
+                            "WORK",
+                            "HOME",
+                            "OFFICE_DIRECT",
+                            "MAIN_FRONT_DESK",
+                            "FAX",
+                            "AFTER_HOURS",
+                            "OTHER"
+                          ],
+                          "description": "Phone type label",
+                          "default": "MOBILE"
+                        },
+                        "isPrimary": {
+                          "type": "boolean",
+                          "description": "Mark as primary. Auto-set to true when only one entry exists. Required when 2+ entries exist."
+                        }
+                      },
+                      "required": [
+                        "phoneNumber"
+                      ]
+                    },
+                    "maxItems": 5,
+                    "description": "Full replacement array of phone numbers (max 5). Omit to leave phones unchanged. Send empty array [] to remove all phones. When 2+ entries, exactly one must have isPrimary: true."
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "description": "Email address"
+                        },
+                        "emailType": {
+                          "type": "string",
+                          "enum": [
+                            "WORK",
+                            "PERSONAL",
+                            "CORPORATE_HQ",
+                            "OTHER"
+                          ],
+                          "description": "Email type label",
+                          "default": "WORK"
+                        },
+                        "isPrimary": {
+                          "type": "boolean",
+                          "description": "Mark as primary. Auto-set to true when only one entry exists. Required when 2+ entries exist."
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ]
+                    },
+                    "maxItems": 5,
+                    "description": "Full replacement array of email addresses (max 5). Omit to leave emails unchanged. Send empty array [] to remove all emails. When 2+ entries, exactly one must have isPrimary: true."
                   },
                   "jobTitle": {
                     "type": [
@@ -10077,7 +10217,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-12T15:08:09.693Z"
+          "createdAt": "2026-07-14T19:23:21.927Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -11121,14 +11261,28 @@
               "string",
               "null"
             ],
-            "description": "Phone number of the contact"
+            "description": "Primary phone number (deprecated — use phones array)"
           },
           "email": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Email address of the contact"
+            "description": "Primary email address (deprecated — use emails array)"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadContactPhone"
+            },
+            "description": "All phone numbers for this contact, primary first"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/N1_LeadContactEmail"
+            },
+            "description": "All email addresses for this contact, primary first"
           },
           "jobTitle": {
             "type": [
@@ -11198,6 +11352,104 @@
         ],
         "title": "Lead Contact",
         "description": "A contact person associated with a lead business"
+      },
+      "N1_LeadContactPhone": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this phone entry"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number"
+          },
+          "phoneType": {
+            "type": "string",
+            "enum": [
+              "MOBILE",
+              "WORK",
+              "HOME",
+              "OFFICE_DIRECT",
+              "MAIN_FRONT_DESK",
+              "FAX",
+              "AFTER_HOURS",
+              "OTHER"
+            ],
+            "description": "Phone type"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the primary phone number"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When this entry was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When this entry was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "phoneNumber",
+          "phoneType",
+          "isPrimary",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Contact Phone"
+      },
+      "N1_LeadContactEmail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this email entry"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "emailType": {
+            "type": "string",
+            "enum": [
+              "WORK",
+              "PERSONAL",
+              "CORPORATE_HQ",
+              "OTHER"
+            ],
+            "description": "Email type"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the primary email address"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When this entry was created"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When this entry was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "emailType",
+          "isPrimary",
+          "createdAt",
+          "updatedAt"
+        ],
+        "title": "Lead Contact Email"
       },
       "N1_LeadOwner": {
         "type": "object",
