@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.172.1",
+    "version": "1.173.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-15T16:26:52.425Z"
+                      "createdAt": "2026-07-16T22:28:40.748Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-15T16:26:52.425Z"
+                      "createdAt": "2026-07-16T22:28:40.748Z"
                     }
                   }
                 }
@@ -1273,6 +1273,13 @@
                     "type": "integer",
                     "minimum": 0,
                     "description": "Approximate number of CBCT scans performed per week"
+                  },
+                  "additional": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "Free-form key/value CRM enrichment shown on the lead (e.g. role, scansPerMonth)."
                   },
                   "leadChannel": {
                     "$ref": "#/components/schemas/LeadChannelEnum",
@@ -10217,7 +10224,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-15T16:26:52.425Z"
+          "createdAt": "2026-07-16T22:28:40.748Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10507,6 +10514,16 @@
             ],
             "minimum": 0,
             "description": "Approximate number of CBCT scans performed per week"
+          },
+          "additional": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Free-form key/value CRM enrichment shown on the lead (e.g. scansPerMonth)."
           },
           "dsoConnectId": {
             "type": [
