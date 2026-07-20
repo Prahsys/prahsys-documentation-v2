@@ -5,7 +5,7 @@ hidden: true
 ---
 ### Exhibit E
 
-**Last Updated: March 24, 2025**
+**Last Updated: July 20, 2026**
 
 Welcome to Prahsys—an all-in-one issuing, acquiring, processing, and settlement platform built just for you. This Privacy Notice explains how Prahsys, Inc. (“Prahsys”) collects, uses, discloses, and otherwise processes personal data in connection with our website, services, and any related applications (collectively, the “Services”).
 
@@ -31,6 +31,19 @@ The categories of personal data we collect depend on how you interact with us an
 * **Medical Data Governance:** Prahsys follows strict data governance protocols when collecting and processing medical data. All medical data used for analysis, research, and artificial intelligence (AI) training is anonymized before processing to comply with applicable laws and ethical guidelines.
 * **Use of Medical Data in AI Training:** Anonymized patient data may be used to improve the performance of PrognosiX and other AI-driven tools. No personally identifiable medical records or raw HIPAA-protected data are used for AI training.
 * **Practitioner Agreements on Data Use:** All practitioners associated with Prahsys must enter into a legal agreement ensuring that any patient data provided for AI training is fully anonymized. Prahsys will not accept or process raw patient data that could violate HIPAA or other privacy regulations.
+
+***
+
+#### **Sharing Scans and Diagnostic Imaging with Patients**
+
+PrognosiX allows a dental practice to share a patient’s own scan and related diagnostic imaging directly with that patient. When a practice uses this feature, the following applies:
+
+* **The practice controls the sharing.** Your dental practice, not Prahsys, decides whether to share a scan, which scan to share, and with whom. The practice is the healthcare provider responsible for your care and for confirming the accuracy of the contact information used to share your imaging. Prahsys acts only as the practice’s service provider (a “business associate” under HIPAA), processing and delivering the imaging on the practice’s instruction and under the business associate agreement in effect between Prahsys and the practice.
+* **Secure, limited access.** Imaging is shared through a secure, access-controlled link tied to the contact information the practice provides. Access is encrypted in transit and at rest, may expire after a period of time, and can be revoked by the practice, or by Prahsys to protect the security of your imaging or on the practice’s instruction. We keep access logs so that the practice can see when a shared scan was viewed. Disabling a shared link never affects your ability to obtain your imaging from your dental practice.
+* **Purpose limitation.** A scan routed through PrognosiX for sharing with a patient is used only to make that scan available to the intended patient. It is not sold, used for advertising, or used to train or evaluate our artificial intelligence models. This is consistent with our commitment, described above, that no personally identifiable medical records or raw HIPAA-protected data are used for AI training.
+* **Informational purpose only; not a diagnosis.** Shared imaging, including any AI-generated visualization such as a highlighted pulp-tissue overlay, is provided for your general information and to support the conversation with your treating provider. Any such AI-generated visualization is produced by investigational software that is still in development, has not been cleared or approved by the U.S. Food and Drug Administration, and is not a diagnosis. It must not be relied upon for any medical decision. Always consult your treating dental provider, who remains responsible for interpreting your imaging and for your care.
+* **Your rights over your imaging.** Your scan is part of the medical record that your dental practice maintains as the covered entity under HIPAA. To access, correct, obtain a copy of, or restrict the use of your imaging, or to ask that a shared link be disabled, please contact your dental practice directly. Nothing in this notice limits any right you have under HIPAA or other applicable law, including your right of access to your own records.
+* **Keep your link private.** A shared link is personal to you and your authorized representatives. Please do not forward it or post it publicly, and do not attempt to access imaging that was not shared with you. If you received a link that was not intended for you, or you believe someone else has gained access to your imaging, please contact Prahsys at [support@prahsys.com](mailto:support@prahsys.com) (or, if you are the patient, your dental practice) so that access can be disabled.
 
 ***
 
