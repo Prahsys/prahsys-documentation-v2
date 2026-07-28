@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.176.1",
+    "version": "1.177.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-27T19:37:43.978Z"
+                      "createdAt": "2026-07-28T20:34:43.521Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-27T19:37:43.978Z"
+                      "createdAt": "2026-07-28T20:34:43.521Z"
                     }
                   }
                 }
@@ -1540,7 +1540,6 @@
                     "properties": {
                       "street1": {
                         "type": "string",
-                        "minLength": 1,
                         "description": "Primary street address"
                       },
                       "street2": {
@@ -1552,12 +1551,10 @@
                       },
                       "city": {
                         "type": "string",
-                        "minLength": 1,
                         "description": "City"
                       },
                       "state": {
                         "type": "string",
-                        "minLength": 1,
                         "description": "State abbreviation (e.g. TX)"
                       },
                       "zipCode": {
@@ -1569,11 +1566,6 @@
                         "description": "Country code"
                       }
                     },
-                    "required": [
-                      "street1",
-                      "city",
-                      "state"
-                    ],
                     "description": "Location address of the business. Pass null to remove."
                   },
                   "headquartersAddress": {
@@ -1584,7 +1576,6 @@
                     "properties": {
                       "street1": {
                         "type": "string",
-                        "minLength": 1,
                         "description": "Primary street address"
                       },
                       "street2": {
@@ -1596,12 +1587,10 @@
                       },
                       "city": {
                         "type": "string",
-                        "minLength": 1,
                         "description": "City"
                       },
                       "state": {
                         "type": "string",
-                        "minLength": 1,
                         "description": "State abbreviation (e.g. TX)"
                       },
                       "zipCode": {
@@ -1613,11 +1602,6 @@
                         "description": "Country code"
                       }
                     },
-                    "required": [
-                      "street1",
-                      "city",
-                      "state"
-                    ],
                     "description": "Headquarters address of the business. Pass null to remove."
                   },
                   "phoneNumber": {
@@ -10224,7 +10208,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-27T19:37:43.978Z"
+          "createdAt": "2026-07-28T20:34:43.521Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10891,10 +10875,10 @@
           "FREE_TRIAL",
           "IN_APP_REFERRAL",
           "DSO_CONNECT",
-          "PRONGOSIX"
+          "PROGNOSIX"
         ],
         "title": "Lead Channel",
-        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, INBOUND_ORGANIC, EMAIL_MARKETING, PAID_ADVERTISING, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN, PRONGOSIX. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
+        "description": "The acquisition channel for the lead. Manual channels: INSIDE_SALES, OUTSIDE_SALES, INBOUND_ORGANIC, EMAIL_MARKETING, PAID_ADVERTISING, PARTNER_REFERRAL, COMMUNITY, PRESS, REFERRAL, OTHER, UNKNOWN, PROGNOSIX. Auto-tagged channels: ORGANIC_SEARCH, DIRECT, ORGANIC_SOCIAL, PAID_SEARCH, PAID_SOCIAL, SPONSORED_CONTENT, REVIEW_SITES, CONTENT_BLOG, WEBINAR_EVENT, INTEGRATION_MARKETPLACE, AFFILIATE, FREE_TRIAL, IN_APP_REFERRAL, DSO_CONNECT",
         "example": "REFERRAL"
       },
       "LeadSourceTypeEnum": {
