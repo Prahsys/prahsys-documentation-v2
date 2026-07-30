@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.177.0",
+    "version": "1.178.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-28T20:34:43.521Z"
+                      "createdAt": "2026-07-30T20:56:15.420Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-28T20:34:43.521Z"
+                      "createdAt": "2026-07-30T20:56:15.420Z"
                     }
                   }
                 }
@@ -1248,6 +1248,11 @@
                     "type": "string",
                     "description": "Website of the business"
                   },
+                  "linkedInUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "LinkedIn URL of the business"
+                  },
                   "industry": {
                     "type": "string",
                     "minLength": 1,
@@ -1625,6 +1630,14 @@
                       "null"
                     ],
                     "description": "Website of the business"
+                  },
+                  "linkedInUrl": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri",
+                    "description": "LinkedIn URL of the business. Pass null to clear."
                   },
                   "industry": {
                     "type": "string",
@@ -2683,6 +2696,9 @@
                     "format": "uri",
                     "description": "LinkedIn profile URL of the contact"
                   },
+                  "persona": {
+                    "$ref": "#/components/schemas/LeadContactPersonaEnum"
+                  },
                   "address": {
                     "type": "object",
                     "properties": {
@@ -3005,6 +3021,17 @@
                     ],
                     "format": "uri",
                     "description": "LinkedIn profile URL. Send null to clear."
+                  },
+                  "persona": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/LeadContactPersonaEnum"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Pass null to clear."
                   },
                   "address": {
                     "type": [
@@ -3408,6 +3435,130 @@
                   ],
                   "title": "Set Lead Contact Primary Response",
                   "description": "JSON response for setting a lead contact's primary status"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseBody"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerExceptionResponseBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/n1/leads/contacts/{leadContactId}/unsubscribe": {
+      "patch": {
+        "tags": [
+          "Lead Contact"
+        ],
+        "operationId": "setLeadContactUnsubscribed",
+        "summary": "Set Lead Contact Unsubscribed Status",
+        "description": "Mark or unmark a contact as unsubscribed from email campaigns. This is the only way to change this field — it is read-only through the general contact update endpoint.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leadContactId",
+            "description": "The lead contact id",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The lead contact id",
+              "example": "LC_SEED_001"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "unsubscribed": {
+                    "type": "boolean",
+                    "description": "true to mark the contact unsubscribed (sets a timestamp), false to resubscribe (clears it).",
+                    "example": true
+                  }
+                },
+                "required": [
+                  "unsubscribed"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "unsubscribedAt": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "unsubscribedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ],
+                  "title": "Set Lead Contact Unsubscribed Response",
+                  "description": "JSON response for setting a lead contact's unsubscribed status"
                 }
               }
             }
@@ -10208,7 +10359,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-28T20:34:43.521Z"
+          "createdAt": "2026-07-30T20:56:15.420Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10428,6 +10579,13 @@
             ],
             "description": "Website of the business"
           },
+          "linkedInUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "LinkedIn URL of the business"
+          },
           "industry": {
             "type": [
               "string",
@@ -10551,6 +10709,27 @@
             ],
             "description": "Slug of the connected merchant, for navigation"
           },
+          "merchantAverageMonthlyRevenue": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Approved monthly processing volume of the connected merchant, in dollars"
+          },
+          "merchantAverageTicketPrice": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Approved average ticket amount of the connected merchant, in dollars"
+          },
+          "merchantHighestTicketPrice": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Approved highest ticket amount of the connected merchant, in dollars"
+          },
           "leadChannel": {
             "oneOf": [
               {
@@ -10641,6 +10820,32 @@
             },
             "description": "Contacts associated with this lead"
           },
+          "unsubscribedContactMatch": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "leadContactId": {
+                "type": "string",
+                "description": "ID of the unsubscribed contact whose email matched"
+              },
+              "leadContactName": {
+                "type": "string",
+                "description": "Name of the unsubscribed contact whose email matched"
+              },
+              "unsubscribedAt": {
+                "type": "string",
+                "description": "When that contact unsubscribed"
+              }
+            },
+            "required": [
+              "leadContactId",
+              "leadContactName",
+              "unsubscribedAt"
+            ],
+            "description": "Populated when this lead's own email matches an unsubscribed contact linked to it — drives the Unsubscribed tag on the lead detail page."
+          },
           "touchPoints": {
             "type": "array",
             "items": {
@@ -10719,6 +10924,7 @@
           "phoneNumber",
           "email",
           "website",
+          "linkedInUrl",
           "industry",
           "accountType",
           "managementSoftware",
@@ -11299,6 +11505,17 @@
             ],
             "description": "LinkedIn profile URL of the contact"
           },
+          "persona": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LeadContactPersonaEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Categorizes the contact's role at the business (e.g. Operations, Executive, Clinical, Finance)"
+          },
           "address": {
             "oneOf": [
               {
@@ -11320,6 +11537,13 @@
               "null"
             ],
             "description": "When the contact was last updated"
+          },
+          "unsubscribedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "When this contact unsubscribed from email campaigns. Null if subscribed. Set only via the dedicated unsubscribe endpoint — never editable through the general contact update endpoint."
           },
           "nextReachoutDate": {
             "type": [
@@ -11348,6 +11572,7 @@
           "email",
           "jobTitle",
           "linkedInUrl",
+          "persona",
           "createdAt",
           "updatedAt"
         ],
@@ -11452,6 +11677,19 @@
         ],
         "title": "Lead Contact Email"
       },
+      "LeadContactPersonaEnum": {
+        "type": "string",
+        "enum": [
+          "OPERATIONS",
+          "EXECUTIVE",
+          "CLINICAL",
+          "FINANCE",
+          "OTHER"
+        ],
+        "title": "Lead Contact Persona",
+        "description": "Categorizes the contact's role at the business. OPERATIONS: day-to-day operations staff, EXECUTIVE: owner/leadership, CLINICAL: clinical/provider staff, FINANCE: billing/finance staff, OTHER: anything else",
+        "example": "OPERATIONS"
+      },
       "N1_LeadOwner": {
         "type": "object",
         "properties": {
@@ -11497,7 +11735,7 @@
             "description": "Unique identifier for the touch point"
           },
           "type": {
-            "$ref": "#/components/schemas/LeadActivityTypeEnum",
+            "$ref": "#/components/schemas/LeadTouchPointReadTypeEnum",
             "description": "Type of the touch point interaction"
           },
           "description": {
@@ -11627,7 +11865,7 @@
         "title": "Lead Touch Point",
         "description": "An internal note or interaction record for a lead business or contact"
       },
-      "LeadActivityTypeEnum": {
+      "LeadTouchPointReadTypeEnum": {
         "type": "string",
         "enum": [
           "PHONE_CALL",
@@ -11641,13 +11879,14 @@
           "WEBINAR",
           "NOTE",
           "STATEMENT_ANALYSIS",
+          "FIRST_TRANSACTION",
           "TRAINING",
           "EVENT",
-          "OTHER"
+          "OTHER",
+          "OWNER_CHANGE"
         ],
-        "title": "Lead Activity Type",
-        "description": "The type of lead activity. Valid values: PHONE_CALL, EMAIL, VOICEMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, NOTE, STATEMENT_ANALYSIS, FIRST_TRANSACTION, TRAINING, OTHER",
-        "example": "NOTE"
+        "title": "Lead Touch Point Type (Read)",
+        "description": "The type of a lead touch point, including system-generated types not selectable via the API"
       },
       "N1_LeadReachOut": {
         "type": "object",
@@ -11862,6 +12101,28 @@
         ],
         "title": "Lead Reach Out",
         "description": "A scheduled reach out for a lead business or contact"
+      },
+      "LeadActivityTypeEnum": {
+        "type": "string",
+        "enum": [
+          "PHONE_CALL",
+          "EMAIL",
+          "VOICEMAIL",
+          "TEXT",
+          "LINKEDIN_MESSAGE",
+          "MEETING_VIRTUAL",
+          "MEETING_IN_PERSON",
+          "DEMO",
+          "WEBINAR",
+          "NOTE",
+          "STATEMENT_ANALYSIS",
+          "TRAINING",
+          "EVENT",
+          "OTHER"
+        ],
+        "title": "Lead Activity Type",
+        "description": "The type of lead activity. Valid values: PHONE_CALL, EMAIL, VOICEMAIL, TEXT, LINKEDIN_MESSAGE, MEETING_VIRTUAL, MEETING_IN_PERSON, DEMO, WEBINAR, NOTE, STATEMENT_ANALYSIS, FIRST_TRANSACTION, TRAINING, OTHER",
+        "example": "NOTE"
       },
       "N1_LeadEvent": {
         "type": "object",
