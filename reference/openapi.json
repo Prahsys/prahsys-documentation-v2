@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.179.0",
+    "version": "1.180.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-31T21:24:11.422Z"
+                      "createdAt": "2026-08-05T19:10:32.702Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-07-31T21:24:11.422Z"
+                      "createdAt": "2026-08-05T19:10:32.702Z"
                     }
                   }
                 }
@@ -1300,6 +1300,16 @@
                     "pattern": "^[a-z0-9-]+$",
                     "description": "Campaign identifier (lowercase-hyphenated)"
                   },
+                  "leadMedium": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Marketing medium within the channel (lowercase-hyphenated, e.g. email, cpc)"
+                  },
+                  "leadContent": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Differentiates similar content/links within the same campaign (lowercase-hyphenated)"
+                  },
                   "numberOfLocations": {
                     "type": "integer",
                     "description": "Number of locations for this business"
@@ -1699,6 +1709,22 @@
                     ],
                     "pattern": "^[a-z0-9-]+$",
                     "description": "Campaign identifier (lowercase-hyphenated)"
+                  },
+                  "leadMedium": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Marketing medium within the channel (lowercase-hyphenated, e.g. email, cpc)"
+                  },
+                  "leadContent": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Differentiates similar content/links within the same campaign (lowercase-hyphenated)"
                   },
                   "numberOfLocations": {
                     "type": [
@@ -7131,6 +7157,11 @@
                       "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
                       "defaultCnpGateway": "MASTERCARD",
                       "rateType": "FLAT_RATE",
+                      "merchantProfile": "STANDARD",
+                      "ordersEnabled": null,
+                      "orderTemplatesEnabled": null,
+                      "subscriptionsEnabled": null,
+                      "paymentPlansEnabled": null,
                       "companyType": "CORPORATION",
                       "averageMonthlyRevenue": 20000,
                       "averageTicketPrice": 250,
@@ -7341,6 +7372,11 @@
                       "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
                       "defaultCnpGateway": "MASTERCARD",
                       "rateType": "FLAT_RATE",
+                      "merchantProfile": "STANDARD",
+                      "ordersEnabled": null,
+                      "orderTemplatesEnabled": null,
+                      "subscriptionsEnabled": null,
+                      "paymentPlansEnabled": null,
                       "companyType": "CORPORATION",
                       "averageMonthlyRevenue": 20000,
                       "averageTicketPrice": 250,
@@ -7766,6 +7802,43 @@
                     ],
                     "description": "Pricing rate type for the merchant (Only for Prahsys Admin)"
                   },
+                  "merchantProfile": {
+                    "type": "string",
+                    "enum": [
+                      "STANDARD",
+                      "DENTAL",
+                      "ASSISTED_LIVING"
+                    ],
+                    "description": "Dashboard profile controlling order verbiage/layout (Prahsys Admin only)"
+                  },
+                  "ordersEnabled": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "description": "Show the Orders sidebar shortcut (null resets to the profile default; admin only)."
+                  },
+                  "orderTemplatesEnabled": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "description": "Show the Order Templates sidebar shortcut (null resets to the profile default; admin only)."
+                  },
+                  "subscriptionsEnabled": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "description": "Show the Subscriptions sidebar shortcut (null resets to the profile default; admin only)."
+                  },
+                  "paymentPlansEnabled": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "description": "Show the Payment Plans sidebar shortcut (null resets to the profile default; admin only)."
+                  },
                   "includeSimulatedTerminals": {
                     "type": "boolean",
                     "description": "Whether to include simulated terminals when accessed via sandbox API keys"
@@ -7834,6 +7907,11 @@
                       "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
                       "defaultCnpGateway": "MASTERCARD",
                       "rateType": "FLAT_RATE",
+                      "merchantProfile": "STANDARD",
+                      "ordersEnabled": null,
+                      "orderTemplatesEnabled": null,
+                      "subscriptionsEnabled": null,
+                      "paymentPlansEnabled": null,
                       "companyType": "CORPORATION",
                       "averageMonthlyRevenue": 20000,
                       "averageTicketPrice": 250,
@@ -10359,7 +10437,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-07-31T21:24:11.422Z"
+          "createdAt": "2026-08-05T19:10:32.702Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10759,12 +10837,26 @@
             ],
             "description": "Source within the channel (lowercase-hyphenated)"
           },
+          "leadMedium": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Marketing medium within the channel (lowercase-hyphenated, e.g. email, cpc)"
+          },
           "leadCampaign": {
             "type": [
               "string",
               "null"
             ],
             "description": "Campaign identifier (lowercase-hyphenated)"
+          },
+          "leadContent": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Differentiates similar content/links within the same campaign (lowercase-hyphenated)"
           },
           "channelPartnerId": {
             "type": "string",
@@ -10934,7 +11026,9 @@
           "leadChannel",
           "leadSourceType",
           "leadSource",
+          "leadMedium",
           "leadCampaign",
+          "leadContent",
           "channelPartnerId",
           "createdAt",
           "updatedAt"
@@ -12306,6 +12400,43 @@
             ],
             "description": "Merchant pricing rate type. FLAT_RATE or INTERCHANGE_PLUS."
           },
+          "merchantProfile": {
+            "type": "string",
+            "enum": [
+              "STANDARD",
+              "DENTAL",
+              "ASSISTED_LIVING"
+            ],
+            "description": "Dashboard profile controlling order verbiage/layout. STANDARD, DENTAL, or ASSISTED_LIVING."
+          },
+          "ordersEnabled": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Merchant override for the Orders sidebar shortcut (null = inherit the profile default)."
+          },
+          "orderTemplatesEnabled": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Merchant override for the Order Templates sidebar shortcut (null = inherit the profile default)."
+          },
+          "subscriptionsEnabled": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Merchant override for the Subscriptions sidebar shortcut (null = inherit the profile default)."
+          },
+          "paymentPlansEnabled": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Merchant override for the Payment Plans sidebar shortcut (null = inherit the profile default)."
+          },
           "readyForProcessing": {
             "type": "boolean",
             "description": "If Merchant is ready for payment processing"
@@ -12885,6 +13016,11 @@
           "merchantIdentifier",
           "defaultCnpGateway",
           "rateType",
+          "merchantProfile",
+          "ordersEnabled",
+          "orderTemplatesEnabled",
+          "subscriptionsEnabled",
+          "paymentPlansEnabled",
           "readyForProcessing",
           "readyForProcessingAt",
           "signed",
@@ -12952,6 +13088,11 @@
           "merchantIdentifier": "a3e8cd3d-5532-4e57-ba14-5299058ff8dc",
           "defaultCnpGateway": "MASTERCARD",
           "rateType": "FLAT_RATE",
+          "merchantProfile": "STANDARD",
+          "ordersEnabled": null,
+          "orderTemplatesEnabled": null,
+          "subscriptionsEnabled": null,
+          "paymentPlansEnabled": null,
           "companyType": "CORPORATION",
           "averageMonthlyRevenue": 20000,
           "averageTicketPrice": 250,
