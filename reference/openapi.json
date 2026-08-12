@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Merchant API",
-    "version": "1.180.2",
+    "version": "1.181.0",
     "description": "The Prahsys Merchant API provides a comprehensive suite of endpoints for managing merchants, processing payments, and accessing transaction data. This RESTful API supports multi-tenant architecture with organization-based access control and separate Live/Sandbox environments for testing.",
     "contact": {
       "name": "Prahsys API Support",
@@ -125,7 +125,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-08-07T15:03:57.653Z"
+                      "createdAt": "2026-08-12T19:03:06.250Z"
                     }
                   }
                 }
@@ -278,7 +278,7 @@
                       "primaryContactFirstName": "John",
                       "primaryContactLastName": "Doe",
                       "type": "CHANNEL_PARTNER",
-                      "createdAt": "2026-08-07T15:03:57.653Z"
+                      "createdAt": "2026-08-12T19:03:06.250Z"
                     }
                   }
                 }
@@ -5619,6 +5619,10 @@
                     "$ref": "#/components/schemas/LeadActivityTypeEnum",
                     "description": "Updated type for this reach out"
                   },
+                  "userId": {
+                    "type": "string",
+                    "description": "Reassign this reach out to a different user (DB record ID). Must be a member of the same channel partner; rejected if the reach out is already completed."
+                  },
                   "scheduledDate": {
                     "type": "string",
                     "description": "Updated scheduled date"
@@ -10437,7 +10441,7 @@
           "primaryContactFirstName": "John",
           "primaryContactLastName": "Doe",
           "type": "CHANNEL_PARTNER",
-          "createdAt": "2026-08-07T15:03:57.653Z"
+          "createdAt": "2026-08-12T19:03:06.250Z"
         }
       },
       "ChannelPartnerOrganizationTypeEnum": {
@@ -10912,32 +10916,6 @@
             },
             "description": "Contacts associated with this lead"
           },
-          "unsubscribedContactMatch": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "leadContactId": {
-                "type": "string",
-                "description": "ID of the unsubscribed contact whose email matched"
-              },
-              "leadContactName": {
-                "type": "string",
-                "description": "Name of the unsubscribed contact whose email matched"
-              },
-              "unsubscribedAt": {
-                "type": "string",
-                "description": "When that contact unsubscribed"
-              }
-            },
-            "required": [
-              "leadContactId",
-              "leadContactName",
-              "unsubscribedAt"
-            ],
-            "description": "Populated when this lead's own email matches an unsubscribed contact linked to it — drives the Unsubscribed tag on the lead detail page."
-          },
           "touchPoints": {
             "type": "array",
             "items": {
@@ -11279,10 +11257,11 @@
           "NEW",
           "OPEN",
           "CUSTOMER",
-          "NURTURE"
+          "NURTURE",
+          "UNSUBSCRIBE"
         ],
         "title": "Lead Status",
-        "description": "The status of a lead. Valid values: PROSPECT (identified target, pre-pipeline), NEW (initial state — not yet engaged), OPEN (actively in pipeline), CUSTOMER (live merchant), NURTURE (declined, lost, or deferred)",
+        "description": "The status of a lead. Valid values: PROSPECT (not yet engaged — part of a cold outbound list, no response yet), NEW (responded to outreach, qualified as an MQL, awaiting sales engagement), OPEN (actively engaged in the sales process — conversation, demo, negotiation, or evaluation), CUSTOMER (closed-won, actively using the product), NURTURE (closed-lost from an active stage but not unsubscribed — kept on a longer-term re-engagement cadence), UNSUBSCRIBE (opted out of email communication — no longer marketable via email, regardless of prior stage)",
         "example": "NEW"
       },
       "N1_LeadDealStatus": {
